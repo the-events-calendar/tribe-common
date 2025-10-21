@@ -2,7 +2,7 @@
 /**
  * Tests for Has_Datetime_Conditions trait.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Tests\Admin\Conditional_Content\Traits;
  */
@@ -19,7 +19,7 @@ use Tribe__Date_Utils as Dates;
 /**
  * Class Has_Datetime_Conditions_Test
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Tests\Admin\Conditional_Content\Traits;
  */

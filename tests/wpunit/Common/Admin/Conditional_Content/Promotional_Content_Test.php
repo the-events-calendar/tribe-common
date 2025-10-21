@@ -2,7 +2,7 @@
 /**
  * Tests for Promotional_Content_Abstract.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Tests\Admin\Conditional_Content;
  */
@@ -20,7 +20,7 @@ use Tribe__Plugins_API;
 /**
  * Class Promotional_Content_Test
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Tests\Admin\Conditional_Content;
  */

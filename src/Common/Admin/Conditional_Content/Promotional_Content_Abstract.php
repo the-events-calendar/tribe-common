@@ -66,7 +66,7 @@ abstract class Promotional_Content_Abstract {
 	 * Whether the promotional content is dismissible.
 	 * Defaults to false, the Is_Dismissible trait must be used to override this.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool
 	 */
@@ -78,7 +78,7 @@ abstract class Promotional_Content_Abstract {
 	 * Whether the promotional content is date bound.
 	 * Defaults to false, the Has_Datetime_Conditions trait must be used to override this.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool
 	 */
@@ -90,7 +90,7 @@ abstract class Promotional_Content_Abstract {
 	 * Whether the promotional content is targeted.
 	 * Defaults to false, the Has_Targeted_Creative_Upsell trait must be used to override this.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool
 	 */
@@ -102,7 +102,7 @@ abstract class Promotional_Content_Abstract {
 	 * Whether the promotional content requires a capability.
 	 * Defaults to false, the Requires_Capability trait must be used to override this.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool
 	 */
@@ -283,7 +283,7 @@ abstract class Promotional_Content_Abstract {
 	/**
 	 * Add the dismiss button to the container.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param Container $container The container to add the dismiss button to.
 	 *
@@ -625,7 +625,7 @@ abstract class Promotional_Content_Abstract {
 	/**
 	 * Find an image file with automatic format detection (jpg, with png fallback).
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param string $base_path The base path without extension (e.g., 'black-friday-2025/top-wide').
 	 *

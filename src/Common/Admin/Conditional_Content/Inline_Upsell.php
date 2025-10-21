@@ -9,7 +9,7 @@
  * - Simple text + link (no large banners)
  * - Not time-based
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content
  */
@@ -21,7 +21,7 @@ namespace TEC\Common\Admin\Conditional_Content;
  *
  * Provides a simple API for rendering inline upsell notices throughout the admin.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content
  */
@@ -30,7 +30,7 @@ class Inline_Upsell {
 	/**
 	 * Stores the instance of the template engine.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @var \Tribe__Template
 	 */
@@ -39,7 +39,7 @@ class Inline_Upsell {
 	/**
 	 * Get template object.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return \Tribe__Template
 	 */
@@ -58,7 +58,7 @@ class Inline_Upsell {
 	/**
 	 * Check if a specific plugin is active.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param string $plugin_path Plugin path (e.g., 'event-tickets-plus/event-tickets-plus.php').
 	 *
@@ -75,7 +75,7 @@ class Inline_Upsell {
 	/**
 	 * Check if a specific paid plugin is installed via Plugins API.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param string $plugin_slug Plugin slug (e.g., 'events-calendar-pro').
 	 *
@@ -102,7 +102,7 @@ class Inline_Upsell {
 	/**
 	 * Check if upsell should be rendered.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param string $slug Optional. Unique identifier for this upsell (for filtering).
 	 *
@@ -127,7 +127,7 @@ class Inline_Upsell {
 	/**
 	 * Render inline upsell notice.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param array $args {
 	 *     Array of arguments for the upsell.
@@ -208,7 +208,7 @@ class Inline_Upsell {
 	/**
 	 * Check conditions before rendering.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param array $conditions Conditions to check.
 	 *
@@ -242,7 +242,7 @@ class Inline_Upsell {
 	/**
 	 * Quick helper to render an upsell for a specific plugin.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param string $plugin_path  Plugin path to check (e.g., 'event-tickets-plus/event-tickets-plus.php').
 	 * @param string $text         The upsell message with %s placeholder for link.

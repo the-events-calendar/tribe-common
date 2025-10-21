@@ -4,20 +4,20 @@
  * Upsell notice class.
  *
  * @since      4.14.17
- * @deprecated TBD Use TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with appropriate traits instead.
+ * @deprecated 6.9.8 Use TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with appropriate traits instead.
  *
  * @package Tribe\Admin\Upsell_Notice
  */
 
 namespace Tribe\Admin\Upsell_Notice;
 
-_deprecated_file( __FILE__, 'TBD', '\TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with appropriate traits' );
+_deprecated_file( __FILE__, '6.9.8', '\TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with appropriate traits' );
 
 /**
  * Upsell notice class.
  *
  * @since      4.14.17
- * @deprecated TBD Use TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with appropriate traits instead.
+ * @deprecated 6.9.8 Use TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with appropriate traits instead.
  *
  * @see        \TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract
  * @see        \TEC\Common\Admin\Conditional_Content\README.md

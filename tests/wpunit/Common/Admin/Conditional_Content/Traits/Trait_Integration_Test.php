@@ -2,7 +2,7 @@
 /**
  * Integration tests for multiple traits working together.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Tests\Admin\Conditional_Content\Traits;
  */
@@ -25,7 +25,7 @@ use Tribe__Date_Utils as Dates;
  *
  * Tests how multiple traits interact when used together.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Tests\Admin\Conditional_Content\Traits;
  */

@@ -2,7 +2,7 @@
 /**
  * Tests for Requires_Capability trait.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Tests\Admin\Conditional_Content\Traits;
  */
@@ -17,7 +17,7 @@ use TEC\Common\Admin\Conditional_Content\Traits\Requires_Capability;
 /**
  * Class Requires_Capability_Test
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Tests\Admin\Conditional_Content\Traits;
  */

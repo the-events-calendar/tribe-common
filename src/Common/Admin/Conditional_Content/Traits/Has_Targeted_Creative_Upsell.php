@@ -2,7 +2,7 @@
 /**
  * Trait for targeted upsell opportunity checking with creative map.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content\Traits;
  */
@@ -21,7 +21,7 @@ namespace TEC\Common\Admin\Conditional_Content\Traits;
  * Classes using this trait MUST implement:
  * - protected function get_suite_creative_map(): array - Return the creative map
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content\Traits
  */
@@ -29,7 +29,7 @@ trait Has_Targeted_Creative_Upsell {
 	/**
 	 * Whether the promotional content is targeted.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool
 	 */
@@ -40,7 +40,7 @@ trait Has_Targeted_Creative_Upsell {
 	/**
 	 * Check if there's an upsell opportunity based on targeted creatives.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool True if a valid creative to show was found.
 	 */
@@ -73,7 +73,7 @@ trait Has_Targeted_Creative_Upsell {
 	 *   ],
 	 * ]
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return array The suite creative map.
 	 */
@@ -82,7 +82,7 @@ trait Has_Targeted_Creative_Upsell {
 	/**
 	 * Determine the admin page context.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string The admin page context ('tickets', 'events', or 'default').
 	 */
@@ -116,7 +116,7 @@ trait Has_Targeted_Creative_Upsell {
 	/**
 	 * Get the selected creative based on admin page context and installed plugins.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return array|null The selected creative array or null if none found.
 	 */
@@ -172,7 +172,7 @@ trait Has_Targeted_Creative_Upsell {
 	/**
 	 * Find an image file with automatic format detection (jpg, then png fallback).
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @param string $base_path The base path without extension (e.g., 'black-friday-2025/top-wide').
 	 *
@@ -193,7 +193,7 @@ trait Has_Targeted_Creative_Upsell {
 	/**
 	 * Get the wide banner image URL.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string The wide banner image URL.
 	 */
@@ -212,7 +212,7 @@ trait Has_Targeted_Creative_Upsell {
 	/**
 	 * Get the narrow banner image URL.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string The narrow banner image URL.
 	 */
@@ -231,7 +231,7 @@ trait Has_Targeted_Creative_Upsell {
 	/**
 	 * Get the sidebar image URL.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string The sidebar image URL.
 	 */
@@ -250,7 +250,7 @@ trait Has_Targeted_Creative_Upsell {
 	/**
 	 * Get the link URL for the creative.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string The link URL.
 	 */
@@ -271,7 +271,7 @@ trait Has_Targeted_Creative_Upsell {
 	 *
 	 * Required for fallback behavior.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string The link URL.
 	 */
@@ -282,7 +282,7 @@ trait Has_Targeted_Creative_Upsell {
 	 *
 	 * Required for fallback alt text.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string The sale name.
 	 */

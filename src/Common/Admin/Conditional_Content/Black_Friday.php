@@ -19,10 +19,10 @@ use TEC\Common\Admin\Conditional_Content\Traits\{
  * Set up for Black Friday promo.
  *
  * @since 6.3.0
- * @since TBD Modified to use the Has_Datetime_Conditions trait instead of extending the Datetime_Conditional_Abstract class.
- * @since TBD Modified to use the Requires_Capability trait.
- * @since TBD Modified to use the Has_Generic_Upsell_Opportunity.
- * @since TBD Modified to remove dismissible functionality.
+ * @since 6.9.8 Modified to use the Has_Datetime_Conditions trait instead of extending the Datetime_Conditional_Abstract class.
+ * @since 6.9.8 Modified to use the Requires_Capability trait.
+ * @since 6.9.8 Modified to use the Has_Generic_Upsell_Opportunity.
+ * @since 6.9.8 Modified to remove dismissible functionality.
  */
 class Black_Friday extends Promotional_Content_Abstract {
 	use Has_Datetime_Conditions {
@@ -120,7 +120,7 @@ class Black_Friday extends Promotional_Content_Abstract {
 		/**
 		 * Filters the result of the should display check.
 		 *
-		 * @since TBD
+		 * @since 6.9.8
 		 *
 		 * @param bool   $should_display Whether the content should display.
 		 * @param object $instance       The conditional content object.
@@ -131,7 +131,7 @@ class Black_Friday extends Promotional_Content_Abstract {
 	/**
 	 * Get the alt text for the creative.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string The alt text.
 	 */

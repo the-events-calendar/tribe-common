@@ -2,7 +2,7 @@
 /**
  * Trait for restricting content display based on user capabilities.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content\Traits
  */
@@ -16,7 +16,7 @@ namespace TEC\Common\Admin\Conditional_Content\Traits;
  * The required capability can be customized by overriding the
  * get_required_capability() method in the class using this trait.
  *
- * @since TBD
+ * @since 6.9.8
  *
  * @package TEC\Common\Admin\Conditional_Content\Traits
  */
@@ -24,7 +24,7 @@ trait Requires_Capability {
 	/**
 	 * Whether the promotional content requires a capability.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool
 	 */
@@ -37,7 +37,7 @@ trait Requires_Capability {
 	 *
 	 * Override this method in your class to require a different capability.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return string The capability required to view content.
 	 */
@@ -48,7 +48,7 @@ trait Requires_Capability {
 	/**
 	 * Check if the current user has the required capability.
 	 *
-	 * @since TBD
+	 * @since 6.9.8
 	 *
 	 * @return bool Whether the current user has the required capability.
 	 */
@@ -56,7 +56,7 @@ trait Requires_Capability {
 		/**
 		 * Filters the required capability for viewing conditional content.
 		 *
-		 * @since TBD
+		 * @since 6.9.8
 		 *
 		 * @param string $capability The capability required to view content.
 		 * @param object $instance   The conditional content object.
@@ -70,7 +70,7 @@ trait Requires_Capability {
 		/**
 		 * Filters the result of the capability check.
 		 *
-		 * @since TBD
+		 * @since 6.9.8
 		 *
 		 * @param bool   $result     The result of the capability check.
 		 * @param object $instance   The conditional content object.
