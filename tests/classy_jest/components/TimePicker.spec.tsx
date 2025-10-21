@@ -17,7 +17,7 @@ describe( 'TimePicker Component', () => {
 		highlight: false,
 		onChange: jest.fn(),
 		startDate: null,
-		timeFormat: 'h:i a', // e.g., '10 am'.
+		timeFormat: 'h:i a', // e.g., '10:00 am'.
 		timeInterval: 30,
 	};
 
@@ -108,6 +108,26 @@ describe( 'TimePicker Component', () => {
 		).map( ( option: Element ) => option.innerHTML );
 
 		expect( suggestions ).toEqual( [
+			'12:00 am',
+			'12:30 am',
+			'01:00 am',
+			'01:30 am',
+			'02:00 am',
+			'02:30 am',
+			'03:00 am',
+			'03:30 am',
+			'04:00 am',
+			'04:30 am',
+			'05:00 am',
+			'05:30 am',
+			'06:00 am',
+			'06:30 am',
+			'07:00 am',
+			'07:30 am',
+			'08:00 am',
+			'08:30 am',
+			'09:00 am',
+			'09:30 am',
 			'10:00 am',
 			'10:30 am',
 			'11:00 am',

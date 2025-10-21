@@ -104,9 +104,9 @@ describe( 'EndSelector Component', () => {
 			);
 
 			expect( getByText( 'to' ) ).toBeTruthy();
-			expect( getByText( 'Date' ) ).toBeTruthy();
+			expect( getByText( 'End Date' ) ).toBeTruthy();
 			expect( container.querySelector( '.classy-field__separator--dates' ) ).toBeTruthy();
-			expect( container.querySelector( '.classy-field__input--start-date' ) ).toBeTruthy();
+			expect( container.querySelector( '.classy-field__input--end-date' ) ).toBeTruthy();
 			expect( container.firstChild ).toMatchSnapshot();
 		} );
 
@@ -123,7 +123,7 @@ describe( 'EndSelector Component', () => {
 			);
 
 			expect( queryByText( 'to' ) ).toBeNull();
-			expect( queryByText( 'Date' ) ).toBeNull();
+			expect( queryByText( 'End Date' ) ).toBeNull();
 		} );
 
 		it( 'passes null as startDate to TimePicker when isMultiday is true', () => {
@@ -396,7 +396,7 @@ describe( 'EndSelector Component', () => {
 				</TestProvider>
 			);
 
-			expect( getByText( 'Date' ) ).toBeTruthy();
+			expect( getByText( 'End Date' ) ).toBeTruthy();
 			expect( getByText( 'End Time' ) ).toBeTruthy();
 		} );
 
@@ -413,7 +413,7 @@ describe( 'EndSelector Component', () => {
 				</TestProvider>
 			);
 
-			expect( queryByText( 'Date' ) ).toBeNull();
+			expect( queryByText( 'End Date' ) ).toBeNull();
 			expect( getByText( 'End Time' ) ).toBeTruthy();
 		} );
 	} );
