@@ -76,10 +76,7 @@ class SVG {
 
 			$path_without_namespace = ltrim( substr( $namespaced_path, strlen( $name_space ) ), '/' );
 
-			$path = trailingslashit( $path instanceof Closure ? $path( $path_without_namespace ) : $path );
-
-			// Cache the result of the closure if it was a closure.
-			$this->namespaces[ $name_space ] = $path;
+			$path = trailingslashit( $path instanceof Closure ? (string) $path( $path_without_namespace ) : $path );
 
 			$full_path = $path . untrailingslashit( $path_without_namespace ) . '.svg';
 
