@@ -23,7 +23,7 @@ class SVGTest extends WPTestCase {
 		$svg = new SVG();
 
 		$expected_svg = '<svg>test icon</svg>';
-		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/star.svg', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/star.svg' || file_exists( $f ), true );
 		$this->set_fn_return( 'file_get_contents', $expected_svg );
 
 		$svg->register_namespace( 'test', '/path/to/icons' );
@@ -38,17 +38,17 @@ class SVGTest extends WPTestCase {
 		$svg = new SVG();
 
 		$expected_svg = '<svg>heart icon</svg>';
-		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/heart.svg', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/heart.svg' || file_exists( $f ), true );
 		$this->set_fn_return( 'file_get_contents', $expected_svg );
 
 		$svg->register_namespace(
-			'test',
+			'@test',
 			function ( $path ) {
 				return '/path/to/icons';
 			}
 		);
 
-		$this->assertEquals( $expected_svg, $svg->get_svg( 'test/heart' ) );
+		$this->assertEquals( $expected_svg, $svg->get_svg( '@test/heart' ) );
 	}
 
 	/**
@@ -91,7 +91,7 @@ class SVGTest extends WPTestCase {
 		$short_namespace_svg = '<svg>short namespace icon</svg>';
 		$long_namespace_svg = '<svg>long namespace icon</svg>';
 
-		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/short.svg' || $f === '/path/to/admin/icons/long.svg', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/star.svg' || $f === '/path/to/admin/icons/settings.svg' || file_exists( $f ), true );
 
 		$this->set_fn_return(
 			'file_get_contents',
@@ -104,18 +104,18 @@ class SVGTest extends WPTestCase {
 			true
 		);
 
-		$svg->register_namespace( 'test', '/path/to/icons' );
+		$svg->register_namespace( '@test', '/path/to/icons' );
 
-		$svg->register_namespace( 'test/admin', '/path/to/admin/icons' );
+		$svg->register_namespace( '@test/admin', '/path/to/admin/icons' );
 
 		$this->assertEquals(
 			$long_namespace_svg,
-			$svg->get_svg( 'test/admin/settings' )
+			$svg->get_svg( '@test/admin/settings' )
 		);
 
 		$this->assertEquals(
 			$short_namespace_svg,
-			$svg->get_svg( 'test/star' )
+			$svg->get_svg( '@test/star' )
 		);
 	}
 
@@ -129,7 +129,7 @@ class SVGTest extends WPTestCase {
 		$part_more_svg = '<svg>part/more icon</svg>';
 		$part_more_specific_svg = '<svg>part/more/specific icon</svg>';
 
-		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/part.svg' || $f === '/path/to/more/icon.svg' || $f === '/path/to/specific/icon.svg', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/base/icon.svg' || $f === '/path/to/more/icon.svg' || $f === '/path/to/specific/icon.svg' || file_exists( $f ), true );
 
 		$this->set_fn_return(
 			'file_get_contents',
@@ -178,7 +178,7 @@ class SVGTest extends WPTestCase {
 		$part_more_svg = '<svg>part/more icon</svg>';
 		$part_more_specific_svg = '<svg>part/more/specific icon</svg>';
 
-		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/part.svg' || $f === '/path/to/more/icon.svg' || $f === '/path/to/specific/icon.svg', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/part.svg' || $f === '/path/to/more/icon.svg' || $f === '/path/to/specific/icon.svg' || file_exists( $f ), true );
 
 		$this->set_fn_return(
 			'file_get_contents',
@@ -216,7 +216,7 @@ class SVGTest extends WPTestCase {
 		$admin_svg = '<svg>admin icon</svg>';
 		$regular_svg = '<svg>regular icon</svg>';
 
-		$this->set_fn_return( 'file_exists', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/admin/settings.svg' || $f === '/path/to/icons/star.svg' || file_exists( $f ), true );
 
 		$this->set_fn_return(
 			'file_get_contents',
@@ -233,7 +233,7 @@ class SVGTest extends WPTestCase {
 			'test',
 			function ( $path ) {
 				if ( str_starts_with( $path, 'admin/' ) ) {
-					return '/path/to/admin';
+					return '/path/to';
 				}
 				return '/path/to/icons';
 			}
@@ -266,7 +266,7 @@ class SVGTest extends WPTestCase {
 		$svg = new SVG();
 
 		$expected_svg = '<svg>star icon</svg>';
-		$this->set_fn_return( 'file_exists', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/star.svg' || file_exists( $f ), true );
 		$this->set_fn_return( 'file_get_contents', $expected_svg );
 
 		$svg->register_namespace( 'test', '/path/to/icons' );
@@ -283,7 +283,7 @@ class SVGTest extends WPTestCase {
 		$svg = new SVG();
 
 		$expected_svg = '<svg>nested icon</svg>';
-		$this->set_fn_return( 'file_exists', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/base/admin/icons/settings.svg' || file_exists( $f ), true );
 		$this->set_fn_return( 'file_get_contents', $expected_svg );
 
 		$svg->register_namespace( 'test', '/path/to/base' );
@@ -300,7 +300,7 @@ class SVGTest extends WPTestCase {
 		$icons_svg = '<svg>icons svg</svg>';
 		$admin_svg = '<svg>admin svg</svg>';
 
-		$this->set_fn_return( 'file_exists', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/star.svg' || $f === '/path/to/admin/settings.svg' || file_exists( $f ), true );
 
 		$this->set_fn_return(
 			'file_get_contents',
@@ -326,7 +326,7 @@ class SVGTest extends WPTestCase {
 	public function should_handle_empty_svg_file() {
 		$svg = new SVG();
 
-		$this->set_fn_return( 'file_exists', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/empty.svg' || file_exists( $f ), true );
 		$this->set_fn_return( 'file_get_contents', false );
 
 		$svg->register_namespace( 'test', '/path/to/icons' );
@@ -343,12 +343,14 @@ class SVGTest extends WPTestCase {
 		$first_path_svg = '<svg>first path icon</svg>';
 		$second_path_svg = '<svg>second path icon</svg>';
 
-		$this->set_fn_return( 'file_exists', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/icons/star.svg' || file_exists( $f ), true );
 
 		$this->set_fn_return( 'file_get_contents', $first_path_svg );
 		$svg->register_namespace( 'test', '/path/to/icons' );
 
 		$this->assertEquals( $first_path_svg, $svg->get_svg( 'test/star' ) );
+
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/admin/settings.svg' || file_exists( $f ), true );
 
 		$this->set_fn_return( 'file_get_contents', $second_path_svg );
 		$svg->register_namespace( 'test', '/path/to/admin' );
@@ -362,7 +364,7 @@ class SVGTest extends WPTestCase {
 	public function should_ensure_sorting_by_namespace_length_during_registration() {
 		$svg = new SVG();
 
-		$this->set_fn_return( 'file_exists', true );
+		$this->set_fn_return( 'file_exists', fn( $f ) => $f === '/path/to/short/icon.svg' || $f === '/path/to/medium/icon.svg' || $f === '/path/to/long/icon.svg' || file_exists( $f ), true );
 
 		$short_svg = '<svg>short</svg>';
 		$medium_svg = '<svg>medium</svg>';
