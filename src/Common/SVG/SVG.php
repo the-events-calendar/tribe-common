@@ -84,7 +84,7 @@ class SVG {
 			$full_path = $path . trailingslashit( $path_without_namespace );
 
 			if ( file_exists( $full_path ) ) {
-				$svg = file_get_contents( $full_path );
+				$svg = file_get_contents( $full_path ); // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
 
 				return $svg ? $svg : '';
 			}
