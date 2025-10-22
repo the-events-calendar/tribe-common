@@ -1,0 +1,81 @@
+# .github/actions/asset-check/action.yml
+name: "Included Asset Check"
+description: "Checks code for 'vendor/' or 'node_modules/' assets not listed in .distfiles by running the local script."
+
+outputs:
+  result:
+    description: "Output from the asset check (success/warnings/failures)"
+    value: ${{ steps.run-check.outputs.result }}
+  status:
+    description: "Status of the check (passed/failed)"
+    value: ${{ steps.run-check.outputs.status }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Validate Paths
+      shell: bash
+      run: |
+        # The action runs from the repository root where it's defined
+        # It expects .distfiles and src/ to be in that root
+
+        if [ ! -f ".distfiles" ]; then
+          echo "::error::File '.distfiles' not found in repository root!"
+          echo "This action must be run from a repository containing .distfiles"
+          exit 1
+        fi
+
+        if [ ! -d "src" ]; then
+          echo "::error::Directory 'src/' not found in repository root!"
+          echo "The script searches for assets in the src/ directory"
+          exit 1
+        fi
+
+        if [ ! -f ".github/scripts/check-asset-includes.sh" ]; then
+          echo "::error::Script not found at '.github/scripts/check-asset-includes.sh'!"
+          exit 1
+        fi
+
+        echo "✅ All required paths exist"
+        echo "📂 Repository root: $(pwd)"
+        echo "📄 Checking: .distfiles"
+        echo "📁 Scanning: src/"
+
+    - name: Ensure Script is Executable
+      shell: bash
+      run: chmod +x .github/scripts/check-asset-includes.sh
+
+    - name: Run Asset Includes Check
+      id: run-check
+      shell: bash
+      run: |
+        # Capture the output and exit code
+        OUTPUT_FILE=$(mktemp)
+        if .github/scripts/check-asset-includes.sh > "$OUTPUT_FILE" 2>&1; then
+          STATUS="passed"
+          EXIT_CODE=0
+        else
+          STATUS="failed"
+          EXIT_CODE=1
+        fi
+
+        # Read the output
+        RESULT=$(cat "$OUTPUT_FILE")
+        rm -f "$OUTPUT_FILE"
+
+        # Set outputs (using heredoc for multiline)
+        echo "status=$STATUS" >> $GITHUB_OUTPUT
+        {
+          echo 'result<<EOF'
+          echo "$RESULT"
+          echo 'EOF'
+        } >> $GITHUB_OUTPUT
+
+        # Print to console
+        echo "$RESULT"
+
+        # Exit with appropriate code
+        if [ $EXIT_CODE -ne 0 ]; then
+          echo "::error::Asset includes check failed. See output above for details."
+          exit 1
+        fi
