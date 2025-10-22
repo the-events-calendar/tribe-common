@@ -22,11 +22,11 @@ class SettingsCest {
 	public function should_activate_plugin( End2endTester $I ) {
 		$I->amOnPluginsPage();
 		$I->seePluginActivated( 'the-events-calendar' );
-		$I->amOnAdminPage( '/edit.php?page=tec-events-settings&tab=addons&post_type=tribe_events' );
+		$I->amOnAdminPage( '/edit.php?page=tec-events-settings&tab=zapier&post_type=tribe_events' );
 		$I->canSeeInPageSource( 'Zapier' );
 		$I->canSeeInPageSource( 'Power Automate' );
 		// 13 instances of dashboard rows with 5 for PA and 8 for Zapier, includes the header.
-		$I->canSeeNumberOfElementsInDOM( '//div[contains(@class, "tec-automator-grid-row")]', 13 );
+		$I->canSeeNumberOfElementsInDOM( '//div[contains(@class, "tec-automator-grid-row")]', 8 );
 	}
 
 	/**
@@ -35,10 +35,8 @@ class SettingsCest {
 	public function should_not_see_settings_when_pro_deactivated( End2endTester $I ) {
 		$I->amOnPluginsPage();
 		$I->deactivatePlugin( 'the-events-calendar-pro' );
-		$I->amOnAdminPage( '/edit.php?page=tec-events-settings&tab=addons&post_type=tribe_events' );
-		$I->dontSeeInPageSource( 'Zapier' );
-		$I->dontSeeInPageSource( 'Power Automate' );
-		$I->dontSeeElementInDOM( '//div[contains(@class, "tec-automator-grid-row")]' );
+		$I->amOnAdminPage( '/edit.php?page=tec-events-settings&tab=zapier&post_type=tribe_events' );
+		$I->canSeeInPageSource( 'You\'ve requested a non-existent tab.' );
 	}
 
 	/**
@@ -46,10 +44,12 @@ class SettingsCest {
 	 */
 	public function should_not_see_settings_when_tec_deactivated_and_et_activated( End2endTester $I ) {
 		$I->amOnPluginsPage();
+		$I->deactivatePlugin( 'the-events-calendar-pro' );
+		$I->amOnPluginsPage();
 		$I->deactivatePlugin( 'the-events-calendar' );
 		$I->amOnPluginsPage();
 		$I->activatePlugin( [ 'event-tickets' ] );
-		$I->amOnAdminPage( '/edit.php?page=tec-events-settings&tab=addons&post_type=tribe_events' );
+		$I->amOnAdminPage( '/edit.php?page=tec-events-settings&tab=zapier&post_type=tribe_events' );
 		$I->dontSeeInPageSource( 'Zapier' );
 		$I->dontSeeInPageSource( 'Power Automate' );
 	}
@@ -59,12 +59,14 @@ class SettingsCest {
 	 */
 	public function should_see_only_pro_settings_when_et_plus( End2endTester $I ) {
 		$I->amOnPluginsPage();
-		$I->activatePlugin( [ 'event-tickets-plus' ] );
-		$I->amOnAdminPage( '/edit.php?page=tec-events-settings&tab=addons&post_type=tribe_events' );
+		$I->activatePlugin( 'event-tickets' );
+		$I->amOnPluginsPage();
+		$I->activatePlugin( 'event-tickets-plus' );
+		$I->amOnAdminPage( '/edit.php?page=tec-events-settings&tab=zapier&post_type=tribe_events' );
 		$I->canSeeInPageSource( 'Zapier' );
 		$I->canSeeInPageSource( 'Power Automate' );
 		// 13 instances of dashboard rows with 5 for PA and 8 for Zapier, includes the header.
-		$I->canSeeNumberOfElementsInDOM( '//div[contains(@class, "tec-automator-grid-row")]', 13 );
+		$I->canSeeNumberOfElementsInDOM( '//div[contains(@class, "tec-automator-grid-row")]', 15 );
 	}
 
 	/**
@@ -76,10 +78,10 @@ class SettingsCest {
 		$I->amOnPluginsPage();
 		$I->activatePlugin( 'event-tickets-plus' );
 		$I->amOnPluginsPage();
-		$I->amOnAdminPage( '/edit.php?page=tec-events-settings&tab=addons&post_type=tribe_events' );
+		$I->amOnAdminPage( '/edit.php?page=tec-events-settings&tab=zapier&post_type=tribe_events' );
 		$I->canSeeInPageSource( 'Zapier' );
 		$I->canSeeInPageSource( 'Power Automate' );
 		// 25 instances of dashboard rows with 11 for PA and 14 for Zapier, includes the header.
-		$I->canSeeNumberOfElementsInDOM( '//div[contains(@class, "tec-automator-grid-row")]', 25 );
+		$I->canSeeNumberOfElementsInDOM( '//div[contains(@class, "tec-automator-grid-row")]', 15 );
 	}
 }

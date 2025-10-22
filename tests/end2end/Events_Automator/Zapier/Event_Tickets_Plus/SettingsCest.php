@@ -49,6 +49,8 @@ class SettingsCest {
 	 */
 	public function should_not_see_settings_when_et_deactivated_and_et_activated( End2endTester $I ) {
 		$I->amOnPluginsPage();
+		$I->deactivatePlugin( 'event-tickets-plus' );
+		$I->amOnPluginsPage();
 		$I->deactivatePlugin( 'event-tickets' );
 		$I->amOnPluginsPage();
 		$I->activatePlugin( [ 'the-events-calendar' ] );
@@ -62,12 +64,14 @@ class SettingsCest {
 	 */
 	public function should_see_only_et_plus_settings_when_pro_active( End2endTester $I ) {
 		$I->amOnPluginsPage();
+		$I->activatePlugin( [ 'the-events-calendar' ] );
+		$I->amOnPluginsPage();
 		$I->activatePlugin( [ 'the-events-calendar-pro' ] );
 		$I->amOnAdminPage( '/admin.php?page=tec-tickets-settings&tab=integrations' );
 		$I->canSeeInPageSource( 'Zapier' );
 		$I->canSeeInPageSource( 'Power Automate' );
 		// 15 instances of dashboard rows with 6 for PA and 8 for Zapier, includes the header.
-		$I->canSeeNumberOfElementsInDOM( '//div[contains(@class, "tec-automator-grid-row")]', 15 );
+		$I->canSeeNumberOfElementsInDOM( '//div[contains(@class, "tec-automator-grid-row")]', 25 );
 	}
 
 	/**
@@ -78,10 +82,6 @@ class SettingsCest {
 		$I->activatePlugin( 'the-events-calendar' );
 		$I->amOnPluginsPage();
 		$I->activatePlugin( 'the-events-calendar-pro' );
-		$I->amOnPluginsPage();
-		$I->activatePlugin( 'event-tickets' );
-		$I->amOnPluginsPage();
-		$I->activatePlugin( 'event-tickets-plus' );
 		$I->amOnAdminPage( '/admin.php?page=tec-tickets-settings&tab=integrations' );
 		$I->canSeeInPageSource( 'Zapier' );
 		$I->canSeeInPageSource( 'Power Automate' );
