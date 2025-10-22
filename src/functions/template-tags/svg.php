@@ -19,7 +19,7 @@ if ( ! function_exists( 'tec_svg' ) ) {
 	 *
 	 * @return string The SVG code for the given icon.
 	 */
-	function tec_svg( $namespaced_path ): string {
+	function tec_svg( string $namespaced_path ): string {
 		return tribe( SVG::class )->get_svg( $namespaced_path );
 	}
 }
@@ -30,12 +30,12 @@ if ( ! function_exists( 'tec_svg_register_namespace' ) ) {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $name_space The namespace to register.
-	 * @param string $path The path to the SVG files.
+	 * @param string         $name_space The namespace to register.
+	 * @param string|Closure $path       The path to the SVG files.
 	 *
 	 * @return void
 	 */
-	function tec_svg_register_namespace( $name_space, $path ): void {
+	function tec_svg_register_namespace( string $name_space, $path ): void {
 		tribe( SVG::class )->register_namespace( $name_space, $path );
 	}
 }

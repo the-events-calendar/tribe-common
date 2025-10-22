@@ -28,7 +28,7 @@ class SVG {
 	 *
 	 * @since TBD
 	 *
-	 * @var array
+	 * @var array<string, string|Closure>
 	 */
 	private array $namespaces = [];
 
@@ -55,7 +55,7 @@ class SVG {
 			$this->namespaces,
 			// We want to sort the namespaces by longest to shortest.
 			function ( $a, $b ) {
-				return strlen( $b ) - strlen( $a );
+				return strlen( $b ) <=> strlen( $a );
 			}
 		);
 	}
