@@ -209,6 +209,7 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/svg.php';
 
 		Tribe__Debug::instance();
 		tec_timed_option();

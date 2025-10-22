@@ -36,6 +36,8 @@ trait Read_Custom_Archive_Response {
 		$page     = absint( $params['page'] ?? 1 );
 		$per_page = absint( $params['per_page'] ?? $this->get_default_posts_per_page() );
 
+		unset( $params['page'], $params['per_page'] );
+
 		$query = $this->build_query( $params );
 
 		$query->page( $page )->per_page( $per_page );
