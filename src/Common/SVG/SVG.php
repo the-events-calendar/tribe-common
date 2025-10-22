@@ -36,19 +36,19 @@ class SVG {
 	 *
 	 * @since TBD
 	 *
-	 * @param string         $ns   The namespace to register.
-	 * @param string|Closure $path The path to the SVG files.
+	 * @param string         $name_space The namespace to register.
+	 * @param string|Closure $path       The path to the SVG files.
 	 *
 	 * @return void
 	 *
 	 * @throws InvalidArgumentException If the $path is not a string or a Closure.
 	 */
-	public function register_namespace( string $ns, $path ): void {
+	public function register_namespace( string $name_space, $path ): void {
 		if ( ! is_string( $path ) && ! $path instanceof Closure ) {
 			throw new InvalidArgumentException( 'The $path must be a string or a Closure.' );
 		}
 
-		$this->namespaces[ $ns ] = $path;
+		$this->namespaces[ $name_space ] = $path;
 	}
 
 	/**
@@ -69,17 +69,17 @@ class SVG {
 			}
 		);
 
-		foreach ( $this->namespaces as $namespace => $path ) {
-			if ( ! str_starts_with( $namespaced_path, $namespace ) ) {
+		foreach ( $this->namespaces as $name_space => $path ) {
+			if ( ! str_starts_with( $namespaced_path, $name_space ) ) {
 				continue;
 			}
 
-			$path_without_namespace = ltrim( substr( $namespaced_path, strlen( $namespace ) ), '/' );
+			$path_without_namespace = ltrim( substr( $namespaced_path, strlen( $name_space ) ), '/' );
 
 			$path = trailingslashit( $path instanceof Closure ? $path( $path_without_namespace ) : $path );
 
 			// Cache the result of the closure if it was a closure.
-			$this->namespaces[ $namespace ] = $path;
+			$this->namespaces[ $name_space ] = $path;
 
 			$full_path = $path . untrailingslashit( $path_without_namespace ) . '.svg';
 
