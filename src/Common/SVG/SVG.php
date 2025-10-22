@@ -13,6 +13,7 @@ namespace TEC\Common\SVG;
 
 use InvalidArgumentException;
 use Closure;
+use Exception;
 
 /**
  * SVG class
@@ -76,7 +77,11 @@ class SVG {
 
 			$path_without_namespace = ltrim( substr( $namespaced_path, strlen( $name_space ) ), '/' );
 
-			$path = trailingslashit( $path instanceof Closure ? (string) $path( $path_without_namespace ) : $path );
+			try {
+				$path = trailingslashit( $path instanceof Closure ? (string) $path( $path_without_namespace ) : $path );
+			} catch ( Exception $e ) {
+				return '';
+			}
 
 			$full_path = $path . untrailingslashit( $path_without_namespace ) . '.svg';
 
