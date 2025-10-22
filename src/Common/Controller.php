@@ -35,6 +35,7 @@ class Controller extends Controller_Contract {
 
 		$this->container->register( Hooks::class );
 		$this->container->register( Key_Value_Cache\Controller::class );
+		$this->container->register( SVG\Controller::class );
 
 		// Load controllers after all common libs are loaded and initial hooks are in place.
 		add_action( 'tribe_common_loaded', [ $this, 'load_controllers' ] );
@@ -63,5 +64,7 @@ class Controller extends Controller_Contract {
 		$this->container->get( Hooks::class )->unregister();
 		$this->container->get( Key_Value_Cache\Controller::class )->unregister();
 		$this->container->get( REST_Controller::class )->unregister();
+		$this->container->get( AI\Controller::class )->unregister();
+		$this->container->get( SVG\Controller::class )->unregister();
 	}
 }
