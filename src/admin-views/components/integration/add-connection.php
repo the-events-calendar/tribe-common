@@ -9,9 +9,7 @@
  *
  * @since 1.4.0
  *
- * @version 1.4.0
- *
- * @link    http://evnt.is/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @var Api $api An instance of the Integration  API handler.
  * @var Url $url An instance of the URL handler.

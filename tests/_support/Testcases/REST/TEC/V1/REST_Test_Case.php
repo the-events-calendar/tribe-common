@@ -12,6 +12,7 @@ namespace TEC\Common\Tests\Testcases\REST\TEC\V1;
 use lucatume\WPBrowser\TestCase\WPTestCase as WPBrowserTestCase;
 use Codeception\TestCase\WPTestCase;
 use TEC\Common\Contracts\Container;
+use TEC\Common\REST\TEC\V1\Contracts\Archive_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Endpoint_Interface as Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
@@ -185,6 +186,10 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 
 	protected function is_deletable(): bool {
 		return $this->endpoint instanceof Deletable_Endpoint;
+	}
+
+	protected function is_archive(): bool {
+		return $this->endpoint instanceof Archive_Endpoint;
 	}
 
 	public function test_get_url() {

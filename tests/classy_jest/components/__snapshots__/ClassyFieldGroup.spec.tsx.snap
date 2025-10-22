@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClassyFieldGroup Component matches snapshot with complex children 1`] = `
+<div
+  class="classy-field__group"
+>
+  <div
+    class="field-group-content"
+  >
+    <header>
+      <h3>
+        Complex Group
+      </h3>
+    </header>
+    <main>
+      <p>
+        This is a complex field group with multiple elements.
+      </p>
+      <form>
+        <input
+          placeholder="Enter text"
+          type="text"
+        />
+        <button
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </main>
+  </div>
+</div>
+`;
+
+exports[`ClassyFieldGroup Component matches snapshot with custom className 1`] = `
+<div
+  class="classy-field__group custom-group-class"
+>
+  <div>
+    Group Content
+  </div>
+</div>
+`;
+
+exports[`ClassyFieldGroup Component matches snapshot with default props 1`] = `
+<div
+  class="classy-field__group"
+>
+  <div>
+    Group Content
+  </div>
+</div>
+`;
+
+exports[`ClassyFieldGroup Component matches snapshot with mixed children 1`] = `
+<div
+  class="classy-field__group"
+>
+  <div>
+    Valid Child
+  </div>
+  <span>
+    Another Valid Child
+  </span>
+</div>
+`;
+
+exports[`ClassyFieldGroup Component matches snapshot with special characters in className 1`] = `
+<div
+  class="classy-field__group custom-class_with.special-chars"
+>
+  <div>
+    Group Content
+  </div>
+</div>
+`;

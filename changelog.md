@@ -1,5 +1,25 @@
 # Changelog
 
+### [6.9.7] 2025-10-14
+
+* Tweak - Remove the `:not()` selector that created unnecessary specificity on most TEC links. [TEC-5504]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+### [6.9.6] 2025-10-07
+
+* Fix - Adjust the logic so Telementry opt-in option is not set prematurely. [TEC-5583]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+### [6.9.5] 2025-09-30
+
+* Feature - Add TrustedLogin integration accessible via Help → Support Access. [TCMN-191]
+* Fix - Correct deprecated usage of Tribe__Settings::instance() [TCMN-205]
+* Fix - Fixes an issue with SVN and an image with an `@` in the filename.
+* Fix - Modifies the hook priority for which Event Automator would register its Event related hooks. [EVA-167]
+* Tweak - Added filters: `tec_help_hub_register_tabs`, `tec_trustedlogin_config`, `tec_trustedlogin_page_url`, `tec_trustedlogin_api_key`, `tec_trustedlogin_namespace`, `tec_trustedlogin_title`, `tec_trustedlogin_logo_url`, `tec_trustedlogin_support_email`, `tec_trustedlogin_support_url`, `tec_trustedlogin_website_url`, `tec_trustedlogin_menu_slug`, `tec_trustedlogin_role`, `tec_trustedlogin_decay`, `tec_trustedlogin_clone_role`
+* Tweak - Fix some styling issues on the Settings pages. [TCMN-204]
+* Language - 1 new strings added, 11 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.9.4] 2025-09-23
 
 * Feature - The Troubleshooting page now detects and flags outdated PHP Versions, incorrectly sets up PHP time zones and active caching plugins. [TCMN-203]

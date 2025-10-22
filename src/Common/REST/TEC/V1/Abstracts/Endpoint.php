@@ -426,14 +426,10 @@ abstract class Endpoint implements Endpoint_Interface {
 	 *
 	 * @return array The sanitized parameters.
 	 *
-	 * @throws InvalidArgumentException     If the schema name is invalid.
-	 * @throws RuntimeException             If the schema is not found.
+	 * @throws InvalidArgumentException If the schema name is invalid.
+	 * @throws RuntimeException         If the schema is not found.
 	 */
 	protected function get_sanitized_params_from_schema( string $schema_name, array $request_params = [] ): array {
-		if ( ! in_array( $schema_name, [ 'read', 'create', 'update', 'delete' ], true ) ) {
-			throw new InvalidArgumentException( 'Invalid schema name: ' . $schema_name );
-		}
-
 		switch ( $schema_name ) {
 			case 'read':
 				if ( ! $this instanceof Readable_Endpoint ) {
@@ -463,6 +459,9 @@ abstract class Endpoint implements Endpoint_Interface {
 
 				$schema = $this->delete_schema();
 				break;
+
+			default:
+				throw new InvalidArgumentException( "Invalid schema name: {$schema_name}" );
 		}
 
 		return $schema

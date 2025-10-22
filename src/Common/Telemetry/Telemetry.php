@@ -542,6 +542,8 @@ final class Telemetry {
 
 	/**
 	 * This ensures all our entries are the same.
+	 * Note - this immediately sets the option to true/false even if it has not yet been set.
+	 * DO NOT use this to check the value, use `calculate_optin_status` instead.
 	 *
 	 * @since 5.1.8.1
 	 */
@@ -563,6 +565,7 @@ final class Telemetry {
 
 	/**
 	 * Calculate the optin status for the TEC plugins from various sources.
+	 * Note: if a null value is returned it will be converted to false.
 	 *
 	 * @since 6.1.0
 	 *
@@ -587,6 +590,7 @@ final class Telemetry {
 		}
 
 		$status = array_filter( $stati );
+
 		return (bool) array_pop( $status );
 	}
 
@@ -594,13 +598,14 @@ final class Telemetry {
 	 * Calculate the optin status for the TEC plugins from various sources.
 	 *
 	 * @since 5.1.1.1
+	 * @since 6.9.6 Change option check to prevent false negatives when the option is `false` (user has opted out).
 	 *
 	 * @return bool $show If the modal should show
 	 */
 	public static function calculate_modal_status(): bool {
 		// If we've already opted in, don't show the modal.
 		$option = tribe_get_option( 'opt-in-status', null );
-		if ( tribe_is_truthy( $option ) ) {
+		if ( null !== $option ) {
 			return false;
 		}
 

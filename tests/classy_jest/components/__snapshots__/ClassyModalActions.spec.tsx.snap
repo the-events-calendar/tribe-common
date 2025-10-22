@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClassyModalActions Component matches snapshot with default props 1`] = `
+<div
+  class="classy-modal__actions classy-modal__actions--test-actions"
+/>
+`;
+
+exports[`ClassyModalActions Component matches snapshot with different type 1`] = `
+<div
+  class="classy-modal__actions classy-modal__actions--confirmation-dialog"
+>
+  <button
+    data-testid="wp-button"
+    variant="primary"
+  >
+    Confirm
+  </button>
+  <button
+    data-testid="wp-button"
+    variant="secondary"
+  >
+    Cancel
+  </button>
+</div>
+`;
+
+exports[`ClassyModalActions Component matches snapshot with mixed children 1`] = `
+<div
+  class="classy-modal__actions classy-modal__actions--test-actions"
+>
+  <button
+    data-testid="wp-button"
+    variant="primary"
+  >
+    Save
+  </button>
+  <button
+    data-testid="wp-button"
+    variant="secondary"
+  >
+    Cancel
+  </button>
+</div>
+`;
+
+exports[`ClassyModalActions Component matches snapshot with multiple buttons 1`] = `
+<div
+  class="classy-modal__actions classy-modal__actions--test-actions"
+>
+  <button
+    data-testid="wp-button"
+    variant="primary"
+  >
+    Save
+  </button>
+  <button
+    data-testid="wp-button"
+    variant="secondary"
+  >
+    Cancel
+  </button>
+  <button
+    data-testid="wp-button"
+    variant="link"
+  >
+    Delete
+  </button>
+</div>
+`;
+
+exports[`ClassyModalActions Component matches snapshot with single button 1`] = `
+<div
+  class="classy-modal__actions classy-modal__actions--test-actions"
+>
+  <button
+    data-testid="wp-button"
+    variant="primary"
+  >
+    Save
+  </button>
+</div>
+`;

@@ -1,12 +1,12 @@
 <?php
 
+use TEC\Common\Asset;
+use TEC\Common\Controller as Common_Controller;
 use TEC\Common\Libraries;
+use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
-use TEC\Common\Asset;
-use TEC\Common\StellarWP\Assets\Config as Assets_Config;
-use TEC\Common\Controller as Common_Controller;
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 
 // Don't load directly.
@@ -23,7 +23,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.9.4';
+	const VERSION           = '7.0.0';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -289,7 +289,7 @@ class Tribe__Main {
 				[ 'tec-common-php-date-formatter', 'node_modules/php-date-formatter/js/php-date-formatter.js' ],
 			]
 		);
-		
+
 		tec_asset(
 			$this,
 			'tec-user-agent',
@@ -812,7 +812,13 @@ class Tribe__Main {
 		tribe_singleton( 'admin.activation.page', 'Tribe__Admin__Activation_Page' );
 		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
-		tribe_register_provider( Tribe__Editor__Provider::class );
+		// Register the Classy controller; it will filter the following `tec_using_classy_editor` call.
+		tribe_register_provider( \TEC\Common\Classy\Controller::class );
+
+		if ( ! tec_using_classy_editor() ) {
+			tribe_register_provider( Tribe__Editor__Provider::class );
+		}
+
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
@@ -830,6 +836,7 @@ class Tribe__Main {
 		tribe_register_provider( \TEC\Common\QR\Controller::class );
 		tribe_singleton( ContainerInterface::class, tribe() );
 		tribe_register_provider( Libraries\Provider::class );
+		tribe_register_provider( TEC\Common\TrustedLogin\Controller::class );
 
 		// Load the new third-party integration system.
 		tribe_register_provider( TEC\Common\Integrations\Provider::class );
