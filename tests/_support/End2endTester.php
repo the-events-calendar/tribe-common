@@ -25,4 +25,30 @@ class End2endTester extends \Codeception\Actor
    /**
     * Define custom actions here
     */
+
+	/**
+	 * Define custom actions here
+	 */
+	function activatePlugin($pluginSlug) {
+		$plugins = (array)$pluginSlug;
+
+		foreach ($plugins as $plugin) {
+			$activation_link = 'a#activate-' . $plugin;
+			$this->scrollTo($activation_link, 0, -40);
+			$this->click($activation_link);
+		}
+	}
+
+	/**
+	 * Define custom actions here
+	 */
+	function deactivatePlugin($pluginSlug) {
+		$plugins = (array)$pluginSlug;
+
+		foreach ($plugins as $plugin) {
+			$deactivation_link = 'a#deactivate-' . $plugin;
+			$this->scrollTo($deactivation_link, 0, -40);
+			$this->click($deactivation_link);
+		}
+	}
 }
