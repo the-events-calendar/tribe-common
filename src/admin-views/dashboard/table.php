@@ -32,7 +32,7 @@
 						'The Zapier endpoint dashboard description.',
 						'tribe-common'
 					),
-					'<a href="https://evnt.is/zapier-endpoints" target="_blank">',
+					'<a href="https://evnt.is/zapier-endpoints" target="_blank" rel="noopener noreferrer">',
 					'</a>',
 				);
 			?>
