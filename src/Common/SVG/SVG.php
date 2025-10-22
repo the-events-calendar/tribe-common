@@ -36,19 +36,19 @@ class SVG {
 	 *
 	 * @since TBD
 	 *
-	 * @param string         $namespace The namespace to register.
-	 * @param string|Closure $path      The path to the SVG files.
+	 * @param string         $ns   The namespace to register.
+	 * @param string|Closure $path The path to the SVG files.
 	 *
 	 * @return void
 	 *
 	 * @throws InvalidArgumentException If the $path is not a string or a Closure.
 	 */
-	public function register_namespace( string $namespace, $path ): void {
+	public function register_namespace( string $ns, $path ): void {
 		if ( ! is_string( $path ) && ! $path instanceof Closure ) {
 			throw new InvalidArgumentException( 'The $path must be a string or a Closure.' );
 		}
 
-		$this->namespaces[ $namespace ] = $path;
+		$this->namespaces[ $ns ] = $path;
 	}
 
 	/**
@@ -56,7 +56,7 @@ class SVG {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $icon The icon to get the SVG code for.
+	 * @param string $namespaced_path The namespaced path to the SVG file.
 	 *
 	 * @return string The SVG code for the given icon.
 	 */
