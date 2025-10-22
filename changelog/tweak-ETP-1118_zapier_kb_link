@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Fix incorrect knowledgebase link on the Zapier Endpoint Dashboard in Tickets Settings. [ETP-1118]
