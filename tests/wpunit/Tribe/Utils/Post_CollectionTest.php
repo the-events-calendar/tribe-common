@@ -22,6 +22,10 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 		$titles = [ 'Post 1', 'Post 2', 'Post 3' ];
 		$this->assertEquals( $titles, $collection->pluck( 'post_title' ) );
 		$this->assertEquals( $titles, $collection->pluck_field( 'post_title' ) );
+
+		foreach ( $posts as $post ) {
+			wp_delete_post( $post );
+		}
 	}
 
 	/**
@@ -40,6 +44,10 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 		$titles = [ 'Post 1', 'Post 2', 'Post 3' ];
 		$this->assertEquals( $titles, $collection->pluck( '_test' ) );
 		$this->assertEquals( $titles, $collection->pluck_meta( '_test' ) );
+
+		foreach ( $posts as $post ) {
+			wp_delete_post( $post );
+		}
 	}
 
 	/**
@@ -67,6 +75,10 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected_single, $collection->pluck_meta( '_multi_test', true ) );
 		$this->assertEquals( $expected_multi, $collection->pluck( '_multi_test', false ) );
 		$this->assertEquals( $expected_multi, $collection->pluck_meta( '_multi_test', false ) );
+
+		foreach ( $posts as $post ) {
+			wp_delete_post( $post );
+		}
 	}
 
 	/**
@@ -76,17 +88,18 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_return_plucked_taxonomy_terms() {
 		// Become an administrator to add taxonomy terms during post insertion.
-		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$admin = static::factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $admin );
 		$posts   = [];
 		$posts[] = static::factory()->post->create();
 		$posts[] = static::factory()->post->create();
 		$posts[] = static::factory()->post->create();
-		// The `tax_input` creation argument works in tricky ways, avoid it completely and use explict assignment.
+		// The `tax_input` creation argument works in tricky ways, avoid it completely and use explicit assignment.
 		foreach ( $posts as $id ) {
 			foreach (
 				[
 					'post_tag' => [ 'tag1', 'tag2', 'tag3' ],
-					'category' => [ 'cat1', 'cat2', 'meow' ]
+					'category' => [ 'cat1', 'cat2', 'meow' ],
 				] as $tax => $terms
 			) {
 				wp_set_object_terms( $id, $terms, $tax );
@@ -108,6 +121,12 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected_single_cat, $collection->pluck_taxonomy( 'category', true ) );
 		$this->assertEquals( $expected_multi_cat, $collection->pluck( 'category', false, $args ) );
 		$this->assertEquals( $expected_multi_cat, $collection->pluck_taxonomy( 'category', false, $args ) );
+
+		wp_delete_user( $admin );
+
+		foreach ( $posts as $post ) {
+			wp_delete_post( $post );
+		}
 	}
 
 	/**
@@ -117,17 +136,18 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_allow_to_pluck_combine() {
 		// Become an administrator to add taxonomy terms during post insertion.
-		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$admin = static::factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $admin );
 		$posts   = [];
 		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 1' ] );
 		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 2' ] );
 		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 3' ] );
-		// The `tax_input` creation argument works in tricky ways, avoid it completely and use explict assignment.
+		// The `tax_input` creation argument works in tricky ways, avoid it completely and use explicit assignment.
 		foreach ( $posts as $id ) {
 			foreach (
 				[
 					'post_tag' => [ 'tag1', 'tag2', 'tag3' ],
-					'category' => [ 'cat1', 'cat2', 'meow' ]
+					'category' => [ 'cat1', 'cat2', 'meow' ],
 				] as $tax => $terms
 			) {
 				wp_set_object_terms( $id, $terms, $tax );
@@ -143,9 +163,18 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals(
 			[
-				$posts[0] => [ 'post_title' => 'Post 1', 'post_tag' => 'tag1' ],
-				$posts[1] => [ 'post_title' => 'Post 2', 'post_tag' => 'tag1' ],
-				$posts[2] => [ 'post_title' => 'Post 3', 'post_tag' => 'tag1' ],
+				$posts[0] => [
+					'post_title' => 'Post 1',
+					'post_tag'   => 'tag1',
+				],
+				$posts[1] => [
+					'post_title' => 'Post 2',
+					'post_tag'   => 'tag1',
+				],
+				$posts[2] => [
+					'post_title' => 'Post 3',
+					'post_tag'   => 'tag1',
+				],
 			],
 			$collection->pluck_combine( 'ID', [ 'post_title', 'post_tag' ] )
 		);
@@ -155,41 +184,48 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 				$posts[0] => [
 					'post_title' => 'Post 1',
 					'post_tag'   => 'tag1',
-					'category'   => [ 'cat1', 'cat2', 'meow' ]
+					'category'   => [ 'cat1', 'cat2', 'meow' ],
 				],
 				$posts[1] => [
 					'post_title' => 'Post 2',
 					'post_tag'   => 'tag1',
-					'category'   => [ 'cat1', 'cat2', 'meow' ]
+					'category'   => [ 'cat1', 'cat2', 'meow' ],
 				],
 				$posts[2] => [
 					'post_title' => 'Post 3',
 					'post_tag'   => 'tag1',
-					'category'   => [ 'cat1', 'cat2', 'meow' ]
+					'category'   => [ 'cat1', 'cat2', 'meow' ],
 				],
 			],
 			$collection->pluck_combine(
 				'ID',
-				[ 'post_title', 'post_tag', 'category' => [ 'single' => false, 'args' => [ 'fields' => 'names' ] ] ]
+				[
+					'post_title',
+					'post_tag',
+					'category' => [
+						'single' => false,
+						'args'   => [ 'fields' => 'names' ],
+					],
+				],
 			)
 		);
 
 		$this->assertEquals(
 			[
 				$posts[0] => [
-					'title' => 'Post 1',
-					'tag'   => 'tag1',
-					'category'   => [ 'cat1', 'cat2', 'meow' ]
+					'title'    => 'Post 1',
+					'tag'      => 'tag1',
+					'category' => [ 'cat1', 'cat2', 'meow' ],
 				],
 				$posts[1] => [
-					'title' => 'Post 2',
-					'tag'   => 'tag1',
-					'category'   => [ 'cat1', 'cat2', 'meow' ]
+					'title'    => 'Post 2',
+					'tag'      => 'tag1',
+					'category' => [ 'cat1', 'cat2', 'meow' ],
 				],
 				$posts[2] => [
-					'title' => 'Post 3',
-					'tag'   => 'tag1',
-					'category'   => [ 'cat1', 'cat2', 'meow' ]
+					'title'    => 'Post 3',
+					'tag'      => 'tag1',
+					'category' => [ 'cat1', 'cat2', 'meow' ],
 				],
 			],
 			$collection->pluck_combine(
@@ -197,10 +233,19 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 				[
 					'post_title' => [ 'as' => 'title' ],
 					'post_tag'   => [ 'as' => 'tag' ],
-					'category'   => [ 'single' => false, 'args' => [ 'fields' => 'names' ] ]
+					'category'   => [
+						'single' => false,
+						'args'   => [ 'fields' => 'names' ],
+					],
 				]
 			)
 		);
+
+		wp_delete_user( $admin );
+
+		foreach ( $posts as $post ) {
+			wp_delete_post( $post );
+		}
 	}
 
 	/**
@@ -224,6 +269,10 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 				$posts[2] => [ 'title' => 'Post 3' ],
 			];
 		$this->assertEquals( $expected, $result );
+
+		foreach ( $posts as $post ) {
+			wp_delete_post( $post );
+		}
 	}
 
 	/**
@@ -247,6 +296,10 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 				$posts[2] => [ 'title' => 'Post 3' ],
 			];
 		$this->assertEquals( $expected, $result );
+
+		foreach ( $posts as $post ) {
+			wp_delete_post( $post );
+		}
 	}
 
 	/**
@@ -256,22 +309,53 @@ class Post_CollectionTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_allow_to_alias_multi_with_a_flat_map() {
 		$posts   = [];
-		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 1', 'post_status' => 'private' ] );
-		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 2', 'post_status' => 'draft' ] );
-		$posts[] = static::factory()->post->create( [ 'post_title' => 'Post 3', 'post_status' => 'publish' ] );
+		$posts[] = static::factory()->post->create(
+			[
+				'post_title'  => 'Post 1',
+				'post_status' => 'private',
+			]
+		);
+		$posts[] = static::factory()->post->create(
+			[
+				'post_title'  => 'Post 2',
+				'post_status' => 'draft',
+			]
+		);
+		$posts[] = static::factory()->post->create(
+			[
+				'post_title'  => 'Post 3',
+				'post_status' => 'publish',
+			]
+		);
 
 		$collection = new Collection( $posts );
-		$result     = $collection->pluck_combine( 'ID', [
-			'post_title'  => 'title',
-			'post_status' => 'status',
-		] );
+		$result     = $collection->pluck_combine(
+			'ID',
+			[
+				'post_title'  => 'title',
+				'post_status' => 'status',
+			]
+		);
 
 		$expected =
 			[
-				$posts[0] => [ 'title' => 'Post 1', 'status' => 'private' ],
-				$posts[1] => [ 'title' => 'Post 2', 'status' => 'draft' ],
-				$posts[2] => [ 'title' => 'Post 3', 'status' => 'publish' ],
+				$posts[0] => [
+					'title'  => 'Post 1',
+					'status' => 'private',
+				],
+				$posts[1] => [
+					'title'  => 'Post 2',
+					'status' => 'draft',
+				],
+				$posts[2] => [
+					'title'  => 'Post 3',
+					'status' => 'publish',
+				],
 			];
 		$this->assertEquals( $expected, $result );
+
+		foreach ( $posts as $post ) {
+			wp_delete_post( $post );
+		}
 	}
 }

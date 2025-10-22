@@ -1,5 +1,8 @@
 # Upsell Notices
 
+> **⚠️ DEPRECATED**: This class is deprecated. Use the new trait-based Conditional Content system instead.
+> See `/src/Common/Admin/Conditional_Content/README.md` for the new approach.
+
 To add an upsell notice, use the following code:
 
 ```
