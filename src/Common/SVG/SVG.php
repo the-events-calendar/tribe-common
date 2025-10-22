@@ -81,7 +81,7 @@ class SVG {
 			// Cache the result of the closure if it was a closure.
 			$this->namespaces[ $namespace ] = $path;
 
-			$full_path = $path . trailingslashit( $path_without_namespace );
+			$full_path = $path . untrailingslashit( $path_without_namespace ) . '.svg';
 
 			if ( file_exists( $full_path ) ) {
 				$svg = file_get_contents( $full_path ); // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
