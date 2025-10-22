@@ -50,6 +50,14 @@ class SVG {
 		}
 
 		$this->namespaces[ $name_space ] = $path;
+
+		uksort(
+			$this->namespaces,
+			// We want to sort the namespaces by longest to shortest.
+			function ( $a, $b ) {
+				return strlen( $b ) - strlen( $a );
+			}
+		);
 	}
 
 	/**
@@ -62,14 +70,6 @@ class SVG {
 	 * @return string The SVG code for the given icon.
 	 */
 	public function get_svg( string $namespaced_path ): string {
-		uksort(
-			$this->namespaces,
-			// We want to sort the namespaces by longest to shortest.
-			function ( $a, $b ) {
-				return strlen( $b ) - strlen( $a );
-			}
-		);
-
 		foreach ( $this->namespaces as $name_space => $path ) {
 			if ( ! str_starts_with( $namespaced_path, $name_space ) ) {
 				continue;

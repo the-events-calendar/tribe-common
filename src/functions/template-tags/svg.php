@@ -25,7 +25,7 @@ if ( ! function_exists( 'tec_svg' ) ) {
 }
 
 if ( ! function_exists( 'tec_svg_register_namespace' ) ) {
-/**
+	/**
 	 * Register a namespace for a given path.
 	 *
 	 * @since TBD
