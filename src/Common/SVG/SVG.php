@@ -61,6 +61,14 @@ class SVG {
 	 * @return string The SVG code for the given icon.
 	 */
 	public function get_svg( string $namespaced_path ): string {
+		uksort(
+			$this->namespaces,
+			// We want to sort the namespaces by longest to shortest.
+			function ( $a, $b ) {
+				return strlen( $b ) - strlen( $a );
+			}
+		);
+
 		foreach ( $this->namespaces as $namespace => $path ) {
 			if ( ! str_starts_with( $namespaced_path, $namespace ) ) {
 				continue;
@@ -70,10 +78,15 @@ class SVG {
 
 			$path = trailingslashit( $path instanceof Closure ? $path( $path_without_namespace ) : $path );
 
+			// Cache the result of the closure if it was a closure.
+			$this->namespaces[ $namespace ] = $path;
+
 			$full_path = $path . trailingslashit( $path_without_namespace );
 
 			if ( file_exists( $full_path ) ) {
-				return file_get_contents( $full_path );
+				$svg = file_get_contents( $full_path );
+
+				return $svg ? $svg : '';
 			}
 
 			break;
