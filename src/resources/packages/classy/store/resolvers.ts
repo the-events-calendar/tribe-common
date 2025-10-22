@@ -1,13 +1,14 @@
 import apiFetch from '@wordpress/api-fetch';
 import { decodeEntities } from '@wordpress/html-entities';
 import { Currency } from '@tec/common/classy/types/Currency';
+import { getClassyApiUrl } from '../api';
 
 export default {
 	getCountryOptions:
 		() =>
 		async ( { dispatch } ): Promise< void > => {
 			return apiFetch( {
-				path: '/tec/classy/v1/options/country',
+				path: getClassyApiUrl( '/options/country' ),
 				method: 'GET',
 			} )
 				.then( ( options: Object[] ) => {
@@ -32,7 +33,7 @@ export default {
 		() =>
 		async ( { dispatch } ): Promise< void > => {
 			return apiFetch( {
-				path: '/tec/classy/v1/options/us-states',
+				path: getClassyApiUrl( '/options/us-states' ),
 				method: 'GET',
 			} )
 				.then( ( options: Object[] ) => {
@@ -57,7 +58,7 @@ export default {
 		() =>
 		async ( { dispatch } ): Promise< void > => {
 			return apiFetch( {
-				path: '/tec/classy/v1/options/currencies',
+				path: getClassyApiUrl( '/options/currencies' ),
 				method: 'GET',
 			} )
 				.then( ( options: Currency[] ) => {

@@ -5,6 +5,7 @@ import { describe, expect, it, jest, beforeEach } from '@jest/globals';
 import apiFetch from '@wordpress/api-fetch';
 import resolvers from '../../../src/resources/packages/classy/store/resolvers';
 import { Currency } from '@tec/common/classy/types/Currency';
+import { getClassyApiUrl } from '@tec/common/classy/api';
 
 // Mock the @wordpress/api-fetch module
 jest.mock( '@wordpress/api-fetch' );
@@ -35,7 +36,7 @@ describe( 'Store Resolvers', () => {
 			await resolver( { dispatch: mockDispatch } );
 
 			expect( apiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/classy/v1/options/country',
+				path: getClassyApiUrl( '/options/country' ),
 				method: 'GET',
 			} );
 
@@ -119,7 +120,7 @@ describe( 'Store Resolvers', () => {
 			await resolver( { dispatch: mockDispatch } );
 
 			expect( apiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/classy/v1/options/us-states',
+				path: getClassyApiUrl( '/options/us-states' ),
 				method: 'GET',
 			} );
 
@@ -186,7 +187,7 @@ describe( 'Store Resolvers', () => {
 			await resolver( { dispatch: mockDispatch } );
 
 			expect( apiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/classy/v1/options/currencies',
+				path: getClassyApiUrl( '/options/currencies' ),
 				method: 'GET',
 			} );
 
