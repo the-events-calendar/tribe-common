@@ -4,7 +4,7 @@
         "display_name": "Attendees",
         "type": "queue",
         "last_access": "",
-        "count": 15,
+        "count": 0,
         "enabled": true,
         "missing_dependency": false,
         "dependents": []
@@ -74,7 +74,7 @@
         "display_name": "New Events",
         "type": "queue",
         "last_access": "",
-        "count": 15,
+        "count": 0,
         "enabled": true,
         "missing_dependency": false,
         "dependents": []
@@ -84,7 +84,7 @@
         "display_name": "Orders",
         "type": "queue",
         "last_access": "",
-        "count": 15,
+        "count": 0,
         "enabled": true,
         "missing_dependency": false,
         "dependents": []
