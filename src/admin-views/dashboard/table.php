@@ -8,8 +8,9 @@
  * See more documentation about our views templating system.
  *
  * @since 1.4.0
+ * @since TBD Updated Zapier Knowledgebase URL.
  *
- * @version 1.4.0
+ * @version TBD
  *
  * @link    http://evnt.is/1aiy
  *
@@ -31,7 +32,7 @@
 						'The Zapier endpoint dashboard description.',
 						'tribe-common'
 					),
-					'<a href="https://evnt.is/1bda" target="_blank">',
+					'<a href="https://evnt.is/zapier-endpoints" target="_blank" rel="noopener noreferrer">',
 					'</a>',
 				);
 			?>

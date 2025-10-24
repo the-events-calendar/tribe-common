@@ -60,6 +60,20 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 	/**
 	 * @inheritdoc
 	 *
+	 * @var int
+	 */
+	protected int $start_time = 4;
+
+	/**
+	 * @inheritdoc
+	 *
+	 * @var int
+	 */
+	protected int $end_time = 4;
+
+	/**
+	 * @inheritdoc
+	 *
 	 * @var string
 	 */
 	protected string $background_color = '#1c202f';
