@@ -377,7 +377,8 @@ class ReadTest extends ReadTestBase {
 	 */
 	public function should_allow_getting_posts_by_simple_tax_schemas() {
 		// needed to assign terms
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$admin = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $admin );
 
 		$tax = 'genre';
 
@@ -481,6 +482,8 @@ class ReadTest extends ReadTestBase {
 		$repository->add_simple_tax_schema_entry( 'test_tax_schema', $tax );
 		$repository->add_simple_tax_schema_entry( 'test_category_schema', 'category' );
 		$this->assertEquals( [ $post_1 ], $repository->fields( 'ids' )->where_multi( [ 'test_tax_schema', 'test_category_schema' ], '=', $term_fiction->slug )->all() );
+
+		wp_delete_user( $admin );
 	}
 
 	/**

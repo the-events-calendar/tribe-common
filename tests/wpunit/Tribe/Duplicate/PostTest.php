@@ -19,13 +19,6 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory = new \Tribe__Duplicate__Strategy_Factory();
 	}
 
-	public function tearDown() {
-		// your tear down methods here
-
-		// then
-		parent::tearDown();
-	}
-
 	/**
 	 * It should be instantiatable
 	 *
@@ -48,7 +41,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_mark_a_post_as_a_duplicate_of_itself() {
-		$post = $this->factory()->post->create_and_get();
+		$post    = $this->factory()->post->create_and_get();
 		$postarr = (array) $post;
 
 		$sut = $this->make_instance();
@@ -57,6 +50,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$duplicate = $sut->find_for( $postarr );
 
 		$this->assertEquals( $post->ID, $duplicate );
+
+		wp_delete_post( $post->ID );
 	}
 
 	/**
@@ -65,7 +60,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_mark_a_post_as_duplicate_of_itself_if_setting_match_strategy_to_same() {
-		$post = $this->factory()->post->create_and_get();
+		$post    = $this->factory()->post->create_and_get();
 		$postarr = (array) $post;
 
 		$sut = $this->make_instance();
@@ -74,6 +69,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$duplicate = $sut->find_for( $postarr );
 
 		$this->assertEquals( $post->ID, $duplicate );
+
+		wp_delete_post( $post->ID );
 	}
 
 	/**
@@ -84,16 +81,18 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_mark_a_post_as_duplicate_of_itself_when_trying_to_match_title_in_different_case() {
-		$post = $this->factory()->post->create_and_get( [ 'post_title' => 'Original Title' ] );
+		$post    = $this->factory()->post->create_and_get( [ 'post_title' => 'Original Title' ] );
 		$postarr = (array) $post;
 
 		$sut = $this->make_instance();
 		$sut->use_post_fields( [ 'post_title' => [ 'match' => 'same' ] ] );
 
 		$postarr['post_title'] = 'original title';
-		$duplicate = $sut->find_for( $postarr );
+		$duplicate             = $sut->find_for( $postarr );
 
 		$this->assertEquals( $post->ID, $duplicate );
+
+		wp_delete_post( $post->ID );
 	}
 
 	/**
@@ -110,6 +109,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $sut->find_for( [ 'post_title' => 'Original' ] ) );
 		$this->assertFalse( $sut->find_for( [ 'post_title' => 'Title' ] ) );
 		$this->assertEquals( $id, $sut->find_for( [ 'post_title' => 'original title' ] ) );
+
+		wp_delete_post( $id );
 	}
 
 	/**
@@ -126,6 +127,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $id, $sut->find_for( [ 'post_title' => 'Original' ] ) );
 		$this->assertEquals( $id, $sut->find_for( [ 'post_title' => 'Title' ] ) );
 		$this->assertEquals( $id, $sut->find_for( [ 'post_title' => 'original title' ] ) );
+
+		wp_delete_post( $id );
 	}
 
 	/**
@@ -144,6 +147,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $id, $sut->find_for( [ 'post_title' => 'Some Snake Case' ] ) );
 		$this->assertEquals( $id, $sut->find_for( [ 'post_title' => 'some snake case' ] ) );
 		$this->assertFalse( $sut->find_for( [ 'post_title' => 'some-snake-case-foo' ] ) ); // foo is not in the title
+
+		wp_delete_post( $id );
 	}
 
 	/**
@@ -153,7 +158,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_fallback_to_equality_when_trying_to_match_on_numeric_post_fields() {
 		$editor = $this->factory()->user->create( [ 'role' => 'editor' ] );
-		$id = $this->factory()->post->create( [ 'post_author' => $editor ] );
+		$id     = $this->factory()->post->create( [ 'post_author' => $editor ] );
 
 		$sut = $this->make_instance();
 		$sut->use_post_fields( [ 'post_author' => [ 'match' => 'like' ] ] );
@@ -161,6 +166,9 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $id, $sut->find_for( [ 'post_author' => $editor ] ) );
 		// if editor ID is '3' we are looking for '323'
 		$this->assertFalse( $sut->find_for( [ 'post_author' => intval( $editor . '23' ) ] ) );
+
+		wp_delete_user( $editor );
+		wp_delete_post( $id );
 	}
 
 	/**
@@ -175,6 +183,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$sut->use_post_fields( [] );
 
 		$this->assertFalse( $sut->find_for( [ 'post_title' => $post->post_title ] ) );
+
+		wp_delete_post( $post->ID );
 	}
 
 	/**
@@ -188,10 +198,17 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$sut = $this->make_instance();
 		$sut->use_post_fields( [ 'post_title' ] );
 
-		$this->assertEquals( $post->ID, $sut->find_for( [
-			'post_title' => $post->post_title,
-			'foo_bar'    => 'some value'
-		] ) );
+		$this->assertEquals(
+			$post->ID,
+			$sut->find_for(
+				[
+					'post_title' => $post->post_title,
+					'foo_bar'    => 'some value',
+				]
+			)
+		);
+
+		wp_delete_post( $post->ID );
 	}
 
 	/**
@@ -210,6 +227,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $sut->find_for( [ 'foo' => 'some' ] ) );
 		$this->assertFalse( $sut->find_for( [ 'foo' => 'Value' ] ) );
 		$this->assertFalse( $sut->find_for( [ 'foo' => 'bar' ] ) );
+
+		wp_delete_post( $post );
 	}
 
 	/**
@@ -228,6 +247,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $post, $sut->find_for( [ 'foo' => 'some' ] ) );
 		$this->assertEquals( $post, $sut->find_for( [ 'foo' => 'Value' ] ) );
 		$this->assertFalse( $sut->find_for( [ 'foo' => 'bar' ] ) );
+
+		wp_delete_post( $post );
 	}
 
 	public function mixed_match_criteria_inputs() {
@@ -321,22 +342,28 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider mixed_match_criteria_inputs
 	 */
 	public function it_should_allow_finding_duplicates_using_mixed_post_fields_and_meta_and_different_strategies( $should_match, $input ) {
-		$post = $this->factory()->post->create( [
-			'post_title'   => 'A post',
-			'post_content' => 'Some content [shortcode]'
-		] );
+		$post = $this->factory()->post->create(
+			[
+				'post_title'   => 'A post',
+				'post_content' => 'Some content [shortcode]',
+			]
+		);
 		update_post_meta( $post, 'foo', 'Foo Value' );
 		update_post_meta( $post, 'bar', 'Bar value' );
 
 		$sut = $this->make_instance();
-		$sut->use_post_fields( [
-			'post_title'   => [ 'match' => 'same' ],
-			'post_content' => [ 'match' => 'like' ],
-		] );
-		$sut->use_custom_fields( [
-			'foo' => [ 'match' => 'like' ],
-			'bar' => [ 'match' => 'same' ],
-		] );
+		$sut->use_post_fields(
+			[
+				'post_title'   => [ 'match' => 'same' ],
+				'post_content' => [ 'match' => 'like' ],
+			]
+		);
+		$sut->use_custom_fields(
+			[
+				'foo' => [ 'match' => 'like' ],
+				'bar' => [ 'match' => 'same' ],
+			]
+		);
 
 		if ( $should_match ) {
 			$this->assertEquals( $post, $sut->find_for( $input ) );
@@ -344,6 +371,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 			$this->assertFalse( $sut->find_for( $input ) );
 		}
 
+		wp_delete_post( $post );
 	}
 
 	/**
@@ -358,6 +386,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$sut->use_post_fields( [ 'post_title' ] );
 
 		$this->assertFalse( $sut->find_for( [ 'post_author' => $post->post_author ] ) );
+
+		wp_delete_post( $post->ID );
 	}
 
 	/**
@@ -377,6 +407,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $post, $sut->find_for( [ 'foo' => 'one' ] ) );
 		$this->assertEquals( $post, $sut->find_for( [ 'foo' => [ 'one' ] ] ) );
 		$this->assertEquals( $post, $sut->find_for( [ 'foo' => [ 'one', 'two' ] ] ) ); // will only use the first
+
+		wp_delete_post( $post );
 	}
 
 	/**
@@ -401,6 +433,9 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $page, $sut->find_for( [ 'foo' => 'one' ] ) );
 		$this->assertEquals( $page, $sut->find_for( [ 'foo' => [ 'one' ] ] ) );
 		$this->assertCount( 1, $sut->find_all_for( [ 'foo' => 'one' ] ) );
+
+		wp_delete_post( $post );
+		wp_delete_post( $page );
 	}
 
 	/**
@@ -408,10 +443,30 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_allow_finding_all_duplicates_in_or_logic() {
-		$post_1 = $this->factory()->post->create( [ 'post_title' => 'foo', 'post_content' => 'foo' ] );
-		$post_2 = $this->factory()->post->create( [ 'post_title' => 'foo', 'post_content' => 'bar' ] );
-		$post_3 = $this->factory()->post->create( [ 'post_title' => 'bar', 'post_content' => 'bar' ] );
-		$post_4 = $this->factory()->post->create( [ 'post_title' => 'bar', 'post_content' => 'foo' ] );
+		$post_1 = $this->factory()->post->create(
+			[
+				'post_title'   => 'foo',
+				'post_content' => 'foo',
+			]
+		);
+		$post_2 = $this->factory()->post->create(
+			[
+				'post_title'   => 'foo',
+				'post_content' => 'bar',
+			]
+		);
+		$post_3 = $this->factory()->post->create(
+			[
+				'post_title'   => 'bar',
+				'post_content' => 'bar',
+			]
+		);
+		$post_4 = $this->factory()->post->create(
+			[
+				'post_title'   => 'bar',
+				'post_content' => 'foo',
+			]
+		);
 
 		$sut = $this->make_instance();
 		$sut->set_where_operator( 'or' );
@@ -419,20 +474,29 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertCount( 2, $sut->find_all_for( [ 'post_title' => 'foo' ] ) );
 		$this->assertCount( 2, $sut->find_all_for( [ 'post_title' => 'bar' ] ) );
-		$found_1 = $sut->find_all_for( [
-			'post_title'   => 'foo',
-			// OR
-			'post_content' => 'foo'
-		] );
+		$found_1 = $sut->find_all_for(
+			[
+				'post_title'   => 'foo',
+				// OR
+				'post_content' => 'foo',
+			]
+		);
 		$this->assertEqualSets( [ $post_1, $post_2, $post_4 ], $found_1 );
 		$this->assertCount( 3, $found_1 );
-		$found_2 = $sut->find_all_for( [
-			'post_title'   => 'bar',
-			// OR
-			'post_content' => 'foo'
-		] );
+		$found_2 = $sut->find_all_for(
+			[
+				'post_title'   => 'bar',
+				// OR
+				'post_content' => 'foo',
+			]
+		);
 		$this->assertCount( 3, $found_2 );
 		$this->assertEqualSets( [ $post_1, $post_3, $post_4 ], $found_2 );
+
+		wp_delete_post( $post_1 );
+		wp_delete_post( $post_2 );
+		wp_delete_post( $post_3 );
+		wp_delete_post( $post_4 );
 	}
 
 	/**
@@ -440,7 +504,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_cut_the_joined_query_for_custom_fields_down() {
-		$post_fields = [ 'post_title', 'post_content' ];
+		$post_fields   = [ 'post_title', 'post_content' ];
 		$custom_fields = [
 			'one',
 			'two',
@@ -453,7 +517,12 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 			'nine',
 			'ten',
 		];
-		$post = $this->factory()->post->create( [ 'post_title' => 'foo', 'post_content' => 'foo' ] );
+		$post          = $this->factory()->post->create(
+			[
+				'post_title'   => 'foo',
+				'post_content' => 'foo',
+			]
+		);
 		foreach ( $custom_fields as $field ) {
 			add_post_meta( $post, $field, 'foo' );
 		}
@@ -467,15 +536,19 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$queries_before = $wpdb->num_queries;
 
 		$merged = array_merge( $post_fields, $custom_fields );
-		$found = $sut->find_for( array_combine(
-			$merged,
-			array_fill( 0, count( $merged ), 'foo' )
-		) );
+		$found  = $sut->find_for(
+			array_combine(
+				$merged,
+				array_fill( 0, count( $merged ), 'foo' )
+			)
+		);
 
 		$queries_after = $wpdb->num_queries;
 
 		$this->assertEquals( 5, $queries_after - $queries_before );
 		$this->assertEquals( $post, $found );
+
+		wp_delete_post( $post );
 	}
 
 	/**
@@ -483,7 +556,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_make_just_one_query_if_and_operator_and_nothing_is_found() {
-		$post_fields = [ 'post_title', 'post_content' ];
+		$post_fields   = [ 'post_title', 'post_content' ];
 		$custom_fields = [
 			'one',
 			'two',
@@ -496,7 +569,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 			'nine',
 			'ten',
 		];
-		$post = $this->factory()->post->create();
+		$post          = $this->factory()->post->create();
 
 		$sut = $this->make_instance();
 		$sut->use_post_fields( $post_fields );
@@ -507,15 +580,19 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$queries_before = $wpdb->num_queries;
 
 		$merged = array_merge( $post_fields, $custom_fields );
-		$found = $sut->find_for( array_combine(
-			$merged,
-			array_fill( 0, count( $merged ), 'foo' )
-		) );
+		$found  = $sut->find_for(
+			array_combine(
+				$merged,
+				array_fill( 0, count( $merged ), 'foo' )
+			)
+		);
 
 		$queries_after = $wpdb->num_queries;
 
 		$this->assertEquals( 1, $queries_after - $queries_before );
 		$this->assertEmpty( $found );
+
+		wp_delete_post( $post );
 	}
 
 	/**
@@ -523,7 +600,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_make_min_number_of_queries_when_or_operator() {
-		$post_fields = [ 'post_title', 'post_content' ];
+		$post_fields   = [ 'post_title', 'post_content' ];
 		$custom_fields = [
 			'one',
 			'two',
@@ -536,7 +613,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 			'nine',
 			'ten',
 		];
-		$post = $this->factory()->post->create();
+		$post          = $this->factory()->post->create();
 		foreach ( $custom_fields as $field ) {
 			if ( 'six' === $field ) {
 				// should find a match on 3rd query
@@ -556,15 +633,19 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$queries_before = $wpdb->num_queries;
 
 		$merged = array_merge( $post_fields, $custom_fields );
-		$found = $sut->find_for( array_combine(
-			$merged,
-			array_fill( 0, count( $merged ), 'foo' )
-		) );
+		$found  = $sut->find_for(
+			array_combine(
+				$merged,
+				array_fill( 0, count( $merged ), 'foo' )
+			)
+		);
 
 		$queries_after = $wpdb->num_queries;
 
 		$this->assertEquals( 3, $queries_after - $queries_before );
 		$this->assertEquals( $post, $found );
+
+		wp_delete_post( $post );
 	}
 
 	/**
@@ -572,7 +653,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_cut_the_joined_query_for_custom_fields_down_on_find_all() {
-		$post_fields = [ 'post_title', 'post_content' ];
+		$post_fields   = [ 'post_title', 'post_content' ];
 		$custom_fields = [
 			'one',
 			'two',
@@ -585,7 +666,12 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 			'nine',
 			'ten',
 		];
-		$post = $this->factory()->post->create( [ 'post_title' => 'foo', 'post_content' => 'foo' ] );
+		$post          = $this->factory()->post->create(
+			[
+				'post_title'   => 'foo',
+				'post_content' => 'foo',
+			]
+		);
 		foreach ( $custom_fields as $field ) {
 			add_post_meta( $post, $field, 'foo' );
 		}
@@ -599,15 +685,19 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$queries_before = $wpdb->num_queries;
 
 		$merged = array_merge( $post_fields, $custom_fields );
-		$found = $sut->find_all_for( array_combine(
-			$merged,
-			array_fill( 0, count( $merged ), 'foo' )
-		) );
+		$found  = $sut->find_all_for(
+			array_combine(
+				$merged,
+				array_fill( 0, count( $merged ), 'foo' )
+			)
+		);
 
 		$queries_after = $wpdb->num_queries;
 
 		$this->assertEquals( 5, $queries_after - $queries_before );
 		$this->assertEquals( [ $post ], $found );
+
+		wp_delete_post( $post );
 	}
 
 	/**
@@ -615,7 +705,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_make_just_one_query_if_and_operator_and_nothing_is_found_on_find_all() {
-		$post_fields = [ 'post_title', 'post_content' ];
+		$post_fields   = [ 'post_title', 'post_content' ];
 		$custom_fields = [
 			'one',
 			'two',
@@ -628,7 +718,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 			'nine',
 			'ten',
 		];
-		$post = $this->factory()->post->create();
+		$post          = $this->factory()->post->create();
 
 		$sut = $this->make_instance();
 		$sut->use_post_fields( $post_fields );
@@ -639,15 +729,19 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$queries_before = $wpdb->num_queries;
 
 		$merged = array_merge( $post_fields, $custom_fields );
-		$found = $sut->find_all_for( array_combine(
-			$merged,
-			array_fill( 0, count( $merged ), 'foo' )
-		) );
+		$found  = $sut->find_all_for(
+			array_combine(
+				$merged,
+				array_fill( 0, count( $merged ), 'foo' )
+			)
+		);
 
 		$queries_after = $wpdb->num_queries;
 
 		$this->assertEquals( 1, $queries_after - $queries_before );
 		$this->assertEmpty( $found );
+
+		wp_delete_post( $post );
 	}
 
 	/**
@@ -655,7 +749,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_make_max_number_of_queries_when_or_operator_on_find_all() {
-		$post_fields = [ 'post_title', 'post_content' ];
+		$post_fields   = [ 'post_title', 'post_content' ];
 		$custom_fields = [
 			'one',
 			'two',
@@ -668,7 +762,7 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 			'nine',
 			'ten',
 		];
-		$post = $this->factory()->post->create();
+		$post          = $this->factory()->post->create();
 		foreach ( $custom_fields as $field ) {
 			if ( 'six' === $field ) {
 				// should find a match on 3rd query
@@ -688,15 +782,19 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$queries_before = $wpdb->num_queries;
 
 		$merged = array_merge( $post_fields, $custom_fields );
-		$found = $sut->find_all_for( array_combine(
-			$merged,
-			array_fill( 0, count( $merged ), 'foo' )
-		) );
+		$found  = $sut->find_all_for(
+			array_combine(
+				$merged,
+				array_fill( 0, count( $merged ), 'foo' )
+			)
+		);
 
 		$queries_after = $wpdb->num_queries;
 
 		$this->assertEquals( 5, $queries_after - $queries_before );
 		$this->assertEquals( [ $post ], $found );
+
+		wp_delete_post( $post );
 	}
 
 	/**
@@ -705,13 +803,26 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function it_should_not_find_trash_or_autodraft_duplicates() {
-		$this->factory()->post->create( [ 'post_title' => 'Title', 'post_status' => 'trash' ] );
-		$this->factory()->post->create( [ 'post_title' => 'Title', 'post_status' => 'autodraft' ] );
+		$post_1 = $this->factory()->post->create(
+			[
+				'post_title'  => 'Title',
+				'post_status' => 'trash',
+			]
+		);
+		$post_2 = $this->factory()->post->create(
+			[
+				'post_title'  => 'Title',
+				'post_status' => 'autodraft',
+			]
+		);
 
 		$sut = $this->make_instance();
 		$sut->use_post_fields( [ 'post_title' ] );
 
 		$this->assertFalse( $sut->find_for( [ 'post_title' => 'Title' ] ) );
+
+		wp_delete_post( $post_1 );
+		wp_delete_post( $post_2 );
 	}
 
 	/**
@@ -722,18 +833,24 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_not_find_filtered_status_duplicates() {
 		add_filter( 'tribe_duplicate_post_excluded_status', [ $this, 'filter_excluded_status' ] );
 
-		$this->factory()->post->create( [
-			'post_title'  => 'Title',
-			'post_status' => 'trash',
-		] );
-		$this->factory()->post->create( [
-			'post_title'  => 'Title',
-			'post_status' => 'autodraft',
-		] );
-		$this->factory()->post->create( [
-			'post_title'  => 'Title',
-			'post_status' => 'publish',
-		] );
+		$post_1 = $this->factory()->post->create(
+			[
+				'post_title'  => 'Title',
+				'post_status' => 'trash',
+			]
+		);
+		$post_2 = $this->factory()->post->create(
+			[
+				'post_title'  => 'Title',
+				'post_status' => 'autodraft',
+			]
+		);
+		$post_3 = $this->factory()->post->create(
+			[
+				'post_title'  => 'Title',
+				'post_status' => 'publish',
+			]
+		);
 
 		$sut = $this->make_instance();
 		$sut->use_post_fields( [ 'post_title' ] );
@@ -741,6 +858,10 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( $sut->find_for( [ 'post_title' => 'Title' ] ) );
 
 		remove_filter( 'tribe_duplicate_post_excluded_status', [ $this, 'filter_excluded_status' ] );
+
+		wp_delete_post( $post_1 );
+		wp_delete_post( $post_2 );
+		wp_delete_post( $post_3 );
 	}
 
 	/**
@@ -751,10 +872,12 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_find_non_filtered_status_duplicates() {
 		add_filter( 'tribe_duplicate_post_excluded_status', '__return_empty_array' );
 
-		$id = $this->factory()->post->create( [
-			'post_title'  => 'Title',
-			'post_status' => 'trash',
-		] );
+		$id = $this->factory()->post->create(
+			[
+				'post_title'  => 'Title',
+				'post_status' => 'trash',
+			]
+		);
 
 		$sut = $this->make_instance();
 		$sut->use_post_fields( [ 'post_title' ] );
@@ -762,6 +885,8 @@ class PostTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $id, $sut->find_for( [ 'post_title' => 'Title' ] ) );
 
 		remove_filter( 'tribe_duplicate_post_excluded_status', '__return_empty_array' );
+
+		wp_delete_post( $id );
 	}
 
 	/**
