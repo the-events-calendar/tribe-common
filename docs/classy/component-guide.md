@@ -5677,9 +5677,8 @@ This section covers procedures for maintaining code quality, enforcing conventio
 **Quick Reference:** For everyday development, use the quick reference sections below.
 
 **Detailed Guides:** For comprehensive procedures, see:
-- **[Linting Recommendations](../../../docs/classy/linting-recommendations.md)** - Complete linting setup with Stylelint, ESLint, pre-commit hooks, and CI/CD integration
-- **[Common Sync Procedures](../../../docs/classy/common-sync-procedures.md)** - Step-by-step procedures for keeping TEC and ET Common synchronized
-- **[Maintenance Guide](../../../docs/classy/maintenance-guide.md)** - Comprehensive guide for updates, deprecation, breaking changes, and version management
+- **[Linting Recommendations](linting-recommendations.md)** - Complete linting setup with Stylelint, ESLint, pre-commit hooks, and CI/CD integration
+- **[Maintenance Guide](maintenance-guide.md)** - Comprehensive guide for updates, deprecation, breaking changes, and version management
 
 ---
 
