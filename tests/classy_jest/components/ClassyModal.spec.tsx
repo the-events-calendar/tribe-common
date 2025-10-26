@@ -7,13 +7,12 @@ import { ClassyModal } from '@tec/common/classy/components';
 
 // Mock the WordPress Modal component
 jest.mock( '@wordpress/components', () => ( {
-	Modal: ( { children, className, onRequestClose, overlayClassName, __experimentalHideHeader } ) => (
+	Modal: ( { children, className, onRequestClose, overlayClassName } ) => (
 		<div
 			data-testid="modal"
 			className={ className }
 			onClick={ onRequestClose }
 			data-overlay-class={ overlayClassName }
-			data-hide-header={ __experimentalHideHeader }
 		>
 			{ children }
 		</div>
@@ -114,13 +113,6 @@ describe( 'ClassyModal Component', () => {
 		const { getByTestId } = render( <ClassyModal { ...defaultProps }>{ null }</ClassyModal> );
 
 		expect( getByTestId( 'modal' ) ).toBeInTheDocument();
-	} );
-
-	it( 'sets __experimentalHideHeader to true', () => {
-		const { getByTestId } = render( <ClassyModal { ...defaultProps } /> );
-
-		const modal = getByTestId( 'modal' );
-		expect( modal ).toHaveAttribute( 'data-hide-header', 'true' );
 	} );
 
 	it( 'handles different type values', () => {

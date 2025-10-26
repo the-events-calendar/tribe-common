@@ -24,6 +24,10 @@
 
 	/* This comes from the WP components computed values. */
 	--classy-line-height: 18.2px;
+
+	/* Phase 8A - New spacing and sizing variables */
+	--classy-icon-size: 24px;
+	--classy-line-height-24: 24px;
 }
 
 .block-editor__container {
@@ -56,7 +60,7 @@
 		align-items: center;
 
 		.dashicons {
-			margin-right: 6px;
+			margin-right: var(--tec-spacer-1);
 		}
 	}
 
@@ -441,9 +445,9 @@
 			line-height: var(--tec-spacer-4);
 
 			.classy-icon {
-				height: 24px;
+				height: var(--classy-icon-size);
 				margin-right: var(--tec-spacer-2);
-				width: 24px;
+				width: var(--classy-icon-size);
 			}
 		}
 
@@ -534,8 +538,8 @@
 
 				.classy-linked-post-card__action {
 					display: inline-block;
-					width: 24px;
-					height: 24px;
+					width: var(--classy-icon-size);
+					height: var(--classy-icon-size);
 				}
 			}
 
@@ -592,7 +596,7 @@
 				.classy-component__popover-title {
 					margin: 0;
 					font-size: var(--tec-font-size-3);
-					line-height: 24px;
+					line-height: var(--classy-line-height-24);
 					font-weight: 600;
 					color: var(--tec-color-gutenberg-grey-900);
 				}
@@ -625,6 +629,10 @@
 			justify-content: flex-start;
 			padding: 0 var(--tec-spacer-3);
 			border-bottom: 1px solid var(--tec-color-gutenberg-grey-300);
+
+			.components-modal__icon-container {
+				margin-right: var(--tec-spacer-2);
+			}
 
 			.classy-modal__header-title{
 				color: var(--tec-color-gutenberg-grey-900);
@@ -744,8 +752,8 @@
 .classy-component__labeled-input{
 	display: flex;
 	flex-direction: column;
-	/* This value is hard-coded as it must follow the gap set for the legend of WP core input components. */
-	gap: 8px;
+	/* This value uses tec-spacer-2 to follow the gap set for the legend of WP core input components. */
+	gap: var(--tec-spacer-2);
 }
 
 .classy-aligned-row {
@@ -757,9 +765,9 @@
 .classy-icon {
 	color: var(--classy-icon-default-color);
 	fill: var(--classy-icon-default-color);
-	height: 24px;
+	height: var(--classy-icon-size);
 	vertical-align: middle;
-	width: 24px;
+	width: var(--classy-icon-size);
 }
 
 .classy-error-color {

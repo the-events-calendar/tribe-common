@@ -1,12 +1,17 @@
 import React from 'react';
 
-const IconCalendar: React.FC = () => (
+interface IconCalendarProps {
+	'aria-hidden'?: boolean | 'true' | 'false';
+}
+
+const IconCalendar: React.FC< IconCalendarProps > = ( { 'aria-hidden': ariaHidden = true } ) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		width="18"
 		height="19"
 		viewBox="0 0 18 19"
 		className="classy-suffix-icon classy-suffix-icon--calendar"
+		aria-hidden={ ariaHidden }
 	>
 		<path
 			fillRule="evenodd"
