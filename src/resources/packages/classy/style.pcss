@@ -1,22 +1,73 @@
 :root {
-	--classy-color-footer: rgba(30, 30, 30, 0.03);
+	/* ================================================
+	   Primary Colors
+	   ================================================ */
+	/* Blue - $blueberry - buttons, accents, UI on states, link text */
+	--classy-blue: #3858E9;
+	/* Dark Blue - $dark-blueberry - navigation hover and focus states */
+	--classy-dark-blue: #1D356E;
+	--classy-accent-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, var(--classy-blue)));
+
+	/* ================================================
+	   Background Colors
+	   ================================================ */
+	/* Blue Background - Transparent Blueberry - background for committed states */
+	--classy-blue-background: rgba(56, 88, 233, 0.04);
+	/* Page Background - page background for Classy editor */
+	--classy-page-background: #F8F8F8;
+	/* Group Background - $gray-900, 3% opacity - background for group interfaces */
+	--classy-group-background: rgba(30, 30, 30, 0.03);
+	--classy-color-footer: var(--classy-group-background);
+
+	/* ================================================
+	   Grayscale Colors
+	   ================================================ */
+	/* Black - $gray-900 - text color, use of black */
+	--classy-black: #1E1E1E;
+	--classy-icon-default-color: var(--classy-black);
+	/* Dark Gray - $gray-700 - secondary text color, lightest color for text */
+	--classy-dark-gray: #757575;
+	/* Medium Gray - $gray-600 - input borders, icons paired with text */
+	--classy-medium-gray: #949494;
+	/* Light Gray - $gray-400 - borders for empty states and disabled state */
+	--classy-light-gray: #CCCCCC;
+	/* Border Gray - $gray-300 - border for Classy input groups */
+	--classy-border-gray: #DDDDDD;
+
+	/* ================================================
+	   Alert Colors
+	   ================================================ */
+	/* Alert Green - $alert-green - success and active states */
+	--classy-alert-green: #4AB856;
+	/* Alert Red - $alert-red - alert and error states */
+	--classy-alert-red: #CC1818;
+
+	/* ================================================
+	   Other Color Variables
+	   ================================================ */
 	--classy-color-highlight: rgb(
 		/* 50% ligter than the primary color */
 		from var(--tec-color-accent-primary) r g b / 0.5
 	);
 	--classy-color-required-asterisk: var(--tec-color-icon-error);
-	--classy-font-size-13: calc(var(--tec-font-size-1) + 1px);
-	--classy-font-size-15: calc(var(--tec-font-size-2) + 1px);
-	--classy-font-size-16: var(--tec-font-size-3);
-	--classy-input-padding-top-bottom: var(--tec-spacer-2);
-	--classy-input-padding-left-right: var(--tec-spacer-3);
-	--classy-input-width: 375px;
 	/* 50% ligter than the primary color */
 	--classy-highlight-color: rgb(
 		from var(--tec-color-accent-primary) r g b / 0.5
 	);
-	--classy-accent-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
-	--classy-icon-default-color: #1E1E1E;
+
+	/* ================================================
+	   Font Size Variables
+	   ================================================ */
+	--classy-font-size-13: calc(var(--tec-font-size-1) + 1px);
+	--classy-font-size-15: calc(var(--tec-font-size-2) + 1px);
+	--classy-font-size-16: var(--tec-font-size-3);
+
+	/* ================================================
+	   Spacing and Sizing Variables
+	   ================================================ */
+	--classy-input-padding-top-bottom: var(--tec-spacer-2);
+	--classy-input-padding-left-right: var(--tec-spacer-3);
+	--classy-input-width: 375px;
 	--classy-padding-vertical: var(--tec-spacer-7);
 	--classy-padding-horizontal: var(--tec-spacer-6);
 	--classy-height-100: 32px;
