@@ -64,7 +64,7 @@ type ClassyModalProps = {
  */
 export default function ClassyModal( props: ClassyModalProps ): React.JSX.Element {
 	const { onClose, children, type, title, icon } = props;
-	const className = props.className || `classy-modal__${ type }`;
+	const className = props.className || `classy-modal--${ type }`;
 	const overlayClassName = props.overlayClassName || `classy-modal__overlay--${ type }`;
 
 	return (
