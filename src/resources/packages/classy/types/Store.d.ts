@@ -55,6 +55,7 @@ export type CoreEditorSelect = {
 	getEditedPostContent: () => string;
 	isSavingPost: () => boolean;
 	isAutosavingPost: () => boolean;
+	__unstableIsEditorReady: () => boolean;
 };
 
 /**
@@ -70,4 +71,15 @@ export type CoreEditorDispatch = {
 	lockPostSaving: ( lockName: string ) => void;
 	unlockPostSaving: ( lockName: string ) => void;
 	savePost: ( attributes?: Record< string, any > ) => void;
+};
+
+/**
+ * This type defines selectors for the core/edit-post store that we use in our application.
+ *
+ * Note that these selectors are not part of the Classy package, but are used in conjunction with it.
+ *
+ * @since TBD
+ */
+export type CoreEditPostSelect = {
+	isEditorSidebarOpened: () => boolean;
 };
