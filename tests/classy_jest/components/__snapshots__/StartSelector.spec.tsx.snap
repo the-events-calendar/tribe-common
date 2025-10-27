@@ -190,6 +190,7 @@ exports[`StartSelector Component all day events renders with time picker when is
               style="cursor: pointer;"
             >
               <svg
+                aria-hidden="true"
                 class="classy-suffix-icon classy-suffix-icon--calendar"
                 height="19"
                 viewBox="0 0 18 19"
@@ -406,6 +407,7 @@ exports[`StartSelector Component all day events renders without time picker when
               style="cursor: pointer;"
             >
               <svg
+                aria-hidden="true"
                 class="classy-suffix-icon classy-suffix-icon--calendar"
                 height="19"
                 viewBox="0 0 18 19"
@@ -622,6 +624,7 @@ exports[`StartSelector Component date selection does not show DatePicker popover
               style="cursor: pointer;"
             >
               <svg
+                aria-hidden="true"
                 class="classy-suffix-icon classy-suffix-icon--calendar"
                 height="19"
                 viewBox="0 0 18 19"
@@ -838,6 +841,7 @@ exports[`StartSelector Component date selection does not show DatePicker popover
               style="cursor: pointer;"
             >
               <svg
+                aria-hidden="true"
                 class="classy-suffix-icon classy-suffix-icon--calendar"
                 height="19"
                 viewBox="0 0 18 19"
@@ -1054,6 +1058,7 @@ exports[`StartSelector Component date selection shows DatePicker popover when is
               style="cursor: pointer;"
             >
               <svg
+                aria-hidden="true"
                 class="classy-suffix-icon classy-suffix-icon--calendar"
                 height="19"
                 viewBox="0 0 18 19"
@@ -1271,6 +1276,7 @@ exports[`StartSelector Component renders correctly with default props 1`] = `
               style="cursor: pointer;"
             >
               <svg
+                aria-hidden="true"
                 class="classy-suffix-icon classy-suffix-icon--calendar"
                 height="19"
                 viewBox="0 0 18 19"
@@ -1487,6 +1493,7 @@ exports[`StartSelector Component time interval from store uses time interval fro
               style="cursor: pointer;"
             >
               <svg
+                aria-hidden="true"
                 class="classy-suffix-icon classy-suffix-icon--calendar"
                 height="19"
                 viewBox="0 0 18 19"
@@ -1703,6 +1710,7 @@ exports[`StartSelector Component time selection highlights time when highlightTi
               style="cursor: pointer;"
             >
               <svg
+                aria-hidden="true"
                 class="classy-suffix-icon classy-suffix-icon--calendar"
                 height="19"
                 viewBox="0 0 18 19"

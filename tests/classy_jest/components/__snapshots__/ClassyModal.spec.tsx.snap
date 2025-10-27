@@ -3,7 +3,6 @@
 exports[`ClassyModal Component matches snapshot with complex children 1`] = `
 <div
   class="classy-modal classy-modal__test-modal"
-  data-hide-header="true"
   data-overlay-class="classy-modal__overlay classy-modal__overlay--test-modal"
   data-testid="modal"
 >
@@ -38,7 +37,6 @@ exports[`ClassyModal Component matches snapshot with complex children 1`] = `
 exports[`ClassyModal Component matches snapshot with custom className 1`] = `
 <div
   class="classy-modal custom-class"
-  data-hide-header="true"
   data-overlay-class="classy-modal__overlay classy-modal__overlay--test-modal"
   data-testid="modal"
 >
@@ -51,7 +49,6 @@ exports[`ClassyModal Component matches snapshot with custom className 1`] = `
 exports[`ClassyModal Component matches snapshot with custom overlay className 1`] = `
 <div
   class="classy-modal classy-modal__test-modal"
-  data-hide-header="true"
   data-overlay-class="classy-modal__overlay custom-overlay"
   data-testid="modal"
 >
@@ -64,7 +61,6 @@ exports[`ClassyModal Component matches snapshot with custom overlay className 1`
 exports[`ClassyModal Component matches snapshot with default props 1`] = `
 <div
   class="classy-modal classy-modal__test-modal"
-  data-hide-header="true"
   data-overlay-class="classy-modal__overlay classy-modal__overlay--test-modal"
   data-testid="modal"
 >
