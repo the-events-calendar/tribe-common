@@ -112,13 +112,6 @@
 	);
 
 	/* ================================================
-	   Font Size Variables
-	   ================================================ */
-	--classy-font-size-13: calc(var(--tec-font-size-1) + 1px);
-	--classy-font-size-15: calc(var(--tec-font-size-2) + 1px);
-	--classy-font-size-16: var(--tec-font-size-3);
-
-	/* ================================================
 	   Spacing and Sizing Variables
 	   ================================================ */
 	--classy-input-padding-top-bottom: var(--tec-spacer-2);
@@ -347,8 +340,7 @@
 	}
 
 	.classy-field__input-title {
-		font-size: var(--classy-font-size-15);
-		font-weight: var(--tec-font-weight-regular);
+		@mixin text-labels;
 		text-transform: none;
 	}
 
@@ -366,8 +358,7 @@
 		}
 
 		h4, span {
-			font-size: var(--classy-font-size-15);
-			font-weight: var(--tec-font-weight-regular);
+			@mixin text-labels;
 		}
 	}
 
@@ -429,21 +420,17 @@
 		}
 
 		.classy-field__input-note {
-			color: var(--tec-color-gutenberg-grey-600);
-			font-size: var(--classy-font-size-13);
-			font-weight: var(--tec-font-weight-regular);
+			@mixin text-description;
 
 			&.classy-field__input-note--error {
 				color: var(--tec-color-gutenberg-alert-red);
-				font-weight: var(--tec-font-weight-regular);
 			}
 		}
 	}
 
 	.classy-field__separator {
 		&.classy-field__separator--dates {
-			font-size: var(--classy-font-size-13);
-			font-weight: var(--tec-font-weight-regular);
+			@mixin text-labels;
 			line-height: calc(2 * var(--classy-line-height));
 		}
 	}
@@ -482,7 +469,7 @@
 	}
 
 	.classy-field__control {
-		font-size: var(--classy-font-size-15);
+		@mixin text-inputs;
 
 		.components-input-control__label {
 			font-size: var(--tec-font-size-2);
@@ -497,7 +484,7 @@
 		&.classy-field__control--input,
 		&.classy-field__control--text {
 			input.components-input-control__input {
-				font-size: var(--classy-font-size-15);
+				@mixin text-inputs;
 			}
 
 			.components-input-control__suffix:has(
@@ -525,7 +512,7 @@
 					}
 
 					.components-combobox-control__input {
-						font-size: var(--classy-font-size-15);
+						@mixin text-inputs;
 						padding: 0;
 						background-color: transparent;
 					}
@@ -537,20 +524,12 @@
 						border: 1px solid var(--tec-color-gutenberg-grey-600);
 
 						.components-form-token-field__suggestion {
-							font-size: var(--classy-font-size-15);
+							@mixin text-inputs;
 							max-width: 100%;
 						}
 					}
 				}
 			}
-		}
-
-		&.classy-field__control--rich-text {
-			border-radius: 2px;
-			border: 1px solid var(--tec-color-gutenberg-grey-600);
-			padding: var(--tec-spacer-2) var(--tec-spacer-3);
-			font-size: var(--classy-font-size-15);
-			margin: 0;
 		}
 
 		&.classy-field__control--featured-image {
@@ -608,7 +587,7 @@
 		}
 
 		&.classy-field__control--timezone {
-			font-size: var(--classy-font-size-13);
+			@mixin text-description;
 
 			.classy-field__timezone-label {
 				font-weight: var(--tec-font-weight-regular);
@@ -618,7 +597,7 @@
 
 		&.classy-field__control--select {
 			.components-select-control__input {
-				font-size: var(--classy-font-size-15);
+				@mixin text-inputs;
 			}
 
 			button[role="combobox"] {
@@ -664,7 +643,7 @@
 		.classy-field__control {
 			&.classy-field__control--input {
 				input.components-input-control__input {
-					font-size: var(--classy-font-size-16);
+					@mixin text-inputs;
 					height: 100%;
 					padding: var(--tec-spacer-2) var(--tec-spacer-3);
 				}
@@ -701,11 +680,11 @@
 			}
 
 			.classy-linked-post-card__detail {
-				font-size: var(--classy-font-size-15);
+				@mixin text-labels;
 				overflow-wrap: anywhere;
 
 				& button.is-link {
-					font-size: var(--classy-font-size-15);
+					@mixin text-labels;
 				}
 
 				&.classy-linked-post-card__detail--labeled {
@@ -896,8 +875,7 @@
 
 .components-button {
 	&.classy-button {
-		font-size: var(--classy-font-size-15);
-		font-weight: var(--tec-font-weight-regular);
+		@mixin text-labels;
 		height: var(--tec-spacer-9);
 		padding: var(--tec-spacer-2) var(--tec-spacer-3);
 
@@ -921,7 +899,7 @@
 	}
 
 	&.classy-cta{
-		font-size: var(--classy-font-size-15);
+		@mixin text-labels;
 	}
 }
 
