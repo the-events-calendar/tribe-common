@@ -54,6 +54,51 @@
 	--classy-button-hover-bg: #f0f0f0;
 
 	/* ================================================
+	   Typography Variables
+	   ================================================ */
+	/* Group Heading */
+	--classy-text-group-heading-font-size: 20px;
+	--classy-text-group-heading-font-weight: 400;
+	--classy-text-group-heading-line-height: 28px;
+	--classy-text-group-heading-color: var(--classy-black);
+
+	/* Inputs */
+	--classy-text-inputs-font-size: 16px;
+	--classy-text-inputs-font-weight: 400;
+	--classy-text-inputs-line-height: 140%;
+	--classy-text-inputs-color: var(--classy-black);
+
+	/* Body Text */
+	--classy-text-body-text-font-size: 15px;
+	--classy-text-body-text-font-weight: 400;
+	--classy-text-body-text-line-height: 150%;
+	--classy-text-body-text-color: var(--classy-black);
+
+	/* Labels */
+	--classy-text-labels-font-size: 15px;
+	--classy-text-labels-font-weight: 400;
+	--classy-text-labels-line-height: 130%;
+	--classy-text-labels-color: var(--classy-black);
+
+	/* Small Label */
+	--classy-text-small-label-font-size: 14px;
+	--classy-text-small-label-font-weight: 400;
+	--classy-text-small-label-line-height: 20px;
+	--classy-text-small-label-color: var(--classy-black);
+
+	/* Text Link */
+	--classy-text-text-link-font-size: 14px;
+	--classy-text-text-link-font-weight: 600;
+	--classy-text-text-link-line-height: 20px;
+	--classy-text-text-link-color: var(--classy-black);
+
+	/* Description */
+	--classy-text-description-font-size: 13px;
+	--classy-text-description-font-weight: 400;
+	--classy-text-description-line-height: 140%;
+	--classy-text-description-color: var(--classy-dark-gray);
+
+	/* ================================================
 	   Other Color Variables
 	   ================================================ */
 	--classy-color-highlight: rgb(
@@ -90,6 +135,89 @@
 	/* Phase 8A - New spacing and sizing variables */
 	--classy-icon-size: 24px;
 	--classy-line-height-24: 24px;
+}
+
+/* ================================================
+   Typography Mixins
+   ================================================ */
+@define-mixin text-group-heading {
+	color: var(--classy-text-group-heading-color);
+	font-size: var(--classy-text-group-heading-font-size);
+	font-weight: var(--classy-text-group-heading-font-weight);
+	line-height: var(--classy-text-group-heading-line-height);
+}
+
+@define-mixin text-inputs {
+	color: var(--classy-text-inputs-color);
+	font-size: var(--classy-text-inputs-font-size);
+	font-weight: var(--classy-text-inputs-font-weight);
+	line-height: var(--classy-text-inputs-line-height);
+}
+
+@define-mixin text-body-text {
+	color: var(--classy-text-body-text-color);
+	font-size: var(--classy-text-body-text-font-size);
+	font-weight: var(--classy-text-body-text-font-weight);
+	line-height: var(--classy-text-body-text-line-height);
+}
+
+@define-mixin text-labels {
+	color: var(--classy-text-labels-color);
+	font-size: var(--classy-text-labels-font-size);
+	font-weight: var(--classy-text-labels-font-weight);
+	line-height: var(--classy-text-labels-line-height);
+}
+
+@define-mixin text-small-label {
+	color: var(--classy-text-small-label-color);
+	font-size: var(--classy-text-small-label-font-size);
+	font-weight: var(--classy-text-small-label-font-weight);
+	line-height: var(--classy-text-small-label-line-height);
+}
+
+@define-mixin text-text-link {
+	color: var(--classy-text-text-link-color);
+	font-size: var(--classy-text-text-link-font-size);
+	font-weight: var(--classy-text-text-link-font-weight);
+	line-height: var(--classy-text-text-link-line-height);
+}
+
+@define-mixin text-description {
+	color: var(--classy-text-description-color);
+	font-size: var(--classy-text-description-font-size);
+	font-weight: var(--classy-text-description-font-weight);
+	line-height: var(--classy-text-description-line-height);
+}
+
+/* ================================================
+   Typography Presentational Classes
+   ================================================ */
+.classy-text-group-heading {
+	@mixin text-group-heading;
+}
+
+.classy-text-inputs {
+	@mixin text-inputs;
+}
+
+.classy-text-body-text {
+	@mixin text-body-text;
+}
+
+.classy-text-labels {
+	@mixin text-labels;
+}
+
+.classy-text-small-label {
+	@mixin text-small-label;
+}
+
+.classy-text-text-link {
+	@mixin text-text-link;
+}
+
+.classy-text-description {
+	@mixin text-description;
 }
 
 .block-editor__container {
