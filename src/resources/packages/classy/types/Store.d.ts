@@ -66,4 +66,8 @@ export type CoreEditorSelect = {
  */
 export type CoreEditorDispatch = {
 	editPost: ( attributes: Record< string, any > ) => void;
+	trashPost: () => void;
+	lockPostSaving: ( lockName: string ) => void;
+	unlockPostSaving: ( lockName: string ) => void;
+	savePost: ( attributes?: Record< string, any > ) => void;
 };
