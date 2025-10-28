@@ -1,0 +1,4 @@
+Significance: patch
+Type: security
+
+Strengthen key validation in system information opt-in functionality. [SVUL-27]
