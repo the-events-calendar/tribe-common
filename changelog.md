@@ -1,5 +1,10 @@
 # Changelog
 
+### [6.9.9] 2025-10-28
+
+* Tweak - Update incorrect knowledgebase link on the Zapier Endpoint Dashboard in Tickets Settings. [ETP-1118]
+* Security - Strengthen key validation in system information opt-in functionality. [SVUL-27]
+
 ### [6.9.8] 2025-10-21
 
 * Feature - Modified the conditional content to use a more modular approach to applying display logic. Created "Inline" version to avoid duplication of logic . [TEC-5707]
