@@ -8,11 +8,11 @@
  * See more documentation about our views templating system.
  *
  * @since 1.4.0
- * @since TBD Updated Zapier Knowledgebase URL.
+ * @since 5.26.7 Updated Zapier Knowledgebase URL.
  *
- * @version TBD
+ * @version 5.26.7
  *
- * @link    http://evnt.is/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @var array<string,array> $endpoints An array of intergration endpoints.
  * @var Endpoints_Manager   $manager   The Endpoint Manager instance.
