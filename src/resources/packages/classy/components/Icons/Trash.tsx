@@ -1,13 +1,16 @@
 import * as React from 'react';
+import { IconWithAriaProps } from '../../types/ElementProps';
 
-export default function ( {
-	className = '',
-	'aria-hidden': ariaHidden = true,
-}: {
-	className?: string;
-	'aria-hidden'?: boolean | 'true' | 'false';
-} ) {
-	const fullClassName = 'classy-icon classy-icon--trash' + ( className ? ` ${ className }` : '' );
+/**
+ * Renders a "Trash" icon.
+ *
+ * @since TBD
+ *
+ * @param {IconWithAriaProps} props The component props.
+ * @return {JSX.Element} The rendered "Trash" icon.
+ */
+export default function ( { className = '', 'aria-hidden': ariaHidden = true }: IconWithAriaProps ): JSX.Element {
+	const fullClassName = `classy-icon classy-icon--trash${ className ? ` ${ className }` : '' }`;
 
 	return (
 		<span className={ fullClassName } aria-hidden={ ariaHidden }>
