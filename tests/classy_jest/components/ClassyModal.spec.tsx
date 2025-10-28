@@ -42,7 +42,7 @@ describe( 'ClassyModal Component', () => {
 
 		const modal = getByTestId( 'modal' );
 		expect( modal ).toHaveClass( 'classy-modal' );
-		expect( modal ).toHaveClass( 'classy-modal__test-modal' );
+		expect( modal ).toHaveClass( 'classy-modal--test-modal' );
 	} );
 
 	it( 'applies custom className when provided', () => {
@@ -51,7 +51,7 @@ describe( 'ClassyModal Component', () => {
 		const modal = getByTestId( 'modal' );
 		expect( modal ).toHaveClass( 'classy-modal' );
 		expect( modal ).toHaveClass( 'custom-modal-class' );
-		expect( modal ).not.toHaveClass( 'classy-modal__test-modal' );
+		expect( modal ).not.toHaveClass( 'classy-modal--test-modal' );
 	} );
 
 	it( 'applies correct overlay className based on type', () => {
@@ -119,7 +119,7 @@ describe( 'ClassyModal Component', () => {
 		const { getByTestId } = render( <ClassyModal { ...defaultProps } type="confirmation-dialog" /> );
 
 		const modal = getByTestId( 'modal' );
-		expect( modal ).toHaveClass( 'classy-modal__confirmation-dialog' );
+		expect( modal ).toHaveClass( 'classy-modal--confirmation-dialog' );
 		expect( modal ).toHaveAttribute(
 			'data-overlay-class',
 			'classy-modal__overlay classy-modal__overlay--confirmation-dialog'
@@ -130,7 +130,7 @@ describe( 'ClassyModal Component', () => {
 		const { getByTestId } = render( <ClassyModal { ...defaultProps } type="modal-with-special_chars.123" /> );
 
 		const modal = getByTestId( 'modal' );
-		expect( modal ).toHaveClass( 'classy-modal__modal-with-special_chars.123' );
+		expect( modal ).toHaveClass( 'classy-modal--modal-with-special_chars.123' );
 		expect( modal ).toHaveAttribute(
 			'data-overlay-class',
 			'classy-modal__overlay classy-modal__overlay--modal-with-special_chars.123'
@@ -141,7 +141,7 @@ describe( 'ClassyModal Component', () => {
 		const { getByTestId } = render( <ClassyModal { ...defaultProps } type="" /> );
 
 		const modal = getByTestId( 'modal' );
-		expect( modal ).toHaveClass( 'classy-modal__' );
+		expect( modal ).toHaveClass( 'classy-modal' );
 		expect( modal ).toHaveAttribute( 'data-overlay-class', 'classy-modal__overlay classy-modal__overlay--' );
 	} );
 
