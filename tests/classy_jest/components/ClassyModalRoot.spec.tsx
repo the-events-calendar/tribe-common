@@ -59,7 +59,7 @@ describe( 'ClassyModalRoot Component', () => {
 		const { getByRole } = render( <ClassyModalRoot { ...defaultProps } type="" /> );
 
 		const header = getByRole( 'banner' );
-		expect( header ).toHaveClass( 'classy-modal__header--' );
+		expect( header ).toHaveClass( 'classy-modal__header' );
 	} );
 
 	it( 'renders header icon when provided', () => {
@@ -144,8 +144,7 @@ describe( 'ClassyModalRoot Component', () => {
 	it( 'handles empty title', () => {
 		const { container } = render( <ClassyModalRoot { ...defaultProps } title="" /> );
 
-		expect( container.querySelector( '.classy-modal__header-title' ) ).toBeInTheDocument();
-		expect( container.querySelector( '.classy-modal__header-title' )?.textContent ).toBe( '' );
+		expect( container.querySelector( '.classy-modal__header-title' ) ).not.toBeInTheDocument();
 	} );
 
 	it( 'handles title with special characters', () => {

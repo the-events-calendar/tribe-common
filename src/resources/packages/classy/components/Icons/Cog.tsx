@@ -1,7 +1,16 @@
 import * as React from 'react';
+import { IconProps } from '../../types/ElementProps';
 
-export default function ( { className = '' }: { className?: string } ) {
-	const fullClassName = 'classy-icon classy-icon--cog' + ( className ? ` ${ className }` : '' );
+/**
+ * Renders a "Cog" icon.
+ *
+ * @since TBD
+ *
+ * @param {IconProps} props The component props.
+ * @return {JSX.Element} The rendered "Cog" icon.
+ */
+export default function ( { className = '' }: IconProps ): JSX.Element {
+	const fullClassName = `classy-icon classy-icon--cog${ className ? ` ${ className }` : '' }`;
 
 	return (
 		<span className={ fullClassName }>
