@@ -56,6 +56,7 @@ export type CoreEditorSelect = {
 	isSavingPost: () => boolean;
 	isAutosavingPost: () => boolean;
 	__unstableIsEditorReady: () => boolean;
+	didPostSaveRequestSucceed: () => boolean;
 };
 
 /**
