@@ -9,7 +9,7 @@ import { IconWithAriaProps } from '../../types/ElementProps';
  * @param {IconWithAriaProps} props The component props.
  * @return {JSX.Element} The rendered "Add" icon.
  */
-export default function ( { className = '', 'aria-hidden': ariaHidden = true, }: IconWithAriaProps ): JSX.Element {
+export default function ( { className = '', 'aria-hidden': ariaHidden = true }: IconWithAriaProps ): JSX.Element {
 	const fullClassName = `classy-icon classy-icon--add${ className ? ` ${ className }` : '' }`;
 
 	return (
