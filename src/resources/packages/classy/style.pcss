@@ -493,43 +493,6 @@
 				align-self: center;
 			}
 
-			&.classy-field__control--time-picker {
-				min-width: 95px;
-				max-width: 120px;
-
-				input.components-combobox-control__input[type="text"] {
-					min-width: 95px;
-					max-width: 120px;
-				}
-
-				.components-combobox-control__suggestions-container {
-					position: relative;
-
-					.components-flex {
-						height: 40px;
-						padding-left: var(--tec-spacer-2);
-						padding-right: var(--tec-spacer-2);
-					}
-
-					.components-combobox-control__input {
-						@mixin text-inputs;
-						padding: 0;
-						background-color: transparent;
-					}
-
-					.components-form-token-field__suggestions-list {
-						position: absolute;
-						top: 40px;
-						background-color: var(--tec-color-gutenberg-white);
-						border: 1px solid var(--tec-color-gutenberg-grey-600);
-
-						.components-form-token-field__suggestion {
-							@mixin text-inputs;
-							max-width: 100%;
-						}
-					}
-				}
-			}
 		}
 
 		&.classy-field__control--featured-image {
@@ -600,6 +563,7 @@
 				@mixin text-inputs;
 			}
 
+			/* Select controls use combobox role for accessibility */
 			button[role="combobox"] {
 				font-size: var(--tec-font-size-3);
 			}
@@ -620,10 +584,6 @@
 			}
 		}
 
-		/* Required to make sure the element containing selection suggestions will not render under components following it in the DOM. */
-		.components-form-token-field__suggestions-list {
-			z-index: 100;
-		}
 	}
 
 	.classy-field__event-cost {
@@ -733,12 +693,6 @@
 	.classy-highlight {
 		animation: highlightBg 1s linear;
 		animation-iteration-count: 1;
-	}
-
-
-	/* The FormToken component will have a transparent background by default. */
-	.components-form-token-field__input-container {
-		background-color: var(--tec-color-background);
 	}
 }
 
@@ -965,4 +919,114 @@
 
 .classy-full-width {
 	width: 100%;
+}
+
+/* ================================================
+   WordPress ComboboxControl Component Styles
+   ================================================
+
+   Global styles for WordPress @wordpress/components ComboboxControl
+   used throughout Classy features. These styles ensure consistent
+   appearance and behavior across all plugins (TEC, ECP, ET, ETP).
+   ================================================ */
+.components-combobox-control {
+	width: var(--classy-input-width);
+	row-gap: var(--tec-spacer-2);
+
+	.components-base-control__field {
+		.components-combobox-control__suggestions-container {
+			@mixin text-inputs;
+			min-height: 48px;
+			border: 1px solid var(--classy-medium-gray);
+			border-radius: var(--tec-border-radius-default);
+			background: white;
+			padding: var(--classy-input-padding-top-bottom) var(--classy-input-padding-left-right);
+
+			.components-flex {
+				padding: 0;
+				min-height: initial;
+
+				.components-flex-block {
+					.components-combobox-control__input {
+						@mixin text-inputs;
+						padding: 0;
+						margin: 0;
+						border: none;
+						box-shadow: none;
+
+						&:focus {
+							box-shadow: none;
+						}
+					}
+				}
+
+				.components-button {
+					&.has-icon {
+						color: var(--classy-black);
+						min-width: auto;
+						padding: 0;
+					}
+				}
+			}
+		}
+	}
+}
+
+/* ================================================
+   Form Token Field Components (used by Combobox)
+   ================================================ */
+/* The FormToken input container background */
+.components-form-token-field__input-container {
+	background-color: var(--tec-color-background);
+}
+
+/* Suggestions list z-index to prevent rendering issues */
+.components-form-token-field__suggestions-list {
+	z-index: 100;
+}
+
+/* Suggestion items styling for combobox dropdowns */
+.components-form-token-field__suggestion {
+	@mixin text-inputs;
+}
+
+/* ================================================
+   Time Picker Specific Combobox Overrides
+   ================================================ */
+.classy-field__control--time-picker {
+	min-width: 95px;
+	max-width: 120px;
+
+	input.components-combobox-control__input[type="text"] {
+		min-width: 95px;
+		max-width: 120px;
+	}
+
+	.components-combobox-control__suggestions-container {
+		position: relative;
+
+		.components-flex {
+			height: 40px;
+			padding-left: var(--tec-spacer-2);
+			padding-right: var(--tec-spacer-2);
+		}
+
+		.components-combobox-control__input {
+			@mixin text-inputs;
+			padding: 0;
+			background-color: transparent;
+		}
+
+		.components-form-token-field__suggestions-list {
+			position: absolute;
+			top: 40px;
+			background-color: var(--tec-color-gutenberg-white);
+			border: 1px solid var(--tec-color-gutenberg-grey-600);
+
+			.components-form-token-field__suggestion {
+				@mixin text-inputs;
+				max-width: 100%;
+			}
+		}
+	}
 }
