@@ -1,0 +1,293 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CenteredSpinner does not add extra space when className is undefined 1`] = `
+@keyframes animation-0 {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.emotion-0 {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin: 5px 11px 0;
+  position: relative;
+  color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  overflow: visible;
+  opacity: 1;
+  background-color: transparent;
+}
+
+.emotion-2 {
+  fill: transparent;
+  stroke-width: 1.5px;
+  stroke: #ddd;
+}
+
+.emotion-4 {
+  fill: transparent;
+  stroke-width: 1.5px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  transform-origin: 50% 50%;
+  -webkit-animation: 1.4s linear infinite both animation-0;
+  animation: 1.4s linear infinite both animation-0;
+}
+
+<div
+  class="classy-component__spinner"
+>
+  <svg
+    class="components-spinner emotion-0 emotion-1"
+    focusable="false"
+    height="16"
+    role="presentation"
+    viewBox="0 0 100 100"
+    width="16"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      class="emotion-2 emotion-3"
+      cx="50"
+      cy="50"
+      r="50"
+      vector-effect="non-scaling-stroke"
+    />
+    <path
+      class="emotion-4 emotion-5"
+      d="m 50 0 a 50 50 0 0 1 50 50"
+      vector-effect="non-scaling-stroke"
+    />
+  </svg>
+</div>
+`;
+
+exports[`CenteredSpinner handles empty string className correctly 1`] = `
+@keyframes animation-0 {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.emotion-0 {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin: 5px 11px 0;
+  position: relative;
+  color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  overflow: visible;
+  opacity: 1;
+  background-color: transparent;
+}
+
+.emotion-2 {
+  fill: transparent;
+  stroke-width: 1.5px;
+  stroke: #ddd;
+}
+
+.emotion-4 {
+  fill: transparent;
+  stroke-width: 1.5px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  transform-origin: 50% 50%;
+  -webkit-animation: 1.4s linear infinite both animation-0;
+  animation: 1.4s linear infinite both animation-0;
+}
+
+<div
+  class="classy-component__spinner"
+>
+  <svg
+    class="components-spinner emotion-0 emotion-1"
+    focusable="false"
+    height="16"
+    role="presentation"
+    viewBox="0 0 100 100"
+    width="16"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      class="emotion-2 emotion-3"
+      cx="50"
+      cy="50"
+      r="50"
+      vector-effect="non-scaling-stroke"
+    />
+    <path
+      class="emotion-4 emotion-5"
+      d="m 50 0 a 50 50 0 0 1 50 50"
+      vector-effect="non-scaling-stroke"
+    />
+  </svg>
+</div>
+`;
+
+exports[`CenteredSpinner renders with additional class name when provided 1`] = `
+@keyframes animation-0 {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.emotion-0 {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin: 5px 11px 0;
+  position: relative;
+  color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  overflow: visible;
+  opacity: 1;
+  background-color: transparent;
+}
+
+.emotion-2 {
+  fill: transparent;
+  stroke-width: 1.5px;
+  stroke: #ddd;
+}
+
+.emotion-4 {
+  fill: transparent;
+  stroke-width: 1.5px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  transform-origin: 50% 50%;
+  -webkit-animation: 1.4s linear infinite both animation-0;
+  animation: 1.4s linear infinite both animation-0;
+}
+
+<div
+  class="classy-component__spinner custom-spinner"
+>
+  <svg
+    class="components-spinner emotion-0 emotion-1"
+    focusable="false"
+    height="16"
+    role="presentation"
+    viewBox="0 0 100 100"
+    width="16"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      class="emotion-2 emotion-3"
+      cx="50"
+      cy="50"
+      r="50"
+      vector-effect="non-scaling-stroke"
+    />
+    <path
+      class="emotion-4 emotion-5"
+      d="m 50 0 a 50 50 0 0 1 50 50"
+      vector-effect="non-scaling-stroke"
+    />
+  </svg>
+</div>
+`;
+
+exports[`CenteredSpinner renders with default class name 1`] = `
+@keyframes animation-0 {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.emotion-0 {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin: 5px 11px 0;
+  position: relative;
+  color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  overflow: visible;
+  opacity: 1;
+  background-color: transparent;
+}
+
+.emotion-2 {
+  fill: transparent;
+  stroke-width: 1.5px;
+  stroke: #ddd;
+}
+
+.emotion-4 {
+  fill: transparent;
+  stroke-width: 1.5px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  transform-origin: 50% 50%;
+  -webkit-animation: 1.4s linear infinite both animation-0;
+  animation: 1.4s linear infinite both animation-0;
+}
+
+<div
+  class="classy-component__spinner"
+>
+  <svg
+    class="components-spinner emotion-0 emotion-1"
+    focusable="false"
+    height="16"
+    role="presentation"
+    viewBox="0 0 100 100"
+    width="16"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      class="emotion-2 emotion-3"
+      cx="50"
+      cy="50"
+      r="50"
+      vector-effect="non-scaling-stroke"
+    />
+    <path
+      class="emotion-4 emotion-5"
+      d="m 50 0 a 50 50 0 0 1 50 50"
+      vector-effect="non-scaling-stroke"
+    />
+  </svg>
+</div>
+`;

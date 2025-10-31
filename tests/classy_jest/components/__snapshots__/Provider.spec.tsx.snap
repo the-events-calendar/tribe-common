@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProviderComponent ProviderComponent matches snapshot 1`] = `
+<div
+  class="test-child"
+>
+  Snapshot Test Content
+</div>
+`;

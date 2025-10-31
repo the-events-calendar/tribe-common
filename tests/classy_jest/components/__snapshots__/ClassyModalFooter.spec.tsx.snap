@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClassyModalFooter Component matches snapshot with complex children 1`] = `
+<div
+  class="classy-modal__footer classy-modal__footer--test-footer"
+>
+  <div
+    class="footer-content"
+  >
+    <header>
+      <h3>
+        Complex Footer
+      </h3>
+    </header>
+    <main>
+      <p>
+        This is a complex footer with multiple elements.
+      </p>
+      <form>
+        <input
+          placeholder="Enter text"
+          type="text"
+        />
+        <button
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </main>
+  </div>
+</div>
+`;
+
+exports[`ClassyModalFooter Component matches snapshot with custom className 1`] = `
+<div
+  class="classy-modal__footer custom-footer-class"
+>
+  <div>
+    Footer Content
+  </div>
+</div>
+`;
+
+exports[`ClassyModalFooter Component matches snapshot with default props 1`] = `
+<div
+  class="classy-modal__footer classy-modal__footer--test-footer"
+>
+  <div>
+    Footer Content
+  </div>
+</div>
+`;
+
+exports[`ClassyModalFooter Component matches snapshot with different type 1`] = `
+<div
+  class="classy-modal__footer classy-modal__footer--confirmation-footer"
+>
+  <div>
+    Footer Content
+  </div>
+</div>
+`;
+
+exports[`ClassyModalFooter Component matches snapshot with mixed children 1`] = `
+<div
+  class="classy-modal__footer classy-modal__footer--test-footer"
+>
+  <div>
+    Valid Child
+  </div>
+  <span>
+    Another Valid Child
+  </span>
+</div>
+`;
+
+exports[`ClassyModalFooter Component matches snapshot with special characters in type 1`] = `
+<div
+  class="classy-modal__footer classy-modal__footer--footer-with-special_chars.123"
+>
+  <div>
+    Footer Content
+  </div>
+</div>
+`;
