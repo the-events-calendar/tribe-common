@@ -572,11 +572,11 @@ class View extends \Tribe__Template {
 		ob_start();
 		?>
 		<script>
-			var tribe = tribe || {};
-			tribe.dialogs = tribe.dialogs || [];
-			tribe.dialogs.dialogs = tribe.dialogs.dialogs || [];
+			window.tribe = window.tribe || {};
+			window.tribe.dialogs = window.tribe.dialogs || [];
+			window.tribe.dialogs.dialogs = window.tribe.dialogs.dialogs || [];
 
-			tribe.dialogs.dialogs.push( <?php echo json_encode( $args ); ?> );
+			window.tribe.dialogs.dialogs.push( <?php echo wp_json_encode( $args ); ?> );
 
 			<?php
 			/**
