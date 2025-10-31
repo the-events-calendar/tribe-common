@@ -162,10 +162,7 @@ abstract class Abstract_Query_Var extends Controller {
 	 * @return mixed The filtered query var value. Null to unset it.
 	 */
 	public function filter_query_var( $value, array $query_vars ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-
-		$value = $this->maybe_replace_valueless_params( $value, $query_vars );
-
-		return $value;
+		return $this->maybe_replace_valueless_params( $value, $query_vars );
 	}
 
 	/**
