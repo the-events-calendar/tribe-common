@@ -219,18 +219,21 @@
    Component Labels
    ================================================ */
 
-/* Custom LabeledInput component label */
-.classy-component__input-label {
-	@mixin text-labels;
-	display: block;
-	margin-bottom: var(--tec-spacer-1);
-}
-
-/* WordPress component labels (used by ComboboxControl, CustomSelectControl, etc.) */
+/* WordPress component labels - apply consistent text-labels styling */
+.components-input-control__label,
+.components-textarea-control__label,
 .components-custom-select-control .components-base-control__label,
 .components-select-control__label {
 	@mixin text-labels;
 	margin-bottom: var(--tec-spacer-1);
+}
+
+/* Required field indicators for native WordPress components */
+.components-base-control:has(input[required]) .components-input-control__label::after,
+.components-base-control:has(textarea[required]) .components-textarea-control__label::after {
+	color: var(--classy-color-required-asterisk);
+	content: " *";
+	font-weight: 700;
 }
 
 .block-editor__container {
@@ -838,13 +841,6 @@
 		margin: 0;
 		padding: 0;
 	}
-
-	/* Add asterisk to label when input is required */
-	.classy-component__labeled-input:has(input[required]) .classy-component__input-label::after {
-		content: " *";
-		color: var(--classy-color-required-asterisk);
-		font-weight: bold;
-	}
 }
 
 .components-button {
@@ -889,13 +885,6 @@
 	align-items: center;
 	justify-content: center;
 	padding-bottom: var(--tec-spacer-6);
-}
-
-.classy-component__labeled-input{
-	display: flex;
-	flex-direction: column;
-	/* This value uses tec-spacer-2 to follow the gap set for the legend of WP core input components. */
-	gap: var(--tec-spacer-2);
 }
 
 .classy-aligned-row {

@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { LabeledInput } from '../LabeledInput';
 import { Currency } from '../../types/Currency';
 import { formatCurrency } from '../../functions';
 
@@ -97,18 +96,15 @@ export default function CurrencyInput( props: CurrencyInputProps ): React.JSX.El
 	);
 
 	return (
-		<LabeledInput label={ label }>
-			<InputControl
-				__next40pxDefaultSize
-				className="classy-field__control classy-field__control--input"
-				label={ label }
-				hideLabelFromVision={ true }
-				value={ renderValue( rawValue ) }
-				onChange={ handleChange }
-				required={ required || false }
-				onFocus={ (): void => setHasFocus( true ) }
-				onBlur={ (): void => setHasFocus( false ) }
-			/>
-		</LabeledInput>
+		<InputControl
+			__next40pxDefaultSize
+			className="classy-field__control classy-field__control--input"
+			label={ label }
+			value={ renderValue( rawValue ) }
+			onChange={ handleChange }
+			required={ required || false }
+			onFocus={ (): void => setHasFocus( true ) }
+			onBlur={ (): void => setHasFocus( false ) }
+		/>
 	);
 }
