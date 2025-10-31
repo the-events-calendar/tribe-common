@@ -320,7 +320,7 @@ table.plugins {
 		}
 
 		.tec-settings-teaser-pill {
-			background-color: var(--tec-color-border-default);
+			background-color: transparent;
 			border-radius: var(--tec-border-radius-default);
 			color: var(--tec-color-text-primary);
 			font-size: 9px;
@@ -1077,7 +1077,7 @@ table.plugins {
 	only screen and (min-device-pixel-ratio: 2) {
 	/* stylelint-enable media-feature-name-no-unknown */
 	#tribe-loading span {
-		background-image: url(../images/tribe-loading@2x.gif);
+		background-image: url(../images/tribe-loading-2x.gif);
 	}
 }
 
@@ -2485,6 +2485,10 @@ input[type="checkbox"].tribe-common-switch__input {
 	@media screen and (max-width: 480px) {
 		height: 120px;
 	}
+}
+
+.tribe-conditional-content-wrap ~ .tribe-events-admin-container .tribe-events-admin-header__right-image {
+	display: none;
 }
 
 .tribe-events-admin-header__title {

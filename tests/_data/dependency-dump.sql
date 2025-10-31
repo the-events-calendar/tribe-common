@@ -218,7 +218,7 @@ CREATE TABLE `wp_edd_adjustmentmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_adjustment_id` (`edd_adjustment_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -254,8 +254,8 @@ CREATE TABLE `wp_edd_adjustments` (
   `min_charge_amount` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `type_status` (`type`,`status`),
@@ -263,7 +263,7 @@ CREATE TABLE `wp_edd_adjustments` (
   KEY `date_created` (`date_created`),
   KEY `date_start_end` (`start_date`,`end_date`),
   KEY `type_status_dates` (`type`,`status`,`start_date`,`end_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,15 +295,15 @@ CREATE TABLE `wp_edd_customer_addresses` (
   `region` mediumtext NOT NULL,
   `postal_code` varchar(32) NOT NULL DEFAULT '',
   `country` mediumtext NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `customer_is_primary` (`customer_id`,`is_primary`),
   KEY `type` (`type`),
   KEY `status` (`status`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,8 +328,8 @@ CREATE TABLE `wp_edd_customer_email_addresses` (
   `type` varchar(20) NOT NULL DEFAULT 'secondary',
   `status` varchar(20) NOT NULL DEFAULT 'active',
   `email` varchar(100) NOT NULL DEFAULT '',
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `customer` (`customer_id`),
@@ -337,7 +337,7 @@ CREATE TABLE `wp_edd_customer_email_addresses` (
   KEY `type` (`type`),
   KEY `status` (`status`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -364,7 +364,7 @@ CREATE TABLE `wp_edd_customermeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_customer_id` (`edd_customer_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -391,15 +391,15 @@ CREATE TABLE `wp_edd_customers` (
   `status` varchar(20) NOT NULL DEFAULT '',
   `purchase_value` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `purchase_count` bigint(20) unsigned NOT NULL DEFAULT 0,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `user` (`user_id`),
   KEY `status` (`status`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,7 +426,7 @@ CREATE TABLE `wp_edd_logmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_log_id` (`edd_log_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -453,15 +453,15 @@ CREATE TABLE `wp_edd_logs` (
   `type` varchar(20) DEFAULT NULL,
   `title` varchar(200) DEFAULT NULL,
   `content` longtext DEFAULT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `object_id_type` (`object_id`,`object_type`),
   KEY `user_id` (`user_id`),
   KEY `type` (`type`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -488,7 +488,7 @@ CREATE TABLE `wp_edd_logs_api_requestmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_logs_api_request_id` (`edd_logs_api_request_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -517,13 +517,13 @@ CREATE TABLE `wp_edd_logs_api_requests` (
   `error` longtext NOT NULL,
   `ip` varchar(60) NOT NULL DEFAULT '',
   `time` varchar(60) NOT NULL DEFAULT '',
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -550,7 +550,7 @@ CREATE TABLE `wp_edd_logs_file_downloadmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_logs_file_download_id` (`edd_logs_file_download_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -578,14 +578,14 @@ CREATE TABLE `wp_edd_logs_file_downloads` (
   `customer_id` bigint(20) unsigned NOT NULL DEFAULT 0,
   `ip` varchar(60) NOT NULL DEFAULT '',
   `user_agent` varchar(200) NOT NULL DEFAULT '',
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `customer_id` (`customer_id`),
   KEY `product_id` (`product_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -612,7 +612,7 @@ CREATE TABLE `wp_edd_notemeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_note_id` (`edd_note_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -637,14 +637,14 @@ CREATE TABLE `wp_edd_notes` (
   `object_type` varchar(20) NOT NULL DEFAULT '',
   `user_id` bigint(20) unsigned NOT NULL DEFAULT 0,
   `content` longtext NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `object_id_type` (`object_id`,`object_type`),
   KEY `user_id` (`user_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -675,11 +675,11 @@ CREATE TABLE `wp_edd_notifications` (
   `start` datetime DEFAULT NULL,
   `end` datetime DEFAULT NULL,
   `dismissed` tinyint(1) unsigned NOT NULL DEFAULT 0,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_updated` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `dismissed_start_end` (`dismissed`,`start`,`end`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -709,8 +709,8 @@ CREATE TABLE `wp_edd_order_addresses` (
   `region` mediumtext NOT NULL,
   `postal_code` varchar(32) NOT NULL DEFAULT '',
   `country` mediumtext NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
@@ -719,7 +719,7 @@ CREATE TABLE `wp_edd_order_addresses` (
   KEY `postal_code` (`postal_code`),
   KEY `country` (`country`(191)),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -746,7 +746,7 @@ CREATE TABLE `wp_edd_order_adjustmentmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_order_adjustment_id` (`edd_order_adjustment_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -778,14 +778,14 @@ CREATE TABLE `wp_edd_order_adjustments` (
   `tax` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `total` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `rate` decimal(10,5) NOT NULL DEFAULT 1.00000,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `object_id_type` (`object_id`,`object_type`),
   KEY `date_created` (`date_created`),
   KEY `parent` (`parent`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -812,7 +812,7 @@ CREATE TABLE `wp_edd_order_itemmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_order_item_id` (`edd_order_item_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -848,14 +848,14 @@ CREATE TABLE `wp_edd_order_items` (
   `tax` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `total` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `rate` decimal(10,5) NOT NULL DEFAULT 1.00000,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `order_product_price_id` (`order_id`,`product_id`,`price_id`),
   KEY `type_status` (`type`,`status`),
   KEY `parent` (`parent`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -883,8 +883,8 @@ CREATE TABLE `wp_edd_order_transactions` (
   `status` varchar(20) NOT NULL DEFAULT '',
   `total` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `rate` decimal(10,5) NOT NULL DEFAULT 1.00000,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uuid` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `transaction_id` (`transaction_id`(64)),
@@ -892,7 +892,7 @@ CREATE TABLE `wp_edd_order_transactions` (
   KEY `status` (`status`),
   KEY `date_created` (`date_created`),
   KEY `object_type_object_id` (`object_type`,`object_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -919,7 +919,7 @@ CREATE TABLE `wp_edd_ordermeta` (
   PRIMARY KEY (`meta_id`),
   KEY `edd_order_id` (`edd_order_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -958,8 +958,8 @@ CREATE TABLE `wp_edd_orders` (
   `tax` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `total` decimal(18,9) NOT NULL DEFAULT 0.000000000,
   `rate` decimal(10,5) NOT NULL DEFAULT 1.00000,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
-  `date_modified` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `date_completed` datetime DEFAULT NULL,
   `date_refundable` datetime DEFAULT NULL,
   `date_actions_run` datetime DEFAULT NULL,
@@ -973,7 +973,7 @@ CREATE TABLE `wp_edd_orders` (
   KEY `payment_key` (`payment_key`),
   KEY `date_created_completed` (`date_created`,`date_completed`),
   KEY `currency` (`currency`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1384,7 +1384,7 @@ CREATE TABLE `wp_wc_admin_note_actions` (
   `nonce_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`action_id`),
   KEY `note_id` (`note_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=695 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=695 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1423,7 +1423,7 @@ CREATE TABLE `wp_wc_admin_notes` (
   `is_read` tinyint(1) NOT NULL DEFAULT 0,
   `icon` varchar(200) NOT NULL DEFAULT 'info',
   PRIMARY KEY (`note_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1447,7 +1447,7 @@ CREATE TABLE `wp_wc_category_lookup` (
   `category_tree_id` bigint(20) unsigned NOT NULL,
   `category_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`category_tree_id`,`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1483,7 +1483,7 @@ CREATE TABLE `wp_wc_customer_lookup` (
   PRIMARY KEY (`customer_id`),
   UNIQUE KEY `user_id` (`user_id`),
   KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1511,7 +1511,7 @@ CREATE TABLE `wp_wc_download_log` (
   PRIMARY KEY (`download_log_id`),
   KEY `permission_id` (`permission_id`),
   KEY `timestamp` (`timestamp`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1550,7 +1550,7 @@ CREATE TABLE `wp_wc_order_addresses` (
   KEY `order_id` (`order_id`),
   KEY `email` (`email`(191)),
   KEY `phone` (`phone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1577,7 +1577,7 @@ CREATE TABLE `wp_wc_order_coupon_lookup` (
   PRIMARY KEY (`order_id`,`coupon_id`),
   KEY `coupon_id` (`coupon_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1618,7 +1618,7 @@ CREATE TABLE `wp_wc_order_operational_data` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `order_id` (`order_id`),
   KEY `order_key` (`order_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1656,7 +1656,7 @@ CREATE TABLE `wp_wc_order_product_lookup` (
   KEY `product_id` (`product_id`),
   KEY `customer_id` (`customer_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1694,7 +1694,7 @@ CREATE TABLE `wp_wc_order_stats` (
   KEY `date_created` (`date_created`),
   KEY `customer_id` (`customer_id`),
   KEY `status` (`status`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1723,7 +1723,7 @@ CREATE TABLE `wp_wc_order_tax_lookup` (
   PRIMARY KEY (`order_id`,`tax_rate_id`),
   KEY `tax_rate_id` (`tax_rate_id`),
   KEY `date_created` (`date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1768,7 +1768,7 @@ CREATE TABLE `wp_wc_orders` (
   KEY `type_status_date` (`type`,`status`,`date_created_gmt`),
   KEY `parent_order_id` (`parent_order_id`),
   KEY `date_updated` (`date_updated_gmt`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1795,7 +1795,7 @@ CREATE TABLE `wp_wc_orders_meta` (
   PRIMARY KEY (`id`),
   KEY `meta_key_value` (`meta_key`(100),`meta_value`(82)),
   KEY `order_id_meta_key_meta_value` (`order_id`,`meta_key`(100),`meta_value`(82))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1823,7 +1823,7 @@ CREATE TABLE `wp_wc_product_attributes_lookup` (
   `in_stock` tinyint(1) NOT NULL,
   PRIMARY KEY (`product_or_parent_id`,`term_id`,`product_id`,`taxonomy`),
   KEY `is_variation_attribute_term_id` (`is_variation_attribute`,`term_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1848,7 +1848,7 @@ CREATE TABLE `wp_wc_product_download_directories` (
   `enabled` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`url_id`),
   KEY `url` (`url`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1891,7 +1891,7 @@ CREATE TABLE `wp_wc_product_meta_lookup` (
   KEY `onsale` (`onsale`),
   KEY `min_max_price` (`min_price`,`max_price`),
   KEY `sku` (`sku`(50))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1918,7 +1918,7 @@ CREATE TABLE `wp_wc_rate_limits` (
   `rate_limit_remaining` smallint(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`rate_limit_id`),
   UNIQUE KEY `rate_limit_key` (`rate_limit_key`(191))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1944,7 +1944,7 @@ CREATE TABLE `wp_wc_reserved_stock` (
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `expires` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`order_id`,`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1969,7 +1969,7 @@ CREATE TABLE `wp_wc_tax_rate_classes` (
   `slug` varchar(200) NOT NULL DEFAULT '',
   PRIMARY KEY (`tax_rate_class_id`),
   UNIQUE KEY `slug` (`slug`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2006,7 +2006,7 @@ CREATE TABLE `wp_wc_webhooks` (
   `pending_delivery` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`webhook_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2038,7 +2038,7 @@ CREATE TABLE `wp_woocommerce_api_keys` (
   PRIMARY KEY (`key_id`),
   KEY `consumer_key` (`consumer_key`),
   KEY `consumer_secret` (`consumer_secret`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2066,7 +2066,7 @@ CREATE TABLE `wp_woocommerce_attribute_taxonomies` (
   `attribute_public` int(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`attribute_id`),
   KEY `attribute_name` (`attribute_name`(20))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2102,7 +2102,7 @@ CREATE TABLE `wp_woocommerce_downloadable_product_permissions` (
   KEY `download_order_product` (`download_id`,`order_id`,`product_id`),
   KEY `order_id` (`order_id`),
   KEY `user_order_remaining_expires` (`user_id`,`order_id`,`downloads_remaining`,`access_expires`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2130,7 +2130,7 @@ CREATE TABLE `wp_woocommerce_log` (
   `context` longtext DEFAULT NULL,
   PRIMARY KEY (`log_id`),
   KEY `level` (`level`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2157,7 +2157,7 @@ CREATE TABLE `wp_woocommerce_order_itemmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `order_item_id` (`order_item_id`),
   KEY `meta_key` (`meta_key`(32))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2183,7 +2183,7 @@ CREATE TABLE `wp_woocommerce_order_items` (
   `order_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`order_item_id`),
   KEY `order_id` (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2210,7 +2210,7 @@ CREATE TABLE `wp_woocommerce_payment_tokenmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `payment_token_id` (`payment_token_id`),
   KEY `meta_key` (`meta_key`(32))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2238,7 +2238,7 @@ CREATE TABLE `wp_woocommerce_payment_tokens` (
   `is_default` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`token_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2264,7 +2264,7 @@ CREATE TABLE `wp_woocommerce_sessions` (
   `session_expiry` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`session_id`),
   UNIQUE KEY `session_key` (`session_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2293,7 +2293,7 @@ CREATE TABLE `wp_woocommerce_shipping_zone_locations` (
   KEY `location_id` (`location_id`),
   KEY `location_type_code` (`location_type`(10),`location_code`(20)),
   KEY `zone_id` (`zone_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2319,7 +2319,7 @@ CREATE TABLE `wp_woocommerce_shipping_zone_methods` (
   `method_order` bigint(20) unsigned NOT NULL,
   `is_enabled` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`instance_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2343,7 +2343,7 @@ CREATE TABLE `wp_woocommerce_shipping_zones` (
   `zone_name` varchar(200) NOT NULL,
   `zone_order` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`zone_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2370,7 +2370,7 @@ CREATE TABLE `wp_woocommerce_tax_rate_locations` (
   PRIMARY KEY (`location_id`),
   KEY `tax_rate_id` (`tax_rate_id`),
   KEY `location_type_code` (`location_type`(10),`location_code`(20))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2405,7 +2405,7 @@ CREATE TABLE `wp_woocommerce_tax_rates` (
   KEY `tax_rate_state` (`tax_rate_state`(2)),
   KEY `tax_rate_class` (`tax_rate_class`(10)),
   KEY `tax_rate_priority` (`tax_rate_priority`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

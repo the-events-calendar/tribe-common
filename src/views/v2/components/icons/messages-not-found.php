@@ -9,10 +9,13 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @var array<string> $classes Additional classes to add to the svg icon.
- *
- * @version 4.12.14
+ * @since 4.12.14
  * @since 6.6.0 Added accessibility attributes to make icon decorative.
+ * @since 6.8.2 Remove redundant attributes.
+ *
+ * @version 6.8.2
+ *
+ * @var array<string> $classes Additional classes to add to the svg icon.
  *
  */
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--messages-not-found' ];
@@ -21,7 +24,12 @@ if ( ! empty( $classes ) ) {
 	$svg_classes = array_merge( $svg_classes, $classes );
 }
 ?>
-<svg <?php tribe_classes( $svg_classes ); ?> viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
+<svg
+	<?php tec_classes( $svg_classes ); ?>
+	aria-hidden="true"
+	viewBox="0 0 21 23"
+	xmlns="http://www.w3.org/2000/svg"
+>
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
 		<path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/>

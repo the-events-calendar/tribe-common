@@ -18,7 +18,7 @@ class PUE extends Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since  4.9.12
+	 * @since 4.9.12
 	 */
 	public function register() {
 		$this->container->singleton( Update_Prevention::class, Update_Prevention::class );
@@ -39,7 +39,7 @@ class PUE extends Service_Provider {
 	/**
 	 * Filters the source file location for the upgrade package for the PUE Update_Prevention engine.
 	 *
-	 * @since  4.9.12
+	 * @since 4.9.12
 	 *
 	 * @param string      $source        File source location.
 	 * @param string      $remote_source Remote file source location.

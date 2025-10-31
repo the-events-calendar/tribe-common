@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Tribe Common
  * Description: An event settings framework for managing shared options.
- * Version: 6.7.1
+ * Version: 6.9.10
  * Requires at least: 6.6
  * Requires PHP: 7.4
  * Author: The Events Calendar
@@ -10,6 +10,7 @@
  * Text Domain: tribe-common
  * License: GPLv2 or later
  */
+
 
 /*
 Copyright 2009-2015 by The Events Calendar and the contributors
@@ -30,6 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 // The main plugin class.
-require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
+require_once __DIR__ . '/src/Tribe/Main.php';
 
 Tribe__Main::instance();

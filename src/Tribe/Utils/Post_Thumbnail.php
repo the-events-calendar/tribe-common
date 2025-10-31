@@ -12,7 +12,7 @@
  * $large_url = $post_thumbnail->large->url;
  * ```
  *
- * @since   4.9.14
+ * @since 4.9.14
  * @package Tribe\Utils
  */
 
@@ -24,7 +24,7 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Post_Thumbnail
  *
- * @since   4.9.14
+ * @since 4.9.14
  * @package Tribe\Utils
  */
 class Post_Thumbnail implements \ArrayAccess, \Serializable {

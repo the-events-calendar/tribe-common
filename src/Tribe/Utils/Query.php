@@ -2,7 +2,7 @@
 /**
  * Provides utility method related to the creation and manipulation of queries and query objects.
  *
- * @since   4.9.21
+ * @since 4.9.21
  *
  * @package Tribe\Utils
  */
@@ -12,7 +12,7 @@ namespace Tribe\Utils;
 /**
  * Class Query
  *
- * @since   4.9.21
+ * @since 4.9.21
  *
  * @package Tribe\Utils
  */

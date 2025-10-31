@@ -38,7 +38,7 @@ class Tribe__Cost_Utils {
 	/**
 	 * Check if a string is a valid cost.
 	 *
-	 * @param  string $cost String to be checked.
+	 * @param string $cost String to be checked.
 	 *                      Can include decimal and thousands separator.
 	 *
 	 * @return boolean
@@ -146,12 +146,12 @@ class Tribe__Cost_Utils {
 	}
 
 	/**
-	 * @param       string       $original_string_cost A string cost with or without currency symbol,
+	 * @param      string       $original_string_cost A string cost with or without currency symbol,
 	 *                                                 e.g. `10 - 20`, `Free` or `2$ - 4$`.
-	 * @param       array|string $merging_cost         A single string cost representation to merge or an array of
+	 * @param      array|string $merging_cost         A single string cost representation to merge or an array of
 	 *                                                 string cost representations to merge, e.g. ['Free', 10, 20,
 	 *                                                 'Donation'] or `Donation`.
-	 * @param       bool         $with_currency_symbol Whether the output should prepend the currency symbol to the
+	 * @param      bool         $with_currency_symbol Whether the output should prepend the currency symbol to the
 	 *                                                 numeric costs or not.
 	 * @param array              $sorted_mins          An array of non numeric price minimums sorted smaller to larger,
 	 *                                                 e.g. `['Really free', 'Somewhat free', 'Free with 3 friends']`.
@@ -239,7 +239,7 @@ class Tribe__Cost_Utils {
 	 * Returns a maximum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched
 	 * via query.
 	 *
-	 * @param $costs mixed Cost(s) to review for max value
+	 * @param mixed $costs Cost(s) to review for max value.
 	 *
 	 * @return float
 	 */
@@ -250,8 +250,8 @@ class Tribe__Cost_Utils {
 	/**
 	 * Returns a particular cost within an array of costs
 	 *
-	 * @param $costs    mixed Cost(s) to review for max value
-	 * @param $function string Function to use to determine which cost to return from range. Valid values: max, min
+	 * @param mixed  $costs    Cost(s) to review for max value.
+	 * @param string $function Function to use to determine which cost to return from range. Valid values: max, min.
 	 *
 	 * @return float
 	 */
@@ -302,7 +302,7 @@ class Tribe__Cost_Utils {
 	 * value.
 	 *
 	 * @param string|array $costs        A cost string or an array of cost strings.
-	 * @param null         $max_decimals The maximum number of decimal values that should be returned in the range.
+	 * @param int|null     $max_decimals The maximum number of decimal values that should be returned in the range.
 	 * @param bool         $sort         Whether the returned values should be sorted.
 	 *
 	 * @return array An associative array of parsed costs in [ <string cost> => <cost number> ] format.
@@ -312,20 +312,20 @@ class Tribe__Cost_Utils {
 			return [];
 		}
 
-		// make sure costs is an array
+		// Make sure costs is an array.
 		$costs = (array) $costs;
 
-		// If there aren't any costs, return a blank array
+		// If there aren't any costs, return a blank array.
 		if ( 0 === count( $costs ) ) {
 			return [];
 		}
 
-		// Build the regular expression
+		// Build the regular expression.
 		$price_regex = $this->get_cost_regex();
 		$max         = 0;
 
 		foreach ( $costs as &$cost ) {
-			// Get the required parts
+			// Get the required parts.
 			if ( preg_match_all( '/' . $price_regex . '/', $cost, $matches ) ) {
 				$cost = reset( $matches );
 			} else {
@@ -333,14 +333,14 @@ class Tribe__Cost_Utils {
 				continue;
 			}
 
-			// Get the max number of decimals for the range
+			// Get the max number of decimals for the range.
 			if ( count( $matches ) === 4 ) {
 				$decimals = max( array_map( 'strlen', end( $matches ) ) );
 				$max      = max( $max, $decimals );
 			}
 		}
 
-		// If we passed max decimals
+		// If we passed max decimals.
 		if ( ! is_null( $max_decimals ) ) {
 			$max = max( $max_decimals, $max );
 		}
@@ -352,18 +352,18 @@ class Tribe__Cost_Utils {
 			$numeric_cost = str_replace( $this->get_separators(), '.', $cost );
 
 			if ( is_numeric( $numeric_cost ) ) {
-				// Creates a Well Balanced Index that will perform good on a Key Sorting method
+				// Creates a Well Balanced Index that will perform good on a Key Sorting method.
 				$index = str_replace( [ '.', ',' ], '', number_format( (float) $numeric_cost, $max ) );
 			} else {
-				// Makes sure that we have "index-safe" string
+				// Makes sure that we have "index-safe" string.
 				$index = sanitize_title( $numeric_cost );
 			}
 
-			// Keep the Costs in a organizable array by keys with the "numeric" value
+			// Keep the Costs in a organizable array by keys with the "numeric" value.
 			$output_costs[ $index ] = $cost;
 		}
 
-		// Filter keeping the Keys
+		// Filter keeping the Keys.
 		if ( $sort ) {
 			ksort( $output_costs );
 		}
@@ -375,7 +375,7 @@ class Tribe__Cost_Utils {
 	 * Returns a minimum cost in a list of costs. If an array of costs is not passed in, the array of costs is fetched
 	 * via query.
 	 *
-	 * @param $costs mixed Cost(s) to review for min value
+	 * @param mixed $costs Cost(s) to review for min value.
 	 *
 	 * @return float
 	 */
@@ -386,7 +386,7 @@ class Tribe__Cost_Utils {
 	/**
 	 * Converts the original decimal separator to ".".
 	 *
-	 * @param string|int $value
+	 * @param string|int $value The value to convert.
 	 *
 	 * @return string
 	 */
@@ -397,7 +397,7 @@ class Tribe__Cost_Utils {
 	/**
 	 * Restores the decimal separator to its original symbol.
 	 *
-	 * @param string $value
+	 * @param string $value The value to convert.
 	 *
 	 * @return string
 	 */
@@ -410,7 +410,7 @@ class Tribe__Cost_Utils {
 	 *
 	 * E.g. "$10" will yield "10"; "23.55$" will yield "23.55".
 	 *
-	 * @param string|int $value
+	 * @param string|int $value The value to convert.
 	 *
 	 * @return int|float
 	 */
@@ -495,10 +495,8 @@ class Tribe__Cost_Utils {
 	/**
 	 * Parses the cost value and current locale to infer decimal and thousands separators.
 	 *
-	 * The cost values stored in the meta table might not use the same decimal and thousands separator as the current
-	 * locale.
-	 * To work around this we parse the value assuming the decimal separator will be the last non-numeric symbol,
-	 * if any.
+	 * The cost values stored in the meta table might not use the same decimal and thousands separator as the current locale.
+	 * To work around this we parse the value assuming the decimal separator will be the last non-numeric symbol, if any.
 	 *
 	 * @since 4.9.12
 	 *

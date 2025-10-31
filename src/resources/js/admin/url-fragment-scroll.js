@@ -47,7 +47,7 @@ window.tribe.urlFragmentScroll = window.tribe.urlFragmentScroll || {};
 	/**
 	 * Will atempt to navigate to a given Fragment based on a URL.
 	 *
-	 * @since  4.9.12
+	 * @since 4.9.12
 	 *
 	 * @param {string} link Which link target we are trying to navigate to.
 	 *

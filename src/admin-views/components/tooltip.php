@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @since   1.4.0
+ * @since 1.4.0
  *
  * @version 1.4.0
  *
@@ -24,7 +24,7 @@ if ( ! empty( $classes_wrap ) ) {
 
 ?>
 <div
-	<?php tribe_classes( $wrap_classes ); ?>
+	<?php tec_classes( $wrap_classes ); ?>
 	aria-expanded="false"
 >
 	<span class="dashicons dashicons-info"></span>

@@ -28,7 +28,7 @@
 			Ian.close = document.querySelector('[data-tec-ian-trigger="closeIan"]');
 			Ian.empty = document.querySelector('[data-tec-ian-trigger="emptyIan"]');
 			Ian.loader = document.querySelector('[data-tec-ian-trigger="loaderIan"]');
-			Ian.consent = Ian.notifications ? Ian.notifications.dataset.consent : null;
+			Ian.consent = Ian.notifications?.dataset?.consent ?? null;
 
 			calculateSidebarPosition();
 
@@ -49,12 +49,13 @@
 		 * Wrap the headings with a div to allow for positioning of the sidebar.
 		 *
 		 * @since 6.4.0
+		 * @since 6.9.2 Added check for Query Monitor or other overlays.
 		 *
 		 * @return {void}
 		 */
 		const wrapHeadings = () => {
 			const headings = document.querySelectorAll(
-				'.edit-php.post-type-tribe_events h1, .post-php.post-type-tribe_events h1'
+				'.edit-php.post-type-tribe_events h1.wp-heading-inline, .post-php.post-type-tribe_events h1.wp-heading-inline'
 			);
 			headings.forEach( ( heading ) => {
 				const pageAction = heading.nextElementSibling;
@@ -299,7 +300,7 @@
 		/**
 		 * Get the notifications feed.
 		 *
-		 * @param  init
+		 * @param init
 		 * @since 6.4.0
 		 *
 		 * @return {void}

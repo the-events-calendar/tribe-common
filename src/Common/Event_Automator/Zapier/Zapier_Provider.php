@@ -141,7 +141,7 @@ class Zapier_Provider extends Service_Provider {
 		add_action( 'admin_init', [ $this, 'add_endpoints_to_dashboard' ] );
 
 		// Wait until plugins are loaded and then add queues for our various plugins.
-		add_action( 'init', [ $this, 'setup_add_to_queues' ] );
+		add_action( 'init', [ $this, 'setup_add_to_queues' ], 20 );
 	}
 
 	/**
@@ -275,8 +275,8 @@ class Zapier_Provider extends Service_Provider {
 	 *
 	 * @since 6.0.0 Migrated to Common from Event Automator
 	 *
-	 * @param array<string,array>    $endpoint An array of the Zapier endpoint details.
-	 * @param Abstract_REST_Endpoint $this     An instance of the endpoint.
+	 * @param array<string,array>    $endpoint     An array of the Zapier endpoint details.
+	 * @param Abstract_REST_Endpoint $endpoint_obj An instance of the endpoint.
 	 */
 	public function filter_create_event_details( $endpoint, $endpoint_obj ) {
 		return tribe( Action_Endpoints_Utilities::class )->filter_details( $endpoint, $endpoint_obj );

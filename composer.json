@@ -28,15 +28,17 @@
     "psr/container": "1.1.1",
     "stellarwp/admin-notices": "^1.1",
     "stellarwp/arrays": "1.2.2",
-    "stellarwp/assets": "1.4.9",
+    "stellarwp/assets": "1.4.10",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
     "stellarwp/models": "dev-main",
-    "stellarwp/schema": "^1.1.8",
+    "stellarwp/schema": "2.0.1",
+    "stellarwp/shepherd": "0.0.6",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
-    "woocommerce/action-scheduler": "3.9.2"
+    "trustedlogin/client": "^1.9",
+    "scssphp/scssphp": "^1.13"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
@@ -77,19 +79,27 @@
       "[ -d './vendor/fakerphp/faker/src/Faker/Provider' ] && echo 'Removing folders:' && find ./vendor/fakerphp/faker/src/Faker/Provider -mindepth 1 -maxdepth 1 -type d ! -path './vendor/fakerphp/faker/src/Faker/Provider/en_US' -print -exec rm -r {} + || true"
     ],
     "strauss": [
-      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.21.1/strauss.phar",
+      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.24.0/strauss.phar",
       "@clean-faker-lang",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
       "@php -d display_errors=on bin/strauss.phar",
       "@composer dump-autoload"
     ],
+    "trustedlogin": [
+      "mkdir -p vendor/vendor-prefixed/trustedlogin/client/src/assets/",
+      "@php vendor/bin/build-sass --namespace=the-events-calendar --assets_dir=vendor/vendor-prefixed/trustedlogin/client/src/assets/ --export_dir=vendor/vendor-prefixed/trustedlogin/client/src/assets/",
+      "rm -rf vendor/scssphp",
+      "rm -f vendor/bin/build-sass vendor/bin/pscss"
+    ],
     "post-install-cmd": [
-      "@stellar-uplink",
-      "@strauss"
+      "@strauss",
+      "@trustedlogin",
+      "@stellar-uplink"
     ],
     "post-update-cmd": [
-      "@stellar-uplink",
-      "@strauss"
+      "@strauss",
+      "@trustedlogin",
+      "@stellar-uplink"
     ],
     "stellar-uplink": [
       "vendor/bin/stellar-uplink domain=tribe-common"
@@ -116,6 +126,7 @@
         "stellarwp/db",
         "stellarwp/models",
         "stellarwp/schema",
+        "stellarwp/shepherd",
         "stellarwp/installer",
         "stellarwp/telemetry",
         "stellarwp/uplink",
@@ -124,8 +135,15 @@
         "firebase/php-jwt",
         "psr/container",
         "stellarwp/assets",
-        "stellarwp/admin-notices"
+        "stellarwp/admin-notices",
+        "trustedlogin/client"
       ],
+      "exclude_from_copy": {
+        "packages": [],
+        "file_patterns": [
+          "#trustedlogin\/client\/src\/assets\/trustedlogin.css#"
+        ]
+      },
       "exclude_from_prefix": {
         "file_patterns": []
       },

@@ -7,6 +7,7 @@ use Tribe\DB_Lock;
 use TEC\Common\Asset;
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Common\Controller as Common_Controller;
+use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +23,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.7.1';
+	const VERSION           = '6.9.10';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -51,9 +52,9 @@ class Tribe__Main {
 	protected static $instance;
 
 	/**
-	 * Get (and instantiate, if necessary) the instance of the class
+	 * Get (and instantiate, if necessary) the instance of the class.
 	 *
-	 * @param  mixed $context An instance of the Main class of the plugin that instantiated Common
+	 * @param mixed $context An instance of the Main class of the plugin that instantiated Common.
 	 *
 	 * @return self
 	 */
@@ -66,7 +67,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Constructor for Common Class
+	 * Constructor for Common Class.
 	 *
 	 * We are using a `public` constructor here for backwards compatibility.
 	 *
@@ -97,14 +98,14 @@ class Tribe__Main {
 
 		$this->promoter_connector();
 
-		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 1 );
+		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], -1 );
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
 		add_action( 'customize_controls_print_styles', [ $this, 'load_tec_variables' ], 10 );
 
 		if ( did_action( 'plugins_loaded' ) && ! doing_action( 'plugins_loaded' ) ) {
 			/*
 			 * This might happen in the context of a plugin activation.
-			 * Complete the loading now and set the singleton instance to avoid infinite loops.
+			 * Complete the loading now and set the singleton instanceo avoid infinite loops.
 			 */
 			self::$instance = $this;
 			$this->plugins_loaded();
@@ -112,7 +113,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 *
+	 * Plugins loaded.
 	 */
 	public function plugins_loaded() {
 
@@ -139,7 +140,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Setup the autoloader for common files
+	 * Setup the autoloader for common files.
 	 */
 	protected function init_autoloading() {
 		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
@@ -193,9 +194,10 @@ class Tribe__Main {
 	}
 
 	/**
-	 * initializes all required libraries
+	 * Initializes all required libraries.
 	 */
 	public function init_libraries() {
+		require_once $this->plugin_path . 'src/functions/time.php';
 		require_once $this->plugin_path . 'src/functions/utils.php';
 		require_once $this->plugin_path . 'src/functions/conditionals.php';
 		require_once $this->plugin_path . 'src/functions/transient.php';
@@ -245,7 +247,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Registers resources that can/should be enqueued
+	 * Registers resources that can/should be enqueued.
 	 */
 	public function load_assets() {
 		Asset::add(
@@ -257,7 +259,7 @@ class Tribe__Main {
 		->use_asset_file( false )
 		->register();
 
-		// These ones are only registered
+		// These ones are only registered.
 		tec_assets(
 			$this,
 			[
@@ -285,6 +287,17 @@ class Tribe__Main {
 				[ 'tec-ky-module', 'vendor/ky/ky.js', [], null, [ 'module' => true ] ],
 				[ 'tec-ky', 'vendor/ky/tec-ky.js', [ 'tec-ky-module' ], null, [ 'module' => true ] ],
 				[ 'tec-common-php-date-formatter', 'node_modules/php-date-formatter/js/php-date-formatter.js' ],
+			]
+		);
+
+		tec_asset(
+			$this,
+			'tec-user-agent',
+			'user-agent.js',
+			[],
+			'wp_enqueue_scripts',
+			[
+				'groups' => [ self::class ],
 			]
 		);
 
@@ -319,7 +332,7 @@ class Tribe__Main {
 			null
 		);
 
-		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met
+		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met.
 		tec_assets(
 			$this,
 			[
@@ -443,7 +456,7 @@ class Tribe__Main {
 	/**
 	 * Load All localization data create by `asset.data`
 	 *
-	 * @since  4.7
+	 * @since 4.7
 	 *
 	 * @return void
 	 */
@@ -659,9 +672,9 @@ class Tribe__Main {
 	/**
 	 * Insert an array after a specified key within another array.
 	 *
-	 * @param $key
-	 * @param $source_array
-	 * @param $insert_array
+	 * @param string $key The key to insert the array after.
+	 * @param array  $source_array The source array.
+	 * @param array  $insert_array The array to insert.
 	 *
 	 * @return array
 	 */
@@ -680,9 +693,9 @@ class Tribe__Main {
 	/**
 	 * Insert an array immediately before a specified key within another array.
 	 *
-	 * @param $key
-	 * @param $source_array
-	 * @param $insert_array
+	 * @param string $key The key to insert the array before.
+	 * @param array  $source_array The source array.
+	 * @param array  $insert_array The array to insert.
 	 *
 	 * @return array
 	 */
@@ -704,7 +717,7 @@ class Tribe__Main {
 	 * Helper function for getting Post ID. Accepts `null` or a Post ID. If attempting
 	 * to detect $post object and it is not found, returns `false` to avoid a PHP Notice.
 	 *
-	 * @param  null|int|WP_Post  $candidate  Post ID or object, `null` to get the ID of the global post object.
+	 * @param null|int|WP_Post $candidate Post ID or object, `null` to get the ID of the global post object.
 	 *
 	 * @return int|false The ID of the passed or global post, `false` if the passes object is not a post or the global
 	 *                   post is not set.
@@ -809,13 +822,15 @@ class Tribe__Main {
 		tribe_register_provider( Tribe\Log\Service_Provider::class );
 		tribe_register_provider( Tribe\Service_Providers\Crons::class );
 		tribe_register_provider( Tribe\Admin\Notice\Service_Provider::class );
+		tribe_register_provider( \TEC\Common\Admin\Conditional_Content\Controller::class );
 		tribe_register_provider( Tribe__Service_Providers__Promoter::class );
 		tribe_register_provider( Tribe\Service_Providers\Widgets::class );
 		tribe_register_provider( Tribe\Service_Providers\Onboarding::class );
-		tribe_register_provider( \TEC\Common\Admin\Conditional_Content\Controller::class );
 		tribe_register_provider( \TEC\Common\Notifications\Controller::class );
 		tribe_register_provider( \TEC\Common\QR\Controller::class );
+		tribe_singleton( ContainerInterface::class, tribe() );
 		tribe_register_provider( Libraries\Provider::class );
+		tribe_register_provider( TEC\Common\TrustedLogin\Controller::class );
 
 		// Load the new third-party integration system.
 		tribe_register_provider( TEC\Common\Integrations\Provider::class );

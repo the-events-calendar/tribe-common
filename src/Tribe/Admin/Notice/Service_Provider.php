@@ -2,7 +2,7 @@
 /**
  * Handles admin notice functions.
  *
- * @since   4.14.2
+ * @since 4.14.2
  *
  * @package Tribe\Admin\Notice;
  */
@@ -45,7 +45,7 @@ class Service_Provider extends Provider_Contract {
 	 * @since 4.14.2
 	 */
 	private function hooks() {
-		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded'] );
+		add_action( 'tribe_plugins_loaded', [ $this, 'plugins_loaded' ] );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Service_Provider extends Provider_Contract {
 		tribe( WP_Version::class );
 	}
 
-/**
+	/**
 	 * This method is used to enqueue additional assets for the admin notices.
 	 * Each should conditionally call an internal `enqueue_additional_assets()` function to handle the enqueueing.
 	 *

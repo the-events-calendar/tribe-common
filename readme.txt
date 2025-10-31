@@ -1,5 +1,124 @@
 == Changelog ==
 
+= [6.9.9] 2025-10-28 =
+
+* Tweak - Update incorrect knowledgebase link on the Zapier Endpoint Dashboard in Tickets Settings. [ETP-1118]
+* Security - Strengthen key validation in system information opt-in functionality. [SVUL-27]
+
+= [6.9.8] 2025-10-21 =
+
+* Feature - Modified the conditional content to use a more modular approach to applying display logic. Created "Inline" version to avoid duplication of logic . [TEC-5707]
+* Tweak - Added a new CSS class for accessible text that is visually hidden on smaller screens. [TEC-5589]
+* Tweak - Added filters: `tec_admin_conditional_content_{$this->slug}_datetime_should_display`, `tec_admin_conditional_content_{$this->slug}_generic_upsell_opportunity_should_display`, `tec_admin_conditional_content_{$this->slug}_has_user_dismissed`, `tec_admin_conditional_content_{$this->slug}_check_capability`, `tec_get_admin_region`
+* Tweak - Removed filters: `tribe_plugin_upgrade_readme_url`, `tribe_plugin_upgrade_notice`
+* Language - 4 new strings added, 17 updated, 1 fuzzied, and 1 obsoleted.
+
+= [6.9.7] 2025-10-14 =
+
+* Tweak - Remove the `:not()` selector that created unnecessary specificity on most TEC links. [TEC-5504]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.9.6] 2025-10-07 =
+
+* Fix - Adjust the logic so Telementry opt-in option is not set prematurely. [TEC-5583]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.9.5] 2025-09-30 =
+
+* Feature - Add TrustedLogin integration accessible via Help → Support Access. [TCMN-191]
+* Fix - Correct deprecated usage of Tribe__Settings::instance() [TCMN-205]
+* Fix - Fixes an issue with SVN and an image with an `@` in the filename.
+* Fix - Modifies the hook priority for which Event Automator would register its Event related hooks. [EVA-167]
+* Tweak - Added filters: `tec_help_hub_register_tabs`, `tec_trustedlogin_config`, `tec_trustedlogin_page_url`, `tec_trustedlogin_api_key`, `tec_trustedlogin_namespace`, `tec_trustedlogin_title`, `tec_trustedlogin_logo_url`, `tec_trustedlogin_support_email`, `tec_trustedlogin_support_url`, `tec_trustedlogin_website_url`, `tec_trustedlogin_menu_slug`, `tec_trustedlogin_role`, `tec_trustedlogin_decay`, `tec_trustedlogin_clone_role`
+* Tweak - Fix some styling issues on the Settings pages. [TCMN-204]
+* Language - 1 new strings added, 11 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.9.4] 2025-09-23 =
+
+*  Feature - The Troubleshooting page now detects and flags outdated PHP Versions, incorrectly sets up PHP time zones and active caching plugins. [TCMN-203]
+* Fix - Converts default values of protected vars to empty array to potentially prevent fatals in PHP 8.3+ props to @aaronsilber! [TCMN-202]
+* Tweak - Adds filters: `stellarwp_uplink_`
+* Tweak - Adds upsell links for Promoter in License page. [TEC-5587]
+* Tweak - Removes filters: `tec_help_troubleshooting_issues_found`, `tec_help_troubleshooting_issues`
+* Tweak - Updates logic to work with PHP 8.3+. [TCMN-189]
+* Language - 12 new strings added, 43 updated, 2 fuzzied, and 0 obsoleted.
+
+= [6.9.3] 2025-09-09 =
+
+* Fix - Corrected an issue where PUE License data had an empty key. [EBT-156]
+* Fix - Restore proper functionality of system information opt-in checkbox. [TCMN-198]
+* Tweak - Added a script that detects the mobile device used and adds a relevant body class. [TEC-4242]
+* Tweak - Removed filters: `tribe_settings_wrap_classes.
+* Tweak - Tweak post CSS imports to ensure our a11y styles get loaded in the admin.
+* Language - 0 new strings added, 43 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.9.2] 2025-09-02 =
+
+* Fix - Completed Order email can handle again multiple recipients separated by comma. [ET-2551]
+* Fix - Figure out where assets are located in complex environments with a mix of symlinked or normally placed plugins. Resolving as a result issues with Recurring Events UI in WordPress.com. [ECP-1929]
+* Fix - Fixed conflict with IAN being injected into Query Monitor headers. [TEC-5362]
+* Tweak - Added filters: `tec_common_group_path`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.9.1] 2025-08-26 =
+
+* Feature - Add a key-value cache system to support sites not using object-caching. [ETP-1021]
+* Tweak - Added filters: `tec_key_value_cache_force_use_of_table_cache`
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.9.0.1] 2025-08-20 =
+
+* Fix - Ensures the Actions Scheduler Logs table is present before attempting to use it. [TCMN-190]
+
+= [6.9.0] 2025-08-19 =
+
+* Performance - Improves TicketsCommerce checkout timing by implementing task offloading to Shepherd. [TCMN-185]
+* Language - 97 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.8.3] 2025-07-16 =
+
+* Fix - Make sure add_submenu_page is called correctly to avoid deprecation messages. [TEC-5529]
+* Fix - Make sure we are passing the time zone when handling the event end timestamp. [TEC-4981]
+* Tweak - Add secondary display logic for promotional banners. [TEC-5530]
+* Language - 5 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.8.2] 2025-07-03 =
+
+* Tweak - Adapt the conditional content to the new admin. [TEC-5530]
+* Tweak - Added actions: `tec_admin_page_before_sidebar`, `tec_conditional_content_assets`, `tec_conditional_content_{$this->slug}`, `tec_common_admin_before_tab_content`, `tec_common_admin_custom_tab_content`, `tec_common_admin_after_tab_content`, `tec_conditional_content_header_notice`, `tec_conditional_content_sidebar_notice__help_hub_support`
+* Tweak - Added filters: `tec_common_admin_tab_url`
+* Tweak - Changed views: `dialog/alert`, `dialog/confirm`, `dialog/dialog`, `dialog/modal`, `dialog/warning`, `embed/footer`, `embed/header`, `promoter/auth`, `v2/components/icons/arrow-right`, `v2/components/icons/cal-export`, `v2/components/icons/caret-down`, `v2/components/icons/caret-left`, `v2/components/icons/caret-right`, `v2/components/icons/close-alt`, `v2/components/icons/close`, `v2/components/icons/day`, `v2/components/icons/dot`, `v2/components/icons/error`, `v2/components/icons/featured`, `v2/components/icons/filter`, `v2/components/icons/hybrid`, `v2/components/icons/list`, `v2/components/icons/location`, `v2/components/icons/mail`, `v2/components/icons/map-pin`, `v2/components/icons/map`, `v2/components/icons/messages-not-found`, `v2/components/icons/minus`, `v2/components/icons/month`, `v2/components/icons/no-map`, `v2/components/icons/phone`, `v2/components/icons/photo`, `v2/components/icons/play`, `v2/components/icons/plus`, `v2/components/icons/recurring`, `v2/components/icons/reset`, `v2/components/icons/search`, `v2/components/icons/stellar-icon`, `v2/components/icons/summary`, `v2/components/icons/video`, `v2/components/icons/virtual`, `v2/components/icons/website`, `v2/components/icons/week`
+* Tweak - Removed actions: `tec_conditional_content_black_friday`
+* Tweak - Updated Help Hub to use Help Scout instead of Zendesk. [TEC-5522]
+* Accessibility - Added aria-hidden to all component icon svgs. Removed any  attributes or elements inside them. [TEC-5190, TEC-5201]
+* Language - 4 new strings added, 64 updated, 1 fuzzied, and 4 obsoleted.
+
+= [6.8.1] 2025-06-11 =
+
+* Tweak - Add a new Tabbed View class for admin pages as part of the Ticket Presets launch.
+* Tweak - Update the Abstract Admin Page class to handle logos and menu position better.
+* Language - 0 new strings added, 67 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.8.0.1] 2025-06-05 =
+
+* Fix - Correct some hardcoded asset paths. [TEC-5523]
+* Fix - Utilize the newer version of our build process to ensure inline svgs are being handled properly. [TCMN-188]
+
+= [6.8.0] 2025-06-03 =
+
+* Feature - Introduced milliseconds methods and improved Custom Table methods, as part of supporting ET's Square integration. [ET-2383]
+* Tweak - Added actions: `tec_common_settings_manager_pre_set_options`, `tec_common_settings_manager_post_set_options`, `tec_common_settings_manager_set_option`, `tec_common_settings_manager_remove_option`
+* Tweak - Added filters: `tec_help_hub_pages`, `tec_help_hub_telemetry_opt_in_link`, `tec_help_hub_section_{$this->slug}_item`, `tec_help_hub_section_{$this->slug}_items`, `tec_help_hub_section_{$this->slug}`, `tec_help_hub_section`, `tec_help_hub_tab_{$this->id}`, `tec_common_country_list`, `tec_repository_schema_{$this->filter_name}`, `tec_repository_schema`, `tec_common_settings_manager_set_option`, `tec_help_hub_header_logo_src`, `tec_help_hub_header_logo_alt`, `tec_help_hub_resources_title`
+* Tweak - Implemented new functionality to Help Hub to make it more extensible. [ET-2375]
+* Tweak - Refactored Help Hub to improve extensibility and testing capabilities. [ET-2375]
+* Tweak - Removed filters: `tec_country_list`
+* Language - 4 new strings added, 51 updated, 2 fuzzied, and 1 obsoleted.
+
+= [6.7.1] 2025-05-27 =
+
+* Fix - Ensures symbolic links are followed on Assets Group Paths. [TCMN-187]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.7.0] 2025-05-20 =
 
 * Feature - Moved the JavaScript and CSS building to use `@wordpress/scripts` for improved compatibility.

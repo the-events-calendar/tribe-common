@@ -2,24 +2,24 @@
 /**
  * Handles In-App Notifications setup and actions.
  *
- * @since   6.4.0
+ * @since 6.4.0
  *
  * @package TEC\Common\Notifications
  */
 
 namespace TEC\Common\Notifications;
 
-use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
+use TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible;
 
 /**
  * Class Notifications
  *
- * @since   6.4.0
+ * @since 6.4.0
 
  * @package TEC\Common\Notifications
  */
 final class Notifications {
-	use Dismissible_Trait;
+	use Is_Dismissible;
 	use Readable_Trait;
 
 	/**
@@ -58,6 +58,17 @@ final class Notifications {
 	}
 
 	/**
+	 * Get the slug for the In-App Notifications.
+	 *
+	 * @since 6.8.2
+	 *
+	 * @return string
+	 */
+	public function get_slug(): string {
+		return $this->slug;
+	}
+
+	/**
 	 * Get the API URL for the In-App Notifications.
 	 *
 	 * @since 6.4.0
@@ -72,8 +83,8 @@ final class Notifications {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param string $api The API URL for the In-App Notifications.
-		 * @param object $this The current instance of the class.
+		 * @param string $api      The API URL for the In-App Notifications.
+		 * @param object $instance The current instance of the class.
 		 */
 		$api = apply_filters( 'tec_common_ian_api_url', $api, $this );
 
@@ -265,7 +276,7 @@ final class Notifications {
 			return;
 		}
 
-		$unread = json_decode( stripslashes( tec_get_request_var( 'unread' ) ), true );
+		$unread = json_decode( stripslashes( tec_get_request_var( 'unread', '' ) ), true );
 
 		foreach ( $unread as $slug ) {
 			$this->slug = $slug;

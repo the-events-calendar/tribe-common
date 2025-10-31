@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.6.1\n"
+"Project-Id-Version: Tribe Common 6.9.8\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-19T17:34:58+00:00\n"
+"POT-Creation-Date: 2025-10-21T15:06:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -27,9 +27,10 @@ msgstr ""
 #. Author of the plugin
 #: tribe-common.php
 #: src/admin-views/help-calendar.php:105
-#: src/Common/Admin/Abstract_Admin_Page.php:488
+#: src/Common/REST/TEC/V1/Documentation.php:121
+#: src/Common/TrustedLogin/Trusted_Login_Config.php:319
 #: src/Tribe/Admin/Help_Page.php:171
-#: src/Tribe/Customizer.php:664
+#: src/Tribe/Customizer.php:666
 #: src/Tribe/Plugins_API.php:25
 msgid "The Events Calendar"
 msgstr ""
@@ -39,7 +40,7 @@ msgstr ""
 msgid "http://evnt.is/1x"
 msgstr ""
 
-#: src/admin-views/app-shop.php:37
+#: src/admin-views/app-shop.php:46
 #: src/admin-views/help.php:35
 #: src/admin-views/help.php:104
 #: src/admin-views/troubleshooting/footer-logo.php:12
@@ -47,114 +48,114 @@ msgstr ""
 msgid "The Events Calendar brand logo"
 msgstr ""
 
-#: src/admin-views/app-shop.php:42
+#: src/admin-views/app-shop.php:51
 msgid "All Solutions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:43
+#: src/admin-views/app-shop.php:52
 msgid "Save with Bundles"
 msgstr ""
 
-#: src/admin-views/app-shop.php:44
+#: src/admin-views/app-shop.php:53
 msgid "Extensions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:45
+#: src/admin-views/app-shop.php:54
 msgid "Stellar Discounts"
 msgstr ""
 
-#: src/admin-views/app-shop.php:54
-#: src/admin-views/app-shop.php:119
-#: src/admin-views/app-shop.php:177
-#: src/admin-views/app-shop.php:211
+#: src/admin-views/app-shop.php:63
+#: src/admin-views/app-shop.php:125
+#: src/admin-views/app-shop.php:183
+#: src/admin-views/app-shop.php:217
 msgid "Shapes and lines for visual interest"
 msgstr ""
 
-#: src/admin-views/app-shop.php:63
+#: src/admin-views/app-shop.php:69
 msgid "One calendar. Countless ways to make it your own."
 msgstr ""
 
-#: src/admin-views/app-shop.php:64
+#: src/admin-views/app-shop.php:70
 msgid "Calendars, ticketing, and powerful WordPress tools to manage your events from start to finish."
 msgstr ""
 
-#: src/admin-views/app-shop.php:66
+#: src/admin-views/app-shop.php:72
 msgid "Already Installed"
 msgstr ""
 
-#: src/admin-views/app-shop.php:72
-#: src/admin-views/app-shop.php:129
-#: src/admin-views/app-shop.php:151
+#: src/admin-views/app-shop.php:78
+#: src/admin-views/app-shop.php:135
+#: src/admin-views/app-shop.php:157
 msgid "TEC Logo"
 msgstr ""
 
-#: src/admin-views/app-shop.php:76
+#: src/admin-views/app-shop.php:82
 #: src/admin-views/help-calendar.php:45
 #: src/admin-views/help-community.php:43
 #: src/admin-views/help-ticketing.php:50
 msgid "Active"
 msgstr ""
 
-#: src/admin-views/app-shop.php:78
-#: src/admin-views/app-shop.php:187
+#: src/admin-views/app-shop.php:84
+#: src/admin-views/app-shop.php:193
 msgid "FREE"
 msgstr ""
 
-#: src/admin-views/app-shop.php:103
+#: src/admin-views/app-shop.php:109
 msgid "Manage"
 msgstr ""
 
-#: src/admin-views/app-shop.php:105
+#: src/admin-views/app-shop.php:111
 #: src/admin-views/help-calendar.php:77
 #: src/admin-views/help-community.php:57
 #: src/admin-views/help-ticketing.php:82
 msgid "Learn More"
 msgstr ""
 
-#: src/admin-views/app-shop.php:123
+#: src/admin-views/app-shop.php:129
 msgid "The plugins you need at one discounted price"
 msgstr ""
 
-#: src/admin-views/app-shop.php:124
+#: src/admin-views/app-shop.php:130
 msgid "We've packaged our most popular plugins into bundles jam-packed with value."
 msgstr ""
 
-#: src/admin-views/app-shop.php:136
-#: src/admin-views/app-shop.php:163
+#: src/admin-views/app-shop.php:142
+#: src/admin-views/app-shop.php:169
 msgid "Save With A Bundle"
 msgstr ""
 
-#: src/admin-views/app-shop.php:142
+#: src/admin-views/app-shop.php:148
 msgid "Includes"
 msgstr ""
 
-#: src/admin-views/app-shop.php:181
+#: src/admin-views/app-shop.php:187
 msgid "Free extensions to power up your plugins"
 msgstr ""
 
-#: src/admin-views/app-shop.php:182
+#: src/admin-views/app-shop.php:188
 msgid "Extensions are quick solutions our team came up with to solve specific issues you may need. (Note - extensions are not covered by our support team.)"
 msgstr ""
 
-#: src/admin-views/app-shop.php:196
+#: src/admin-views/app-shop.php:202
 msgid "Download"
 msgstr ""
 
-#: src/admin-views/app-shop.php:200
+#: src/admin-views/app-shop.php:206
 msgid "Browse Extensions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:219
+#: src/admin-views/app-shop.php:225
 msgid "Stellar is a collective of WordPress innovators, and home to WordPress products done right."
 msgstr ""
 
 #. translators: %s is the coupon code
-#: src/admin-views/app-shop.php:226
+#: src/admin-views/app-shop.php:232
 #, php-format
 msgid "$25 towards any Stellar product using code <u>%s</u>"
 msgstr ""
 
-#: src/admin-views/components/integration/add-connection.php:21
+#: src/admin-views/components/integration/add-connection.php:19
 msgctxt "Label to add an integration connection fields."
 msgid "Add Connection"
 msgstr ""
@@ -179,12 +180,10 @@ msgid "Loading..."
 msgstr ""
 
 #. translators: %1$s: Black Friday sale year (numeric)
-#. translators: %1$s: Black Friday year
 #: src/admin-views/conditional_content/black-friday.php:15
-#: src/Common/Admin/Conditional_Content/Black_Friday.php:244
 #, php-format
 msgctxt "Alt text for the Black Friday Ad"
-msgid "%1$s Black Friday Sale for The Events Calendar plugins, add-ons and bundles."
+msgid "%1$s Black Friday Sale for The Events Calendar. 30%% off all plugins, add-ons, bundles, everything!."
 msgstr ""
 
 #: src/admin-views/dashboard/components/clear-button.php:27
@@ -543,139 +542,139 @@ msgstr ""
 msgid "Automatic Updates"
 msgstr ""
 
-#: src/admin-views/help-hub.php:49
-msgid "Settings Navigation"
+#: src/admin-views/help-hub/header.php:33
+msgid "The Events Calendar logo"
 msgstr ""
 
-#: src/admin-views/help-hub.php:50
-msgid "Close settings navigation"
-msgstr ""
-
-#: src/admin-views/help-hub.php:51
-#: src/Tribe/Settings.php:894
-#: src/Tribe/Settings.php:932
-msgid "Close"
-msgstr ""
-
-#: src/admin-views/help-hub.php:54
-msgid "Help Hub Navigation"
-msgstr ""
-
-#: src/admin-views/help-hub.php:77
-#: src/admin-views/help-hub.php:83
-#: src/Tribe/Settings.php:1080
-msgid "Open settings navigation"
-msgstr ""
-
-#: src/admin-views/help-hub.php:87
+#: src/admin-views/help-hub/navigation-links.php:14
 msgid "Main Help Hub Navigation"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/common-issues.php:22
+#: src/admin-views/help-hub/navigation.php:17
+msgid "Settings Navigation"
+msgstr ""
+
+#: src/admin-views/help-hub/navigation.php:18
+msgid "Close settings navigation"
+msgstr ""
+
+#: src/admin-views/help-hub/navigation.php:19
+#: src/Tribe/Settings.php:901
+#: src/Tribe/Settings.php:939
+msgid "Close"
+msgstr ""
+
+#: src/admin-views/help-hub/navigation.php:31
+#: src/admin-views/help-hub/navigation.php:37
+#: src/Tribe/Settings.php:1097
+msgid "Open settings navigation"
+msgstr ""
+
+#: src/admin-views/help-hub/resources/common-issues.php:34
 msgctxt "Common issues section title"
 msgid "Common issues"
 msgstr ""
 
 #. translators: %s is the link to the AI Chatbot
-#: src/admin-views/help-hub/resources/common-issues.php:28
+#: src/admin-views/help-hub/resources/common-issues.php:40
 #, php-format
 msgid "Having trouble? Find solutions to common issues or ask our %s."
 msgstr ""
 
-#: src/admin-views/help-hub/resources/common-issues.php:29
+#: src/admin-views/help-hub/resources/common-issues.php:41
 msgid "AI Chatbot"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/customization.php:22
+#: src/admin-views/help-hub/resources/customization.php:33
 msgctxt "Customization guides section title"
 msgid "Customization guides"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/customization.php:25
+#: src/admin-views/help-hub/resources/customization.php:36
 msgctxt "Customization guides section paragraph"
 msgid "Tips and tricks on making your calendar just the way you want it."
 msgstr ""
 
-#: src/admin-views/help-hub/resources/faqs.php:22
+#: src/admin-views/help-hub/resources/faqs.php:33
 msgctxt "FAQs section title"
 msgid "FAQs"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/faqs.php:25
+#: src/admin-views/help-hub/resources/faqs.php:36
 msgctxt "FAQs section paragraph"
 msgid "Get quick answers to common questions"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/getting-started.php:22
+#: src/admin-views/help-hub/resources/getting-started.php:29
 msgctxt "Getting started guide section title"
 msgid "Getting started guides"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/getting-started.php:25
+#: src/admin-views/help-hub/resources/getting-started.php:32
 msgctxt "Getting started guide section paragraph"
 msgid "Easy to follow step-by-step instructions to make the most out of your calendar."
 msgstr ""
 
-#: src/admin-views/help-hub/resources/resources.php:18
+#: src/admin-views/help-hub/resources/resources.php:25
 msgctxt "Resources tab title"
 msgid "Resources"
 msgstr ""
 
 #. translators: %1$s is the link to the Knowledgebase.
-#: src/admin-views/help-hub/resources/resources.php:25
+#: src/admin-views/help-hub/resources/resources.php:38
 #, php-format
 msgid "Help on setting up, customizing, and troubleshooting your calendar. See our %1$s for in-depth content."
 msgstr ""
 
 #. translators: %s: Knowledgebase
-#: src/admin-views/help-hub/resources/resources.php:26
+#: src/admin-views/help-hub/resources/resources.php:39
 #: src/admin-views/tribe-options-help.php:21
 msgid "Knowledgebase"
 msgstr ""
 
-#. translators: Placeholders are for the `a` tag that displays a link.
-#: src/admin-views/help-hub/resources/resources.php:33
+#. translators: Placeholders are for the opening and closing anchor tags.
+#: src/admin-views/help-hub/resources/resources.php:54
 #, php-format
 msgctxt "The callout notice to try the chatbot with a link to the page"
 msgid "To find the answer to all your questions use the %1$sTEC Chatbot%2$s"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/resources.php:55
+#: src/admin-views/help-hub/resources/settings-infobox.php:17
 msgctxt "AI Chatbot notice title"
 msgid "Our AI Chatbot is here to help you"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/resources.php:64
+#: src/admin-views/help-hub/resources/settings-infobox.php:26
 msgctxt "AI Chatbot section paragraph"
 msgid "You have questions? The TEC Chatbot has the answers."
 msgstr ""
 
-#: src/admin-views/help-hub/resources/resources.php:74
+#: src/admin-views/help-hub/resources/settings-infobox.php:36
 #: src/admin-views/help-hub/resources/sidebar/no-license.php:39
 msgctxt "Link to the Help Chatbot"
 msgid "Talk to TEC Chatbot"
 msgstr ""
 
 #: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:18
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:18
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:27
 msgctxt "Help page resources sidebar header"
 msgid "Our TEC support hub now offers an improved help experience"
 msgstr ""
 
 #: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:27
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:27
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:36
 msgctxt "Describes why consent is beneficial"
 msgid "Our Help page is better than ever with the addition of:"
 msgstr ""
 
 #: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:45
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:45
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:54
 msgctxt "AI Chatbot sidebar header"
 msgid "AI Chatbot"
 msgstr ""
 
 #: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:54
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:54
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:63
 msgctxt "AI Chatbot support sidebar paragraph"
 msgid "Here to provide quick answers to your questions. It’s never been easier to find the right resource."
 msgstr ""
@@ -705,37 +704,37 @@ msgctxt "Call to action to use The Events Calendar Help Chatbot."
 msgid "You have questions? The TEC Chatbot has the answers."
 msgstr ""
 
-#: src/admin-views/help-hub/shared-live-support.php:25
+#: src/admin-views/help-hub/shared-live-support.php:36
 msgctxt "Get support sidebar header"
 msgid "Get priority live support"
 msgstr ""
 
-#: src/admin-views/help-hub/shared-live-support.php:34
+#: src/admin-views/help-hub/shared-live-support.php:45
 msgctxt "Live support sidebar paragraph"
 msgid "You can get live support from The Events Calendar team if you have an active license for one of our products."
 msgstr ""
 
-#: src/admin-views/help-hub/shared-live-support.php:44
+#: src/admin-views/help-hub/shared-live-support.php:55
 msgctxt "Live support sidebar link to article"
 msgid "Learn how to get live support"
 msgstr ""
 
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:73
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:82
 msgctxt "Get support sidebar header"
 msgid "In-app priority live support"
 msgstr ""
 
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:82
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:91
 msgctxt "Live support sidebar paragraph"
 msgid "Get access to our agents or generate a support ticket from right here."
 msgstr ""
 
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:93
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:102
 msgctxt "Opt in sidebar paragraph"
 msgid "To enhance your experience, we require your consent to collect and share some of your website’s data with our AI chatbot. "
 msgstr ""
 
-#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:103
+#: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:112
 msgctxt "Button to manage opt in status"
 msgid "Manage my data sharing consent"
 msgstr ""
@@ -767,34 +766,34 @@ msgstr ""
 msgid "Manage my data sharing consent"
 msgstr ""
 
-#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:24
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:31
 msgctxt "Talk to support sidebar header"
 msgid "Talk to our support team"
 msgstr ""
 
-#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:33
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:40
 msgctxt "Contact support paragraph"
 msgid "If you still need help contact us. Our Support team is available to help you out 5 days a week:"
 msgstr ""
 
-#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:42
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:49
 msgctxt "Support hours"
 msgid "Mon-Fri from 9:00 - 20:00 PST"
 msgstr ""
 
-#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:52
+#: src/admin-views/help-hub/support/sidebar/has-license-has-consent.php:59
 msgctxt "Contact support link"
 msgid "Contact support"
 msgstr ""
 
-#: src/admin-views/help-hub/support/support-hub.php:18
+#: src/admin-views/help-hub/support/support-hub.php:22
 msgctxt "Help page Support Hub title"
 msgid "TEC Support Hub"
 msgstr ""
 
-#: src/admin-views/help-hub/support/support-hub.php:27
+#: src/admin-views/help-hub/support/support-hub.php:38
 msgctxt "Help page Support Hub header paragraph"
-msgid "Help on setting up, customizing and troubleshooting your calendar."
+msgid "Help on setting up, customizing, and troubleshooting your calendar."
 msgstr ""
 
 #: src/admin-views/help-ticketing.php:106
@@ -841,7 +840,7 @@ msgid "(Event Tickets Plus)"
 msgstr ""
 
 #: src/admin-views/help.php:38
-#: src/Tribe/Settings.php:821
+#: src/Tribe/Settings.php:828
 msgid "Help"
 msgstr ""
 
@@ -1321,8 +1320,8 @@ msgid "License & Usage"
 msgstr ""
 
 #: src/admin-views/troubleshooting/ea-status/license-key.php:43
-#: src/Tribe/PUE/Checker.php:820
-#: src/Tribe/PUE/Checker.php:831
+#: src/Tribe/PUE/Checker.php:830
+#: src/Tribe/PUE/Checker.php:841
 msgid "License Key"
 msgstr ""
 
@@ -1424,7 +1423,7 @@ msgstr ""
 #: src/admin-views/troubleshooting/introduction.php:20
 #: src/Tribe/Admin/Troubleshooting.php:66
 #: src/Tribe/Admin/Troubleshooting.php:67
-#: src/Tribe/Admin/Troubleshooting.php:142
+#: src/Tribe/Admin/Troubleshooting.php:143
 msgid "Troubleshooting"
 msgstr ""
 
@@ -1738,6 +1737,75 @@ msgstr ""
 msgid "Searching..."
 msgstr ""
 
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:83
+msgid "Black Friday Sale"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:147
+#, php-format
+msgid "%1$s %2$s for Event Tickets 30%% off plugins, add-ons, bundles, everything!."
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Black_Friday.php:157
+#, php-format
+msgid "%1$s %2$s for The Events Calendar 30%% off plugins, add-ons, bundles, everything!."
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Promotional_Content_Abstract.php:706
+#, php-format
+msgctxt "Alt text for the Sale Ad"
+msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
+msgstr ""
+
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:71
+msgid "Stellar Sale"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:187
+#, php-format
+msgctxt "Alt text for the Events Pro Sale Ad"
+msgid "%1$s %2$s - Get Events Calendar Pro at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:198
+#, php-format
+msgctxt "Alt text for the Filter Bar Sale Ad"
+msgid "%1$s %2$s - Get Filter Bar at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:209
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:248
+#, php-format
+msgctxt "Alt text for the Default Sale Ad"
+msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:223
+#, php-format
+msgctxt "Alt text for the Event Tickets Plus Sale Ad"
+msgid "%1$s %2$s - Get Event Tickets Plus at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:236
+#, php-format
+msgctxt "Alt text for the Event Seating Sale Ad"
+msgid "%1$s %2$s - Get Event Seating at 30%% off!"
+msgstr ""
+
+#. translators: %1$s: Sale year (numeric), %2$s: Sale name
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:277
+#, php-format
+msgid "%1$s %2$s for The Events Calendar plugins, add-ons, and bundles."
+msgstr ""
+
 #: src/Common/Admin/Entities/Heading.php:101
 msgid "The maximum heading level must be 6 or less"
 msgstr ""
@@ -1756,40 +1824,57 @@ msgstr ""
 msgid "Invalid class instance."
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:338
+#: src/Common/Admin/Help_Hub/Hub.php:181
+#: src/Common/Admin/Help_Hub/Hub.php:182
+msgid "Help Hub"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:252
+msgid "Support Hub"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:261
+msgid "Resources"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:449
 #: src/Tribe/Admin/Help_Page.php:144
 msgctxt "Copy to clipboard button text."
 msgid "Copy to clipboard"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:339
+#: src/Common/Admin/Help_Hub/Hub.php:450
 #: src/Tribe/Admin/Help_Page.php:145
 msgctxt "Copy to clipboard success message"
 msgid "System info copied"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:340
+#: src/Common/Admin/Help_Hub/Hub.php:451
 #: src/Tribe/Admin/Help_Page.php:146
 msgctxt "Copy to clipboard instructions"
 msgid "Press \"Cmd + C\" to copy"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:341
+#: src/Common/Admin/Help_Hub/Hub.php:452
 #: src/Tribe/Admin/Help_Page.php:147
 msgctxt "Default error message for system info optin"
 msgid "Something has gone wrong!"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:342
+#: src/Common/Admin/Help_Hub/Hub.php:453
 #: src/Tribe/Admin/Help_Page.php:148
 msgctxt "Error code label for system info optin"
 msgid "Code:"
 msgstr ""
 
-#: src/Common/Admin/Help_Hub/Hub.php:343
+#: src/Common/Admin/Help_Hub/Hub.php:454
 #: src/Tribe/Admin/Help_Page.php:149
 msgctxt "Error status label for system info optin"
 msgid "Status:"
+msgstr ""
+
+#: src/Common/Admin/Help_Hub/Hub.php:608
+msgid "Failed to load Help Scout Beacon script."
 msgstr ""
 
 #: src/Common/Admin/Onboarding/Abstract_API.php:73
@@ -2677,40 +2762,40 @@ msgstr ""
 msgid "Read notifications"
 msgstr ""
 
-#: src/Common/Notifications/Controller.php:222
+#: src/Common/Notifications/Controller.php:227
 msgid "Enable this option to receive notifications about The Events Calendar, including updates, fixes, and features. This is enabled if you have opted in to Telemetry."
 msgstr ""
 
-#: src/Common/Notifications/Controller.php:233
+#: src/Common/Notifications/Controller.php:238
 msgid "In-App Notifications"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:143
-#: src/Common/Notifications/Notifications.php:161
-#: src/Common/Notifications/Notifications.php:210
-#: src/Common/Notifications/Notifications.php:238
-#: src/Common/Notifications/Notifications.php:264
+#: src/Common/Notifications/Notifications.php:154
+#: src/Common/Notifications/Notifications.php:172
+#: src/Common/Notifications/Notifications.php:221
+#: src/Common/Notifications/Notifications.php:249
+#: src/Common/Notifications/Notifications.php:275
 msgid "Invalid nonce"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:149
+#: src/Common/Notifications/Notifications.php:160
 msgid "Notifications opt-in successful"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:217
-#: src/Common/Notifications/Notifications.php:245
+#: src/Common/Notifications/Notifications.php:228
+#: src/Common/Notifications/Notifications.php:256
 msgid "Invalid notification slug"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:224
+#: src/Common/Notifications/Notifications.php:235
 msgid "Notification dismissed"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:252
+#: src/Common/Notifications/Notifications.php:263
 msgid "Notification marked as read"
 msgstr ""
 
-#: src/Common/Notifications/Notifications.php:275
+#: src/Common/Notifications/Notifications.php:286
 msgid "All notifications marked as read"
 msgstr ""
 
@@ -2724,6 +2809,454 @@ msgstr ""
 
 #: src/Common/QR/Notices.php:105
 msgid "Learn more."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Abstracts/Endpoint.php:493
+msgid "Experimental endpoint requires acknowledgement header."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Abstracts/Endpoint.php:497
+msgid "Experimental endpoint requires appropriate acknowledgement header."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Abstracts/Post_Entity_Endpoint.php:144
+msgid "Whether to bypass Trash and force deletion."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Controller.php:332
+msgid "Password protected"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation.php:117
+msgid "The Events Calendar REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation.php:119
+msgid "The Events Calendar REST API allows accessing upcoming events information easily and conveniently."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/Date_Definition.php:63
+msgid "The date"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/Date_Definition.php:70
+msgid "The timezone type"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/Date_Definition.php:77
+msgid "The timezone of the date"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:59
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:101
+msgid "The OpenAPI version."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:63
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:107
+msgid "The API info."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:67
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:112
+msgid "The API title."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:71
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:117
+msgid "The TEC REST API version."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:75
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:122
+msgid "The API description."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:79
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:127
+msgid "The API contact."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:83
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:132
+msgid "The name of the contact."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:87
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:137
+msgid "The email of the contact."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:96
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:147
+msgid "The OpenAPI components."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:100
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:153
+msgid "The OpenAPI schemas."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:106
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:169
+msgid "The OpenAPI servers."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:109
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:173
+msgid "A server."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:113
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:178
+msgid "The server URL."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Definition.php:121
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:188
+msgid "The OpenAPI paths."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:59
+msgid "The GET method for the path."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:63
+msgid "The description of the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:67
+msgid "The parameters of the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:70
+msgid "A parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:74
+msgid "The name of the parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:78
+msgid "The location of the parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:82
+msgid "Whether the parameter is required."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:86
+msgid "The schema of the parameter."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:93
+msgid "The responses of the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:97
+msgid "The response for the GET method."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:101
+msgid "The content of the response."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:105
+msgid "The JSON content of the response."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:109
+msgid "The schema of the content."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/OpenApi_Path_Definition.php:113
+msgid "The type of the content."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:55
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:53
+msgid "The date the entity was published, in the site's timezone. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:62
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:60
+msgid "The date the entity was published, as GMT. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:70
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:77
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:152
+msgid "The globally unique identifier for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:86
+msgid "Unique identifier for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:93
+msgid "URL to the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:100
+msgid "The date the entity was last modified, in the site's timezone. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:107
+msgid "The date the entity was last modified, as GMT. In RFC3339 format."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:114
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:67
+msgid "An alphanumeric identifier for the entity unique to its type"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:121
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:74
+msgid "A named status for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:130
+msgid "Permalink template for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:137
+msgid "Slug automatically generated from the entity title"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:145
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:83
+msgid "HTML title for the entity, transformed for display"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:161
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:90
+msgid "HTML content for the entity, transformed for display"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:168
+msgid "Whether the content is protected with a password"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:175
+msgid "The content for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:184
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:97
+msgid "HTML excerpt for the entity, transformed for display"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:191
+msgid "Whether the excerpt is protected with a password"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:198
+msgid "The excerpt for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:206
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:104
+msgid "The ID for the author of the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:213
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:111
+msgid "The ID of the featured media for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:220
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:118
+msgid "Whether or not comments are open on the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:229
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:127
+msgid "Whether or not the entity can be pinged"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:238
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:136
+msgid "The format for the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:247
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:145
+msgid "Whether or not the entity should be treated as sticky"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:256
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:154
+msgid "The theme file to use to display the entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:263
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:161
+msgid "The terms assigned to the entity in the post_tag taxonomy"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:270
+msgid "TEC Post Entity"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:271
+msgid "A TEC post object as returned by the REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:167
+msgid "TEC Post Entity Request Body"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:168
+msgid "A TEC post object as expected by the REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:159
+msgid "An object's schema."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:194
+msgid "A path's documentation."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:208
+msgid "Get the documentation for the TEC REST API"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:209
+#: src/Common/REST/TEC/V1/Endpoints/OpenApiDocs.php:218
+msgid "Returns the documentation for The Events Calendar REST API in Swagger consumable format."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Integer.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be an integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Integer.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not an integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/IP.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be a valid IP address."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/IP.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not a valid IP address."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Number.php:91
+#, php-format
+msgid "Parameter `{%1$s}` must be a number."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Number.php:96
+#, php-format
+msgid "The parameter `{%1$s}` is not a number."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Positive_Integer.php:31
+#, php-format
+msgid "Parameter `{%1$s}` must be a positive integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Positive_Integer.php:36
+#, php-format
+msgid "The parameter `{%1$s}` is not a positive integer."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/URI.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be a valid URL."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/URI.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not a valid URL."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/UUID.php:38
+#, php-format
+msgid "Parameter `{%1$s}` must be a valid UUID."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/UUID.php:43
+#, php-format
+msgid "The parameter `{%1$s}` is not a valid UUID. It should be a string like `123e4567-e89b-12d3-a456-426614174000`."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Tags/Common_Tag.php:45
+msgid "These operations are introduced by the Common library."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Create_Entity_Response.php:39
+msgid "Failed to create entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:40
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:49
+msgid "The entity could not be deleted."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:60
+msgid "The entity could not be found."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:74
+msgid "Force deletion failed - the entity could not be permanently deleted."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:90
+msgid "The entity does not support trashing. Set 'force=true' to delete."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:116
+msgid "The entity could not be permanently deleted."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:127
+msgid "The entity has already been trashed."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:139
+msgid "The entity could not be trashed."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Read_Archive_Response.php:51
+msgid "The requested page was not found."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:40
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:49
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:75
+msgid "The entity could not be read."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:42
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:51
+msgid "The entity could not be updated."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:72
+msgid "Failed to update entity."
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:90
+msgid "Entity not found after update."
 msgstr ""
 
 #. Translators: %1$s the post type label.
@@ -2774,16 +3307,20 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
+#: src/Common/TrustedLogin/Help_Hub_Integration.php:87
+msgid "Support Access"
+msgstr ""
+
 #: src/functions/template-tags/html.php:145
 msgctxt "The associated field is required."
 msgid "( required )"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:113
+#: src/Tribe/Admin/Activation_Page.php:114
 msgid "Go to plugins page"
 msgstr ""
 
-#: src/Tribe/Admin/Activation_Page.php:121
+#: src/Tribe/Admin/Activation_Page.php:122
 msgid "Go to WordPress Updates page"
 msgstr ""
 
@@ -2835,351 +3372,402 @@ msgid "You need to upgrade!"
 msgstr ""
 
 #: src/Tribe/Admin/Help_Page.php:557
-#: src/Tribe/Admin/Help_Page.php:933
+#: src/Tribe/Admin/Help_Page.php:934
 msgid "You are up to date!"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:923
+#: src/Tribe/Admin/Help_Page.php:924
 #, php-format
 msgid "Activate %s"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:923
+#: src/Tribe/Admin/Help_Page.php:924
 msgid "Activate Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:931
+#: src/Tribe/Admin/Help_Page.php:932
 msgid "Upgrade Plugin"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:948
+#: src/Tribe/Admin/Help_Page.php:949
 #, php-format
 msgid "Install %s"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: src/Tribe/Admin/Help_Page.php:948
+#: src/Tribe/Admin/Help_Page.php:949
 msgid "Install Plugin"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:965
+#: src/Tribe/Admin/Help_Page.php:966
 msgid "Latest Version:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:968
+#: src/Tribe/Admin/Help_Page.php:969
 msgid "Requires:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:969
+#: src/Tribe/Admin/Help_Page.php:970
 msgid "WordPress "
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:971
+#: src/Tribe/Admin/Help_Page.php:972
 msgid "Active Users:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:974
+#: src/Tribe/Admin/Help_Page.php:975
 msgid "Rating:"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:999
+#: src/Tribe/Admin/Help_Page.php:1000
 msgid "Premium Add-Ons"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1006
+#: src/Tribe/Admin/Help_Page.php:1007
 msgid "Plugin Active"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1008
+#: src/Tribe/Admin/Help_Page.php:1009
 msgid "Plugin Inactive"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1013
+#: src/Tribe/Admin/Help_Page.php:1014
 msgid "Visit the Add-on Page"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1040
+#: src/Tribe/Admin/Help_Page.php:1041
 msgid "Can I have more than one calendar?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1041
+#: src/Tribe/Admin/Help_Page.php:1042
 msgid "No, but you can use event categories or tags to display certain events like having..."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1045
+#: src/Tribe/Admin/Help_Page.php:1046
 msgid "What do I get with Events Calendar Pro?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1050
+#: src/Tribe/Admin/Help_Page.php:1051
 msgid "How do I sell tickets to events?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1051
+#: src/Tribe/Admin/Help_Page.php:1052
 msgid "Use our free Event Tickets plugin to get started with tickets and RSVPs."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1055
+#: src/Tribe/Admin/Help_Page.php:1056
 msgid "Where can I find a list of available shortcodes?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1056
+#: src/Tribe/Admin/Help_Page.php:1057
 msgid "Our plugins include many shortcodes that do everything from embedding the calendar..."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1075
+#: src/Tribe/Admin/Help_Page.php:1076
 msgid "Calendar widget areas"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1076
+#: src/Tribe/Admin/Help_Page.php:1077
 msgid "This extension creates a useful variety of WordPress widget areas (a.k.a. sidebars)."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1081
+#: src/Tribe/Admin/Help_Page.php:1082
 msgid "Event block patterns"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1082
+#: src/Tribe/Admin/Help_Page.php:1083
 msgid "This extension adds a set of block patterns for events to the WordPress block editor."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1087
+#: src/Tribe/Admin/Help_Page.php:1088
 msgid "Alternative photo view"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1088
+#: src/Tribe/Admin/Help_Page.php:1089
 msgid "This extension replaces photo view with a tiled grid of cards featuring event images."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1093
+#: src/Tribe/Admin/Help_Page.php:1094
 msgid "The Events Calendar Tweaks"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1094
+#: src/Tribe/Admin/Help_Page.php:1095
 msgid "This extension is a collection of tweaks and snippets for The Events Calendar."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1133
+#: src/Tribe/Admin/Help_Page.php:1134
 msgid "How Do I create events with Tickets or RSVP’s?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1134
+#: src/Tribe/Admin/Help_Page.php:1135
 msgid "We’ve put together a video tutorial showing how to create events with Tickets using our plugins. Click on the link in the link in the title to learn more."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1138
+#: src/Tribe/Admin/Help_Page.php:1139
 msgid "How Do I Set Up E-Commerce Plugins for Selling Tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1139
+#: src/Tribe/Admin/Help_Page.php:1140
 msgid "You can sell tickets using our built-in e-commerce option, or upgrade to Event Tickets Plus to use ecommerce plugins such as WooCommerce."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1143
+#: src/Tribe/Admin/Help_Page.php:1144
 msgid "Can I have a seating chart associated with my tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1144
+#: src/Tribe/Admin/Help_Page.php:1145
 msgid "Yes! You can easily accomplish this task using the stock options and multiple ticket types available with Event Tickets."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1148
+#: src/Tribe/Admin/Help_Page.php:1149
 msgid "How do I process refunds for tickets?"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1149
+#: src/Tribe/Admin/Help_Page.php:1150
 msgid "When it comes to paid tickets, these orders can be refunded through the e-commerce platform in use."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1168
+#: src/Tribe/Admin/Help_Page.php:1169
 msgid "Ticket Email Settings"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1169
+#: src/Tribe/Admin/Help_Page.php:1170
 msgid "Adds a new settings panel in Events > Settings that gives more control over the ticket and rsvp emails that are sent to attendees after registration."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1174
+#: src/Tribe/Admin/Help_Page.php:1175
 msgid "Per Event Check In API"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1175
+#: src/Tribe/Admin/Help_Page.php:1176
 msgid "This extension shows a meta box with an API key on each Event with Ticket/RSVP."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1180
+#: src/Tribe/Admin/Help_Page.php:1181
 msgid "Add Event & Attendee Info to WooCommerce Order Details"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1181
+#: src/Tribe/Admin/Help_Page.php:1182
 msgid "Displays the information collected by “attendee meta fields” in the WooCommerce order screens as well."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1186
+#: src/Tribe/Admin/Help_Page.php:1187
 msgid "Organizer Notification Email"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1187
+#: src/Tribe/Admin/Help_Page.php:1188
 msgid "This extension will send an email to event organizers whenever a user registers for their event."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1226
+#: src/Tribe/Admin/Help_Page.php:1227
 msgid "Add Cost Currency Symbol"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1227
+#: src/Tribe/Admin/Help_Page.php:1228
 msgid "This extension allows you to set default currency symbols for your users to choose from instead of having a plain text field."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1232
+#: src/Tribe/Admin/Help_Page.php:1233
 msgid "Add Google Maps Display and Link Options"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1233
+#: src/Tribe/Admin/Help_Page.php:1234
 msgid "This extension adds the “Show Google Maps” and “Show Google Maps Link” checkboxes when creating a new Venue."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1238
+#: src/Tribe/Admin/Help_Page.php:1239
 msgid "Hide Others’ Organizers and Venues"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1239
+#: src/Tribe/Admin/Help_Page.php:1240
 msgid "This extension allows you to hide the Organizers and Venues that a visitor has not created from the Community submission form."
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1244
+#: src/Tribe/Admin/Help_Page.php:1245
 msgid "Display Custom HTML"
 msgstr ""
 
-#: src/Tribe/Admin/Help_Page.php:1245
+#: src/Tribe/Admin/Help_Page.php:1246
 msgid "This extension allows you to add custom HTML content to the top of the Community submission form."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Php_Version.php:59
-#: src/Tribe/Admin/Notice/Plugin_Download.php:147
+#: src/Tribe/Admin/Notice/Php_Version.php:68
+#: src/Tribe/Admin/Notice/Plugin_Download.php:160
 msgctxt "separator used in a list of items"
 msgid ", "
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Php_Version.php:60
-#: src/Tribe/Admin/Notice/Plugin_Download.php:148
+#: src/Tribe/Admin/Notice/Php_Version.php:69
+#: src/Tribe/Admin/Notice/Plugin_Download.php:161
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
 msgstr ""
 
 #. Translators: %1$s list of plugins, %2$s current PHP version, %3$s open anchor html link for read more, %4$s open anchor html link for read more
-#: src/Tribe/Admin/Notice/Php_Version.php:96
+#: src/Tribe/Admin/Notice/Php_Version.php:106
 #, php-format
 msgctxt "Message notifying users they need to upgrade PHP"
 msgid "Starting February 2023, %1$s will require PHP 7.4 or later. Currently, your site is using PHP version %2$s. Please update to a newer version. %3$sRead more%4$s."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:120
+#. Translators: 1: plugin name(s), 2: required plugin(s)
+#: src/Tribe/Admin/Notice/Plugin_Download.php:132
 #, php-format
 msgid "To begin using %2$s, please install (or upgrade) and activate %3$s."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:122
+#: src/Tribe/Admin/Notice/Plugin_Download.php:134
 #: src/Tribe/PUE/Update_Prevention.php:181
 msgid "Read more"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Plugin_Download.php:123
+#. Translators: 1: plugin name(s), 2: "Read more" link
+#: src/Tribe/Admin/Notice/Plugin_Download.php:136
 #, php-format
 msgid "There’s a new version of %1$s available, but your license is expired. You’ll need to renew your license to get access to the latest version. If you plan to continue using your current version of the plugin(s), be sure to use a compatible version of The Events Calendar. %2$s"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:79
+#: src/Tribe/Admin/Notice/WP_Version.php:86
 msgid "You are using WordPress 5.7 which included a major jQuery update that may cause compatibility issues with past versions of The Events Calendar, Event Tickets and other plugins."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:81
+#: src/Tribe/Admin/Notice/WP_Version.php:88
 msgid "WordPress 5.7 includes a major jQuery update that may cause compatibility issues with past versions of The Events Calendar, Event Tickets and other plugins."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/WP_Version.php:83
+#: src/Tribe/Admin/Notice/WP_Version.php:90
 msgid "Read more."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:297
+#: src/Tribe/Admin/Troubleshooting.php:322
 msgid "Site time zone uses UTC"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:298
+#: src/Tribe/Admin/Troubleshooting.php:323
 msgid "When using The Events Calendar, we highly recommend that you use a geographic timezone such as \"America/Los_Angeles\" and avoid using a UTC timezone offset such as “UTC+9”. Choosing a UTC timezone for your site or individual events may cause problems when importing events or with Daylight Saving Time. Go to your the General WordPress settings to adjust your site timezone."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:300
+#: src/Tribe/Admin/Troubleshooting.php:325
 msgid "Adjust your timezone"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:305
+#: src/Tribe/Admin/Troubleshooting.php:330
 msgid "Install max has been reached"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:306
+#: src/Tribe/Admin/Troubleshooting.php:331
 msgid "License keys can only be used on a limited number of sites, which varies depending on your license level. You'll need to remove the license from one or more other site's in order to use it on this one."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:308
+#: src/Tribe/Admin/Troubleshooting.php:333
 msgid "Manage your licenses"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:313
+#: src/Tribe/Admin/Troubleshooting.php:338
 msgid "Default Google Maps API key"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:314
+#: src/Tribe/Admin/Troubleshooting.php:339
 msgid "The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins, dynamic map loads, or Events Calendar Pro's Location Search and advanced Map View, you’ll need to get your own Google Maps API key and add it to Events > Settings > Integrations"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:316
+#: src/Tribe/Admin/Troubleshooting.php:341
 msgid "Enter a custom API key"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:321
+#: src/Tribe/Admin/Troubleshooting.php:346
 msgid "Plugin(s) are out of date"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:322
-msgid "It's important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be comprimised if your site is running outdated or mis-matched versions."
+#: src/Tribe/Admin/Troubleshooting.php:347
+msgid "It's important to use the most recent versions of our plugins so that you have access to the latest features, bug fixes, and security updates. Plugin functionality can be compromised if your site is running outdated or mis-matched versions."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:324
+#: src/Tribe/Admin/Troubleshooting.php:349
 msgid "Check for updates"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:343
+#: src/Tribe/Admin/Troubleshooting.php:354
+msgid "PHP version out of date"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:355
+msgid "The PHP version your site uses has reached its end of life of life on November 28, 2022. This means it no longer receives security updates or bug fixes. Users are encouraged to upgrade to newer versions of PHP to ensure continued support and security. Reach out to your hosting provider for assistance."
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:362
+msgid "Default PHP timezone is other than UTC"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:363
+msgid "The default PHP timezone of your server is set to something else than UTC. This can cause issues when displaying event times and time zones. We recommend you to set the default PHP time zone on your server to UTC. This is usually done with the `date.timezone` directive in the php.ini file."
+msgstr ""
+
+#. translators: %s: The name of the caching plugin.
+#: src/Tribe/Admin/Troubleshooting.php:371
+#, php-format
+msgid "Caching plugin detected: %s"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:372
+msgid "Caching can improve your site performance and speed up your site. Check out our Caching Guide to help you set up caching with our plugins correctly."
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:394
 msgid "Common Error Messages"
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:344
+#. Translators: %s: The link label, i.e. "common error messages"
+#: src/Tribe/Admin/Troubleshooting.php:396
 #, php-format
 msgid "Here’s an overview of %s and what they mean."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:349
+#: src/Tribe/Admin/Troubleshooting.php:398
+msgid "common error messages"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:401
 msgid "My calendar doesn’t look right."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:355
+#: src/Tribe/Admin/Troubleshooting.php:405
+msgid "More info"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:408
 msgid "I installed the calendar and it crashed my site."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:356
+#. Translators: %s: The link label, i.e. "Find solutions to this"
+#: src/Tribe/Admin/Troubleshooting.php:410
 #, php-format
 msgid "%s and other common installation issues."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:361
+#: src/Tribe/Admin/Troubleshooting.php:412
+msgid "Find solutions to this"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:415
 msgid "I keep getting “Page Not Found” on events."
 msgstr ""
 
-#: src/Tribe/Admin/Troubleshooting.php:362
+#. Translators: %s: The link label, i.e. "things you can do"
+#: src/Tribe/Admin/Troubleshooting.php:417
 #, php-format
 msgid "There are a few %s to resolve and prevent 404 errors."
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:419
+msgid "things you can do"
+msgstr ""
+
+#: src/Tribe/Admin/Troubleshooting.php:477
+msgid "Plugin couldn't be identified."
 msgstr ""
 
 #: src/Tribe/Ajax/Dropdown.php:41
@@ -3388,30 +3976,30 @@ msgstr ""
 msgid "If you like %1$sEvent Tickets%2$s please leave us a %3$s. It takes a minute and it helps a lot."
 msgstr ""
 
-#: src/Tribe/Customizer.php:665
+#: src/Tribe/Customizer.php:667
 msgid "Use the following panel of your customizer to change the styling of your Calendar and Event pages."
 msgstr ""
 
-#: src/Tribe/Customizer.php:1026
+#: src/Tribe/Customizer.php:1028
 msgctxt "Page title for the TEC Customizer section."
 msgid "Customize The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Customizer.php:1027
+#: src/Tribe/Customizer.php:1029
 msgctxt "Menu item text for the TEC Customizer section link."
 msgid "Customize The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Customizer.php:1052
+#: src/Tribe/Customizer.php:1054
 msgid "Customizer"
 msgstr ""
 
-#: src/Tribe/Customizer.php:1056
+#: src/Tribe/Customizer.php:1058
 msgid "Adjust colors, fonts, and more with the WordPress Customizer."
 msgstr ""
 
 #. translators: %1$s: opening anchor tag; %2$s: closing anchor tag
-#: src/Tribe/Customizer.php:1062
+#: src/Tribe/Customizer.php:1064
 #, php-format
 msgctxt "Link text added to the TEC->Settings->Display tab."
 msgid "%1$sCustomize The Events Calendar%2$s"
@@ -3597,7 +4185,7 @@ msgstr ""
 msgid "A list of links to the term own, archive and parent REST URL"
 msgstr ""
 
-#: src/Tribe/Editor/Blocks/Abstract.php:134
+#: src/Tribe/Editor/Blocks/Abstract.php:132
 msgid "Problem loading the block, please remove this block to restart."
 msgstr ""
 
@@ -4883,100 +5471,100 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:303
+#: src/Tribe/Main.php:316
 msgctxt "Copy to clipboard success message"
 msgid "Copied to Clipboard!"
 msgstr ""
 
-#: src/Tribe/Main.php:304
+#: src/Tribe/Main.php:317
 msgctxt "Copy to clipboard failed message"
 msgid "Failed to copy."
 msgstr ""
 
-#: src/Tribe/Main.php:455
+#: src/Tribe/Main.php:468
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:456
+#: src/Tribe/Main.php:469
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:458
+#: src/Tribe/Main.php:471
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:459
+#: src/Tribe/Main.php:472
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:460
+#: src/Tribe/Main.php:473
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:461
+#: src/Tribe/Main.php:474
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:462
+#: src/Tribe/Main.php:475
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:463
+#: src/Tribe/Main.php:476
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:464
+#: src/Tribe/Main.php:477
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:465
+#: src/Tribe/Main.php:478
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:466
+#: src/Tribe/Main.php:479
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:467
+#: src/Tribe/Main.php:480
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:469
+#: src/Tribe/Main.php:482
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:470
-#: src/Tribe/Main.php:487
+#: src/Tribe/Main.php:483
+#: src/Tribe/Main.php:500
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:471
+#: src/Tribe/Main.php:484
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:476
+#: src/Tribe/Main.php:489
 #, php-format
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:477
+#: src/Tribe/Main.php:490
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:488
+#: src/Tribe/Main.php:501
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:489
-#: src/Tribe/Main.php:491
+#: src/Tribe/Main.php:502
+#: src/Tribe/Main.php:504
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:490
+#: src/Tribe/Main.php:503
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:492
+#: src/Tribe/Main.php:505
 msgid "Clear"
 msgstr ""
 
@@ -5258,141 +5846,147 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:804
+#: src/Tribe/PUE/Checker.php:806
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:808
+#: src/Tribe/PUE/Checker.php:811
 #, php-format
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:840
-#: src/Tribe/PUE/Checker.php:874
-msgid "License Key Status:"
-msgstr ""
-
-#: src/Tribe/PUE/Checker.php:849
-msgid "Override network license key"
+#. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
+#: src/Tribe/PUE/Checker.php:818
+#, php-format
+msgid "%1$sBuy a license%2$s for the Promoter service to access additional marketing features."
 msgstr ""
 
 #: src/Tribe/PUE/Checker.php:850
+#: src/Tribe/PUE/Checker.php:884
+msgid "License Key Status:"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:859
+msgid "Override network license key"
+msgstr ""
+
+#: src/Tribe/PUE/Checker.php:860
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:861
+#: src/Tribe/PUE/Checker.php:871
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:976
+#: src/Tribe/PUE/Checker.php:986
 msgid "License key(s) updated."
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1240
+#: src/Tribe/PUE/Checker.php:1250
 #, php-format
 msgid "Hmmm... something's wrong with this validator. Please contact %1$ssupport%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1260
+#: src/Tribe/PUE/Checker.php:1270
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1266
+#: src/Tribe/PUE/Checker.php:1276
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1295
+#: src/Tribe/PUE/Checker.php:1305
 #, php-format
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1306
+#: src/Tribe/PUE/Checker.php:1316
 #, php-format
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1344
-#: src/Tribe/PUE/Notices.php:480
+#: src/Tribe/PUE/Checker.php:1354
+#: src/Tribe/PUE/Notices.php:496
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1346
-#: src/Tribe/PUE/Notices.php:482
+#: src/Tribe/PUE/Checker.php:1356
+#: src/Tribe/PUE/Notices.php:498
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1363
+#: src/Tribe/PUE/Checker.php:1373
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1385
+#: src/Tribe/PUE/Checker.php:1395
 #, php-format
 msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1449
+#: src/Tribe/PUE/Checker.php:1459
 #, php-format
 msgid "There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
 #. Translators: %s is the plugin version number.
-#: src/Tribe/PUE/Checker.php:1481
+#: src/Tribe/PUE/Checker.php:1491
 #, php-format
 msgid "Update now to version %s."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s is the update now link.
-#: src/Tribe/PUE/Checker.php:1496
+#: src/Tribe/PUE/Checker.php:1506
 #, php-format
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2187
+#: src/Tribe/PUE/Checker.php:2197
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2188
+#: src/Tribe/PUE/Checker.php:2198
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2189
+#: src/Tribe/PUE/Checker.php:2199
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:413
+#: src/Tribe/PUE/Notices.php:429
 #, php-format
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
 msgid_plural "It looks like you're using %1$s, but the license keys are invalid. Please download the latest versions %2$sfrom your account%3$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:467
+#: src/Tribe/PUE/Notices.php:483
 #, php-format
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
 msgid_plural "Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:508
+#: src/Tribe/PUE/Notices.php:524
 #, php-format
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
 msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/PUE/Notices.php:550
+#: src/Tribe/PUE/Notices.php:566
 #, php-format
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Notices.php:605
-#: src/Tribe/PUE/Notices.php:648
+#: src/Tribe/PUE/Notices.php:620
+#: src/Tribe/PUE/Notices.php:663
 #, php-format
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
@@ -5403,7 +5997,7 @@ msgstr ""
 msgid "Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s"
 msgstr ""
 
-#: src/Tribe/Repository.php:2583
+#: src/Tribe/Repository.php:2582
 msgid "Could not delete post with ID "
 msgstr ""
 
@@ -5421,45 +6015,45 @@ msgstr ""
 msgid "%s Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:745
+#: src/Tribe/Settings.php:752
 msgid "You've requested a non-existent tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:808
+#: src/Tribe/Settings.php:815
 msgid "Save Changes"
 msgstr ""
 
-#: src/Tribe/Settings.php:857
+#: src/Tribe/Settings.php:864
 msgid "Skip to tab content"
 msgstr ""
 
-#: src/Tribe/Settings.php:1103
+#: src/Tribe/Settings.php:1120
 msgid "For you, Jack!"
 msgstr ""
 
-#: src/Tribe/Settings.php:1177
+#: src/Tribe/Settings.php:1194
 msgid "You don't have permission to do that."
 msgstr ""
 
-#: src/Tribe/Settings.php:1183
+#: src/Tribe/Settings.php:1200
 msgid "The request was sent insecurely."
 msgstr ""
 
-#: src/Tribe/Settings.php:1189
+#: src/Tribe/Settings.php:1206
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:1399
+#: src/Tribe/Settings.php:1416
 msgid "Your form had the following errors:"
 msgstr ""
 
-#: src/Tribe/Settings.php:1410
+#: src/Tribe/Settings.php:1427
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Settings.php:1431
+#: src/Tribe/Settings.php:1448
 msgid "Settings saved."
 msgstr ""
 
@@ -5722,22 +6316,6 @@ msgstr ""
 
 #: src/views/promoter/auth.php:81
 msgid "Terms"
-msgstr ""
-
-#: src/views/v2/components/icons/featured.php:24
-msgid "Featured"
-msgstr ""
-
-#: src/views/v2/components/icons/hybrid.php:24
-msgid "Hybrid"
-msgstr ""
-
-#: src/views/v2/components/icons/recurring.php:25
-msgid "Recurring"
-msgstr ""
-
-#: src/views/v2/components/icons/virtual.php:24
-msgid "Virtual"
 msgstr ""
 
 #: src/modules/elements/image-upload/element.js:41

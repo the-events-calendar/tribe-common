@@ -9,9 +9,7 @@
  *
  * @since 1.4.0
  *
- * @version 1.4.0
- *
- * @link    http://evnt.is/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @var Api $api An instance of the Integration  API handler.
  * @var Url $url An instance of the URL handler.
@@ -27,7 +25,7 @@ $classes = [
 ?>
 <a
 	href="<?php echo esc_url( $add_link ); ?>"
-	<?php tribe_classes( $classes ); ?>
+	<?php tec_classes( $classes ); ?>
 >
 	<span class="dashicons dashicons-plus"></span>
 	<?php echo esc_html( $connect_label ); ?>

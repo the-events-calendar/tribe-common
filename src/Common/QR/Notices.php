@@ -12,7 +12,7 @@ namespace TEC\Common\QR;
 /**
  * Class Notices
  *
- * @since  6.6.0
+ * @since 6.6.0
  *
  * @package TEC\Common\QR
  */

@@ -2,7 +2,7 @@
 /**
  * Models a Customizer heading, a Control just in name, it does not control any setting.
  *
- * @since   4.12.14
+ * @since 4.12.14
  *
  * @package Tribe\Customizer\Controls
  */
@@ -14,7 +14,7 @@ use Tribe\Customizer\Control;
 /**
  * Class Heading
  *
- * @since   4.12.14
+ * @since 4.12.14
  *
  * @package Tribe\Customizer\Controls
  */

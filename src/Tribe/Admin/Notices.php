@@ -339,7 +339,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Checks if a given notice is rendered
 	 *
-	 * @since  4.7.10
+	 * @since 4.7.10
 	 *
 	 * @param string $slug Which notice to check.
 	 *
@@ -358,7 +358,7 @@ class Tribe__Admin__Notices {
 	/**
 	 * Checks if a given string is a notice rendered
 	 *
-	 * @since  4.7.10
+	 * @since 4.7.10
 	 *
 	 * @param string $slug Which notice to check.
 	 * @param string $html Which html string we are check.
@@ -557,11 +557,11 @@ class Tribe__Admin__Notices {
 	 *
 	 * @since 4.3
 	 *
-	 * @param string          $slug             Slug to save the notice
-	 * @param callable|string $callback         A callable Method/Function to actually display the notice
-	 * @param array           $arguments        Arguments to Setup a notice
-	 * @param callable|null   $active_callback  An optional callback that should return bool values
-	 *                                          to indicate whether the notice should display or not.
+	 * @param string              $slug             Slug to save the notice.
+	 * @param callable|string     $callback         A callable Method/Function to actually display the notice.
+	 * @param array|object|string $arguments        Arguments to Setup a notice, must be in a format that wp_parse_args can use.
+	 * @param callable|null       $active_callback  An optional callback that should return bool values.
+	 *                                              to indicate whether the notice should display or not.
 	 *
 	 * @return stdClass
 	 */
@@ -622,7 +622,7 @@ class Tribe__Admin__Notices {
 	 * A transient admin notice is a "fire-and-forget" admin notice that will display once registered and
 	 * until dismissed (if dismissible) without need, on the side of the source code, to register it on each request.
 	 *
-	 * @since  4.7.7
+	 * @since 4.7.7
 	 *
 	 * @param string $slug      Slug to save the notice
 	 * @param string $html      The notice output HTML code

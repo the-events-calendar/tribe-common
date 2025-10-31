@@ -4,7 +4,7 @@
  *
  * This interface is the minimal one a repository should implement to be called such.
  *
- * @since   4.10.2
+ * @since 4.10.2
  *
  * @package Tribe\Repository
  */
@@ -18,7 +18,7 @@ use Generator;
 /**
  * Class Core_Read_Interface
  *
- * @since   4.10.2
+ * @since 4.10.2
  *
  * @package Tribe\Repository
  */
@@ -257,7 +257,7 @@ interface Core_Read_Interface {
 	 * This is the default WordPress search, to search by title,
 	 * content or excerpt only use the `title`, `content`, `excerpt` filters.
 	 *
-	 * @param $search
+	 * @param string $search The search string.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */

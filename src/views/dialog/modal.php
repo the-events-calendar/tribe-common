@@ -19,10 +19,9 @@ $vars        = get_defined_vars();
 <?php $dialog_view->template( 'button', $vars, true ); ?>
 <script data-js="<?php echo esc_attr( 'dialog-content-' . $id ); ?>" type="text/template">
 	<?php if ( ! empty( $title ) ) : ?>
-		<h2 <?php tribe_classes( $title_classes ) ?>><?php echo esc_html( $title ); ?></h2>
+		<h2 <?php tec_classes( $title_classes ); ?>><?php echo esc_html( $title ); ?></h2>
 	<?php endif; ?>
-	<div <?php tribe_classes( $content_classes ) ?>>
+	<div <?php tec_classes( $content_classes ); ?>>
 		<?php echo $content; ?>
 	</div>
 </script>
-

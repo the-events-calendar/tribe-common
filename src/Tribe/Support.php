@@ -343,7 +343,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		/**
 		 * Method to send back sysinfo
 		 *
-		 * @param $query
+		 * @param array $query The query parameters.
 		 *
 		 * @return string|void
 		 *
@@ -356,8 +356,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				wp_send_json_error( __( 'Invalid Key', 'tribe-common' ) );
 			}
 
-			$key = $query['key'];
-			if ( $key != $optin_key ) {
+			$key = (string) ( $query['key'] ?? '' );
+			if ( $key !== $optin_key ) {
 				wp_send_json_error( __( 'Invalid Key', 'tribe-common' ) );
 			}
 
