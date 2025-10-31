@@ -50,10 +50,6 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function unregister(): void {
-		if ( ! $this->container->isBound( Query_Vars::class ) ) {
-			return;
-		}
-
 		$this->container->get( Query_Vars::class )->unregister();
 	}
 }
