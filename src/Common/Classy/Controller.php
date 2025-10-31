@@ -171,6 +171,7 @@ class Controller extends Controller_Contract {
 		)->add_to_group_path( Common::class . '-packages' )
 			->add_to_group( 'tec-classy' )
 			->add_dependency( 'wp-tinymce' )
+			->add_dependency( 'tec-api' )
 			// @todo this should be dynamic depending on the loading context.
 			->enqueue_on( 'enqueue_block_editor_assets' )
 			->set_condition( $post_uses_classy )

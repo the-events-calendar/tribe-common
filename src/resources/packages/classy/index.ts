@@ -8,7 +8,7 @@ import {
 } from './functions/classy';
 import { hasQueryParam } from './functions/url';
 import { getLocalizedData, getSettings } from './localizedData';
-import { registerMiddlewares } from './api';
+import { registerMiddlewares } from '@tec/common/tecApi';
 import './style.pcss';
 
 whenEditorIsReady().then( () => {
