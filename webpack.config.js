@@ -13,6 +13,7 @@ const {
 	doNotPrefixSVGIdsClasses,
 	exposeEntry,
 	WindowAssignPropertiesPlugin,
+	resolveExternalToGlobal,
 } = require('@stellarwp/tyson');
 
 /**
@@ -121,6 +122,11 @@ module.exports = {
 		plugins: [
 			...defaultConfig.plugins,
 			new WindowAssignPropertiesPlugin(),
+		],
+		// Common itself will register more packages it must be able to resolve from externals.
+		externals: [
+			...( defaultConfig.externals || [] ),
+			resolveExternalToGlobal( '@tec/common', 'window.tec.common' )
 		],
 	},
 };

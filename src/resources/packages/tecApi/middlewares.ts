@@ -3,6 +3,13 @@ import { APIFetchOptions } from '@wordpress/api-fetch/build-types/types';
 import { tecApiBaseUrl } from './routes';
 
 /**
+ * An internal state flag to avoid the middleware from being registered more than once.
+ *
+ * @since TBD
+ */
+let middlewareRegistered = false;
+
+/**
  * Creates a middleware that adds the experimental header to TEC API requests.
  *
  * @since TBD
@@ -35,5 +42,11 @@ function createTecExperimentalMiddleware(): {
  * @since TBD
  */
 export const registerMiddlewares = () => {
+	if ( middlewareRegistered ) {
+		return;
+	}
+
+	middlewareRegistered = true;
+
 	apiFetch.use( createTecExperimentalMiddleware() );
 };
