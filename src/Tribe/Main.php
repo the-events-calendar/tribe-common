@@ -1,11 +1,12 @@
 <?php
 
 use TEC\Common\Libraries;
+use TEC\Common\StellarWP\Assets\Asset as StellarWP_Asset;
+use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 use TEC\Common\Asset;
-use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Common\Controller as Common_Controller;
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 
@@ -409,6 +410,12 @@ class Tribe__Main {
 				'conditionals' => [ tribe( Settings::class ), 'should_load_color_field_assets' ]
 			]
 		);
+
+		// Register the TEC API functions that will be accessible at `window.tec.common.tecApi`.
+		StellarWP_Asset::add( 'tec-api', 'tecApi.js' )
+		   ->add_to_group_path( self::class . '-packages' )
+		   ->add_to_group( 'tec-api' )
+		   ->register();
 
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
 	}
