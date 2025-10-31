@@ -129,7 +129,7 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 		$test_var_name = 'simple_test_var';
 
 		// Create a simple query var that returns null for falsey values
-		$simple_query_var = new class extends \TEC\Common\Request\Abstract_Query_Var {
+		$simple_query_var = new class( tribe() ) extends \TEC\Common\Request\Abstract_Query_Var {
 			protected string $name = '';
 			protected bool $should_filter = true;
 			protected bool $should_accept_valueless_params = true; // Will be overridden by filter

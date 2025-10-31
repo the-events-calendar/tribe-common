@@ -32,7 +32,7 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @var string
 	 */
-	protected string $name;
+	private string $name;
 
 	/**
 	 * Whether the query var should be filtered.
@@ -41,7 +41,7 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @var bool
 	 */
-	protected bool $should_filter = false;
+	private bool $should_filter = false;
 
 	/**
 	 * Whether the query var should be filtered for the superglobal.
@@ -50,7 +50,7 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @var bool
 	 */
-	protected bool $should_filter_superglobal = false;
+	private bool $should_filter_superglobal = false;
 
 	/**
 	 * Whether the query var should accept valueless params.
@@ -59,7 +59,7 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @var bool
 	 */
-	protected bool $should_accept_valueless_params = false;
+	private bool $should_accept_valueless_params = false;
 
 	/**
 	 * Registers the query var filtering.
@@ -217,7 +217,7 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @return void
 	 */
-	protected function register_with_query_vars(): void {
+	private function register_with_query_vars(): void {
 		if ( ! $this->container->isBound( Query_Vars::class ) ) {
 			return;
 		}
@@ -233,7 +233,7 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @return void
 	 */
-	protected function unregister_from_query_vars(): void {
+	private function unregister_from_query_vars(): void {
 		if ( ! $this->container->isBound( Query_Vars::class ) ) {
 			return;
 		}

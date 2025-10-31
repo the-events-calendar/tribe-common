@@ -227,7 +227,7 @@ class Query_Vars extends Controller_Contract {
 			}
 
 			// Make superglobals match the filtered vars.
-			$this->filter_superglobals( $key, $value );
+			$this->filter_superglobals( $query_var, $value );
 		}
 
 		return $vars;
@@ -238,25 +238,19 @@ class Query_Vars extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $key The key to filter.
-	 * @param mixed  $value The value to filter.
+	 * @param Abstract_Query_Var $query_var The query var to filter.
+	 * @param mixed $value The value to filter.
 	 *
 	 * @return void
 	 */
-	protected function filter_superglobals( string $key, $value ): void {
-		$query_var = $this->get_query_var( $key );
-		// Not one of ours - don't touch it!
-		if ( ! $query_var ) {
-			return;
-		}
-
+	private function filter_superglobals( Abstract_Query_Var $query_var, mixed $value ): void {
 		// If the query var doesn't allow filtering superglobals at all, skip it.
 		if ( false === $query_var->filter_superglobal_allowed() ) {
 			return;
 		}
 
 		foreach ( self::ALLOWED_SUPERGLOBALS as $superglobal ) {
-			$this->filter_superglobal_value( $superglobal, $key, $value );
+			$this->filter_superglobal_value( $superglobal, $query_var, $value );
 		}
 	}
 
@@ -268,19 +262,13 @@ class Query_Vars extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $superglobal The superglobal key (GET, POST, REQUEST).
-	 * @param string $key         The key to sanitize.
-	 * @param mixed  $value       The value to sanitize.
+	 * @param string             $superglobal The superglobal key (GET, POST, REQUEST).
+	 * @param Abstract_Query_Var $query_var   The query var to sanitize.
+	 * @param mixed              $value       The value to sanitize.
 	 *
 	 * @return void
 	 */
-	protected function filter_superglobal_value( string $superglobal, string $key, $value ): void {
-		$query_var = $this->get_query_var( $key );
-		// Not one of ours - don't touch it!
-		if ( ! $query_var ) {
-			return;
-		}
-
+	private function filter_superglobal_value( string $superglobal, Abstract_Query_Var $query_var, $value ): void {
 		// Check if the query var allows filtering the superglobal.
 		$allowed = $query_var->filter_superglobal_allowed();
 
@@ -291,6 +279,8 @@ class Query_Vars extends Controller_Contract {
 		if ( is_string( $allowed ) && 0 !== strcasecmp( $this->normalize_superglobal_name( $allowed ), $superglobal ) ) {
 			return;
 		}
+
+		$key = $query_var->get_name();
 
 		// Only modify existing superglobal keys, don't create new ones.
 		if ( ! array_key_exists( $key, $GLOBALS[ $superglobal ] ) ) {
