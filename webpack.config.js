@@ -13,6 +13,7 @@ const {
 	doNotPrefixSVGIdsClasses,
 	WindowAssignPropertiesPlugin,
 	resolveExternalToGlobal,
+	createTECPackage,
 } = require('@stellarwp/tyson');
 
 /**
@@ -46,6 +47,8 @@ const customEntryPoints = compileCustomEntryPoints({
 			["postcss-inline-svg"],
 		],
 	),
+
+	'/src/resources/packages': createTECPackage('tec.common'),
 }, defaultConfig);
 
 /**
