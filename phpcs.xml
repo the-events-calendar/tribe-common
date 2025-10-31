@@ -34,6 +34,18 @@
 		</properties>
 	</rule>
 
-	<exclude-pattern>*/tests/*</exclude-pattern>
+	<rule ref="StellarWP.Classes.ValidClassName.NotSnakeCase">
+		<exclude-pattern>*/tests/*</exclude-pattern>
+	</rule>
+
+	<!-- General file/folder exclusions -->
 	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/build/*</exclude-pattern>
+	<exclude-pattern>*/docs/*</exclude-pattern>
+	<exclude-pattern>*/lang/*</exclude-pattern>
+	<exclude-pattern>*/changelog/*</exclude-pattern>
+	<exclude-pattern>*/tests/_support/_generated/*</exclude-pattern>
+	<exclude-pattern>*/tests/_data/*</exclude-pattern>
+	<exclude-pattern>*/src/deprecated/*</exclude-pattern>
 </ruleset>

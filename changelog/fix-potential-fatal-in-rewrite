@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Convert default values of protected vars to empty array to potential prevent fatals in PHP 8.3+ props to @aaronsilber! [TCMN-202]

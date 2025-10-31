@@ -30,7 +30,9 @@ class Template_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertGreaterThan( 0, $templateA->wp_id );
 		$this->assertGreaterThan( 0, $templateB->wp_id );
 		$this->assertNotEquals( $templateA->wp_id, $templateB->wp_id );
+
 		wp_set_current_user( 0 );
+		wp_delete_user( $id );
 	}
 
 	/**
@@ -72,6 +74,7 @@ class Template_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $post->post_modified, $block_template->modified );
 
 		wp_set_current_user( 0 );
+		wp_delete_user( $user_id );
 	}
 
 	/**
@@ -98,6 +101,7 @@ class Template_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $post->ID, $block_template->wp_id );
 
 		wp_set_current_user( 0 );
+		wp_delete_user( $user_id );
 	}
 
 	/**

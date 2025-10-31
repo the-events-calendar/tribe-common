@@ -25,19 +25,37 @@ class Conditionals {
 	 * Get the current user status based on Telemetry and IAN opt-in.
 	 *
 	 * @since 6.4.0
+	 * @since 6.9.6 Moved the logic to check if the user has opted in to telemetry and/or IAN opt-in to a separate function.
 	 *
 	 * @return bool
 	 */
 	public static function get_opt_in(): bool {
-		// Trigger this before we try use the Telemetry value.
-		tribe( Common_Telemetry::class )->normalize_optin_status();
+		/**
+		 * Filter whether the user has opted in to the IAN notifications.
+		 *
+		 * @since 6.4.0
+		 *
+		 * @param bool $opted_in Whether the user has opted in to the IAN notifications.
+		 */
+		return (bool) apply_filters( 'tec_common_ian_opt_in', self::opt_in_is_active() );
+	}
 
-		// We don't care what the value stored in tribe_options is - give us Telemetry's Opt_In\Status value.
-		$status    = Config::get_container()->get( Status::class );
-		$telemetry = $status->get() === $status::STATUS_ACTIVE;
+	/**
+	 * Check if the user has opted in to telemetry and/or IAN opt-in.
+	 *
+	 * @since 6.9.6
+	 *
+	 * @return bool
+	 */
+	private static function opt_in_is_active(): bool {
+		$telemetry = tribe( Common_Telemetry::class )->calculate_optin_status();
 
-		// Check if the user has opted in to telemetry, then If Telemetry is off, return the IAN opt-in value.
-		return apply_filters( 'tec_common_ian_opt_in', tribe_is_truthy( $telemetry ) || tribe_is_truthy( tribe_get_option( 'ian-notifications-opt-in', false ) ) );
+		// If the user has opted in to telemetry, just return true.
+		if ( $telemetry ) {
+			return true;
+		}
+
+		return tribe_is_truthy( tribe_get_option( 'ian-notifications-opt-in', false ) );
 	}
 
 	/**
@@ -135,8 +153,12 @@ class Conditionals {
 	 * Check if the plugin version matches requirements.
 	 *
 	 * @since 6.4.0
+	 * @since 6.9.6 Update to check the plugin file name more precisely.
 	 *
 	 * @param array $plugins The required plugins to check.
+	 *                        in the format of [ 'plugin_slug@comparison_version' ]
+	 *                        Example: [ 'the-events-calendar@>=6.0.0', 'event-tickets@6.5.0' ]
+	 *                        If no comparison operator is provided, defaults to '>='.
 	 *
 	 * @return bool
 	 */
@@ -155,8 +177,11 @@ class Conditionals {
 			// Find the actual plugin directory/file from the list.
 			$plugin_file = '';
 			foreach ( $all_plugins as $k => $data ) {
-				// If the plugin directory/file_name contains the required slug.
-				if ( strpos( $k, $pieces[0] ) !== false ) {
+				// Extract the plugin filename from the key (after the last slash).
+				$plugin_filename = strpos( $k, '/' ) !== false ? substr( $k, strrpos( $k, '/' ) + 1 ) : $k;
+
+				// Check if the filename matches the slug.php pattern.
+				if ( $plugin_filename === $pieces[0] . '.php' ) {
 					$plugin_file = $k;
 					$installed   = $data['Version'];
 					break;

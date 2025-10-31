@@ -3,20 +3,22 @@
  * Generic Conditional Content template.
  *
  * @since 6.8.2
+ * @since 6.9.8 Modified to use the presence of the nonce to determine if the dismiss button should be displayed.
  *
- * @var string $background_color  The background color of the banner.
- * @var string $image_src         Where the image is located (legacy).
- * @var string $wide_image_src    Where the wide image is located (responsive).
- * @var string $narrow_image_src  Where the narrow image is located (responsive).
- * @var string $link              Where the image should link to.
- * @var string $nonce             The nonce for the dismiss button.
- * @var string $slug              The slug for the dismiss button.
- * @var string $year              The sale year.
- * @var string $sale_name         The name of the sale.
- * @var string $a11y_text         The accessibility text for the image.
  * @var bool   $is_narrow         Whether this is the narrow banner variant (legacy).
  * @var bool   $is_responsive     Whether this is the responsive banner variant.
  * @var bool   $is_sidebar        Whether this is the sidebar banner variant.
+ * @var string $a11y_text         The accessibility text for the image.
+ * @var string $background_color  The background color of the banner.
+ * @var string $image_src         Where the image is located (legacy).
+ * @var string $link              Where the image should link to.
+ * @var string $narrow_image_src  Where the narrow image is located (responsive).
+ * @var string $sale_name         The name of the sale.
+ * @var string $slug              The slug for the sale.
+ * @var string $wide_image_src    Where the wide image is located (responsive).
+ * @var string $year              The sale year.
+ * @var string $nonce             Optional. The nonce for the dismiss button.
+ *                                    If we don't get a nonce, we don't display the button.
  */
 
 // No direct access.
@@ -63,17 +65,19 @@ $classes = [
 		<?php else : ?>
 			<img
 				class="tribe-conditional-content-image"
-				style="display: block; width: 100%; height: auto;" <?php // This is intentionally inline, don't add classes here. ?>
+				style="display: block; width: 100%; height: auto;" <?php // This is intentionally inline, don't change it. ?>
 				src="<?php echo esc_url( $image_src ); ?>"
 				role="presentation"
 			/>
 		<?php endif; ?>
 		<span class="screen-reader-text"><?php echo esc_html( $a11y_text ); ?></span>
 	</a>
-	<button
-		class="tribe-conditional-content-dismiss-button"
-		data-tec-conditional-content-dismiss-button
-		data-tec-conditional-content-dismiss-slug="<?php echo esc_attr( $slug ); ?>"
-		data-tec-conditional-content-dismiss-nonce="<?php echo esc_attr( $nonce ); ?>"
-	><i class="dashicons dashicons-dismiss"></i></button>
+	<?php if ( ! empty( $nonce ) ) : ?>
+		<button
+			class="tribe-conditional-content-dismiss-button"
+			data-tec-conditional-content-dismiss-button
+			data-tec-conditional-content-dismiss-slug="<?php echo esc_attr( $slug ); ?>"
+			data-tec-conditional-content-dismiss-nonce="<?php echo esc_attr( $nonce ); ?>"
+		><span class="dashicons dashicons-dismiss"></span></button>
+	<?php endif; ?>
 </div>

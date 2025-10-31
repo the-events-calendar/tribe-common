@@ -1073,3 +1073,25 @@ if ( ! function_exists( 'tec_kv_cache' ) ) {
 		return tribe( Key_Value_Cache_Interface::class );
 	}
 }
+
+
+if ( ! function_exists( 'tec_get_admin_region' ) ) {
+	/**
+	 * Returns the region of the current admin page:
+	 * 'tickets' for Tickets admin pages, 'events' for Events admin pages.
+	 * Relies on plugins identifying their admin page regions viw the hook `tec_get_admin_region.`
+	 *
+	 * @since 6.11.0
+	 *
+	 * @return bool|string|null The region of the current admin page.
+	 *                           False if we are not on an admin page.
+	 *                           Null if we are not on a TEC admin page.
+	 */
+	function tec_get_admin_region() {
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		return apply_filters( 'tec_get_admin_region', null );
+	}
+}

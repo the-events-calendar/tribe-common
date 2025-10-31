@@ -141,7 +141,7 @@ class Troubleshooting {
 			[
 				'id'     => 'tec-troubleshooting',
 				'title'  => esc_html__( 'Troubleshooting', 'tribe-common' ),
-				'href'   => Tribe__Settings::instance()->get_url( [ 'page' => static::MENU_SLUG ] ),
+				'href'   => tribe( 'settings' )->get_url( [ 'page' => static::MENU_SLUG ] ),
 				'parent' => 'tribe-events-settings-group',
 			]
 		);
@@ -436,7 +436,7 @@ class Troubleshooting {
 	/**
 	 * Check if any caching plugins are active on the site.
 	 *
-	 * @since TBD
+	 * @since 6.9.4
 	 *
 	 * @return string[] An array of the active caching plugins.
 	 */
@@ -466,7 +466,7 @@ class Troubleshooting {
 	/**
 	 * Get the name of the first found active caching plugin.
 	 *
-	 * @since TBD
+	 * @since 6.9.4
 	 *
 	 * @return string The name of the caching plugin.
 	 */

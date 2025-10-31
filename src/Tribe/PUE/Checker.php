@@ -784,7 +784,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Inserts license key fields on license key page
 		 *
-		 * @since TBD Added upsell links for Promoter and Seating.
+		 * @since 6.9.4 Added upsell links for Promoter and Seating.
 		 *
 		 * @param array $fields List of fields.
 		 *
