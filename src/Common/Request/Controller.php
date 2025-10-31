@@ -39,7 +39,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function do_register(): void {
-		$this->container->register( Query_Vars::class, Query_Vars::class );
+		$this->container->register( Query_Vars::class );
 	}
 
 	/**
