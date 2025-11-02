@@ -239,7 +239,7 @@ class Query_Vars extends Controller_Contract {
 	 * @since TBD
 	 *
 	 * @param Abstract_Query_Var $query_var The query var to filter.
-	 * @param mixed $value The value to filter.
+	 * @param mixed              $value     The value to filter.
 	 *
 	 * @return void
 	 */
