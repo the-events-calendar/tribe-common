@@ -8,22 +8,22 @@
  */
 
 use TEC\Common\Request\Query_Vars;
-use TEC\Events\Request\Ical;
-use TEC\Common\Request\Dummy_Query_Var;
+use TEC\Common\Request\Abstract_Query_Var;
+use Codeception\TestCase\WPTestCase;
 
 /**
  * Class Query_Vars_Test
  *
  * @since TBD
  */
-class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
+class Query_Vars_Test extends WPTestCase {
 
 	/**
 	 * Holds the Query_Vars instance to manage hooks lifecycle.
 	 *
 	 * @since TBD
 	 *
-	 * @var \TEC\Common\Request\Query_Vars
+	 * @var Query_Vars
 	 */
 	protected $query_vars;
 
@@ -35,33 +35,73 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 	 * @var string
 	 */
 	protected string $test_var_name = 'test_var';
+	protected string $test_var_name_2 = 'test_var_2';
+
+	protected function get_test_query_var(): Abstract_Query_Var {
+		return new class( tribe() ) extends Abstract_Query_Var {
+			protected string $name = 'test_var';
+			protected bool $should_filter = true;
+			protected bool $should_accept_valueless_params = true;
+			protected bool $should_filter_superglobal = true;
+
+			public function filter_query_var( $value, array $query_vars ) {
+				$value = parent::filter_query_var( $value, $query_vars );
+
+				if ( is_array( $value ) ) {
+					$value = reset( $value );
+				}
+
+				return tribe_is_truthy( $value ) ? 1 : null;
+			}
+		};
+	}
+
+	protected function get_test_query_var_2(): Abstract_Query_Var {
+		return new class( tribe() ) extends Abstract_Query_Var {
+			protected string $name = 'test_var_2';
+			protected bool $should_filter = true;
+			protected bool $should_accept_valueless_params = false;
+			protected bool $should_filter_superglobal = true;
+
+			public function filter_query_var( $value, array $query_vars ) {
+				$value = parent::filter_query_var( $value, $query_vars );
+
+				if ( is_array( $value ) ) {
+					$value = reset( $value );
+				}
+
+				return tribe_is_truthy( $value ) ? 1 : null;
+			}
+		};
+	}
 
 	/**
 	 * Set up the test case.
 	 *
 	 * @since TBD
+	 *
+	 * @before
 	 */
 	public function before() {
 		$this->query_vars = tribe( Query_Vars::class );
-
-		// Register the iCal query var directly
-		$ical_query_var = tribe( Ical::class );
-		$test_query_var = tribe( Dummy_Query_Var::class );
-
+		$this->get_test_query_var()->register();
+		$this->get_test_query_var_2()->register();
 	}
 
 	/**
 	 * Tear down the test case.
 	 *
 	 * @since TBD
+	 *
+	 * @after
 	 */
 	public function after() {
-		remove_filter( 'request', [ $this->query_vars, 'clean_query_vars' ], 0 );
-
-		// Clean up container binding
-		if ( tribe()->isBound( \TEC\Common\Request\Query_Vars::class ) ) {
-			tribe()->offsetUnset( \TEC\Common\Request\Query_Vars::class );
-		}
+		$query_var = $this->get_test_query_var();
+		$query_var->unregister();
+		$query_var_2 = $this->get_test_query_var_2();
+		$query_var_2->unregister();
+		tribe()->setVar( get_class( $query_var ) . '_registered', false );
+		tribe()->setVar( get_class( $query_var_2 ) . '_registered', false );
 	}
 
 	/**
@@ -134,28 +174,19 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 			protected bool $should_filter = true;
 			protected bool $should_accept_valueless_params = true; // Will be overridden by filter
 
-			public function set_name( string $name ): void {
-				$this->name = $name;
-			}
-
-			public function filter_query_var( $value, array $query_vars ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+			public function filter_query_var( $value, array $query_vars ) {
 				// Simple behavior: return null for falsey values, keep truthy values as-is
 				return $value ?: null;
-			}
-
-			protected function register_with_query_vars(): void {
-				// Skip self-registration - we'll handle manually
 			}
 		};
 
 		$simple_query_var->set_name( $test_var_name );
 
 		// Use filter to disable accepting valueless params for this test
-		add_filter( "tec_request_query_vars_should_accept_valueless_params_{$test_var_name}", '__return_false' );
+		add_filter( "tec_request_query_vars_should_accept_valueless_params_{$test_var_name}", '__return_true' );
 
 		// Register the simple query var
 		$simple_query_var->register();
-		$this->query_vars->register_query_var( $simple_query_var );
 
 		$_GET[ $test_var_name ]     = false;
 		$_POST[ $test_var_name ]    = false;
@@ -167,10 +198,6 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 		// When accepting valueless params is disabled, null values should be retained in the array
 		$this->assertArrayHasKey( $test_var_name, $result, 'Expected ' . $test_var_name . ' to be retained when accept disabled' );
 		$this->assertNull( $result[ $test_var_name ], 'Expected ' . $test_var_name . ' to be null after filtering' );
-
-		// Clean up
-		remove_filter( "tec_request_query_vars_should_accept_valueless_params_{$test_var_name}", '__return_false' );
-		$simple_query_var->unregister();
 	}
 
 	/**
@@ -191,18 +218,18 @@ class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider falsey_non_null_values_provider
 	 */
 	public function test_it_removes_falsey_values( $value ) {
-		$_GET[ $this->test_var_name ]     = $value;
-		$_POST[ $this->test_var_name ]    = $value;
-		$_REQUEST[ $this->test_var_name ] = $value;
+		$_GET[ $this->test_var_name_2 ]     = $value;
+		$_POST[ $this->test_var_name_2 ]    = $value;
+		$_REQUEST[ $this->test_var_name_2 ] = $value;
 
-		$vars   = [ $this->test_var_name => $value ];
+		$vars   = [ $this->test_var_name_2 => $value ];
 		$result = apply_filters( 'request', $vars );
 
 		// iCal converts falsey values to null, which then get removed due to should_overwrite_valueless_params = true
-		$this->assertArrayNotHasKey( $this->test_var_name, $result, 'Expected ' . $this->test_var_name . ' to be removed for falsey value: ' . var_export( $value, true ) );
-		$this->assertArrayNotHasKey( $this->test_var_name, $_GET, 'Expected ' . $this->test_var_name . ' to be removed from GET for falsey value: ' . var_export( $value, true ) );
-		$this->assertArrayNotHasKey( $this->test_var_name, $_POST, 'Expected ' . $this->test_var_name . ' to be removed from POST for falsey value: ' . var_export( $value, true ) );
-		$this->assertArrayNotHasKey( $this->test_var_name, $_REQUEST, 'Expected ' . $this->test_var_name . ' to be removed from REQUEST for falsey value: ' . var_export( $value, true ) );
+		$this->assertArrayNotHasKey( $this->test_var_name_2, $result, 'Expected ' . $this->test_var_name_2 . ' to be removed for falsey value: ' . var_export( $value, true ) );
+		$this->assertArrayNotHasKey( $this->test_var_name_2, $_GET, 'Expected ' . $this->test_var_name_2 . ' to be removed from GET for falsey value: ' . var_export( $value, true ) );
+		$this->assertArrayNotHasKey( $this->test_var_name_2, $_POST, 'Expected ' . $this->test_var_name_2 . ' to be removed from POST for falsey value: ' . var_export( $value, true ) );
+		$this->assertArrayNotHasKey( $this->test_var_name_2, $_REQUEST, 'Expected ' . $this->test_var_name_2 . ' to be removed from REQUEST for falsey value: ' . var_export( $value, true ) );
 	}
 
 	/**

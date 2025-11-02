@@ -243,7 +243,7 @@ class Query_Vars extends Controller_Contract {
 	 *
 	 * @return void
 	 */
-	private function filter_superglobals( Abstract_Query_Var $query_var, mixed $value ): void {
+	private function filter_superglobals( Abstract_Query_Var $query_var, $value ): void {
 		// If the query var doesn't allow filtering superglobals at all, skip it.
 		if ( false === $query_var->filter_superglobal_allowed() ) {
 			return;

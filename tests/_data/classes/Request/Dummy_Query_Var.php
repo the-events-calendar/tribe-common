@@ -7,7 +7,7 @@
  * @package TEC\Events\Request
  */
 
-namespace TEC\Common\Request;
+namespace Tribe\Common\Tests\Request;
 
 use TEC\Common\Request\Abstract_Query_Var;
 
