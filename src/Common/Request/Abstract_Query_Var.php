@@ -32,7 +32,7 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @var string
 	 */
-	private string $name;
+	protected string $name;
 
 	/**
 	 * Whether the query var should be filtered.
@@ -41,7 +41,7 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @var bool
 	 */
-	private bool $should_filter = false;
+	protected bool $should_filter = false;
 
 	/**
 	 * Whether the query var should be filtered for the superglobal.
@@ -50,7 +50,7 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @var bool
 	 */
-	private bool $should_filter_superglobal = false;
+	protected bool $should_filter_superglobal = false;
 
 	/**
 	 * Whether the query var should accept valueless params.
@@ -59,7 +59,7 @@ abstract class Abstract_Query_Var extends Controller {
 	 *
 	 * @var bool
 	 */
-	private bool $should_accept_valueless_params = false;
+	protected bool $should_accept_valueless_params = false;
 
 	/**
 	 * Registers the query var filtering.
