@@ -19,6 +19,7 @@ if ( class_exists( 'Tribe__Main', false ) ) {
 	return;
 }
 
+// Hello there.
 class Tribe__Main {
 	const EVENTSERROROPT    = '_tribe_events_errors';
 	const OPTIONNAME        = 'tribe_events_calendar_options';
