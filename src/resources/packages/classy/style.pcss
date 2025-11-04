@@ -215,70 +215,6 @@
 	@mixin text-description;
 }
 
-/* ================================================
-   Component Labels
-   ================================================ */
-
-/* WordPress component labels - apply consistent text-labels styling */
-.components-input-control__label,
-.components-textarea-control__label,
-.components-custom-select-control .components-base-control__label,
-.components-select-control__label {
-	@mixin text-labels;
-	margin-bottom: var(--tec-spacer-1);
-}
-
-/* Required field indicators for native WordPress components */
-.components-base-control:has(input[required]) .components-input-control__label::after,
-.components-base-control:has(textarea[required]) .components-textarea-control__label::after {
-	color: var(--classy-color-required-asterisk);
-	content: " *";
-	font-weight: 700;
-}
-
-/* ================================================
-   WordPress Input Controls
-   ================================================
-   Styles for @wordpress/components InputControl and similar
-   input components to match Classy design specifications.
-   ================================================ */
-.classy-root .components-base-control.components-input-control {
-	align-items: center;
-	background: var(--tec-color-gutenberg-white);
-	border-radius: var(--tec-border-radius-default);
-	display: inline-flex;
-	gap: var(--tec-spacer-1);
-	height: 48px;
-	min-height: 48px;
-	outline: 1px solid var(--classy-medium-gray);
-	outline-offset: -1px;
-	padding: var(--classy-input-padding-top-bottom) var(--classy-input-padding-left-right);
-
-	.components-base-control__field {
-		width: 100%;
-	}
-
-	.components-input-control__container {
-		background: transparent;
-	}
-
-	.components-input-control__input {
-		@mixin text-inputs;
-		background: transparent;
-		border: none;
-		box-shadow: none;
-		padding: 0;
-
-		&:focus {
-			box-shadow: none;
-		}
-	}
-
-	.components-input-control__backdrop {
-		display: none;
-	}
-}
-
 .block-editor__container {
 	.editor-header {
 		/* Hide the preview button */
@@ -328,6 +264,7 @@
 }
 
 .classy-root {
+
 	/* By default the root will cover the Block Editor by forcing it to a height of 0 */
 	height: auto;
 	opacity: 1;
@@ -357,389 +294,70 @@
 		padding: 26px 74px 26px;
 	}
 
-	.classy-field__group {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		gap: var(--tec-spacer-3);
-		justify-content: flex-start;
-		align-items: flex-end;
+	/* InputControl styles for @wordpress/components */
+	.components-input-control {
+		width: var(--classy-input-width) !important;
+		max-width: var(--classy-input-width) !important;
+		min-width: var(--classy-input-width) !important;
+		flex: 0 0 auto !important;
 
-		&:has(.classy-field__subgroup) {
-			justify-content: space-between;
-			gap: var(--tec-spacer-4);
+		/* Add gap between label and input */
+		.components-base-control__field {
+			gap: 6px !important;
+			width: 100% !important;
 		}
 
-		.classy-field__subgroup {
-			display: flex;
-			flex-direction: row;
-			gap: var(--tec-spacer-4);
-
-			&.classy-field__subgroup--left {
-			}
-
-			&.classy-field__subgroup--right {
-			}
-		}
-	}
-
-	.classy-field {
-		display: flex;
-		width: 100%;
-		flex-direction: column;
-		justify-content: center;
-		align-items: flex-start;
-		gap: var(--tec-spacer-2);
-		flex: 1 0 0;
-
-		&__control--input-narrow {
-			.components-input-control__container {
-				width: 30%;
-			}
-		}
-	}
-
-	.classy-field__currency-selector {
-		& > span {
-			display: none;
-		}
-	}
-
-	.classy-field__input-title {
-		@mixin text-labels;
-		text-transform: none;
-	}
-
-	.classy-field__title,
-	.classy-field__input-title {
-		h2,
-		h3,
-		h4 {
-			margin: 0;
+		/* Style the input container */
+		.components-input-control__container {
+			width: 100% !important;
+			border-radius: 4px !important;
+			outline: 1px solid #949494 !important;
+			outline-offset: -1px !important;
 		}
 
-		h3 {
-			font-size: var(--tec-font-size-5);
-			font-weight: var(--tec-font-weight-regular);
-		}
-
-		h4, span {
-			@mixin text-labels;
-		}
-	}
-
-	.classy-field__inputs {
-		align-self: stretch;
-		display: flex;
-		flex-direction: column;
-		gap: var(--tec-spacer-5);
-
-		&:has(> *:nth-child(2)):not(.classy-field__inputs--unboxed),
-		&.classy-field__inputs--boxed {
-			border: 1px solid var(--tec-color-gutenberg-grey-600);
-			padding-left: var(--classy-padding-horizontal);
-			padding-right: var(--classy-padding-horizontal);
-			padding-top: var(--classy-padding-vertical);
-
-			&:has(.classy-field__inputs-section--footer) {
-				padding-bottom: 0;
-			}
-
-			&:not(:has(.classy-field__inputs-section--footer)){
-				padding: var(--classy-padding-vertical) var(--classy-padding-horizontal);
-			}
-		}
-
-		.classy-section-separator {
-			border-top: 1px solid var(--tec-color-gutenberg-grey-300);
-			height: 0;
-			transform: translateX(calc(-1 * var(--classy-padding-horizontal)));
-			width: calc(100% + (2 * var(--classy-padding-horizontal)));
-		}
-
-		.classy-field__inputs-section {
-			display: flex;
-			flex-direction: column;
-			gap: var(--tec-spacer-5);
-
-			&.classy-field__inputs-section--row {
-				flex-direction: row;
-				justify-content: space-between;
-				align-items: center;
-
-				&.classy-field__inputs-section--justify-left {
-					justify-content: flex-start;
-				}
-			}
-
-			&.classy-field__inputs-section--footer {
-				background-color: var(--classy-color-footer);
-				transform: translateX(calc(var(--classy-padding-horizontal) * -1));
-				width: 100%;
-				padding: var(--tec-spacer-3) var(--tec-spacer-6);
-
-				&.classy-field__inputs-section--cards{
-					background-color: transparent;
-					padding: var(--tec-spacer-7) var(--tec-spacer-6);
-				}
-			}
-		}
-
-		.classy-field__input-note {
-			@mixin text-description;
-
-			&.classy-field__input-note--error {
-				color: var(--tec-color-gutenberg-alert-red);
-			}
-		}
-	}
-
-	.classy-field__separator {
-		&.classy-field__separator--dates {
-			@mixin text-labels;
-			line-height: calc(2 * var(--classy-line-height));
-		}
-	}
-
-	.classy-field__input {
-		display: flex;
-		flex-direction: column;
-		gap: var(--tec-spacer-2);
-		background: var(--tec-color-gutenberg-white);
-
-		&.classy-field__input-full-width {
-			width: var(--classy-input-width);
-		}
-
-		.classy-field__input-title {
-			font-size: var(--tec-font-size-2);
-			font-weight: var(--tec-font-weight-regular);
-			margin: 0;
-		}
-
-		&.classy-field__input--grow {
-			flex-grow: 1;
-		}
-
-		&.classy-field__input--unit {
-			width: 307px;
-		}
-
-		&.classy-field__input--height-100{
-			height: var(--classy-height-100);
-		}
-
-		&.classy-field__input--height-75{
-			height: var(--classy-height-75) ;
-		}
-	}
-
-	.classy-field__control {
-		@mixin text-inputs;
-
+		/* Style the label */
 		.components-input-control__label {
-			font-size: var(--tec-font-size-2);
-			font-weight: var(--tec-font-weight-regular);
-			margin: 0;
+			color: var(--classy-text-labels-color) !important;
+			font-size: var(--classy-text-labels-font-size) !important;
+			font-weight: var(--classy-text-labels-font-weight) !important;
+			line-height: var(--classy-text-labels-line-height) !important;
+			text-transform: none !important;
 		}
 
-		&.classy-field__control--invalid:not(:focus-within) {
-			border: 2px solid var(--tec-color-gutenberg-alert-red);
+		/* Style the input field */
+		.components-input-control__input {
+			color: var(--classy-text-inputs-color) !important;
+			font-size: var(--classy-text-inputs-font-size) !important;
+			font-weight: var(--classy-text-inputs-font-weight) !important;
+			line-height: var(--classy-text-inputs-line-height) !important;
+			padding: 12px 16px !important;
+			border: none !important;
+			outline: none !important;
 		}
 
-		&.classy-field__control--input,
-		&.classy-field__control--text {
-			input.components-input-control__input {
-				@mixin text-inputs;
-			}
-
-			.components-input-control__suffix:has(
-					.classy-suffix-icon.classy-suffix-icon--calendar
-				) {
-				align-self: center;
-			}
-
+		/* Style the input container backdrop */
+		.components-input-control__backdrop {
+			background: white !important;
+			border-radius: 4px !important;
+			z-index: -1 !important;
 		}
 
-		&.classy-field__control--featured-image {
-			width: 192px;
+		/* Style the description/help text */
+		.components-base-control__help {
+			color: var(--classy-text-description-color) !important;
+			font-size: var(--classy-text-description-font-size) !important;
+			font-weight: var(--classy-text-description-font-weight) !important;
+			line-height: var(--classy-text-description-line-height) !important;
+		}
 
-			.editor-post-featured-image__toggle {
-				height: 108px;
-				/* This hides the button label to align with design without compromising accessibility. */
-				font-size: 0;
-				background-image: url("./icons/camera.svg");
-				background-repeat: no-repeat;
-				background-position: center;
-				border: 1px solid var(--tec-color-gutenberg-grey-600);
-			}
-
-			.editor-post-featured-image__actions {
-				box-sizing: border-box;
-				.editor-post-featured-image__action {
-					flex-grow: 1;
+		/* Ensure icon sizing */
+		.components-input-control__suffix {
+			.components-input-control-suffix-wrapper{
+				display: flex;
+				svg {
+					width: 18px !important;
+					height: 18px !important;
 				}
-			}
-		}
-
-		&.classy-field__control--tinymce-editor {
-			color: var(--tec-color-gutenberg-grey-600);
-
-			iframe {
-				min-height: 200px;
-			}
-			.mce-top-part {
-				border-top: 1px solid var(--tec-color-gutenberg-grey-400);
-				border-bottom: 1px solid var(--tec-color-gutenberg-grey-400);
-
-				&::before {
-					box-shadow: none;
-				}
-			}
-
-			.mce-toolbar-grp {
-				border-bottom: none;
-
-				.mce-container-body.mce-stack-layout {
-					padding: var(--tec-spacer-2) var(--tec-spacer-3);
-					background-color: var(--tec-color-gutenberg-white);
-				}
-			}
-
-			.mce-container.mce-edit-area {
-				border-top: none;
-			}
-
-			.mce-btn-group:not(:first-of-type) {
-				margin-left: var(--tec-spacer-1);
-			}
-		}
-
-		&.classy-field__control--timezone {
-			@mixin text-description;
-
-			.classy-field__timezone-label {
-				font-weight: var(--tec-font-weight-regular);
-				color: var(--tec-color-gutenberg-grey-700);
-			}
-		}
-
-		&.classy-field__control--select {
-			.components-select-control__input {
-				@mixin text-inputs;
-			}
-
-			/* Select controls use combobox role for accessibility */
-			button[role="combobox"] {
-				font-size: var(--tec-font-size-3);
-			}
-		}
-
-		&.classy-field__control--cta {
-			align-items: center;
-			display: flex;
-			flex-direction: row;
-			font-size: var(--tec-font-size-2);
-			font-weight: 600;
-			line-height: var(--tec-spacer-4);
-
-			.classy-icon {
-				height: var(--classy-icon-size);
-				margin-right: var(--tec-spacer-2);
-				width: var(--classy-icon-size);
-			}
-		}
-
-	}
-
-	.classy-field__event-cost {
-		--classy-height-100: 40px;
-		--classy-height-75: 28px;
-
-		.classy-field__input {
-			&.classy-field__input--height-100{
-				height: var(--classy-height-100);
-			}
-
-			&.classy-field__input--height-75{
-				height: var(--classy-height-75) ;
-			}
-		}
-
-		.classy-field__control {
-			&.classy-field__control--input {
-				input.components-input-control__input {
-					@mixin text-inputs;
-					height: 100%;
-					padding: var(--tec-spacer-2) var(--tec-spacer-3);
-				}
-			}
-		}
-	}
-
-	.classy__linked-post-cards {
-		align-items: stretch;
-		display: flex;
-		flex-direction: column;
-		flex-wrap: wrap;
-		gap: var(--tec-spacer-3);
-		justify-content: center;
-		position: relative;
-		width: 100%;
-
-		.classy__linked-post-card {
-			align-items: flex-start;
-			background-color: var(--tec-color-gutenberg-transparent-blueberry);
-			display: flex;
-			flex-direction: column;
-			flex-wrap: wrap;
-			gap: var(--tec-spacer-1);
-			justify-content: flex-start;
-			padding: var(--tec-spacer-4) var(--tec-spacer-5);
-			position: relative;
-
-			.classy-linked-post-card__title {
-				font-size: var(--tec-font-size-3);
-				font-weight: 600;
-				margin-top: 0;
-				margin-bottom: 0;
-			}
-
-			.classy-linked-post-card__detail {
-				@mixin text-labels;
-				overflow-wrap: anywhere;
-
-				& button.is-link {
-					@mixin text-labels;
-				}
-
-				&.classy-linked-post-card__detail--labeled {
-					label {
-						font-size: var(--tec-font-size-2);
-						font-weight: normal;
-						text-transform: none;
-					}
-				}
-
-				&.classy-linked-post-card__detail--full-width {
-					width: var(--classy-input-width);
-				}
-			}
-
-			.classy-linked-post-card__actions {
-				position: absolute;
-				top: var(--tec-spacer-3);
-				right: var(--tec-spacer-5);
-
-				.classy-linked-post-card__action {
-					display: inline-block;
-					width: var(--classy-icon-size);
-					height: var(--classy-icon-size);
-				}
-			}
-
-			.classy-linked-post-card__section {
-				margin-top: var(--tec-spacer-4);
 			}
 		}
 	}
@@ -759,332 +377,5 @@
 	.classy-highlight {
 		animation: highlightBg 1s linear;
 		animation-iteration-count: 1;
-	}
-}
-
-.classy-component__popover {
-	&.classy-component__popover--calendar {
-		.components-popover__content {
-			/* @todo is this really different from the timezone selector one? */
-			padding: var(--tec-spacer-2);
-		}
-	}
-
-	&.classy-component__popover--choice {
-		.components-popover__content {
-			/* @todo is this really different from the calendar selector one? */
-			padding: var(--tec-spacer-3);
-			min-width: 284px;
-
-			.classy-component__popover-content {
-				display: flex;
-				flex-direction: column;
-				gap: var(--tec-spacer-3);
-				position: relative;
-
-				.classy-component__popover-title {
-					margin: 0;
-					font-size: var(--tec-font-size-3);
-					line-height: var(--classy-line-height-24);
-					font-weight: 600;
-					color: var(--tec-color-gutenberg-grey-900);
-				}
-
-				.classy-component__popover-description {
-					margin: 0;
-				}
-			}
-
-			.classy-component__popover-close {
-				position: absolute;
-				display: block;
-				right: 0;
-			}
-
-		}
-	}
-}
-
-.classy-modal {
-	.components-modal__content {
-		padding: 0;
-
-		.components-modal__header {
-			height:60px;
-			align-items: center;
-			display: flex;
-			flex-direction: row;
-			gap: var(--tec-spacer-1);
-			justify-content: flex-start;
-			padding: 0 var(--tec-spacer-3);
-			border-bottom: 1px solid var(--tec-color-gutenberg-grey-300);
-
-			.components-modal__icon-container {
-				margin-right: var(--tec-spacer-2);
-			}
-
-			.components-modal__header-heading{
-				color: var(--tec-color-gutenberg-grey-900);
-				font-size: var(--tec-font-size-3);
-				font-weight: var(--tec-font-weight-regular);
-			}
-		}
-
-		.classy-field__separator {
-			display: block;
-			height: 0;
-			border-top: 1px solid var(--tec-color-gutenberg-grey-300);
-		}
-
-		.classy-modal__content {
-			--classy-input-width: 444px;
-			padding: var(--tec-spacer-7) var(--tec-spacer-6);
-
-			&.classy-modal__content--sections {
-				display: flex;
-				flex-direction: column;
-				gap: var(--tec-spacer-5);
-			}
-
-			.components-input-control__input {
-				font-size: var(--tec-font-size-3);
-				height: var(--tec-spacer-9);
-				padding: var(--tec-spacer-2) var(--tec-spacer-3);
-				width: var(--classy-input-width);
-			}
-		}
-
-		.classy-modal__section {
-			display: flex;
-			flex-direction: column;
-			font-size: var(--tec-font-size-2);
-			gap: var(--tec-spacer-3);
-
-			.classy-modal__section-title {
-				font-size: var(--tec-font-size-3);
-				margin-bottom: 0;
-				margin-top: 0;
-			}
-
-			.classy-modal__section-text{
-				font-size: var(--tec-font-size-2);
-			}
-		}
-
-		.classy-modal__actions {
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			gap: var(--tec-spacer-2);
-			padding: var(--tec-spacer-1) var(--tec-spacer-6) var(--tec-spacer-7);
-		}
-	}
-
-	&__section-separator {
-		margin: 0;
-		padding: 0;
-	}
-}
-
-.components-button {
-	&.classy-button {
-		@mixin text-labels;
-		height: var(--tec-spacer-9);
-		padding: var(--tec-spacer-2) var(--tec-spacer-3);
-
-		&.is-primary {
-			background-color: var(--tec-color-accent-primary-active);
-			border-radius: var(--tec-spacer-0);
-			color: var(--tec-color-gutenberg-white);
-		}
-
-		.classy-icon {
-			&.classy-icon--prefix {
-				margin-right: var(--tec-spacer-1);
-			}
-		}
-	}
-
-	&.is-link--dark {
-		font-weight: var(--tec-font-weight-regular);
-		text-decoration: underline;
-		color: var(--tec-color-gutenberg-grey-900);
-	}
-
-	&.classy-cta{
-		@mixin text-labels;
-	}
-}
-
-.components-button-group.components-button-group--classy{
-	display: flex;
-	flex-direction: row;
-	gap: var(--tec-spacer-1);
-	/* @todo Here color the button that is not selected white, the other black.*/
-}
-
-.classy-component__spinner {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding-bottom: var(--tec-spacer-6);
-}
-
-.classy-aligned-row {
-	align-items: center;
-	display: flex;
-	gap: var(--tec-spacer-1);
-}
-
-.classy-icon {
-	color: var(--classy-icon-default-color);
-	fill: var(--classy-icon-default-color);
-	height: var(--classy-icon-size);
-	vertical-align: middle;
-	width: var(--classy-icon-size);
-}
-
-.classy-error-color {
-	color: var(--tec-color-gutenberg-alert-red);
-	fill: var(--tec-color-gutenberg-alert-red);
-}
-
-.classy-accent-color {
-	color: var(--classy-accent-color);
-	fill: var(--classy-accent-color);
-}
-
-/* This is used to indent elements after a toggle. */
-.classy-toggle-indented {
-	margin-left: 40px;
-}
-
-.classy-checkbox-list {
-	display: flex;
-	flex-direction: column;
-	gap: var(--tec-spacer-2);
-
-	label {
-		font-size: var(--tec-font-size-2);
-	}
-}
-
-.classy-full-width {
-	width: 100%;
-}
-
-/* ================================================
-   WordPress ComboboxControl Component Styles
-   ================================================
-
-   Global styles for WordPress @wordpress/components ComboboxControl
-   used throughout Classy features. These styles ensure consistent
-   appearance and behavior across all plugins (TEC, ECP, ET, ETP).
-   ================================================ */
-.components-combobox-control {
-	width: var(--classy-input-width);
-	row-gap: var(--tec-spacer-2);
-
-	.components-base-control__label {
-		@mixin text-labels;
-		margin-bottom: var(--tec-spacer-1);
-	}
-
-	.components-base-control__field {
-		.components-combobox-control__suggestions-container {
-			@mixin text-inputs;
-			min-height: 48px;
-			border: 1px solid var(--classy-medium-gray);
-			border-radius: var(--tec-border-radius-default);
-			background: white;
-			padding: var(--classy-input-padding-top-bottom) var(--classy-input-padding-left-right);
-
-			.components-flex {
-				padding: 0;
-				height: auto;
-
-				.components-flex-block {
-					.components-combobox-control__input {
-						@mixin text-inputs;
-						padding: 0;
-						margin: 0;
-						border: none;
-						box-shadow: none;
-
-						&:focus {
-							box-shadow: none;
-						}
-					}
-				}
-
-				.components-button {
-					&.has-icon {
-						color: var(--classy-black);
-						min-width: auto;
-						padding: 0;
-					}
-				}
-			}
-		}
-	}
-}
-
-/* ================================================
-   Form Token Field Components (used by Combobox)
-   ================================================ */
-/* The FormToken input container background */
-.components-form-token-field__input-container {
-	background-color: var(--tec-color-background);
-}
-
-/* Suggestions list z-index to prevent rendering issues */
-.components-form-token-field__suggestions-list {
-	z-index: 100;
-}
-
-/* Suggestion items styling for combobox dropdowns */
-.components-form-token-field__suggestion {
-	@mixin text-inputs;
-}
-
-/* ================================================
-   Time Picker Specific Combobox Overrides
-   ================================================ */
-.classy-field__control--time-picker {
-	min-width: 95px;
-	max-width: 120px;
-
-	input.components-combobox-control__input[type="text"] {
-		min-width: 95px;
-		max-width: 120px;
-	}
-
-	.components-combobox-control__suggestions-container {
-		position: relative;
-
-		.components-flex {
-			height: 40px;
-			padding-left: var(--tec-spacer-2);
-			padding-right: var(--tec-spacer-2);
-		}
-
-		.components-combobox-control__input {
-			@mixin text-inputs;
-			padding: 0;
-			background-color: transparent;
-		}
-
-		.components-form-token-field__suggestions-list {
-			position: absolute;
-			top: 46px;
-			left: 0;
-			background-color: var(--tec-color-gutenberg-white);
-			border: 1px solid var(--tec-color-gutenberg-grey-600);
-
-			.components-form-token-field__suggestion {
-				@mixin text-inputs;
-				max-width: 100%;
-			}
-		}
 	}
 }
