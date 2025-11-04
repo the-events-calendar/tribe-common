@@ -236,6 +236,49 @@
 	font-weight: 700;
 }
 
+/* ================================================
+   WordPress Input Controls
+   ================================================
+   Styles for @wordpress/components InputControl and similar
+   input components to match Classy design specifications.
+   ================================================ */
+.classy-root .components-base-control.components-input-control {
+	align-items: center;
+	background: var(--tec-color-gutenberg-white);
+	border-radius: var(--tec-border-radius-default);
+	display: inline-flex;
+	gap: var(--tec-spacer-1);
+	height: 48px;
+	min-height: 48px;
+	outline: 1px solid var(--classy-medium-gray);
+	outline-offset: -1px;
+	padding: var(--classy-input-padding-top-bottom) var(--classy-input-padding-left-right);
+
+	.components-base-control__field {
+		width: 100%;
+	}
+
+	.components-input-control__container {
+		background: transparent;
+	}
+
+	.components-input-control__input {
+		@mixin text-inputs;
+		background: transparent;
+		border: none;
+		box-shadow: none;
+		padding: 0;
+
+		&:focus {
+			box-shadow: none;
+		}
+	}
+
+	.components-input-control__backdrop {
+		display: none;
+	}
+}
+
 .block-editor__container {
 	.editor-header {
 		/* Hide the preview button */
