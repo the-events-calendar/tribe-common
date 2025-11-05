@@ -487,7 +487,6 @@ tribe.helpPage.BeaconManager = {
 
 	// Initialize the help page.
 	$( obj.setup );
-} )( jQuery, window.tribe.helpPage );
 
 	// For legacy compatibility: open Beacon when asked to open Livechat (from old help-page.js postMessage).
 	window.addEventListener(
