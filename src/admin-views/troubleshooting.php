@@ -6,12 +6,19 @@
 // No direct access.
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Trigger the conditional content header notice.
- *
- * @since 6.8.2
- */
-do_action( 'tec_conditional_content_header_notice' );
+?>
+<div class="tribe-notice-wrap">
+	<?php
+	/**
+	 * Trigger the conditional content header notice.
+	 *
+	 * @since 6.8.2
+	 */
+	do_action( 'tec_conditional_content_header_notice' );
+	?>
+	<div class="wp-header-end"></div>
+</div>
+<?php
 $base_path = Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting/';
 
 // admin notice.
