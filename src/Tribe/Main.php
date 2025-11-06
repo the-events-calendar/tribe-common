@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+// Hello there - added to trigger tests.
+
 if ( class_exists( 'Tribe__Main', false ) ) {
 	return;
 }
