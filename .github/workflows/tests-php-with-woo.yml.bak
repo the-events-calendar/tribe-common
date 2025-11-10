@@ -1,4 +1,4 @@
-ame: 'EVA Codeception + Woo Tests'
+name: 'EVA Codeception + Woo Tests'
 on: [ pull_request ]
 jobs:
   check:
