@@ -38,6 +38,13 @@
 		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
 
+	<!-- Enforce our specific plugin's text domain. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="tribe-common" />
+		</properties>
+	</rule>
+
 	<!-- General file/folder exclusions -->
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
