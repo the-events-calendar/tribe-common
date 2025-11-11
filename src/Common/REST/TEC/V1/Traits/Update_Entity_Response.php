@@ -12,6 +12,7 @@ declare( strict_types=1 );
 namespace TEC\Common\REST\TEC\V1\Traits;
 
 use TEC\Common\Contracts\Repository_Interface;
+use TEC\Events_Pro\Custom_Tables\V1\WP_Query\Provider as Custom_Tables_Provider;
 use WP_Post;
 use WP_REST_Response;
 
@@ -55,11 +56,14 @@ trait Update_Entity_Response {
 			);
 		}
 
+		if ( tribe()->isBound( Custom_Tables_Provider::class ) ) {
+			remove_filter( 'tec_events_custom_tables_v1_occurrence_select_fields', [ tribe( Custom_Tables_Provider::class ), 'filter_occurrence_fields' ] );
+		}
+
 		$save_result = $this->get_orm()->by_args(
 			[
 				'id'     => $id,
 				'status' => 'any',
-				'tec_events_ignore' => true,
 			]
 		)->set_args( $params )->save();
 

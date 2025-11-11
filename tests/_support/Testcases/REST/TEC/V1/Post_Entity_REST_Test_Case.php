@@ -714,7 +714,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 			wp_cache_flush();
 
-			$fresh_entity = $this->normalize_entity( $orm->by_args( [ 'id' => $entity_id, 'status' => 'any' ] )->first() );
+			$fresh_entity = $this->normalize_entity( $orm->by_args( [ 'id' => $entity_id, 'status' => 'any', 'tec_events_ignore' => true ] )->first() );
 
 			if ( $user_can_update ) {
 				// Special case ! We don't allow updating the event of a ticket. This is set in stone.
