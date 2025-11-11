@@ -40,6 +40,8 @@ trait Read_Archive_Response {
 
 		$query->page( $page )->per_page( $per_page );
 
+		$query->where( 'tec_events_ignore', true );
+
 		$data  = $this->format_entity_collection( $query->all() );
 		$total = $query->found();
 
