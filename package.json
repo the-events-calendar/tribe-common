@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "7.0.0",
+  "version": "7.0.0-common",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
