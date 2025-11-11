@@ -7,6 +7,8 @@ use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Common\StellarWP\Telemetry\Telemetry\Telemetry;
 use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
 
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
+
 /**
  * Class Opt_InTest
  *
@@ -60,16 +62,43 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Deletes all admin users except the one with the specified ID.
+	 *
+	 * @param int $keep_user_id The ID of the admin user to keep.
+	 */
+	protected function delete_other_admins( $keep_user_id ) {
+		$admin_users = get_users( [ 'role' => 'administrator' ] );
+
+		if ( empty( $admin_users ) ) {
+			return;
+		}
+
+		foreach ( $admin_users as $user ) {
+			if ( (int) $user->ID !== (int) $keep_user_id ) {
+				// Delete the user, reassigning their posts to the kept user.
+				wp_delete_user( $user->ID, $keep_user_id );
+			}
+		}
+	}
+
+	/**
 	 * @test
 	 */
 	public function it_should_include_opt_in_user() {
 		delete_option( Status::OPTION_NAME_USER_INFO );
-		update_option( Status::OPTION_NAME_USER_INFO, [ 'user' => wp_json_encode( [
-			'name' => 'bacon',
-			'email' => 'bacon@bacon.bacon',
-			'opt_in_text' => null,
-			'plugin_slug' => 'the-events-calendar',
-		] ) ] );
+		update_option(
+			Status::OPTION_NAME_USER_INFO,
+			[
+				'user' => wp_json_encode(
+					[
+						'name'        => 'bacon',
+						'email'       => 'bacon@bacon.bacon',
+						'opt_in_text' => null,
+						'plugin_slug' => 'the-events-calendar',
+					]
+				),
+			]
+		);
 
 		$this->listen_for_http_request();
 
@@ -92,12 +121,19 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_include_empty_opt_in_user() {
 		delete_option( Status::OPTION_NAME_USER_INFO );
-		update_option( Status::OPTION_NAME_USER_INFO, [ 'user' => wp_json_encode( [
-			'name' => null,
-			'email' => null,
-			'opt_in_text' => null,
-			'plugin_slug' => 'the-events-calendar',
-		] ) ] );
+		update_option(
+			Status::OPTION_NAME_USER_INFO,
+			[
+				'user' => wp_json_encode(
+					[
+						'name'        => null,
+						'email'       => null,
+						'opt_in_text' => null,
+						'plugin_slug' => 'the-events-calendar',
+					]
+				),
+			]
+		);
 
 		$this->listen_for_http_request();
 
@@ -133,7 +169,7 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 'admin', $request_args['opt_in_user']['name'] );
 		$this->assertEquals( 'admin@wordpress.test', $request_args['opt_in_user']['email'] );
 
-		$cached_user_info = get_option( Status::OPTION_NAME_USER_INFO );
+		$cached_user_info   = get_option( Status::OPTION_NAME_USER_INFO );
 		$cached_opt_in_user = json_decode( $cached_user_info['user'], true );
 		$this->assertEquals( 'admin', $cached_opt_in_user['name'] );
 		$this->assertEquals( 'admin@wordpress.test', $cached_opt_in_user['email'] );
@@ -147,10 +183,14 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_include_opt_in_where_admin_user_is_not_admin_email() {
 		delete_option( Status::OPTION_NAME_USER_INFO );
 		$admin_user = get_user_by( 'email', 'admin@wordpress.test' );
-		wp_update_user( [
-			'ID' => $admin_user->ID,
-			'user_email' => 'bork@bork.bork',
-		] );
+		$this->delete_other_admins( $admin_user->ID );
+
+		wp_update_user(
+			[
+				'ID'         => $admin_user->ID,
+				'user_email' => 'bork@bork.bork',
+			]
+		);
 
 		$this->listen_for_http_request();
 
@@ -165,12 +205,14 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 'admin', $request_args['opt_in_user']['name'] );
 		$this->assertEquals( 'bork@bork.bork', $request_args['opt_in_user']['email'] );
 
-		wp_update_user( [
-			'ID' => $admin_user->ID,
-			'user_email' => 'admin@wordpress.test',
-		] );
+		wp_update_user(
+			[
+				'ID'         => $admin_user->ID,
+				'user_email' => 'admin@wordpress.test',
+			]
+		);
 
-		$cached_user_info = get_option( Status::OPTION_NAME_USER_INFO );
+		$cached_user_info   = get_option( Status::OPTION_NAME_USER_INFO );
 		$cached_opt_in_user = json_decode( $cached_user_info['user'], true );
 		$this->assertEquals( 'admin', $cached_opt_in_user['name'] );
 		$this->assertEquals( 'bork@bork.bork', $cached_opt_in_user['email'] );
@@ -186,12 +228,15 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 
 		delete_option( Status::OPTION_NAME_USER_INFO );
 		$admin_user = get_user_by( 'email', 'admin@wordpress.test' );
+		$this->delete_other_admins( $admin_user->ID );
 		$capabilities = get_user_meta( $admin_user->ID, $wpdb->prefix . 'capabilities' );
 		delete_user_meta( $admin_user->ID, $wpdb->prefix . 'capabilities' );
-		wp_update_user( [
-			'ID' => $admin_user->ID,
-			'user_email' => 'bork@bork.bork',
-		] );
+		wp_update_user(
+			[
+				'ID'         => $admin_user->ID,
+				'user_email' => 'bork@bork.bork',
+			]
+		);
 
 		$this->listen_for_http_request();
 
@@ -203,19 +248,21 @@ class Opt_InTest extends \Codeception\TestCase\WPTestCase {
 		$request_args = json_decode( $request_args['body']['telemetry'], true );
 
 		$this->assertArrayHasKey( 'opt_in_user', $request_args );
-		$this->assertNull( $request_args['opt_in_user']['name'] );
-		$this->assertNull( $request_args['opt_in_user']['email'] );
+		$this->assertNull( $request_args['opt_in_user']['name'], 'Name should be null 1' );
+		$this->assertNull( $request_args['opt_in_user']['email'], 'Email should be null 1' );
 
 		update_user_meta( $admin_user->ID, $wpdb->prefix . 'capabilities', $capabilities );
-		wp_update_user( [
-			'ID' => $admin_user->ID,
-			'user_email' => 'admin@wordpress.test',
-		] );
+		wp_update_user(
+			[
+				'ID'         => $admin_user->ID,
+				'user_email' => 'admin@wordpress.test',
+			]
+		);
 
-		$cached_user_info = get_option( Status::OPTION_NAME_USER_INFO );
+		$cached_user_info   = get_option( Status::OPTION_NAME_USER_INFO );
 		$cached_opt_in_user = json_decode( $cached_user_info['user'], true );
-		$this->assertNull( $cached_opt_in_user['name'] );
-		$this->assertNull( $cached_opt_in_user['email'] );
+		$this->assertNull( $cached_opt_in_user['name'], 'Name should be null 2' );
+		$this->assertNull( $cached_opt_in_user['email'], 'Email should be null 2' );
 
 		delete_option( Status::OPTION_NAME_USER_INFO );
 	}

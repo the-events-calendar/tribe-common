@@ -2,6 +2,7 @@
 /**
  * @deprecated 6.3.0
  */
+
 namespace Tribe\Admin\Conditional_Content;
 
 _deprecated_file( __FILE__, '6.3.0', '\TEC\Common\Admin\Conditional_Content\Datetime_Conditional_Abstract', 'This file is deprecated in favor of new Namespace' );

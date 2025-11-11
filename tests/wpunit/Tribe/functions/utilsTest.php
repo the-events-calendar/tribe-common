@@ -169,6 +169,8 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $post->ID, tribe_post_exists( $post->post_name, 'post' ) );
 		$this->assertEquals( $post->ID, tribe_post_exists( $post->post_name, [ 'post', 'page' ] ) );
 		$this->assertFalse( tribe_post_exists( $post->post_name, 'page' ) );
+
+		wp_delete_post( $post->ID );
 	}
 
 	/**
@@ -188,6 +190,8 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( tribe_post_exists( $post->post_name, 'post' ) );
 		$this->assertFalse( tribe_post_exists( $post->post_name, 'page' ) );
 		$this->assertFalse( tribe_post_exists( $post->post_name, [ 'post', 'page' ] ) );
+
+		wp_delete_post( $post->ID );
 	}
 
 	/**
@@ -200,6 +204,8 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertFalse( tribe_post_exists( $user_id, 'post' ) );
 		$this->assertFalse( tribe_post_exists( $user_id, 'page' ) );
 		$this->assertFalse( tribe_post_exists( $user_id, [ 'post', 'page' ] ) );
+
+		wp_delete_user( $user_id );
 	}
 
 	public function tribe_sanitize_deep_data_set() {

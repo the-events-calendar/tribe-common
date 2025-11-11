@@ -356,8 +356,8 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				wp_send_json_error( __( 'Invalid Key', 'tribe-common' ) );
 			}
 
-			$key = $query['key'];
-			if ( $key != $optin_key ) {
+			$key = (string) ( $query['key'] ?? '' );
+			if ( $key !== $optin_key ) {
 				wp_send_json_error( __( 'Invalid Key', 'tribe-common' ) );
 			}
 

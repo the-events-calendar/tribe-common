@@ -27,7 +27,8 @@ class Angie extends Controller_Contract {
 	 * @return bool Whether the controller is active or not.
 	 */
 	public function is_active(): bool {
-		return current_user_can( 'use_angie' ); // phpcs:ignore WordPress.WP.Capabilities.Unknown -- Custom capability for AI features
+		$can_use_angie = defined( 'ANGIE_VERSION' ) && current_user_can( 'use_angie' ); // phpcs:ignore WordPress.WP.Capabilities.Unknown -- Custom capability for AI features
+		return $can_use_angie;
 	}
 
 	/**

@@ -39,7 +39,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 		$date     = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'America/New_York' ) );
 		$gmt_date = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'UTC' ) );
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$author = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $author );
 		$other_author = $this->factory()->user->create( [ 'role' => 'editor' ] );
 
 		$post_fields = [
@@ -70,6 +71,9 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 				$this->assertEquals( $value, get_post( $id )->{$post_field}, "{$post_field} does not match for post {$id}" );
 			}
 		}
+
+		wp_delete_user( $author );
+		wp_delete_user( $other_author );
 	}
 
 	/**
@@ -82,7 +86,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 		$date     = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'America/New_York' ) );
 		$gmt_date = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'UTC' ) );
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$author = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $author );
 		$other_author = $this->factory()->user->create( [ 'role' => 'editor' ] );
 
 		$post_fields = [
@@ -107,6 +112,9 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 				$this->assertEquals( $value, get_post( $id )->{$post_field}, "{$post_field} does not match for post {$id}" );
 			}
 		}
+
+		wp_delete_user( $author );
+		wp_delete_user( $other_author );
 	}
 
 	/**
@@ -119,7 +127,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 		$date     = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'America/New_York' ) );
 		$gmt_date = new \DateTime( '2013-01-01 09:34:56', new \DateTimeZone( 'UTC' ) );
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$author = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $author );
 		$other_author = $this->factory()->user->create( [ 'role' => 'editor' ] );
 
 		$image_id = $this->factory()->attachment->create_upload_object( codecept_data_dir( 'images/featured-image.jpg' ) );
@@ -157,6 +166,9 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 				$this->assertEquals( $value, get_post( $id )->{$real_field}, "{$post_field} does not match for post {$id}" );
 			}
 		}
+
+		wp_delete_user( $author );
+		wp_delete_user( $other_author );
 	}
 
 	/**
@@ -172,7 +184,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_adding_taxonomy_terms_to_a_post() {
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$author = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $author );
 		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
 
 		$this->repository()->where( 'post__in', $ids )->set( 'genre', 'fantasy' )->save();
@@ -181,6 +194,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 			clean_post_cache( $id );
 			$this->assertEquals( [ 'fantasy' ], wp_get_object_terms( $id, 'genre', [ 'fields' => 'names' ] ) );
 		}
+
+		wp_delete_user( $author );
 	}
 
 	/**
@@ -190,7 +205,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_set_a_non_registered_post_tax_as_custom_field() {
 		register_taxonomy( 'wow-factor', 'post' );
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$author = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $author );
 		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
 
 		$this->repository()->where( 'post__in', $ids )->set( 'wow-factor', 'noice' )->save();
@@ -200,6 +216,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 			$this->assertEquals( [], wp_get_object_terms( $id, 'wow-factor', [ 'fields' => 'names' ] ) );
 			$this->assertEquals( 'noice', get_post_meta( $id, 'wow-factor', true ) );
 		}
+
+		wp_delete_user( $author );
 	}
 
 	/**
@@ -226,7 +244,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_setting_featured_image_with_url_using_method() {
 		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
 
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$author = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $author );
 
 		$name = 'images/featured-image-' . uniqid() . '.jpg';
 		// Create a copy of the file as the file will be removed after the upload is completed
@@ -246,6 +265,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 			$this->assertTrue( has_post_thumbnail( $id ), "Post does not have a featured image for post {$id}" );
 		}
+
+		wp_delete_user( $author );
 	}
 
 	/**
@@ -256,7 +277,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	public function it_should_to_set_an_image_without_extension() {
 		$post = $this->factory()->post->create( [ 'post_type' => 'book' ] );
 
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$author = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $author );
 
 		$name = 'images/featured-image';
 		// Create a copy of the file without an extension
@@ -282,6 +304,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 			end( $parts ),
 			'The extension of the file was not able to set as .jpg'
 		);
+
+		wp_delete_user( $author );
 	}
 
 	/**
@@ -292,7 +316,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_setting_featured_image_with_ID_using_method() {
 		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book' ] );
 
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$author = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $author );
 
 		$image = codecept_data_dir( 'images/featured-image.jpg' );
 		$image = $this->factory()->attachment->create_upload_object( $image );
@@ -304,6 +329,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 			$this->assertTrue( has_post_thumbnail( $id ), "Post does not have a featured image for post {$id}" );
 		}
+
+		wp_delete_user( $author );
 	}
 
 	/**
@@ -317,7 +344,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book', 'meta_input' => [ '_thumbnail_id' => $image ] ] );
 
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$author = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $author );
 
 		$image = null;
 
@@ -328,6 +356,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 			$this->assertFalse( has_post_thumbnail( $id ), "Post does not have a featured image for post {$id}" );
 		}
+
+		wp_delete_user( $author );
 	}
 
 	/**
@@ -341,7 +371,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book', 'meta_input' => [ '_thumbnail_id' => $image ] ] );
 
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$author = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $author );
 
 		$image = 0;
 
@@ -376,6 +407,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 			$this->assertTrue( has_post_thumbnail( $id ), "Post does not have a featured image for post {$id}" );
 		}
+
+		wp_delete_user( $author );
 	}
 
 	/**
@@ -389,7 +422,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 		$ids = $this->factory()->post->create_many( 2, [ 'post_type' => 'book', 'meta_input' => [ '_thumbnail_id' => $image ] ] );
 
-		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$author = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $author );
 
 		$image = '';
 
@@ -400,6 +434,8 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
 			$this->assertTrue( has_post_thumbnail( $id ), "Post does not have a featured image for post {$id}" );
 		}
+
+		wp_delete_user( $author );
 	}
 
 	/**
