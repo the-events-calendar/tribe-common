@@ -116,22 +116,22 @@ class Text extends Parameter {
 				if ( ! is_string( $value ) ) {
 					throw InvalidRestArgumentException::create(
 						// translators: 1) is the name of the parameter.
-						sprintf( __( 'Argument `{%1$s}` must be a string.', 'the-events-calendar' ), $this->get_name() ),
+						sprintf( __( 'Argument `{%1$s}` must be a string.', 'tribe-common' ), $this->get_name() ),
 						$this->get_name(),
 						'tec_rest_invalid_string_argument',
 						// translators: 1) is the name of the parameter.
-						sprintf( __( 'The argument `{%1$s}` is not a string.', 'the-events-calendar' ), $this->get_name() )
+						sprintf( __( 'The argument `{%1$s}` is not a string.', 'tribe-common' ), $this->get_name() )
 					);
 				}
 
 				if ( ! preg_match( '/' . $this->get_pattern() . '/', (string) $value ) ) {
 					throw InvalidRestArgumentException::create(
 						// translators: 1) is the name of the parameter.
-						sprintf( __( 'Argument `{%1$s}` must match the pattern.', 'the-events-calendar' ), $this->get_name() ),
+						sprintf( __( 'Argument `{%1$s}` must match the pattern.', 'tribe-common' ), $this->get_name() ),
 						$this->get_name(),
 						'tec_rest_invalid_string_argument',
 						// translators: 1) is the name of the parameter, 2) is the pattern.
-						sprintf( __( 'The argument `{%1$s}` does not match the pattern `%2$s`.', 'the-events-calendar' ), $this->get_name(), $this->get_pattern() )
+						sprintf( __( 'The argument `{%1$s}` does not match the pattern `%2$s`.', 'tribe-common' ), $this->get_name(), $this->get_pattern() )
 					);
 				}
 

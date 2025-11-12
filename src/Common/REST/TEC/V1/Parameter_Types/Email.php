@@ -36,11 +36,11 @@ class Email extends Text {
 			if ( ! is_email( $value ) ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'Argument `{%1$s}` must be a valid email address.', 'the-events-calendar' ), $this->get_name() ),
+					sprintf( __( 'Argument `{%1$s}` must be a valid email address.', 'tribe-common' ), $this->get_name() ),
 					$this->get_name(),
 					'tec_rest_invalid_email_argument',
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'The argument `{%1$s}` is not a valid email address.', 'the-events-calendar' ), $this->get_name() )
+					sprintf( __( 'The argument `{%1$s}` is not a valid email address.', 'tribe-common' ), $this->get_name() )
 				);
 			}
 

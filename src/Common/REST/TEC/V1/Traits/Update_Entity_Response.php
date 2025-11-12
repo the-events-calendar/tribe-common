@@ -78,7 +78,12 @@ trait Update_Entity_Response {
 		}
 
 		// Fetch the updated entity to return in response.
-		$updated_entity = $this->get_orm()->by_args( [ 'id' => $id, 'status' => 'any' ] )->first();
+		$updated_entity = $this->get_orm()->by_args(
+			[
+				'id'     => $id,
+				'status' => 'any',
+			]
+		)->first();
 
 		// Verify the entity exists after update.
 		if ( ! $updated_entity ) {

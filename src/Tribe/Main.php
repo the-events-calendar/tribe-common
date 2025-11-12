@@ -413,9 +413,9 @@ class Tribe__Main {
 
 		// Register the TEC API functions that will be accessible at `window.tec.common.tecApi`.
 		StellarWP_Asset::add( 'tec-api', 'tecApi.js' )
-		   ->add_to_group_path( self::class . '-packages' )
-		   ->add_to_group( 'tec-api' )
-		   ->register();
+			->add_to_group_path( self::class . '-packages' )
+			->add_to_group( 'tec-api' )
+			->register();
 
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
 	}

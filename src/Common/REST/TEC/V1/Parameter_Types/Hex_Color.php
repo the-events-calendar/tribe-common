@@ -36,22 +36,22 @@ class Hex_Color extends Text {
 			if ( ! is_string( $value ) ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'Argument `{%1$s}` must be a string.', 'the-events-calendar' ), $this->get_name() ),
+					sprintf( __( 'Argument `{%1$s}` must be a string.', 'tribe-common' ), $this->get_name() ),
 					$this->get_name(),
 					'tec_rest_invalid_hex_color_argument',
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'The argument `{%1$s}` is not a string.', 'the-events-calendar' ), $this->get_name() )
+					sprintf( __( 'The argument `{%1$s}` is not a string.', 'tribe-common' ), $this->get_name() )
 				);
 			}
 
 			if ( ! ( preg_match( '/^#([0-9a-fA-F]{3})$/', (string) $value ) || preg_match( '/^#([0-9a-fA-F]{6})$/', (string) $value ) ) ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'Argument `{%1$s}` must be a valid hex color.', 'the-events-calendar' ), $this->get_name() ),
+					sprintf( __( 'Argument `{%1$s}` must be a valid hex color.', 'tribe-common' ), $this->get_name() ),
 					$this->get_name(),
 					'tec_rest_invalid_hex_color_argument',
 					// translators: 1) is the name of the parameter.
-					sprintf( __( 'The argument `{%1$s}` is not a valid hex color. It should be a string like `#000000` or `#000`.', 'the-events-calendar' ), $this->get_name() )
+					sprintf( __( 'The argument `{%1$s}` is not a valid hex color. It should be a string like `#000000` or `#000`.', 'tribe-common' ), $this->get_name() )
 				);
 			}
 

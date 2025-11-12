@@ -84,10 +84,10 @@ class Entity extends Parameter {
 				if ( $property->is_required() && ! isset( $value[ $property->get_name() ] ) ) {
 					throw InvalidRestArgumentException::create(
 						// translators: %s is the name of the property.
-						sprintf( __( 'Property %s is required', 'the-events-calendar' ), $argument ),
+						sprintf( __( 'Property %s is required', 'tribe-common' ), $argument ),
 						$argument,
 						'tec_rest_required_property_missing',
-						__( 'The property is required but missing.', 'the-events-calendar' )
+						__( 'The property is required but missing.', 'tribe-common' )
 					);
 				}
 
@@ -100,10 +100,10 @@ class Entity extends Parameter {
 				if ( ! $is_valid ) {
 					throw InvalidRestArgumentException::create(
 						// translators: %s is the name of the property.
-						sprintf( __( 'Property %s is invalid', 'the-events-calendar' ), $argument ),
+						sprintf( __( 'Property %s is invalid', 'tribe-common' ), $argument ),
 						$argument,
 						'tec_rest_invalid_property',
-						__( 'The property is invalid.', 'the-events-calendar' )
+						__( 'The property is invalid.', 'tribe-common' )
 					);
 				}
 			}

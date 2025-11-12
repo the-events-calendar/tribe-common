@@ -51,7 +51,12 @@ trait Create_Entity_Response {
 
 		return new WP_REST_Response(
 			$this->get_formatted_entity(
-				$entity instanceof Model ? $orm->by_primary_key( $entity->getPrimaryValue() ) : $orm->by_args( [ 'id' => $entity->ID, 'status' => 'any' ] )->first()
+				$entity instanceof Model ? $orm->by_primary_key( $entity->getPrimaryValue() ) : $orm->by_args(
+					[
+						'id'     => $entity->ID,
+						'status' => 'any',
+					]
+				)->first()
 			),
 			201
 		);
