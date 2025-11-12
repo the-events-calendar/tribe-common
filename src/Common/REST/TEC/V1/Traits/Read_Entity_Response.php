@@ -67,9 +67,9 @@ trait Read_Entity_Response {
 
 		$entity = $this->get_orm()->by_args(
 			[
-				'id'                 => $id,
-				'status'             => 'any',
-				'tec_events_ignore'  => true,
+				'id'                => $id,
+				'status'            => 'any',
+				'tec_events_ignore' => true,
 			]
 		)->first();
 
