@@ -9,6 +9,8 @@ use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Common\Controller as Common_Controller;
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 
+// Line added to trigger PHP tests
+
 // Don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
