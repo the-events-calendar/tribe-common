@@ -427,6 +427,7 @@ tribe.helpPage.BeaconManager = {
 	 * @link https://docsbot.ai/documentation/developer/embeddable-chat-widget
 	 *
 	 * @since 6.3.2
+	 * @since 6.10.0 Added settimeout for opening the support beacon.
 	 * @return {void}
 	 */
 	obj.initializeDocsBot = () => {
@@ -459,12 +460,17 @@ tribe.helpPage.BeaconManager = {
 			options: {
 				customCSS: obj.DocsBotAIcss,
 			},
-			supportCallback: ( event ) => {
-				event.preventDefault();
-				bodyElement.classList.add( 'blackout' );
-				zE( 'webWidget', 'show' );
-				zE( 'webWidget', 'open' );
-			},
+		   supportCallback: ( event ) => {
+			   event.preventDefault();
+			   bodyElement.classList.add( 'blackout' );
+			   // Async > synchronous in DocsBot click handler context.
+			   setTimeout( () => {
+				   const mgr = tribe.helpPage?.helpScoutManager;
+				   if ( mgr && typeof mgr.openBeacon === 'function' ) {
+					   mgr.openBeacon();
+				   }
+			   }, 50 );
+		   },
 		} );
 	};
 
