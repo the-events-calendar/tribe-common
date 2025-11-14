@@ -22,7 +22,7 @@
         "slug": {
             "description": "An alphanumeric identifier for the entity unique to its type",
             "type": "string",
-            "example": "my-awesome-event"
+            "example": "my-awesome-title"
         },
         "status": {
             "description": "A named status for the entity.",
@@ -40,17 +40,17 @@
         "title": {
             "description": "HTML title for the entity, transformed for display",
             "type": "string",
-            "example": "My Awesome Event"
+            "example": "My Awesome Title"
         },
         "content": {
             "description": "HTML content for the entity, transformed for display",
             "type": "string",
-            "example": "<p>This is the content of my event...</p>"
+            "example": "This is the content..."
         },
         "excerpt": {
             "description": "HTML excerpt for the entity, transformed for display",
             "type": "string",
-            "example": "<p>This is the excerpt...</p>"
+            "example": "This is the excerpt..."
         },
         "author": {
             "description": "The ID for the author of the entity.",

@@ -82,12 +82,13 @@ class Entity extends Parameter {
 			foreach ( $this->get_properties() as $property ) {
 				$argument = $this->get_name() ? $this->get_name() . '.' . $property->get_name() : $property->get_name();
 				if ( $property->is_required() && ! isset( $value[ $property->get_name() ] ) ) {
-					// translators: %s is the name of the property.
-					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is required', 'the-events-calendar' ), $argument ) );
-					$exception->set_argument( $argument );
-					$exception->set_details( __( 'The property is required but missing.', 'the-events-calendar' ) );
-					$exception->set_internal_error_code( 'tec_rest_required_property_missing' );
-					throw $exception;
+					throw InvalidRestArgumentException::create(
+						// translators: %s is the name of the property.
+						sprintf( __( 'Property %s is required', 'tribe-common' ), $argument ),
+						$argument,
+						'tec_rest_required_property_missing',
+						__( 'The property is required but missing.', 'tribe-common' )
+					);
 				}
 
 				if ( ! isset( $value[ $property->get_name() ] ) ) {
@@ -97,12 +98,13 @@ class Entity extends Parameter {
 				$is_valid = $property->get_validator()( $value[ $property->get_name() ] );
 
 				if ( ! $is_valid ) {
-					// translators: %s: The name of the invalid property.
-					$exception = new InvalidRestArgumentException( sprintf( __( 'Property %s is invalid', 'the-events-calendar' ), $argument ) );
-					$exception->set_argument( $argument );
-					$exception->set_details( __( 'The property is invalid.', 'the-events-calendar' ) );
-					$exception->set_internal_error_code( 'tec_rest_invalid_property' );
-					throw $exception;
+					throw InvalidRestArgumentException::create(
+						// translators: %s is the name of the property.
+						sprintf( __( 'Property %s is invalid', 'tribe-common' ), $argument ),
+						$argument,
+						'tec_rest_invalid_property',
+						__( 'The property is invalid.', 'tribe-common' )
+					);
 				}
 			}
 

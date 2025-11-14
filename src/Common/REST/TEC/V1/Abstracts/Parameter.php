@@ -18,6 +18,7 @@ use TEC\Common\REST\TEC\V1\Collections\Collection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Entity;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface as Definition;
+use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 
 /**
  * Abstract parameter class.
@@ -617,22 +618,19 @@ abstract class Parameter implements Parameter_Contract {
 				'uniqueItems'       => $this->is_unique_items(),
 				'properties'        => $this->get_properties(),
 				'enum'              => 'array' === $this->get_type() ? null : $this->get_enum(),
-				'validate_callback' => $this->get_wp_validator(),
+				'validate_callback' => function () {
+					return function ( $value ) {
+						try {
+							return $this->get_validator()( $value );
+						} catch ( InvalidRestArgumentException $e ) {
+							return $e->to_wp_error();
+						}
+					};
+				},
 				'sanitize_callback' => $this->get_sanitizer(),
 			],
 			static fn( $value ) => null !== $value
 		);
-	}
-
-	/**
-	 * Returns the WP validator.
-	 *
-	 * @since 6.9.0
-	 *
-	 * @return ?Closure
-	 */
-	public function get_wp_validator(): ?Closure {
-		return $this->get_validator();
 	}
 
 	/**
