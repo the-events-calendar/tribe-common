@@ -35,7 +35,7 @@
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
     "stellarwp/schema-models": "^0.1.0",
-    "stellarwp/shepherd": "^0.0.8",
+    "stellarwp/shepherd": "dev-feat/introduce-the-ability-overwrite-the-handler-via-a-filter",
     "trustedlogin/client": "^1.9",
     "scssphp/scssphp": "^1.13"
   },

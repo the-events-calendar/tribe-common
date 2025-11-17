@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c65453256f6bc98799987ac4de414ac9",
+    "content-hash": "83b9b862d27572ae0ee5d9c3b1d8f08d",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -900,16 +900,16 @@
         },
         {
             "name": "stellarwp/shepherd",
-            "version": "0.0.8",
+            "version": "dev-feat/introduce-the-ability-overwrite-the-handler-via-a-filter",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/shepherd.git",
-                "reference": "6ff5c2ca3f743dd7518a985daa70dcfbc33cd6e9"
+                "reference": "c63ce4b0bb4462fccfed20e5d4a0233a299d0371"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/6ff5c2ca3f743dd7518a985daa70dcfbc33cd6e9",
-                "reference": "6ff5c2ca3f743dd7518a985daa70dcfbc33cd6e9",
+                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/c63ce4b0bb4462fccfed20e5d4a0233a299d0371",
+                "reference": "c63ce4b0bb4462fccfed20e5d4a0233a299d0371",
                 "shasum": ""
             },
             "require": {
@@ -959,9 +959,9 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/shepherd/issues",
-                "source": "https://github.com/stellarwp/shepherd/tree/0.0.8"
+                "source": "https://github.com/stellarwp/shepherd/tree/feat/introduce-the-ability-overwrite-the-handler-via-a-filter"
             },
-            "time": "2025-10-02T13:00:34+00:00"
+            "time": "2025-11-17T18:08:11+00:00"
         },
         {
             "name": "stellarwp/telemetry",
@@ -7488,6 +7488,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/coding-standards": 20,
+        "stellarwp/shepherd": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
