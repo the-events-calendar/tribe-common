@@ -73,7 +73,7 @@ class Schema extends Table {
 	/**
 	 * Get the schema history.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array
 	 */

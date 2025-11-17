@@ -2,7 +2,7 @@
 /**
  * Interface Custom_Table_Repository_Interface
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\Contracts
  */
@@ -16,7 +16,7 @@ use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 /**
  * Interface Custom_Table_Repository_Interface
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\Contracts
  */
@@ -24,7 +24,7 @@ interface Custom_Table_Repository_Interface extends Repository_Interface {
 	/**
 	 * Gets the model class.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return class-string<Model> The model class.
 	 */
@@ -33,7 +33,7 @@ interface Custom_Table_Repository_Interface extends Repository_Interface {
 	/**
 	 * Gets the schema.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array The schema.
 	 */

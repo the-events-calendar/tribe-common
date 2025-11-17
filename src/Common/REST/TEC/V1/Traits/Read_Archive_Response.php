@@ -140,7 +140,7 @@ trait Read_Archive_Response {
 	/**
 	 * Returns the default number of posts per page.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return int
 	 */
@@ -149,7 +149,7 @@ trait Read_Archive_Response {
 	/**
 	 * Returns the post type.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return string
 	 */
@@ -158,7 +158,7 @@ trait Read_Archive_Response {
 	/**
 	 * Returns the current REST URL.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return string
 	 */
@@ -167,7 +167,7 @@ trait Read_Archive_Response {
 	/**
 	 * Returns the post type object.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return WP_Post_Type
 	 */
@@ -176,7 +176,7 @@ trait Read_Archive_Response {
 	/**
 	 * Formats the entity collection.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $entities The entities to format.
 	 *
@@ -187,7 +187,7 @@ trait Read_Archive_Response {
 	/**
 	 * Returns the ORM for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return Repository_Interface
 	 */

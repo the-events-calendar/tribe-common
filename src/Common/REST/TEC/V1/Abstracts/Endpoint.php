@@ -418,7 +418,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	/**
 	 * Gets the schema defined parameters.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $schema_name    The name of the schema. Can be `read`, `create`, `update`, or `delete`.
 	 * @param array  $request_params The request parameters.

@@ -2,7 +2,7 @@
 /**
  * Tests for Custom_Table_Repository abstract class.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\Abstracts
  */
@@ -18,7 +18,7 @@ use Tribe\Tests\Testcases\Common\Abstracts\Abstract_Custom_Table_Repository_Test
  *
  * Tests the basic CRUD operations of the Custom_Table_Repository abstract class.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\Abstracts
  */

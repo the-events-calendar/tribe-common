@@ -2,7 +2,7 @@
 /**
  * Endpoint class.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -19,7 +19,7 @@ use WP_REST_Request;
 /**
  * Custom Entity Endpoint class.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\REST\TEC\V1\Abstracts
  */
@@ -27,7 +27,7 @@ abstract class Custom_Entity_Endpoint extends Endpoint implements Custom_Entity_
 	/**
 	 * Returns whether the guest can read the object.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return bool
 	 */
@@ -38,7 +38,7 @@ abstract class Custom_Entity_Endpoint extends Endpoint implements Custom_Entity_
 	/**
 	 * Returns the minimum capability required to access the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return string
 	 */
@@ -49,7 +49,7 @@ abstract class Custom_Entity_Endpoint extends Endpoint implements Custom_Entity_
 	/**
 	 * Returns whether the user can read the object.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -62,7 +62,7 @@ abstract class Custom_Entity_Endpoint extends Endpoint implements Custom_Entity_
 	/**
 	 * Returns whether the user can create the object.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -75,7 +75,7 @@ abstract class Custom_Entity_Endpoint extends Endpoint implements Custom_Entity_
 	/**
 	 * Returns whether the user can update the object.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -88,7 +88,7 @@ abstract class Custom_Entity_Endpoint extends Endpoint implements Custom_Entity_
 	/**
 	 * Returns whether the user can delete the object.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -101,7 +101,7 @@ abstract class Custom_Entity_Endpoint extends Endpoint implements Custom_Entity_
 	/**
 	 * Returns the arguments for the delete request.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return QueryArgumentCollection
 	 */
@@ -112,7 +112,7 @@ abstract class Custom_Entity_Endpoint extends Endpoint implements Custom_Entity_
 	/**
 	 * Formats a collection of posts into a collection of post entities.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $models The models to format.
 	 *
@@ -131,7 +131,7 @@ abstract class Custom_Entity_Endpoint extends Endpoint implements Custom_Entity_
 	/**
 	 * Formats a post into a post entity.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param Model $model The model to format.
 	 *

@@ -195,7 +195,7 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	/**
 	 * Gets a parameter from the collection.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $parameter_name The name of the parameter to get.
 	 *

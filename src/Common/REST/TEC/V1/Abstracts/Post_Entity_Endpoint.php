@@ -164,7 +164,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 * Formats a collection of posts into a collection of post entities.
 	 *
 	 * @since 6.9.0
-	 * @since TBD method has been renamed.
+	 * @since 6.10.0 method has been renamed.
 	 *
 	 * @param array $posts The posts to format.
 	 *

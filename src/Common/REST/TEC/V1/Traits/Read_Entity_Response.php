@@ -94,7 +94,7 @@ trait Read_Entity_Response {
 	/**
 	 * Returns the ORM for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return Repository_Interface
 	 */
@@ -103,7 +103,7 @@ trait Read_Entity_Response {
 	/**
 	 * Formats a model into a model entity.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param WP_Post $post The post to format.
 	 *
@@ -114,7 +114,7 @@ trait Read_Entity_Response {
 	/**
 	 * Returns the post type for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return string
 	 */
@@ -123,7 +123,7 @@ trait Read_Entity_Response {
 	/**
 	 * Returns the request.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return WP_REST_Request
 	 */

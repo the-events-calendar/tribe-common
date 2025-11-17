@@ -160,7 +160,7 @@ class InvalidRestArgumentException extends Exception {
 	/**
 	 * Creates an exception.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $generic_message The generic message to use for the exception.
 	 * @param string $argument        The argument that was invalid.

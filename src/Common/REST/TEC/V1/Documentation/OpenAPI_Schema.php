@@ -331,7 +331,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 		/**
 		 * Filters the schema defined parameters.
 		 *
-		 * @since TBD
+		 * @since 6.10.0
 		 *
 		 * @param array          $new_data The filtered and documented data.
 		 * @param array          $data     The raw data.

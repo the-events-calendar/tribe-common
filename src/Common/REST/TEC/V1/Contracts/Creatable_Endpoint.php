@@ -49,7 +49,7 @@ interface Creatable_Endpoint {
 	 * Returns the arguments for the create method.
 	 *
 	 * @since 6.9.0
-	 * @since TBD Returning a RequestBodyCollection instead of a QueryArgumentCollection
+	 * @since 6.10.0 Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
 	 * @return RequestBodyCollection
 	 */

@@ -506,7 +506,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 * Returns the selected search term.
 	 *
 	 * @since 6.5.3
-	 * @since TBD Added the $by_default parameter.
+	 * @since 6.10.0 Added the $by_default parameter.
 	 *
 	 * @param string $by_default The default order.
 	 *
@@ -522,7 +522,7 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 * Returns the selected orderby.
 	 *
 	 * @since 6.5.3
-	 * @since TBD Added the $by_default parameter.
+	 * @since 6.10.0 Added the $by_default parameter.
 	 *
 	 * @param string $by_default The default orderby.
 	 *

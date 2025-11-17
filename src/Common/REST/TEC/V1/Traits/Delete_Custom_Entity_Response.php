@@ -2,7 +2,7 @@
 /**
  * Trait to handle the response for delete custom entity requests.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -17,7 +17,7 @@ use WP_REST_Response;
 /**
  * Trait to handle the response for delete custom entity requests.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -25,7 +25,7 @@ trait Delete_Custom_Entity_Response {
 	/**
 	 * Deletes an existing entity.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
@@ -60,7 +60,7 @@ trait Delete_Custom_Entity_Response {
 	/**
 	 * Returns the ORM for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return Repository_Interface
 	 */

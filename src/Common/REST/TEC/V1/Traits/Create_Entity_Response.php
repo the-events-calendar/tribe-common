@@ -65,7 +65,7 @@ trait Create_Entity_Response {
 	/**
 	 * Returns the ORM for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return Repository_Interface
 	 */

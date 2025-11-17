@@ -2,7 +2,7 @@
 /**
  * Test suite for TrustedLogin Help Hub Integration.
  *
- * @since   TBD
+ * @since   6.10.0
  *
  * @package TEC\Common\TrustedLogin
  */

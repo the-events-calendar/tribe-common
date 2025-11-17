@@ -148,7 +148,7 @@ trait Delete_Entity_Response {
 	/**
 	 * Returns the post type for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return string
 	 */

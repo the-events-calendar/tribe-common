@@ -2,7 +2,7 @@
 /**
  * The custom table repository.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\Abstracts
  */
@@ -25,7 +25,7 @@ use WP_Post;
 /**
  * The custom table repository.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\Abstracts
  */
@@ -33,7 +33,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * The schema.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var array
 	 */
@@ -42,7 +42,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * The update fields aliases.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var array
 	 */
@@ -51,7 +51,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * The default arguments.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var array
 	 */
@@ -60,7 +60,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * The default arguments used for create queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var array
 	 */
@@ -69,7 +69,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * The arguments used for select queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var array
 	 */
@@ -78,7 +78,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * The arguments used for upsert queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var array
 	 */
@@ -87,7 +87,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * The found rows.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var int
 	 */
@@ -96,7 +96,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * The page used for select queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var int
 	 */
@@ -107,7 +107,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	 *
 	 * If not changed, we are selecting them all by default.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var int
 	 */
@@ -116,7 +116,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * The fields used for select queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var array
 	 */
@@ -125,7 +125,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * The schema callbacks.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var array
 	 */
@@ -134,7 +134,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 */
 	public function __construct() {
 		$this->order_by( $this->get_table_interface()::uid_column() );
@@ -148,7 +148,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Adds the columns as schema entries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 */
 	private function add_columns_as_schema_entries(): void {
 		$operators = $this->get_table_interface()::operators();
@@ -181,7 +181,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Adds the relationships as schema entries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 */
 	private function add_relationships_as_schema_entries(): void {
 		$relationships = tribe( $this->get_model_class() )->getRelationshipCollection();
@@ -278,7 +278,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Applies the schema callbacks.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $where The where clause.
 	 *
@@ -295,7 +295,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the default arguments.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array The default arguments used for select queries.
 	 */
@@ -306,7 +306,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the default arguments.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $default_select_args The default arguments used for select queries.
 	 */
@@ -317,7 +317,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the select arguments.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array The select arguments.
 	 *
@@ -349,7 +349,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the create args.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $default_create_args The create args.
 	 */
@@ -360,7 +360,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the create args.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array The create args.
 	 */
@@ -371,7 +371,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the found rows.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param bool $found_rows The found rows.
 	 */
@@ -383,7 +383,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets a model by its primary key.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param int|string $primary_key The primary key's value.
 	 *
@@ -402,7 +402,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Deletes the models.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param bool $return_promise Whether to return a promise.
 	 *
@@ -425,7 +425,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets an argument used for upsert queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $key   The key to set.
 	 * @param mixed  $value The value to set.
@@ -440,7 +440,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets arguments used for upsert queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $update_map The arguments to set.
 	 *
@@ -454,7 +454,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets arguments used for select queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $args The arguments to set.
 	 *
@@ -469,7 +469,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets an argument used for select queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $key   The key to set.
 	 * @param mixed  $value The value to set.
@@ -485,7 +485,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets an argument used for select queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $key   The key to set.
 	 * @param mixed  $value The value to set.
@@ -499,7 +499,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the page used for select queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param int $page The page to set.
 	 *
@@ -513,7 +513,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the per page used for select queries.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param int $per_page The per page to set.
 	 *
@@ -527,7 +527,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the found rows.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return int The found rows.
 	 */
@@ -542,7 +542,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets all the models.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param bool $return_generator Whether to return a generator of models instead of an array of models.
 	 * @param int  $batch_size       The batch size to set.
@@ -560,7 +560,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the all generator.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param int $batch_size The batch size to set.
 	 *
@@ -600,7 +600,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the offset on the query.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param int  $offset    The offset to set.
 	 * @param bool $increment Whether to increment the offset.
@@ -614,7 +614,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the order on the query.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $order The order to set.
 	 *
@@ -627,7 +627,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the order by on the query.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $order_by The order by to set.
 	 * @param string $order The order to set.
@@ -642,7 +642,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the fields on the query.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string|string[] $fields The field or fields to set.
 	 *
@@ -656,7 +656,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the in on the query.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $post_ids The post ids to set.
 	 *
@@ -669,7 +669,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the not in on the query.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $post_ids The post ids to set.
 	 *
@@ -682,7 +682,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the parent on the query.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param int $post_id The post id to set.
 	 *
@@ -695,7 +695,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the parent in on the query.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $post_ids The post ids to set.
 	 *
@@ -708,7 +708,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the parent not in on the query.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $post_ids The post ids to set.
 	 *
@@ -721,7 +721,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the search on the query.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $search The search to set.
 	 *
@@ -734,7 +734,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the count of the models.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return int The count of the models.
 	 */
@@ -747,7 +747,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the first model.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return ?Model The first model.
 	 */
@@ -762,7 +762,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the last model.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return ?Model The last model.
 	 */
@@ -780,7 +780,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the nth model.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param int $n The nth model to get.
 	 *
@@ -800,7 +800,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the first n models.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param int $n The number of models to get.
 	 *
@@ -819,7 +819,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the first n models.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $field The field to pluck from each result.
 	 *
@@ -840,7 +840,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Filters the models.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array  $args     The arguments to filter by.
 	 * @param string $operator The operator to filter by.
@@ -873,7 +873,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sorts the models.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array  $orderby       The orderby to set.
 	 * @param string $order         The order to set.
@@ -888,7 +888,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Collects the models.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @throws RuntimeException Collect is not supported for custom table repositories.
 	 */
@@ -899,7 +899,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the ids of the models.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param bool $return_generator Whether to return a generator of ids instead of an array of ids.
 	 * @param int  $batch_size       The batch size to set.
@@ -914,7 +914,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Saves the models.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param bool $return_promise Whether to return a promise.
 	 *
@@ -949,7 +949,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Creates a model.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return Model The created model.
 	 *
@@ -1001,7 +1001,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Adds an update field alias.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $alias The alias to add.
 	 * @param string $field_name The field name to add.
@@ -1013,7 +1013,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the update fields aliases.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array The update fields aliases.
 	 */
@@ -1024,7 +1024,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Sets the update fields aliases.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $update_fields_aliases The update fields aliases.
 	 */
@@ -1035,7 +1035,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the schema.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array The schema.
 	 */
@@ -1046,7 +1046,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Adds an entry to the schema.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string   $key      The key to add.
 	 * @param callable $callback The callback to add.
@@ -1058,7 +1058,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the table interface.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return Table_Interface The table interface.
 	 */
@@ -1069,7 +1069,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 	/**
 	 * Gets the property name.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $key The key to get.
 	 *

@@ -2,7 +2,7 @@
 /**
  * Test suite for TrustedLogin Configuration.
  *
- * @since   TBD
+ * @since   6.10.0
  *
  * @package TEC\Common\TrustedLogin
  */
@@ -15,7 +15,7 @@ use TEC\Common\Configuration\Configuration;
 /**
  * Test suite for the Trusted_Login_Config class.
  *
- * @since   TBD
+ * @since   6.10.0
  *
  * @package TEC\Common\TrustedLogin
  */

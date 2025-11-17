@@ -1,14 +1,14 @@
 /**
  * Base URL for The Events Calendar API endpoints.
  *
- * @since TBD
+ * @since 6.10.0
  */
 export const tecApiBaseUrl = '/tec/v1';
 
 /**
  * Get the TEC API route for a given path.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @param {string} path The path to append to the base API URL.
  */

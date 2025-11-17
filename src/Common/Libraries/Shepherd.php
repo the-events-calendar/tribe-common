@@ -51,7 +51,7 @@ class Shepherd extends Controller_Contract {
 	/**
 	 * Handle tables error.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param DatabaseQueryException $error The error.
 	 */

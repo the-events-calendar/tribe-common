@@ -103,7 +103,7 @@ class Definition_Parameter extends Entity {
 	/**
 	 * Filters the data.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $data The data to filter.
 	 *

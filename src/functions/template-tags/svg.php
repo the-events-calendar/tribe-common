@@ -2,7 +2,7 @@
 /**
  * SVG template tags.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\SVG
  */
@@ -13,7 +13,7 @@ if ( ! function_exists( 'tec_svg' ) ) {
 	/**
 	 * Get the SVG code for a given icon.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $namespaced_path The namespaced path to the SVG file.
 	 *
@@ -28,7 +28,7 @@ if ( ! function_exists( 'tec_svg_register_namespace' ) ) {
 	/**
 	 * Register a namespace for a given path.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string         $name_space The namespace to register.
 	 * @param string|Closure $path       The path to the SVG files.

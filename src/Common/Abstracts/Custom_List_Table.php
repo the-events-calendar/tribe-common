@@ -2,7 +2,7 @@
 /**
  * The Abstract Custom List Table.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC/Common/Abstracts
  */
@@ -16,7 +16,7 @@ use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
 /**
  * Class Abstract_Custom_List_Table
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC/Common/Abstracts
  */
@@ -24,7 +24,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	/**
 	 * Returns the total number of items.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return int The total number of items.
 	 */
@@ -35,7 +35,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	/**
 	 * Returns the repository.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return Repository The repository.
 	 */
@@ -44,7 +44,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	/**
 	 * Returns a cloned repository with the default arguments set to an empty array.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return Repository The cloned repository.
 	 */
@@ -57,7 +57,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	/**
 	 * Returns the items for the current page.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param int $per_page The number of items to display per page.
 	 *
@@ -70,7 +70,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	/**
 	 * Returns whether the list is completely empty.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return bool
 	 */
@@ -81,7 +81,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	/**
 	 * Returns the arguments to query the items.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array
 	 */
@@ -92,7 +92,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	/**
 	 * Returns the instance arguments.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array
 	 */
@@ -103,7 +103,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	/**
 	 * Returns the arguments to query the items.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array
 	 */
@@ -120,7 +120,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	/**
 	 * List of sortable columns.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array
 	 */
@@ -132,7 +132,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 		/**
 		 * Filters the list of sortable columns for the custom table.
 		 *
-		 * @since TBD
+		 * @since 6.10.0
 		 *
 		 * @param array $columns List of columns that can be sorted.
 		 */
@@ -145,7 +145,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	/**
 	 * Handles the checkbox column output.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param Model $item The current object.
 	 */
@@ -172,7 +172,7 @@ abstract class Custom_List_Table extends Base_Abstract {
 	/**
 	 * Returns the bulk actions.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return array
 	 */

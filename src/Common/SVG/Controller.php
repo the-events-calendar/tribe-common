@@ -2,7 +2,7 @@
 /**
  * Controller for the TEC SVG API.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\SVG
  */
@@ -16,7 +16,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Controller for the TEC SVG API.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\SVG
  */
@@ -24,7 +24,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return void
 	 */
@@ -35,7 +35,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregisters the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return void
 	 */

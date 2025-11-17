@@ -2,7 +2,7 @@
 /**
  * Custom Entity Endpoint interface.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -17,7 +17,7 @@ use TEC\Common\Contracts\Repository_Interface;
 /**
  * Custom Entity Endpoint interface.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\REST\TEC\V1\Contracts
  */
@@ -25,7 +25,7 @@ interface Custom_Entity_Endpoint_Interface extends Endpoint_Interface {
 	/**
 	 * Returns whether the guest can read the object.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return bool
 	 */
@@ -34,7 +34,7 @@ interface Custom_Entity_Endpoint_Interface extends Endpoint_Interface {
 	/**
 	 * Returns the minimum capability required to access the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return string
 	 */
@@ -43,7 +43,7 @@ interface Custom_Entity_Endpoint_Interface extends Endpoint_Interface {
 	/**
 	 * Returns the model class.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return class-string
 	 */
@@ -52,7 +52,7 @@ interface Custom_Entity_Endpoint_Interface extends Endpoint_Interface {
 	/**
 	 * Formats a model into a model entity.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param Model $model The model to format.
 	 *
@@ -63,7 +63,7 @@ interface Custom_Entity_Endpoint_Interface extends Endpoint_Interface {
 	/**
 	 * Returns the ORM for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return Repository_Interface
 	 */

@@ -230,7 +230,7 @@ class RequestBodyCollection extends Collection {
 	/**
 	 * Returns the collection as a query argument collection.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return QueryArgumentCollection
 	 */

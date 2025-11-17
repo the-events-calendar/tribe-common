@@ -2,7 +2,7 @@
 /**
  * Trait to handle the response for update custom entity requests.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -18,7 +18,7 @@ use WP_REST_Response;
 /**
  * Trait to handle the response for update custom entity requests.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
  */
@@ -26,7 +26,7 @@ trait Update_Custom_Entity_Response {
 	/**
 	 * Updates an existing entity.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
@@ -79,7 +79,7 @@ trait Update_Custom_Entity_Response {
 	/**
 	 * Returns the ORM for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @return Repository_Interface
 	 */
@@ -88,7 +88,7 @@ trait Update_Custom_Entity_Response {
 	/**
 	 * Formats a model into a model entity.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param Model $model The model to format.
 	 *

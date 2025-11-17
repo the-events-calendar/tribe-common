@@ -9,7 +9,7 @@ use Tribe\Tests\Traits\With_Uopz;
 /**
  * Class SVGTest
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\SVG
  */

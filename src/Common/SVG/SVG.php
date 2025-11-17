@@ -2,7 +2,7 @@
 /**
  * SVG class
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\SVG
  */
@@ -18,7 +18,7 @@ use Exception;
 /**
  * SVG class
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @package TEC\Common\SVG
  */
@@ -26,7 +26,7 @@ class SVG {
 	/**
 	 * The namespaces and their paths.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @var array<string, string|Closure>
 	 */
@@ -35,7 +35,7 @@ class SVG {
 	/**
 	 * Register a namespace for a given path.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string         $name_space The namespace to register.
 	 * @param string|Closure $path       The path to the SVG files.
@@ -63,7 +63,7 @@ class SVG {
 	/**
 	 * Get the SVG code for a given icon.
 	 *
-	 * @since TBD
+	 * @since 6.10.0
 	 *
 	 * @param string $namespaced_path The namespaced path to the SVG file.
 	 *
