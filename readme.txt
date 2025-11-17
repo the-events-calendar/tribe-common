@@ -1,5 +1,13 @@
 == Changelog ==
 
+= [6.10.0] 2025-11-18 =
+
+* Feature - Introduce a Custom Table Repository contract, and split the Repository interfaces into ones more suitable for custom tables or the WP Posts table.
+* Fix - Address js globals in admin scripts.
+* Fix - Correct access to globals in dialog scripts.
+* Tweak - Correct notice display on the troubleshooting page. [TEC-5724]
+* Language - 19 new strings added, 82 updated, 13 fuzzied, and 0 obsoleted.
+
 = [6.9.9] 2025-10-28 =
 
 * Tweak - Update incorrect knowledgebase link on the Zapier Endpoint Dashboard in Tickets Settings. [ETP-1118]
