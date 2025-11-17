@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Address js globals in admin scripts.
