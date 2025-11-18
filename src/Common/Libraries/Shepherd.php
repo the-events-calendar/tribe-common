@@ -33,6 +33,10 @@ class Shepherd extends Controller_Contract {
 		add_action( "shepherd_{$hook_prefix}_tables_error", [ $this, 'handle_tables_error' ] );
 
 		$this->container->register( Shepherd_Provider::class );
+
+		add_action( 'wp_loaded', function () {
+			add_filter( 'shepherd_tec_schedule_cleanup_task_every', '__return_zero' );
+		}, 10 );
 	}
 
 	/**
