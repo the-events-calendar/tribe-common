@@ -144,4 +144,13 @@ trait Delete_Entity_Response {
 
 		return new WP_REST_Response( [], 200 );
 	}
+
+	/**
+	 * Returns the post type for the endpoint.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @return string
+	 */
+	abstract public function get_post_type(): string;
 }

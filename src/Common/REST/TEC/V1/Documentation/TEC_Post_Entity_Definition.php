@@ -92,7 +92,7 @@ class TEC_Post_Entity_Definition extends Definition {
 				'link',
 				fn() => __( 'URL to the entity.', 'tribe-common' ),
 			)
-		)->set_example( 'https://example.com/my-awesome-event' )->set_read_only( true );
+		)->set_example( 'https://example.com/my-awesome-title' )->set_read_only( true );
 
 		$properties[] = (
 			new Date_Time(
@@ -113,7 +113,7 @@ class TEC_Post_Entity_Definition extends Definition {
 				'slug',
 				fn() => __( 'An alphanumeric identifier for the entity unique to its type', 'tribe-common' ),
 			)
-		)->set_example( 'my-awesome-event' );
+		)->set_example( 'my-awesome-title' );
 
 		$properties[] = (
 			new Text(
@@ -129,14 +129,14 @@ class TEC_Post_Entity_Definition extends Definition {
 				'permalink_template',
 				fn() => __( 'Permalink template for the entity.', 'tribe-common' ),
 			)
-		)->set_example( 'https://example.com/sample-event/' )->set_read_only( true );
+		)->set_example( 'https://example.com/sample/' )->set_read_only( true );
 
 		$properties[] = (
 			new Text(
 				'generated_slug',
 				fn() => __( 'Slug automatically generated from the entity title', 'tribe-common' ),
 			)
-		)->set_example( 'my-awesome-event' )->set_read_only( true );
+		)->set_example( 'my-awesome-title' )->set_read_only( true );
 
 		$title_properties   = new PropertiesCollection();
 		$title_properties[] = (
@@ -144,7 +144,7 @@ class TEC_Post_Entity_Definition extends Definition {
 				'rendered',
 				fn() => __( 'HTML title for the entity, transformed for display', 'tribe-common' ),
 			)
-		)->set_example( 'My Awesome Event' );
+		)->set_example( 'My Awesome Title' );
 
 		$properties[] = (
 			new Entity(
@@ -160,7 +160,7 @@ class TEC_Post_Entity_Definition extends Definition {
 				'rendered',
 				fn() => __( 'HTML content for the entity, transformed for display', 'tribe-common' ),
 			)
-		)->set_example( '<p>This is the content of my event...</p>' );
+		)->set_example( 'This is the content...' );
 
 		$content_properties[] = (
 			new Boolean(
@@ -183,7 +183,7 @@ class TEC_Post_Entity_Definition extends Definition {
 				'rendered',
 				fn() => __( 'HTML excerpt for the entity, transformed for display', 'tribe-common' ),
 			)
-		)->set_example( '<p>This is the excerpt...</p>' );
+		)->set_example( 'This is the excerpt...' );
 
 		$excerpt_properties[] = (
 			new Boolean(

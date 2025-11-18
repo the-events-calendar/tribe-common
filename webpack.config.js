@@ -12,7 +12,8 @@ const {
 	exposeEntry,
 	doNotPrefixSVGIdsClasses,
 	WindowAssignPropertiesPlugin,
-	preprocessPostcssWithPlugins
+	resolveExternalToGlobal,
+	createTECPackage,
 } = require('@stellarwp/tyson');
 
 /**
@@ -46,6 +47,8 @@ const customEntryPoints = compileCustomEntryPoints({
 			["postcss-inline-svg"],
 		],
 	),
+
+	'/src/resources/packages': createTECPackage('tec.common'),
 }, defaultConfig);
 
 /**
@@ -112,6 +115,11 @@ module.exports = {
 		plugins: [
 			...defaultConfig.plugins,
 			new WindowAssignPropertiesPlugin(),
+		],
+		// Common itself will register more packages it must be able to resolve from externals.
+		externals: [
+			...( defaultConfig.externals || [] ),
+			resolveExternalToGlobal( '@tec/common', 'window.tec.common' )
 		],
 	},
 };

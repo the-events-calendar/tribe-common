@@ -53,15 +53,6 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	private Closure $description_provider;
 
 	/**
-	 * The endpoint data.
-	 *
-	 * @since 6.9.0
-	 *
-	 * @var array
-	 */
-	private array $sanitized_endpoint_data;
-
-	/**
 	 * The operation ID of the schema.
 	 *
 	 * @since 6.9.0
@@ -269,13 +260,13 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 	/**
 	 * @inheritDoc
 	 *
-	 * @param array $data The data to validate.
+	 * @param array $data The data to filter.
 	 *
-	 * @return self The validated schema.
+	 * @return array The filtered schema.
 	 *
 	 * @throws InvalidRestArgumentException If parameter is invalid.
 	 */
-	public function validate( array $data = [] ): self {
+	public function filter_before_request( array $data = [] ): array {
 		[
 			/** @var ?PathArgumentCollection $path_params */
 			$path_params,
@@ -302,25 +293,24 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 			/** @var Parameter $param */
 			foreach ( $collection as $param ) {
 				if ( $param instanceof Definition_Parameter ) {
-					$new_data = array_merge( $new_data, $param->validate( $data )->sanitize() );
+					$new_data = array_merge( $new_data, $param->filter_before_request( $data ) );
 					continue;
 				}
 
 				$param_name = $param->get_name();
 				if ( $param->is_required() && ! isset( $data[ $param_name ] ) ) {
-					// translators: 1) is the type of the parameter, 2) is the name of the parameter.
-					$exception = new InvalidRestArgumentException( sprintf( __( '%1$s parameter `{%2$s}` is required.', 'the-events-calendar' ), $type, $param_name ) );
-
-					$exception->set_argument( $param_name );
-					$exception->set_internal_error_code( 'tec_rest_invalid_' . strtolower( $type ) . '_parameter' );
-
-					// translators: 1) is the type of the parameter, 2) is the name of the parameter.
-					$exception->set_details( sprintf( __( 'The %1$s parameter `{%2$s}` is missing.', 'the-events-calendar' ), $type, $param_name ) );
-					throw $exception;
+					throw InvalidRestArgumentException::create(
+						// translators: 1) is the type of the parameter, 2) is the name of the parameter.
+						sprintf( __( '%1$s argument `{%2$s}` is required.', 'tribe-common' ), $type, $param_name ),
+						$param_name,
+						'tec_rest_invalid_' . strtolower( $type ) . '_argument',
+						// translators: 1) is the type of the parameter, 2) is the name of the parameter.
+						sprintf( __( 'The %1$s argument `{%2$s}` is missing.', 'tribe-common' ), $type, $param_name )
+					);
 				}
 
-				if ( 'status' === $param_name && empty( $data[ $param_name ] ) ) {
-					$data[ $param_name ] = 'publish';
+				if ( empty( $data[ $param_name ] ) && null !== $param->get_default() ) {
+					$data[ $param_name ] = $param->get_default();
 				}
 
 				if ( ! isset( $data[ $param_name ] ) ) {
@@ -334,36 +324,21 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 					$data[ $param_name ] = $param instanceof Integer ? intval( $data[ $param_name ] ) : floatval( $data[ $param_name ] );
 				}
 
-				$validator = $param->get_validator();
-				$valid     = $validator( $data[ $param_name ] );
-
-				if ( $valid ) {
-					$new_data[ $param_name ] = $param->get_sanitizer()( $data[ $param_name ] );
-					continue;
-				}
-
-				// translators: 1) is the type of the parameter, 2) is the name of the parameter.
-				$exception = new InvalidRestArgumentException( sprintf( __( '%1$s parameter `{%2$s}` is invalid.', 'the-events-calendar' ), $type, $param_name ) );
-
-				$exception->set_argument( $param_name );
-				$exception->set_internal_error_code( 'tec_rest_invalid_' . strtolower( $type ) . '_parameter' );
-
-				// translators: 1) is the type of the parameter, 2) is the name of the parameter.
-				$exception->set_details( sprintf( __( 'The %1$s parameter `{%2$s}` should be a `%3$s`, here is an example: `%4$s`.', 'the-events-calendar' ), $type, $param_name, $param->get_type(), $param->get_example() ) );
-				throw $exception;
-
+				$new_data[ $param_name ] = $data[ $param_name ];
 			}
 		}
 
-		$this->sanitized_endpoint_data = $new_data;
-
-		return $this;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function sanitize(): array {
-		return $this->sanitized_endpoint_data;
+		/**
+		 * Filters the schema defined parameters.
+		 *
+		 * @since 6.10.0
+		 *
+		 * @param array          $new_data The filtered and documented data.
+		 * @param array          $data     The raw data.
+		 * @param OpenAPI_Schema $schema   The schema.
+		 *
+		 * @return array The filtered data.
+		 */
+		return (array) apply_filters( 'tec_rest_schema_filter', $new_data, $data, $this );
 	}
 }

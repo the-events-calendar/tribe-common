@@ -112,22 +112,13 @@ interface OpenAPI_Schema extends JsonSerializable {
 	public function to_array(): array;
 
 	/**
-	 * Validates the schema.
+	 * Filters the schema.
 	 *
-	 * @since 6.9.0
+	 * @since 6.10.0
 	 *
-	 * @param array $data The data to validate.
+	 * @param array $data The data to filter.
 	 *
-	 * @return self The validated schema.
+	 * @return array The filtered schema.
 	 */
-	public function validate( array $data = [] ): self;
-
-	/**
-	 * Sanitizes the schema.
-	 *
-	 * @since 6.9.0
-	 *
-	 * @return array The sanitized data.
-	 */
-	public function sanitize(): array;
+	public function filter_before_request( array $data = [] ): array;
 }

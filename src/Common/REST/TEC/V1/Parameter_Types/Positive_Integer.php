@@ -27,14 +27,14 @@ class Positive_Integer extends Integer {
 	public function get_validator(): Closure {
 		return $this->validator ?? function ( $value ): bool {
 			if ( ! is_int( $value ) || $value <= 0 ) {
-				// translators: 1) is the name of the parameter.
-				$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must be a positive integer.', 'tribe-common' ), $this->get_name() ) );
-				$exception->set_argument( $this->get_name() );
-				$exception->set_internal_error_code( 'tec_rest_invalid_positive_integer_parameter' );
-
-				// translators: 1) is the name of the parameter.
-				$exception->set_details( sprintf( __( 'The parameter `{%1$s}` is not a positive integer.', 'tribe-common' ), $this->get_name() ) );
-				throw $exception;
+				throw InvalidRestArgumentException::create(
+					// translators: 1) is the name of the parameter.
+					sprintf( __( 'Argument `{%1$s}` must be a positive integer.', 'tribe-common' ), $this->get_name() ),
+					$this->get_name(),
+					'tec_rest_invalid_positive_integer_argument',
+					// translators: 1) is the name of the parameter.
+					sprintf( __( 'The argument `{%1$s}` is not a positive integer.', 'tribe-common' ), $this->get_name() )
+				);
 			}
 
 			return true;

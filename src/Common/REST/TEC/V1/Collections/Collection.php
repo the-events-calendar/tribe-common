@@ -191,4 +191,22 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	public function filter( callable $callback ): Collection {
 		return new static( array_filter( $this->resources, $callback ) );
 	}
+
+	/**
+	 * Gets a parameter from the collection.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @param string $parameter_name The name of the parameter to get.
+	 *
+	 * @return ?Parameter
+	 */
+	public function get( string $parameter_name ): ?Parameter {
+		foreach ( $this->resources as $parameter ) {
+			if ( $parameter->get_name() === $parameter_name ) {
+				return $parameter;
+			}
+		}
+		return null;
+	}
 }

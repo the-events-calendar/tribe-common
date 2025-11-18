@@ -140,39 +140,6 @@ class Array_Of_Type extends Parameter {
 	/**
 	 * @inheritDoc
 	 */
-	public function get_wp_validator(): ?Closure {
-		return function ( $value ): bool {
-			if ( is_string( $value ) ) {
-				$value = explode( ',', $value );
-			}
-
-			if ( empty( $value ) ) {
-				return true;
-			}
-
-			if ( ! class_exists( $this->items_type ) ) {
-				return true;
-			}
-
-			$class = $this->get_class_of_subtype();
-
-			if ( ! $class instanceof Parameter_Contract ) {
-				return true;
-			}
-
-			$item_type_validator = $class->get_wp_validator();
-
-			if ( null === $item_type_validator ) {
-				return true;
-			}
-
-			return array_filter( $value, $item_type_validator ) === $value;
-		};
-	}
-
-	/**
-	 * @inheritDoc
-	 */
 	public function get_sanitizer(): Closure {
 		return $this->sanitizer ?? function ( $value ): array {
 			$value = ( is_string( $value ) && strstr( $value, ',' ) ) ? explode( ',', $value ) : (array) $value;

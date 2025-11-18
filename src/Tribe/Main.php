@@ -1,11 +1,12 @@
 <?php
 
 use TEC\Common\Libraries;
+use TEC\Common\StellarWP\Assets\Asset as StellarWP_Asset;
+use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
 use TEC\Common\Asset;
-use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Common\Controller as Common_Controller;
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 
@@ -23,7 +24,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.9.9';
+	const VERSION           = '6.10.0';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -209,6 +210,7 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/svg.php';
 
 		Tribe__Debug::instance();
 		tec_timed_option();
@@ -409,6 +411,12 @@ class Tribe__Main {
 			]
 		);
 
+		// Register the TEC API functions that will be accessible at `window.tec.common.tecApi`.
+		StellarWP_Asset::add( 'tec-api', 'tecApi.js' )
+			->add_to_group_path( self::class . '-packages' )
+			->add_to_group( 'tec-api' )
+			->register();
+
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
 	}
 
@@ -525,18 +533,6 @@ class Tribe__Main {
 
 		add_filter( 'body_class', [ $this, 'add_js_class' ] );
 		add_action( 'wp_footer', [ $this, 'toggle_js_class' ] );
-
-		add_action( 'init', [ $this, 'load_action_scheduler' ], - 99999 );
-	}
-
-	/**
-	 * Load the Action Scheduler library.
-	 *
-	 * @since TDB
-	 */
-	public function load_action_scheduler(): void {
-		// Load the Action Scheduler library.
-		require_once $this->plugin_path . 'vendor/woocommerce/action-scheduler/action-scheduler.php';
 	}
 
 	/**

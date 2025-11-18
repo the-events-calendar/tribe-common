@@ -15,9 +15,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use stdClass;
 use ReflectionClass;
 use Closure;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 use Tribe__Repository as Base_Repo;
 
@@ -43,9 +41,9 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 	abstract public function test_get_model_class();
 
 	/**
-	 * Test that undefined parameters are filtered out by get_sanitized_params_from_schema.
+	 * Test that undefined parameters are filtered out by get_schema_defined_params.
 	 */
-	public function test_get_sanitized_params_from_schema_filters_undefined_parameters() {
+	public function test_get_schema_defined_params_filters_undefined_parameters() {
 		$operations = [];
 		if ( $this->is_creatable() ) {
 			$operations[] = 'create';
@@ -60,7 +58,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 		// Make the protected method accessible for testing
 		$reflection = new ReflectionClass( $this->endpoint );
-		$method     = $reflection->getMethod( 'get_sanitized_params_from_schema' );
+		$method     = $reflection->getMethod( 'get_schema_defined_params' );
 		$method->setAccessible( true );
 
 		$php_injection = new stdClass();
@@ -716,7 +714,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 			wp_cache_flush();
 
-			$fresh_entity = $this->normalize_entity( $orm->by_args( [ 'id' => $entity_id, 'status' => 'any' ] )->first() );
+			$fresh_entity = $this->normalize_entity( $orm->by_args( [ 'id' => $entity_id, 'status' => 'any', 'tec_events_ignore' => true ] )->first() );
 
 			if ( $user_can_update ) {
 				// Special case ! We don't allow updating the event of a ticket. This is set in stone.

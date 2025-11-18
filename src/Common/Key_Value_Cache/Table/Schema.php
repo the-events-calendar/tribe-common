@@ -9,7 +9,13 @@
 
 namespace TEC\Common\Key_Value_Cache\Table;
 
+use TEC\Common\StellarWP\Schema\Collections\Column_Collection;
+use TEC\Common\StellarWP\Schema\Columns\Column_Types;
+use TEC\Common\StellarWP\Schema\Columns\String_Column;
+use TEC\Common\StellarWP\Schema\Columns\Integer_Column;
+use TEC\Common\StellarWP\Schema\Columns\Text_Column;
 use TEC\Common\StellarWP\Schema\Tables\Contracts\Table;
+use TEC\Common\StellarWP\Schema\Tables\Table_Schema;
 
 /**
  * Class Schema.
@@ -65,9 +71,32 @@ class Schema extends Table {
 	protected static $uid_column = 'key';
 
 	/**
+	 * Get the schema history.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @return array
+	 */
+	public static function get_schema_history(): array {
+		$table_name = self::table_name();
+
+		return [
+			self::SCHEMA_VERSION => function () use ( $table_name ) {
+				$columns = new Column_Collection();
+
+				$columns[] = ( new String_Column( 'cache_key' ) )->set_length( 191 )->set_is_primary_key( true );
+				$columns[] = ( new Text_Column( 'value' ) )->set_nullable( true )->set_type( Column_Types::LONGTEXT );
+				$columns[] = ( new Integer_Column( 'expiration' ) )->set_default( 0 )->set_signed( false )->set_length( 20 );
+
+				return new Table_Schema( $table_name, $columns );
+			},
+		];
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
-	protected function get_definition() {
+	public function get_definition(): string {
 		global $wpdb;
 		$table_name      = self::table_name( true );
 		$charset_collate = $wpdb->get_charset_collate();

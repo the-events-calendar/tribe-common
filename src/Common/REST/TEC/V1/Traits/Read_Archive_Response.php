@@ -11,8 +11,9 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Traits;
 
+use TEC\Common\Contracts\Repository_Interface;
+use WP_Post_Type;
 use WP_REST_Response;
-use Tribe__Repository__Interface;
 
 /**
  * Trait to handle the response for read archive requests.
@@ -35,15 +36,16 @@ trait Read_Archive_Response {
 		$page     = absint( $params['page'] ?? 1 );
 		$per_page = absint( $params['per_page'] ?? $this->get_default_posts_per_page() );
 
-		/** @var Tribe__Repository__Interface $query */
 		$query = $this->build_query( $params );
 
 		$query->page( $page )->per_page( $per_page );
 
-		$data  = $this->format_post_entity_collection( $query->all() );
+		$query->where( 'tec_events_ignore', true );
+
+		$data  = $this->format_entity_collection( $query->all() );
 		$total = $query->found();
 
-		// Return 404 if no events found and page > 1.
+		// Return 404 if no entities found and page > 1.
 		if ( empty( $data ) && $page > 1 ) {
 			return new WP_REST_Response(
 				[
@@ -69,8 +71,8 @@ trait Read_Archive_Response {
 
 		$response = new WP_REST_Response( $data );
 
-		$response->header( 'X-WP-Total', (int) $total );
-		$response->header( 'X-WP-TotalPages', (int) $total_pages );
+		$response->header( 'X-WP-Total', $total );
+		$response->header( 'X-WP-TotalPages', $total_pages );
 
 		if ( $page < $total_pages ) {
 			$response->link_header( 'next', add_query_arg( 'page', $page + 1, $current_url ) );
@@ -84,16 +86,16 @@ trait Read_Archive_Response {
 	}
 
 	/**
-	 * Builds the events query using the ORM.
+	 * Builds the entities query using the ORM.
 	 *
 	 * @since 6.9.0
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
-	 * @return Tribe__Repository__Interface The events query.
+	 * @return Repository_Interface The entities query.
 	 */
-	protected function build_query( array $params = [] ): Tribe__Repository__Interface {
-		/** @var Tribe__Repository__Interface $query */
+	protected function build_query( array $params = [] ): Repository_Interface {
+		/** @var Repository_Interface $query */
 		$query = $this->get_orm();
 
 		$search  = $params['search'] ?? '';
@@ -129,9 +131,65 @@ trait Read_Archive_Response {
 		 *
 		 * @since 6.9.0
 		 *
-		 * @param Tribe__Repository__Interface $query   The query.
+		 * @param Repository_Interface $query   The query.
 		 * @param array                        $params  The sanitized parameters to use for the request.
 		 */
 		return apply_filters( 'tec_rest_' . $this->get_post_type() . '_query', $query, $params );
 	}
+
+	/**
+	 * Returns the default number of posts per page.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @return int
+	 */
+	abstract public function get_default_posts_per_page(): int;
+
+	/**
+	 * Returns the post type.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @return string
+	 */
+	abstract public function get_post_type(): string;
+
+	/**
+	 * Returns the current REST URL.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @return string
+	 */
+	abstract public function get_current_rest_url(): string;
+
+	/**
+	 * Returns the post type object.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @return WP_Post_Type
+	 */
+	abstract public function get_post_type_object(): WP_Post_Type;
+
+	/**
+	 * Formats the entity collection.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @param array $entities The entities to format.
+	 *
+	 * @return array
+	 */
+	abstract public function format_entity_collection( array $entities ): array;
+
+	/**
+	 * Returns the ORM for the endpoint.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @return Repository_Interface
+	 */
+	abstract public function get_orm(): Repository_Interface;
 }

@@ -16,3 +16,15 @@ Shared REST API infrastructure used by all TEC plugins.
   - Parameter type system
   - Reusable traits
   - Core controller
+
+### 2. Caching
+
+Key-Value Cache API
+
+- **Location**: [Key_Value_Cache](Key_Value_Cache/key-value-cache.md)
+- **Overview**: Unified caching interface that uses object caching when available, falling back to a custom database table for persistent storage.
+
+### 3. JSON Packer API
+
+- **Location**: [JSON_Packer](JSON_Packer/json-packer.md)
+- **Overview**: Safe representation of any PHP value as a JSON string.

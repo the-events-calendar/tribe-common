@@ -216,6 +216,11 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	public function column_default( $item, $column_name ) {
 		$value = null;
 
+		if ( is_array( $item ) ) {
+			// Ensures compatibility.
+			$item = (object) $item;
+		}
+
 		if ( isset( $item->$column_name ) ) {
 			$value = $item->$column_name;
 		}
@@ -501,25 +506,31 @@ abstract class Abstract_Custom_List_Table extends WP_List_Table {
 	 * Returns the selected search term.
 	 *
 	 * @since 6.5.3
+	 * @since 6.10.0 Added the $by_default parameter.
+	 *
+	 * @param string $by_default The default order.
 	 *
 	 * @return string
 	 */
-	public function get_order(): string {
-		$order = strtoupper( tec_get_request_var_raw( 'order', 'ASC' ) );
+	public function get_order( $by_default = 'ASC' ): string {
+		$order = strtoupper( tec_get_request_var_raw( 'order', $by_default ) );
 
-		return in_array( $order, [ 'ASC', 'DESC' ], true ) ? $order : 'ASC';
+		return in_array( $order, [ 'ASC', 'DESC' ], true ) ? $order : $by_default;
 	}
 
 	/**
 	 * Returns the selected orderby.
 	 *
 	 * @since 6.5.3
+	 * @since 6.10.0 Added the $by_default parameter.
+	 *
+	 * @param string $by_default The default orderby.
 	 *
 	 * @return string
 	 */
-	public function get_orderby(): string {
-		$orderby = tec_get_request_var( 'orderby', '' );
+	public function get_orderby( $by_default = '' ): string {
+		$orderby = tec_get_request_var( 'orderby', $by_default );
 
-		return in_array( $orderby, array_values( $this->get_sortable_columns() ), true ) ? $orderby : '';
+		return in_array( $orderby, array_values( $this->get_sortable_columns() ), true ) ? $orderby : $by_default;
 	}
 }
