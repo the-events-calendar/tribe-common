@@ -34,9 +34,13 @@ class Shepherd extends Controller_Contract {
 
 		$this->container->register( Shepherd_Provider::class );
 
-		add_action( 'wp_loaded', function () {
-			add_filter( 'shepherd_tec_schedule_cleanup_task_every', '__return_zero' );
-		}, 10 );
+		add_action(
+			'wp_loaded',
+			function () {
+				add_filter( 'shepherd_tec_schedule_cleanup_task_every', '__return_zero' );
+			},
+			10
+		);
 	}
 
 	/**
