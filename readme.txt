@@ -5,6 +5,7 @@
 * Feature - Introduce a Custom Table Repository contract, and split the Repository interfaces into ones more suitable for custom tables or the WP Posts table.
 * Fix - Address js globals in admin scripts.
 * Fix - Correct access to globals in dialog scripts.
+* Tweak - Added filters: `tec_rest_schema_filter`, `tec_rest_{$this->get_model_class()}_archive`, `tec_rest_{$this->get_model_class()}_query`
 * Tweak - Correct notice display on the troubleshooting page. [TEC-5724]
 * Language - 19 new strings added, 82 updated, 13 fuzzied, and 0 obsoleted.
 
