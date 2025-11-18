@@ -34,6 +34,15 @@ class Shepherd extends Controller_Contract {
 
 		$this->container->register( Shepherd_Provider::class );
 
+		/**
+		 * Shepherd is only being used currently with ET's TicketsCommerce, so we disable the cleanup task in-general here.
+		 *
+		 * TicketsCommerce will remove this filter enabling it.
+		 *
+		 * This also serves as a mitigation tactic for customers that encountered issues with lots of instances of
+		 * clean up tasks in their database. Having the cleanup disabled for some of them will resolve that issue for them
+		 * even when we are not aware of what was the cause.
+		 */
 		add_action(
 			'wp_loaded',
 			function () {
