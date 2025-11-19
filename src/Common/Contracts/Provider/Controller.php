@@ -11,7 +11,6 @@
 namespace TEC\Common\Contracts\Provider;
 
 use TEC\Common\Contracts\Service_Provider;
-use TEC\Common\lucatume\DI52\Container;
 use Tribe__Log as Log;
 use TEC\Common\Contracts\Container;
 
