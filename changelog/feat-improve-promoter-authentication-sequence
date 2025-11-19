@@ -1,0 +1,4 @@
+Significance: patch
+Type: performance
+
+Ensures Promoter's authentication system is triggered only when there is a Promoter license key and only during REST API requests.
