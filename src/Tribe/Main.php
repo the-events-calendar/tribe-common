@@ -97,8 +97,6 @@ class Tribe__Main {
 		$this->parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $this->parent_plugin_dir );
 
-		$this->promoter_connector();
-
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], -1 );
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
 		add_action( 'customize_controls_print_styles', [ $this, 'load_tec_variables' ], 10 );
@@ -848,15 +846,12 @@ class Tribe__Main {
 	 *
 	 * @since 4.9.20
 	 *
+	 * @deprecated TBD
+	 *
 	 * @return void  Internal method without any return.
 	 */
 	public function promoter_connector() {
-		tribe_singleton( 'promoter.connector', 'Tribe__Promoter__Connector' );
-
-		add_filter(
-			'determine_current_user',
-			tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' )
-		);
+		_deprecated_function( __METHOD__, 'TBD' );
 	}
 
 	/**
