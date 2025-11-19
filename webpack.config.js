@@ -8,7 +8,6 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const {
 	compileCustomEntryPoints,
 	createTECLegacyJs,
-	createTECPackage,
 	createTECPostCss,
 	doNotPrefixSVGIdsClasses,
 	exposeEntry,
