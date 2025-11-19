@@ -1,5 +1,5 @@
 window.tribe = window.tribe || {};
-tribe.helpPage = tribe.helpPage || {};
+window.tribe.helpPage = window.tribe.helpPage || {};
 window.DocsBotAI = window.DocsBotAI || {};
 
 // Beacon Manager namespace
@@ -427,60 +427,51 @@ tribe.helpPage.BeaconManager = {
 	 * @link https://docsbot.ai/documentation/developer/embeddable-chat-widget
 	 *
 	 * @since 6.3.2
+	 * @since 6.10.0 Added settimeout for opening the support beacon.
 	 * @return {void}
 	 */
-	obj.initializeDocsBot = function () {
-		if ( window.DocsBotAIInitialized === true ) {
-			return;
-		}
-		window.DocsBotAIInitialized = true;
-		const $docsbotWidget = $( `#${obj.selectors.docsbotWidget}` );
-		if ( $docsbotWidget.length ) {
-			$docsbotWidget.removeClass( 'hide' );
-		}
-		if ( typeof DocsBotAI.init !== 'function' ) {
-			DocsBotAI.init = ( e ) => {
-				return new Promise( ( resolve, reject ) => {
-					const script = document.createElement( 'script' );
-					script.type = 'text/javascript';
-					script.async = true;
-					script.src = 'https://widget.docsbot.ai/chat.js';
-					const firstScript = document.getElementsByTagName( 'script' )[ 0 ];
-					firstScript.parentNode.insertBefore(
-						script,
-						firstScript
-					);
-					script.addEventListener(
-						'load',
-						() => {
-							Promise.all( [
-								 window.DocsBotAI.mount( { ...e } ),
-								 obj.observeElement( '#docsbotai-root' )
-							 ] )
-							.then( resolve )
-							.catch( reject );
-						}
-					);
-					script.addEventListener(
-						'error',
-						( error ) => {
-							reject( error.message );
-						}
-					);
+	obj.initializeDocsBot = () => {
+		const bodyElement = document.getElementById( obj.selectors.helpHubPageID );
+		document.getElementById( obj.selectors.docsbotWidget ).classList.remove( 'hide' );
+		window.DocsBotAI.init = ( e ) => {
+			return new Promise( ( resolve, reject ) => {
+				const script = document.createElement( 'script' );
+				script.type = 'text/javascript';
+				script.async = true;
+				script.src = 'https://widget.docsbot.ai/chat.js';
+
+				const firstScript = document.getElementsByTagName( 'script' )[ 0 ];
+				firstScript.parentNode.insertBefore( script, firstScript );
+
+				script.addEventListener( 'load', () => {
+					Promise.all( [ window.DocsBotAI.mount( { ...e } ), obj.observeElement( '#docsbotai-root' ) ] )
+						.then( resolve )
+						.catch( reject );
 				} );
-			};
-		}
-		DocsBotAI.init( {
-							id: helpHubSettings.docsbot_key,
-							options: {
-								customCSS: obj.DocsBotAIcss,
-							},
-							supportCallback: ( event ) => {
-								event.preventDefault();
-								obj.toggleBlackout( true );
-								obj.openBeacon();
-							},
-						} );
+
+				script.addEventListener( 'error', ( error ) => {
+					reject( error.message );
+				} );
+			} );
+		};
+
+		window.DocsBotAI.init( {
+			id: helpHubSettings.docsbot_key,
+			options: {
+				customCSS: obj.DocsBotAIcss,
+			},
+		   supportCallback: ( event ) => {
+			   event.preventDefault();
+			   bodyElement.classList.add( 'blackout' );
+			   // Async > synchronous in DocsBot click handler context.
+			   setTimeout( () => {
+				   const mgr = tribe.helpPage?.helpScoutManager;
+				   if ( mgr && typeof mgr.openBeacon === 'function' ) {
+					   mgr.openBeacon();
+				   }
+			   }, 50 );
+		   },
+		} );
 	};
 
 	/**

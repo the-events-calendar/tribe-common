@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.9.8\n"
+"Project-Id-Version: Tribe Common 6.10.0\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-21T15:06:21+00:00\n"
+"POT-Creation-Date: 2025-11-17T18:05:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -40,7 +40,7 @@ msgstr ""
 msgid "http://evnt.is/1x"
 msgstr ""
 
-#: src/admin-views/app-shop.php:46
+#: src/admin-views/app-shop.php:48
 #: src/admin-views/help.php:35
 #: src/admin-views/help.php:104
 #: src/admin-views/troubleshooting/footer-logo.php:12
@@ -48,109 +48,109 @@ msgstr ""
 msgid "The Events Calendar brand logo"
 msgstr ""
 
-#: src/admin-views/app-shop.php:51
+#: src/admin-views/app-shop.php:53
 msgid "All Solutions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:52
+#: src/admin-views/app-shop.php:54
 msgid "Save with Bundles"
 msgstr ""
 
-#: src/admin-views/app-shop.php:53
+#: src/admin-views/app-shop.php:55
 msgid "Extensions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:54
+#: src/admin-views/app-shop.php:56
 msgid "Stellar Discounts"
 msgstr ""
 
-#: src/admin-views/app-shop.php:63
-#: src/admin-views/app-shop.php:125
-#: src/admin-views/app-shop.php:183
-#: src/admin-views/app-shop.php:217
+#: src/admin-views/app-shop.php:65
+#: src/admin-views/app-shop.php:127
+#: src/admin-views/app-shop.php:185
+#: src/admin-views/app-shop.php:219
 msgid "Shapes and lines for visual interest"
 msgstr ""
 
-#: src/admin-views/app-shop.php:69
+#: src/admin-views/app-shop.php:71
 msgid "One calendar. Countless ways to make it your own."
 msgstr ""
 
-#: src/admin-views/app-shop.php:70
+#: src/admin-views/app-shop.php:72
 msgid "Calendars, ticketing, and powerful WordPress tools to manage your events from start to finish."
 msgstr ""
 
-#: src/admin-views/app-shop.php:72
+#: src/admin-views/app-shop.php:74
 msgid "Already Installed"
 msgstr ""
 
-#: src/admin-views/app-shop.php:78
-#: src/admin-views/app-shop.php:135
-#: src/admin-views/app-shop.php:157
+#: src/admin-views/app-shop.php:80
+#: src/admin-views/app-shop.php:137
+#: src/admin-views/app-shop.php:159
 msgid "TEC Logo"
 msgstr ""
 
-#: src/admin-views/app-shop.php:82
+#: src/admin-views/app-shop.php:84
 #: src/admin-views/help-calendar.php:45
 #: src/admin-views/help-community.php:43
 #: src/admin-views/help-ticketing.php:50
 msgid "Active"
 msgstr ""
 
-#: src/admin-views/app-shop.php:84
-#: src/admin-views/app-shop.php:193
+#: src/admin-views/app-shop.php:86
+#: src/admin-views/app-shop.php:195
 msgid "FREE"
 msgstr ""
 
-#: src/admin-views/app-shop.php:109
+#: src/admin-views/app-shop.php:111
 msgid "Manage"
 msgstr ""
 
-#: src/admin-views/app-shop.php:111
+#: src/admin-views/app-shop.php:113
 #: src/admin-views/help-calendar.php:77
 #: src/admin-views/help-community.php:57
 #: src/admin-views/help-ticketing.php:82
 msgid "Learn More"
 msgstr ""
 
-#: src/admin-views/app-shop.php:129
+#: src/admin-views/app-shop.php:131
 msgid "The plugins you need at one discounted price"
 msgstr ""
 
-#: src/admin-views/app-shop.php:130
+#: src/admin-views/app-shop.php:132
 msgid "We've packaged our most popular plugins into bundles jam-packed with value."
 msgstr ""
 
-#: src/admin-views/app-shop.php:142
-#: src/admin-views/app-shop.php:169
+#: src/admin-views/app-shop.php:144
+#: src/admin-views/app-shop.php:171
 msgid "Save With A Bundle"
 msgstr ""
 
-#: src/admin-views/app-shop.php:148
+#: src/admin-views/app-shop.php:150
 msgid "Includes"
 msgstr ""
 
-#: src/admin-views/app-shop.php:187
+#: src/admin-views/app-shop.php:189
 msgid "Free extensions to power up your plugins"
 msgstr ""
 
-#: src/admin-views/app-shop.php:188
+#: src/admin-views/app-shop.php:190
 msgid "Extensions are quick solutions our team came up with to solve specific issues you may need. (Note - extensions are not covered by our support team.)"
 msgstr ""
 
-#: src/admin-views/app-shop.php:202
+#: src/admin-views/app-shop.php:204
 msgid "Download"
 msgstr ""
 
-#: src/admin-views/app-shop.php:206
+#: src/admin-views/app-shop.php:208
 msgid "Browse Extensions"
 msgstr ""
 
-#: src/admin-views/app-shop.php:225
+#: src/admin-views/app-shop.php:227
 msgid "Stellar is a collective of WordPress innovators, and home to WordPress products done right."
 msgstr ""
 
 #. translators: %s is the coupon code
-#: src/admin-views/app-shop.php:232
+#: src/admin-views/app-shop.php:234
 #, php-format
 msgid "$25 towards any Stellar product using code <u>%s</u>"
 msgstr ""
@@ -301,13 +301,13 @@ msgctxt "Actions header label for the settings listing of the integration endpoi
 msgid "Actions"
 msgstr ""
 
-#: src/admin-views/dashboard/table.php:23
+#: src/admin-views/dashboard/table.php:24
 msgctxt "The legend for the integration endpoint dashboard."
 msgid "Endpoint Dashboard"
 msgstr ""
 
 #. Translators: 1: Opening anchor tag, 2: Closing anchor tag.
-#: src/admin-views/dashboard/table.php:29
+#: src/admin-views/dashboard/table.php:30
 #, php-format
 msgctxt "The Zapier endpoint dashboard description."
 msgid "The Zapier queue is currently limited to 15 items for each endpoint on your site. To increase that limit, check out the %1$sIncreasing the Zapier Queue Limit knowledgebase article%2$s."
@@ -650,56 +650,56 @@ msgid "You have questions? The TEC Chatbot has the answers."
 msgstr ""
 
 #: src/admin-views/help-hub/resources/settings-infobox.php:36
-#: src/admin-views/help-hub/resources/sidebar/no-license.php:39
+#: src/admin-views/help-hub/resources/sidebar/no-license.php:47
 msgctxt "Link to the Help Chatbot"
 msgid "Talk to TEC Chatbot"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:18
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:26
 #: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:27
 msgctxt "Help page resources sidebar header"
 msgid "Our TEC support hub now offers an improved help experience"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:27
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:35
 #: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:36
 msgctxt "Describes why consent is beneficial"
 msgid "Our Help page is better than ever with the addition of:"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:45
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:53
 #: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:54
 msgctxt "AI Chatbot sidebar header"
 msgid "AI Chatbot"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:54
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:62
 #: src/admin-views/help-hub/shared-sidebar-has-license-no-consent.php:63
 msgctxt "AI Chatbot support sidebar paragraph"
 msgid "Here to provide quick answers to your questions. It’s never been easier to find the right resource."
 msgstr ""
 
-#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:73
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:81
 msgctxt "Get support sidebar header"
 msgid "Talk to our support team"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:82
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:90
 msgctxt "Live support sidebar paragraph"
 msgid "Our Support team is available to help you out 5 days a week:"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:92
+#: src/admin-views/help-hub/resources/sidebar/has-license-has-consent.php:100
 msgctxt "Live support hours"
 msgid "Mon-Fri from 9:00 - 20:00 PST"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/sidebar/no-license.php:25
+#: src/admin-views/help-hub/resources/sidebar/no-license.php:33
 msgctxt "Help page resources sidebar header"
 msgid "Our AI Chatbot is here to help you"
 msgstr ""
 
-#: src/admin-views/help-hub/resources/sidebar/no-license.php:29
+#: src/admin-views/help-hub/resources/sidebar/no-license.php:37
 msgctxt "Call to action to use The Events Calendar Help Chatbot."
 msgid "You have questions? The TEC Chatbot has the answers."
 msgstr ""
@@ -1704,6 +1704,16 @@ msgctxt "The legend for the Zapier endpoint dashboard."
 msgid "Endpoint Dashboard"
 msgstr ""
 
+#. translators: %d: The id of the item.
+#: src/Common/Abstracts/Custom_List_Table.php:165
+#, php-format
+msgid "Select the item with id: %d"
+msgstr ""
+
+#: src/Common/Abstracts/Custom_List_Table.php:180
+msgid "Delete"
+msgstr ""
+
 #: src/Common/Admin/Abstract_Custom_List_Table.php:70
 msgid "Number of entries per page:"
 msgstr ""
@@ -1712,28 +1722,28 @@ msgstr ""
 msgid "Apply Filters"
 msgstr ""
 
-#: src/Common/Admin/Abstract_Custom_List_Table.php:353
+#: src/Common/Admin/Abstract_Custom_List_Table.php:358
 msgid "From"
 msgstr ""
 
-#: src/Common/Admin/Abstract_Custom_List_Table.php:363
-#: src/Common/Admin/Abstract_Custom_List_Table.php:377
+#: src/Common/Admin/Abstract_Custom_List_Table.php:368
+#: src/Common/Admin/Abstract_Custom_List_Table.php:382
 msgid "YYYY-MM-DD"
 msgstr ""
 
-#: src/Common/Admin/Abstract_Custom_List_Table.php:367
+#: src/Common/Admin/Abstract_Custom_List_Table.php:372
 msgid "to"
 msgstr ""
 
-#: src/Common/Admin/Abstract_Custom_List_Table.php:421
+#: src/Common/Admin/Abstract_Custom_List_Table.php:426
 msgid "All Events"
 msgstr ""
 
-#: src/Common/Admin/Abstract_Custom_List_Table.php:426
+#: src/Common/Admin/Abstract_Custom_List_Table.php:431
 msgid "Filter By Event"
 msgstr ""
 
-#: src/Common/Admin/Abstract_Custom_List_Table.php:433
+#: src/Common/Admin/Abstract_Custom_List_Table.php:438
 msgid "Searching..."
 msgstr ""
 
@@ -1760,48 +1770,48 @@ msgctxt "Alt text for the Sale Ad"
 msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
 msgstr ""
 
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:71
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:85
 msgid "Stellar Sale"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:187
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:201
 #, php-format
 msgctxt "Alt text for the Events Pro Sale Ad"
 msgid "%1$s %2$s - Get Events Calendar Pro at 30%% off!"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:198
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:212
 #, php-format
 msgctxt "Alt text for the Filter Bar Sale Ad"
 msgid "%1$s %2$s - Get Filter Bar at 30%% off!"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:209
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:248
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:223
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:262
 #, php-format
 msgctxt "Alt text for the Default Sale Ad"
 msgid "%1$s %2$s for The Events Calendar plugins, add-ons and bundles."
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:223
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:237
 #, php-format
 msgctxt "Alt text for the Event Tickets Plus Sale Ad"
 msgid "%1$s %2$s - Get Event Tickets Plus at 30%% off!"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:236
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:250
 #, php-format
 msgctxt "Alt text for the Event Seating Sale Ad"
 msgid "%1$s %2$s - Get Event Seating at 30%% off!"
 msgstr ""
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:277
+#: src/Common/Admin/Conditional_Content/Stellar_Sale.php:291
 #, php-format
 msgid "%1$s %2$s for The Events Calendar plugins, add-ons, and bundles."
 msgstr ""
@@ -2758,6 +2768,16 @@ msgctxt "Notice message after updating plugins to the merged version."
 msgid "Thanks for upgrading %1$s now with even more value! Learn more about the latest changes %2$shere%3$s."
 msgstr ""
 
+#: src/Common/Libraries/Shepherd.php:64
+msgid "Shepherd tables could not be created/updated. This is a critical issue since important functionality might be affected. Reach out to support if you need help."
+msgstr ""
+
+#. Translators: %s is the query error message.
+#: src/Common/Libraries/Shepherd.php:66
+#, php-format
+msgid "The below query failed with the message(s): %s"
+msgstr ""
+
 #: src/Common/Notifications/Controller.php:94
 msgid "Read notifications"
 msgstr ""
@@ -2811,11 +2831,11 @@ msgstr ""
 msgid "Learn more."
 msgstr ""
 
-#: src/Common/REST/TEC/V1/Abstracts/Endpoint.php:493
+#: src/Common/REST/TEC/V1/Abstracts/Endpoint.php:490
 msgid "Experimental endpoint requires acknowledgement header."
 msgstr ""
 
-#: src/Common/REST/TEC/V1/Abstracts/Endpoint.php:497
+#: src/Common/REST/TEC/V1/Abstracts/Endpoint.php:494
 msgid "Experimental endpoint requires appropriate acknowledgement header."
 msgstr ""
 
@@ -2973,6 +2993,18 @@ msgstr ""
 msgid "The type of the content."
 msgstr ""
 
+#. translators: 1) is the type of the parameter, 2) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Documentation/OpenAPI_Schema.php:304
+#, php-format
+msgid "%1$s argument `{%2$s}` is required."
+msgstr ""
+
+#. translators: 1) is the type of the parameter, 2) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Documentation/OpenAPI_Schema.php:308
+#, php-format
+msgid "The %1$s argument `{%2$s}` is missing."
+msgstr ""
+
 #: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Definition.php:55
 #: src/Common/REST/TEC/V1/Documentation/TEC_Post_Entity_Request_Body_Definition.php:53
 msgid "The date the entity was published, in the site's timezone. In RFC3339 format."
@@ -3128,85 +3160,178 @@ msgid "Returns the documentation for The Events Calendar REST API in Swagger con
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
-#: src/Common/REST/TEC/V1/Parameter_Types/Integer.php:38
+#: src/Common/REST/TEC/V1/Parameter_Types/Date_Time.php:39
+#: src/Common/REST/TEC/V1/Parameter_Types/Text.php:130
 #, php-format
-msgid "Parameter `{%1$s}` must be an integer."
+msgid "Argument `{%1$s}` must match the pattern."
+msgstr ""
+
+#. translators: 1) is the name of the parameter, 2) is the pattern.
+#: src/Common/REST/TEC/V1/Parameter_Types/Date_Time.php:43
+#: src/Common/REST/TEC/V1/Parameter_Types/Text.php:134
+#, php-format
+msgid "The argument `{%1$s}` does not match the pattern `%2$s`."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Date_Time.php:50
+#, php-format
+msgid "Argument `{%1$s}` must be a date-time."
+msgstr ""
+
+#. translators: 1) is the name of the parameter, 2) is the format of the parameter (date or date-time).
+#: src/Common/REST/TEC/V1/Parameter_Types/Date_Time.php:54
+#, php-format
+msgid "We cannot parse the argument `{%1$s}` as a %2$s."
+msgstr ""
+
+#. translators: %s is the name of the property.
+#: src/Common/REST/TEC/V1/Parameter_Types/Definition_Parameter.php:129
+#: src/Common/REST/TEC/V1/Parameter_Types/Definition_Parameter.php:177
+#: src/Common/REST/TEC/V1/Parameter_Types/Entity.php:87
+#, php-format
+msgid "Property %s is required"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Parameter_Types/Definition_Parameter.php:132
+#: src/Common/REST/TEC/V1/Parameter_Types/Definition_Parameter.php:180
+#: src/Common/REST/TEC/V1/Parameter_Types/Entity.php:90
+msgid "The property is required but missing."
+msgstr ""
+
+#. translators: %s: The name of the invalid property.
+#. translators: %s is the name of the property.
+#: src/Common/REST/TEC/V1/Parameter_Types/Definition_Parameter.php:197
+#: src/Common/REST/TEC/V1/Parameter_Types/Entity.php:103
+#, php-format
+msgid "Property %s is invalid"
+msgstr ""
+
+#: src/Common/REST/TEC/V1/Parameter_Types/Definition_Parameter.php:200
+#: src/Common/REST/TEC/V1/Parameter_Types/Entity.php:106
+msgid "The property is invalid."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Email.php:39
+#, php-format
+msgid "Argument `{%1$s}` must be a valid email address."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Email.php:43
+#, php-format
+msgid "The argument `{%1$s}` is not a valid email address."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Hex_Color.php:39
+#: src/Common/REST/TEC/V1/Parameter_Types/Text.php:119
+#, php-format
+msgid "Argument `{%1$s}` must be a string."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Hex_Color.php:43
+#: src/Common/REST/TEC/V1/Parameter_Types/Text.php:123
+#, php-format
+msgid "The argument `{%1$s}` is not a string."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Hex_Color.php:50
+#, php-format
+msgid "Argument `{%1$s}` must be a valid hex color."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Hex_Color.php:54
+#, php-format
+msgid "The argument `{%1$s}` is not a valid hex color. It should be a string like `#000000` or `#000`."
+msgstr ""
+
+#. translators: 1) is the name of the parameter.
+#: src/Common/REST/TEC/V1/Parameter_Types/Integer.php:39
+#, php-format
+msgid "Argument `{%1$s}` must be an integer."
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
 #: src/Common/REST/TEC/V1/Parameter_Types/Integer.php:43
 #, php-format
-msgid "The parameter `{%1$s}` is not an integer."
+msgid "The argument `{%1$s}` is not an integer."
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
-#: src/Common/REST/TEC/V1/Parameter_Types/IP.php:38
+#: src/Common/REST/TEC/V1/Parameter_Types/IP.php:39
 #, php-format
-msgid "Parameter `{%1$s}` must be a valid IP address."
+msgid "Argument `{%1$s}` must be a valid IP address."
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
 #: src/Common/REST/TEC/V1/Parameter_Types/IP.php:43
 #, php-format
-msgid "The parameter `{%1$s}` is not a valid IP address."
+msgid "The argument `{%1$s}` is not a valid IP address."
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
-#: src/Common/REST/TEC/V1/Parameter_Types/Number.php:91
+#: src/Common/REST/TEC/V1/Parameter_Types/Number.php:92
 #, php-format
-msgid "Parameter `{%1$s}` must be a number."
+msgid "Argument `{%1$s}` must be a number."
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
 #: src/Common/REST/TEC/V1/Parameter_Types/Number.php:96
 #, php-format
-msgid "The parameter `{%1$s}` is not a number."
+msgid "The argument `{%1$s}` is not a number."
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
-#: src/Common/REST/TEC/V1/Parameter_Types/Positive_Integer.php:31
+#: src/Common/REST/TEC/V1/Parameter_Types/Positive_Integer.php:32
 #, php-format
-msgid "Parameter `{%1$s}` must be a positive integer."
+msgid "Argument `{%1$s}` must be a positive integer."
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
 #: src/Common/REST/TEC/V1/Parameter_Types/Positive_Integer.php:36
 #, php-format
-msgid "The parameter `{%1$s}` is not a positive integer."
+msgid "The argument `{%1$s}` is not a positive integer."
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
-#: src/Common/REST/TEC/V1/Parameter_Types/URI.php:38
+#: src/Common/REST/TEC/V1/Parameter_Types/URI.php:39
 #, php-format
-msgid "Parameter `{%1$s}` must be a valid URL."
+msgid "Argument `{%1$s}` must be a valid URL."
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
 #: src/Common/REST/TEC/V1/Parameter_Types/URI.php:43
 #, php-format
-msgid "The parameter `{%1$s}` is not a valid URL."
+msgid "The argument `{%1$s}` is not a valid URL."
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
-#: src/Common/REST/TEC/V1/Parameter_Types/UUID.php:38
+#: src/Common/REST/TEC/V1/Parameter_Types/UUID.php:39
 #, php-format
-msgid "Parameter `{%1$s}` must be a valid UUID."
+msgid "Argument `{%1$s}` must be a valid UUID."
 msgstr ""
 
 #. translators: 1) is the name of the parameter.
 #: src/Common/REST/TEC/V1/Parameter_Types/UUID.php:43
 #, php-format
-msgid "The parameter `{%1$s}` is not a valid UUID. It should be a string like `123e4567-e89b-12d3-a456-426614174000`."
+msgid "The argument `{%1$s}` is not a valid UUID. It should be a string like `123e4567-e89b-12d3-a456-426614174000`."
 msgstr ""
 
 #: src/Common/REST/TEC/V1/Tags/Common_Tag.php:45
 msgid "These operations are introduced by the Common library."
 msgstr ""
 
-#: src/Common/REST/TEC/V1/Traits/Create_Entity_Response.php:39
+#: src/Common/REST/TEC/V1/Traits/Create_Entity_Response.php:44
 msgid "Failed to create entity."
 msgstr ""
 
+#: src/Common/REST/TEC/V1/Traits/Delete_Custom_Entity_Response.php:40
+#: src/Common/REST/TEC/V1/Traits/Delete_Custom_Entity_Response.php:51
 #: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:40
 #: src/Common/REST/TEC/V1/Traits/Delete_Entity_Response.php:49
 msgid "The entity could not be deleted."
@@ -3236,26 +3361,32 @@ msgstr ""
 msgid "The entity could not be trashed."
 msgstr ""
 
-#: src/Common/REST/TEC/V1/Traits/Read_Archive_Response.php:51
+#: src/Common/REST/TEC/V1/Traits/Read_Archive_Response.php:53
+#: src/Common/REST/TEC/V1/Traits/Read_Custom_Archive_Response.php:53
 msgid "The requested page was not found."
 msgstr ""
 
-#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:40
-#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:49
-#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:75
+#: src/Common/REST/TEC/V1/Traits/Read_Custom_Entity_Response.php:41
+#: src/Common/REST/TEC/V1/Traits/Read_Custom_Entity_Response.php:52
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:43
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:52
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:79
 msgid "The entity could not be read."
 msgstr ""
 
-#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:42
-#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:51
+#: src/Common/REST/TEC/V1/Traits/Update_Custom_Entity_Response.php:43
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:44
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:53
 msgid "The entity could not be updated."
 msgstr ""
 
-#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:72
+#: src/Common/REST/TEC/V1/Traits/Update_Custom_Entity_Response.php:55
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:74
 msgid "Failed to update entity."
 msgstr ""
 
-#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:90
+#: src/Common/REST/TEC/V1/Traits/Update_Custom_Entity_Response.php:67
+#: src/Common/REST/TEC/V1/Traits/Update_Entity_Response.php:92
 msgid "Entity not found after update."
 msgstr ""
 
@@ -5471,100 +5602,100 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:316
+#: src/Tribe/Main.php:318
 msgctxt "Copy to clipboard success message"
 msgid "Copied to Clipboard!"
 msgstr ""
 
-#: src/Tribe/Main.php:317
+#: src/Tribe/Main.php:319
 msgctxt "Copy to clipboard failed message"
 msgid "Failed to copy."
 msgstr ""
 
-#: src/Tribe/Main.php:468
+#: src/Tribe/Main.php:476
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:469
+#: src/Tribe/Main.php:477
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:471
+#: src/Tribe/Main.php:479
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:472
+#: src/Tribe/Main.php:480
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:473
+#: src/Tribe/Main.php:481
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:474
+#: src/Tribe/Main.php:482
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:475
+#: src/Tribe/Main.php:483
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:476
+#: src/Tribe/Main.php:484
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:477
+#: src/Tribe/Main.php:485
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:478
+#: src/Tribe/Main.php:486
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:479
+#: src/Tribe/Main.php:487
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:480
+#: src/Tribe/Main.php:488
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:482
+#: src/Tribe/Main.php:490
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:483
-#: src/Tribe/Main.php:500
+#: src/Tribe/Main.php:491
+#: src/Tribe/Main.php:508
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:484
+#: src/Tribe/Main.php:492
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:489
+#: src/Tribe/Main.php:497
 #, php-format
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:490
+#: src/Tribe/Main.php:498
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:501
+#: src/Tribe/Main.php:509
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:502
-#: src/Tribe/Main.php:504
+#: src/Tribe/Main.php:510
+#: src/Tribe/Main.php:512
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:503
+#: src/Tribe/Main.php:511
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:505
+#: src/Tribe/Main.php:513
 msgid "Clear"
 msgstr ""
 

@@ -13,7 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Contracts;
 
 use WP_REST_Request;
 use WP_REST_Response;
-use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
 
 /**
  * Updatable endpoint interface.
@@ -49,10 +49,11 @@ interface Updatable_Endpoint {
 	 * Returns the arguments for the update method.
 	 *
 	 * @since 6.9.0
+	 * @since 6.10.0 Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
-	 * @return array
+	 * @return RequestBodyCollection
 	 */
-	public function update_args(): Collection;
+	public function update_params(): RequestBodyCollection;
 
 	/**
 	 * Returns the schema for the update method.

@@ -136,7 +136,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function delete_args(): QueryArgumentCollection {
+	public function delete_params(): QueryArgumentCollection {
 		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Boolean(
@@ -164,12 +164,13 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 * Formats a collection of posts into a collection of post entities.
 	 *
 	 * @since 6.9.0
+	 * @since 6.10.0 method has been renamed.
 	 *
 	 * @param array $posts The posts to format.
 	 *
 	 * @return array
 	 */
-	protected function format_post_entity_collection( array $posts ): array {
+	protected function format_entity_collection( array $posts ): array {
 		$rest_controller = new WP_REST_Posts_Controller( $this->get_post_type() );
 		$formatted_posts = [];
 		foreach ( $posts as $post ) {
@@ -202,16 +203,6 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 
 	/**
 	 * Adds properties to the model.
-	 *
-	 * @since 6.9.0
-	 *
-	 * @param array   $formatted_post The formatted post.
-	 * @param WP_Post $original_post  The original post.
-	 *
-	 * @return array
-	 */
-	/**
-	 * Adds properties to the events.
 	 *
 	 * @since 6.9.0
 	 *

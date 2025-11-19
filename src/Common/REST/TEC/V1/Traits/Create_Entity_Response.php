@@ -11,6 +11,9 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Traits;
 
+use TEC\Common\Contracts\Repository_Interface;
+use TEC\Common\StellarWP\SchemaModels\Contracts\SchemaModel as Model;
+use WP_Post;
 use WP_REST_Response;
 
 /**
@@ -19,6 +22,8 @@ use WP_REST_Response;
  * @since 6.9.0
  *
  * @package TEC\Common\REST\TEC\V1\Traits
+ *
+ * @method array get_formatted_entity( Model|WP_Post $model ): array
  */
 trait Create_Entity_Response {
 	/**
@@ -42,9 +47,11 @@ trait Create_Entity_Response {
 			);
 		}
 
+		$orm = $this->get_orm();
+
 		return new WP_REST_Response(
 			$this->get_formatted_entity(
-				$this->get_orm()->by_args(
+				$entity instanceof Model ? $orm->by_primary_key( $entity->getPrimaryValue() ) : $orm->by_args(
 					[
 						'id'     => $entity->ID,
 						'status' => 'any',
@@ -54,4 +61,13 @@ trait Create_Entity_Response {
 			201
 		);
 	}
+
+	/**
+	 * Returns the ORM for the endpoint.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @return Repository_Interface
+	 */
+	abstract public function get_orm(): Repository_Interface;
 }

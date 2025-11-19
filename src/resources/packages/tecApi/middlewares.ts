@@ -5,14 +5,14 @@ import { tecApiBaseUrl } from './routes';
 /**
  * An internal state flag to avoid the middleware from being registered more than once.
  *
- * @since TBD
+ * @since 6.10.0
  */
 let middlewareRegistered = false;
 
 /**
  * Creates a middleware that adds the experimental header to TEC API requests.
  *
- * @since TBD
+ * @since 6.10.0
  *
  * @return {Function} The middleware function.
  */
@@ -39,7 +39,7 @@ function createTecExperimentalMiddleware(): {
 /**
  * Registers all middlewares for the TEC API.
  *
- * @since TBD
+ * @since 6.10.0
  */
 export const registerMiddlewares = () => {
 	if ( middlewareRegistered ) {

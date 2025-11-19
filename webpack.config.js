@@ -14,6 +14,7 @@ const {
 	exposeEntry,
 	WindowAssignPropertiesPlugin,
 	resolveExternalToGlobal,
+	createTECPackage,
 } = require('@stellarwp/tyson');
 
 /**
