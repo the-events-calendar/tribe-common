@@ -118,10 +118,6 @@ global.window.tec.common.classy.data = global.window.tec.common.classy.data || {
 			'<optgroup label="North America"><option value="America/New_York">New York</option></optgroup>' +
 			'<optgroup label="UTC"><option value="UTC+0">UTC</option></optgroup>',
 		startOfWeek: 0,
-		endOfDayCutoff: {
-			hours: 0,
-			minutes: 0,
-		},
 		dateWithYearFormat: 'F j, Y',
 		dateWithoutYearFormat: 'F j',
 		monthAndYearFormat: 'F Y',

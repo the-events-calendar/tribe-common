@@ -165,10 +165,13 @@ class Controller_Test extends Controller_Test_Case {
 								'dataTimeSeparator'     => ' @ ',
 								'dateWithYearFormat'    => 'F j, Y',
 								'dateWithoutYearFormat' => 'F j',
+								// This comes from The Events Calendar.
 								'endOfDayCutoff'        =>
 									[
 										'hours'   => 0,
 										'minutes' => 0,
+										'endHours' => 23,
+										'endMinutes' => 59,
 									],
 								'monthAndYearFormat'    => 'F Y',
 								'startOfWeek'           => '1',
@@ -184,11 +187,6 @@ class Controller_Test extends Controller_Test_Case {
 										'position' => 'prefix',
 									],
 								'venuesLimit'        => 1,
-							],
-						'endOfDayCutoff' =>
-							[
-								'hours'   => 0,
-								'minutes' => 0,
 							],
 						'my_key'         => 'my_value',
 					];
@@ -206,10 +204,13 @@ class Controller_Test extends Controller_Test_Case {
 								'dataTimeSeparator'     => ' @ ',
 								'dateWithYearFormat'    => 'F j, Y',
 								'dateWithoutYearFormat' => 'F j',
+								// This comes from The Events Calendar.
 								'endOfDayCutoff'        =>
 									[
 										'hours'   => 0,
 										'minutes' => 0,
+										'endHours' => 23,
+										'endMinutes' => 59,
 									],
 								'monthAndYearFormat'    => 'F Y',
 								'startOfWeek'           => '1',
@@ -224,11 +225,6 @@ class Controller_Test extends Controller_Test_Case {
 										'position' => 'prefix',
 									],
 								'venuesLimit'           => 1,
-							],
-						'endOfDayCutoff' =>
-							[
-								'hours'   => 0,
-								'minutes' => 0,
 							],
 						'my_key'         => 'my_value',
 					];
@@ -246,10 +242,13 @@ class Controller_Test extends Controller_Test_Case {
 								'dataTimeSeparator'     => ' @ ',
 								'dateWithYearFormat'    => 'F j, Y',
 								'dateWithoutYearFormat' => 'F j',
+								// This comes from The Events Calendar.
 								'endOfDayCutoff'        =>
 									[
 										'hours'   => 0,
 										'minutes' => 0,
+										'endHours' => 23,
+										'endMinutes' => 59,
 									],
 								'monthAndYearFormat'    => 'F Y',
 								'startOfWeek'           => '1',
@@ -264,11 +263,6 @@ class Controller_Test extends Controller_Test_Case {
 										'position' => 'prefix',
 									],
 								'venuesLimit'           => 1,
-							],
-						'endOfDayCutoff' =>
-							[
-								'hours'   => 0,
-								'minutes' => 0,
 							],
 						'my_key'         => 'my_value',
 					];
@@ -286,10 +280,13 @@ class Controller_Test extends Controller_Test_Case {
 								'dataTimeSeparator'     => ' @ ',
 								'dateWithYearFormat'    => 'F j, Y',
 								'dateWithoutYearFormat' => 'F j',
+								// This comes from The Events Calendar.
 								'endOfDayCutoff'        =>
 									[
 										'hours'   => 0,
 										'minutes' => 0,
+										'endHours' => 23,
+										'endMinutes' => 59,
 									],
 								'monthAndYearFormat'    => 'F Y',
 								'startOfWeek'           => '1',
@@ -304,11 +301,6 @@ class Controller_Test extends Controller_Test_Case {
 										'position' => 'prefix',
 									],
 								'venuesLimit'           => 1,
-							],
-						'endOfDayCutoff' =>
-							[
-								'hours'   => 0,
-								'minutes' => 0,
 							],
 						'my_key'         => 'my_value',
 					];
@@ -326,10 +318,13 @@ class Controller_Test extends Controller_Test_Case {
 								'dataTimeSeparator'     => ' @ ',
 								'dateWithYearFormat'    => 'F j, Y',
 								'dateWithoutYearFormat' => 'F j',
+								// This comes from The Events Calendar.
 								'endOfDayCutoff'        =>
 									[
 										'hours'   => 0,
 										'minutes' => 0,
+										'endHours' => 23,
+										'endMinutes' => 59,
 									],
 								'monthAndYearFormat'    => 'F Y',
 								'startOfWeek'           => '1',
@@ -344,11 +339,6 @@ class Controller_Test extends Controller_Test_Case {
 										'position' => 'prefix',
 									],
 								'venuesLimit'           => 1,
-							],
-						'endOfDayCutoff' =>
-							[
-								'hours'   => 0,
-								'minutes' => 0,
 							],
 						'my_key'         => 'my_value',
 					];
@@ -367,10 +357,13 @@ class Controller_Test extends Controller_Test_Case {
 								'dataTimeSeparator'     => ' @ ',
 								'dateWithYearFormat'    => 'F j, Y',
 								'dateWithoutYearFormat' => 'F j',
+								// This comes from The Events Calendar.
 								'endOfDayCutoff'        =>
 									[
 										'hours'   => 0,
 										'minutes' => 0,
+										'endHours' => 23,
+										'endMinutes' => 59,
 									],
 								'monthAndYearFormat'    => 'F Y',
 								'startOfWeek'           => '1',
@@ -385,11 +378,6 @@ class Controller_Test extends Controller_Test_Case {
 										'position' => 'prefix',
 									],
 								'venuesLimit'           => 1,
-							],
-						'endOfDayCutoff' =>
-							[
-								'hours'   => 0,
-								'minutes' => 0,
 							],
 						'my_key'         => 'my_value',
 					];

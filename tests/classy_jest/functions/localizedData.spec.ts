@@ -64,15 +64,6 @@ describe( 'localizedData', () => {
 			expect( defaultData.settings.timeInterval ).toBe( 15 );
 		} );
 
-		it( 'returns correct default end of day cutoff', () => {
-			const defaultData = getDefault();
-
-			expect( defaultData.settings.endOfDayCutoff ).toEqual( {
-				hours: 0,
-				minutes: 0,
-			} );
-		} );
-
 		it( 'returns a new object on each call', () => {
 			const data1 = getDefault();
 			const data2 = getDefault();
@@ -103,10 +94,6 @@ describe( 'localizedData', () => {
 					timezoneString: 'America/New_York',
 					timezoneChoice: 'manual',
 					startOfWeek: 1,
-					endOfDayCutoff: {
-						hours: 23,
-						minutes: 59,
-					},
 					dateWithYearFormat: 'd/m/Y',
 					dateWithoutYearFormat: 'd/m',
 					monthAndYearFormat: 'm Y',
@@ -168,7 +155,6 @@ describe( 'localizedData', () => {
 				'timezoneString',
 				'timezoneChoice',
 				'startOfWeek',
-				'endOfDayCutoff',
 				'dateWithYearFormat',
 				'dateWithoutYearFormat',
 				'monthAndYearFormat',

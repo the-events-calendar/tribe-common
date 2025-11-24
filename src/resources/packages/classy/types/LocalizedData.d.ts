@@ -1,6 +1,4 @@
 import { Currency } from './Currency';
-import { Hours } from './Hours';
-import { Minutes } from './Minutes';
 import { StartOfWeek } from './StartOfWeek';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 
@@ -9,10 +7,6 @@ export type Settings = {
 	timezoneString: string;
 	timezoneChoice: string;
 	startOfWeek: StartOfWeek;
-	endOfDayCutoff: {
-		hours: Hours;
-		minutes: Minutes;
-	};
 	dateWithYearFormat: string;
 	dateWithoutYearFormat: string;
 	monthAndYearFormat: string;

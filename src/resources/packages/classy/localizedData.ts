@@ -24,10 +24,6 @@ export function getDefault(): LocalizedData {
 			timezoneString: 'UTC',
 			timezoneChoice: '',
 			startOfWeek: 0,
-			endOfDayCutoff: {
-				hours: 0,
-				minutes: 0,
-			},
 			dateWithYearFormat: 'F j, Y',
 			dateWithoutYearFormat: 'F j',
 			monthAndYearFormat: 'F Y',

@@ -276,10 +276,6 @@ class Controller extends Controller_Contract {
 	 *          dateTimeSeparator: string,
 	 *          dateWithYearFormat: string,
 	 *          dateWithoutYearFormat: string,
-	 *          endOfDayCutoff: array {
-	 *              hours: int,
-	 *              minutes: int,
-	 *          },
 	 *          monthAndYearFormat: string,
 	 *          startOfWeek: int,
 	 *          timeFormat: string,
@@ -291,21 +287,16 @@ class Controller extends Controller_Contract {
 	 * } The data that is localized on the page for the Classy app.
 	 */
 	public function get_data(): array {
-		$timezone_string  = Timezones::wp_timezone_string();
-		$start_of_week    = get_option( 'start_of_week' );
-		$multi_day_cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
-		[ $multi_day_cutoff_hours, $multi_day_cutoff_minutes ] = array_replace(
-			[ 0, 0 ],
-			explode( ':', $multi_day_cutoff, 2 )
-		);
-		$date_with_year_format                                 = tribe_get_option( 'dateWithYearFormat', 'F j, Y' );
-		$date_without_year_format                              = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
-		$month_and_year_format                                 = tribe_get_option( 'monthAndYearFormat', 'F Y' );
-		$compact_date_format                                   = Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat', 1 ) );
-		$data_time_separator                                   = tribe_get_option( 'dateTimeSeparator', ' @ ' );
-		$time_range_separator                                  = tribe_get_option( 'timeRangeSeparator', ' - ' );
-		$time_format     = tribe_get_option( 'time_format', 'g:i a' );
-		$timezone_choice = wp_timezone_choice( $timezone_string );
+		$timezone_string          = Timezones::wp_timezone_string();
+		$start_of_week            = get_option( 'start_of_week' );
+		$date_with_year_format    = tribe_get_option( 'dateWithYearFormat', 'F j, Y' );
+		$date_without_year_format = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
+		$month_and_year_format    = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$compact_date_format      = Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat', 1 ) );
+		$data_time_separator      = tribe_get_option( 'dateTimeSeparator', ' @ ' );
+		$time_range_separator     = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$time_format              = tribe_get_option( 'time_format', 'g:i a' );
+		$timezone_choice          = wp_timezone_choice( $timezone_string );
 
 		/**
 		 * The time interval in minutes to use when populating the time picker options.
@@ -322,10 +313,6 @@ class Controller extends Controller_Contract {
 				'dataTimeSeparator'     => $data_time_separator,
 				'dateWithYearFormat'    => $date_with_year_format,
 				'dateWithoutYearFormat' => $date_without_year_format,
-				'endOfDayCutoff'        => [
-					'hours'   => min( 23, (int) $multi_day_cutoff_hours ),
-					'minutes' => min( 59, (int) $multi_day_cutoff_minutes ),
-				],
 				'monthAndYearFormat'    => $month_and_year_format,
 				'startOfWeek'           => $start_of_week,
 				'timeFormat'            => $time_format,
