@@ -46,6 +46,7 @@ class Tribe__Promoter__Connector {
 	 * @return bool Whether connector was authorized.
 	 *
 	 * @since 4.9
+	 * @since TBD Pass the domain as well.
 	 */
 	public function authorize_with_connector( $user_id, $secret_key, $promoter_key, $license_key ) {
 		$url = $this->base_url() . 'connect';
@@ -54,6 +55,16 @@ class Tribe__Promoter__Connector {
 			'clientSecret' => $secret_key,
 			'licenseKey'   => $license_key,
 			'userId'       => $user_id,
+			'domain'       => explode(
+				'/',
+				untrailingslashit(
+					str_replace(
+						['http://', 'https://'],
+						'',
+						home_url( '/' )
+					)
+				)
+			),
 		];
 
 		$token = TEC_JWT::encode( $payload, $promoter_key, 'HS256' );
