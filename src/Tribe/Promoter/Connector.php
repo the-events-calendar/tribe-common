@@ -59,12 +59,15 @@ class Tribe__Promoter__Connector {
 				'/',
 				untrailingslashit(
 					str_replace(
-						['http://', 'https://'],
+						[
+							'http://',
+							'https://',
+						],
 						'',
 						home_url( '/' )
 					)
 				)
-			),
+			)['0'],
 		];
 
 		$token = TEC_JWT::encode( $payload, $promoter_key, 'HS256' );
