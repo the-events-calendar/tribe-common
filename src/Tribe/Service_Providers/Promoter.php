@@ -36,18 +36,6 @@ class Tribe__Service_Providers__Promoter extends Service_Provider {
 		// The usage of a high priority so we can push the icon to the end.
 		add_action( 'admin_bar_menu', [ $this, 'add_promoter_logo_on_admin_bar' ], 1000 );
 		add_action( 'tribe_common_loaded', [ $this, 'add_promoter_assets' ] );
-
-		/** @var Tribe__Promoter__PUE $pue */
-		$pue = tribe( 'promoter.pue' );
-
-		if ( ! $pue->has_license_key() ) {
-			return;
-		}
-
-		add_filter(
-			'determine_current_user',
-			tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' )
-		);
 	}
 
 	/**
@@ -125,6 +113,18 @@ class Tribe__Service_Providers__Promoter extends Service_Provider {
 			[
 				'conditionals' => [ $this, 'should_load_promoter_styles' ],
 			]
+		);
+
+		/** @var Tribe__Promoter__PUE $pue */
+		$pue = tribe( 'promoter.pue' );
+
+		if ( ! $pue->has_license_key() ) {
+			return;
+		}
+
+		add_filter(
+			'determine_current_user',
+			tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' )
 		);
 	}
 
