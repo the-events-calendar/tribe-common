@@ -2,6 +2,7 @@
 
 namespace Common\Tests\Provider;
 
+use PHPUnit\Framework\Assert;
 use TEC\Common\Tests\Controller\Controller_With_Subcontrollers;
 use TEC\Common\Tests\Controller\Sub_Controller_One;
 use TEC\Common\Tests\Controller\Sub_Controller_Two;
@@ -21,7 +22,69 @@ class Controller_With_Subcontrollers_Test extends Controller_Test_Case {
 	 * and the two sub-controllers will be registered as they would be in production.
 	 */
 	public static function wpSetUpBeforeClass(): void {
+		// Sanity check.
+		Assert::assertFalse(
+			has_action( 'main_controller_action' ),
+			'By default the main controller should be unregistered.'
+		);
+		Assert::assertFalse(
+			has_filter( 'main_controller_filter' ),
+			'By default the main controller should be unregistered.'
+		);
+		Assert::assertFalse(
+			has_action( 'sub_controller_one_action' ),
+			'By default the sub-controller one should be unregistered.'
+		);
+		Assert::assertFalse(
+			has_filter( 'sub_controller_one_filter' ),
+			'By default the sub-controller one should be unregistered.'
+		);
+		Assert::assertFalse(
+			has_action( 'sub_controller_two_action' ),
+			'By default the sub-controller two should be unregistered.'
+		);
+		Assert::assertFalse(
+			has_filter( 'sub_controller_two_filter' ),
+			'By default the sub-controller two should be unregistered.'
+		);
+
+		// Here do what a plugin would do registering a controller during initialization.
 		tribe_register_provider( Controller_With_Subcontrollers::class );
+
+		/*
+		 * The controller and the sub-controllers should now be registered,
+		 * as part of the initial state the controller test case operates in.
+		 */
+		$controller         = tribe( Controller_With_Subcontrollers::class );
+		$sub_controller_one = tribe()->get( Sub_Controller_One::class );
+		$sub_controller_two = tribe()->get( Sub_Controller_Two::class );
+
+		Assert::assertEquals(
+			10,
+			has_action( 'main_controller_action', [ $controller, 'on_main_controller_action' ] ),
+			'The main controller should be registered.'
+		);
+		Assert::assertEquals(
+			10,
+			has_filter( 'main_controller_filter', [ $controller, 'on_main_controller_filter' ] ),
+			'The main controller should be registered.'
+		);
+		Assert::assertEquals( 10,
+			has_action( 'sub_controller_one_action', [ $sub_controller_one, 'on_sub_controller_one_action' ] ),
+			'The sub-controller one should be registered.'
+		);
+		Assert::assertEquals( 10,
+			has_filter( 'sub_controller_one_filter', [ $sub_controller_one, 'on_sub_controller_one_filter' ] ),
+			'The sub-controller one should be registered.'
+		);
+		Assert::assertEquals( 10,
+			has_action( 'sub_controller_two_action', [ $sub_controller_two, 'on_sub_controller_two_action' ] ),
+			'The sub-controller two should be registered.'
+		);
+		Assert::assertEquals( 10,
+			has_filter( 'sub_controller_two_filter', [ $sub_controller_two, 'on_sub_controller_two_filter' ] ),
+			'The sub-controller two should be registered.'
+		);
 	}
 
 	/**
@@ -82,7 +145,6 @@ class Controller_With_Subcontrollers_Test extends Controller_Test_Case {
 			has_filter( 'sub_controller_one_filter', [ $sub_controller_one, 'on_sub_controller_one_filter' ] ),
 			'The sub-controller one should be registered with the right priority.'
 		);
-		// Sub Controller Two.
 		$this->assertEquals( 10,
 			has_action( 'sub_controller_two_action', [ $sub_controller_two, 'on_sub_controller_two_action' ] ),
 			'The sub-controller two should be registered with the right priority.'

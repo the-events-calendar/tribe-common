@@ -2,6 +2,7 @@
 
 namespace Common\Tests\Provider;
 
+use PHPUnit\Framework\Assert;
 use TEC\Common\Tests\Controller\Simple_Controller;
 use TEC\Common\Tests\Provider\Controller_Test_Case;
 
@@ -18,7 +19,29 @@ class Simple_Controller_Test extends Controller_Test_Case {
 	 * and registers its controllers. Among them, this one.
 	 */
 	public static function wpSetUpBeforeClass(): void {
+		// Sanity check.
+		Assert::assertFalse(
+			has_action( 'simple_controller_test_action' ),
+			'By default the controller should not be registered.'
+		);
+		Assert::assertFalse(
+			has_filter( 'simple_controller_test_filter' ),
+			'By default the controller should not be registered.'
+		);
+
+		// Here do what a plugin would do registering a controller during initialization.
 		tribe_register_provider( Simple_Controller::class );
+
+		// The controller should now be registered as part of the initial state the controller test case operates in.
+		$controller = tribe( Simple_Controller::class );
+		Assert::assertEquals( 10,
+			has_action( 'simple_controller_test_action', [ $controller, 'on_simple_controller_test_action' ] ),
+			'The controller should be registered.'
+		);
+		Assert::assertEquals( 10,
+			has_filter( 'simple_controller_test_filter', [ $controller, 'on_simple_controller_test_filter' ] ),
+			'The controller should be registered.'
+		);
 	}
 
 	public function test_controller_registration(): void {
