@@ -40,6 +40,8 @@
  *
  * Suite_Env::module_init( 'my_suite_name', $one, Some_Class::some_method, $three );
  * ```
+ *
+ * See documentation in file docs/tests/extension-suite-env.md.
  */
 
 namespace TEC\Common\Tests\Extensions;
