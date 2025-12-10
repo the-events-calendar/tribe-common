@@ -1,0 +1,83 @@
+name: Asset Includes Check
+
+on:
+  pull_request:
+    branches: [ main, master, develop ]
+
+permissions:
+  contents: read
+  pull-requests: write  # Required to post comments
+
+jobs:
+  check-assets:
+    name: Check Vendor Assets in .distfiles
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Asset Includes Check
+        id: asset-check
+        uses: ./.github/actions/asset-check
+        continue-on-error: true  # Don't fail the job yet, we want to post the comment first
+
+      - name: Post PR Comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const output = `${{ steps.asset-check.outputs.result }}`;
+            const status = `${{ steps.asset-check.outputs.status }}`;
+
+            // Determine emoji and title based on status
+            const emoji = status === 'passed' ? '✅' : '❌';
+            const title = status === 'passed' ? 'Asset Check Passed' : 'Asset Check Failed';
+
+            // Format the comment
+            const comment = `## ${emoji} ${title}
+
+            <details>
+            <summary>Click to see full output</summary>
+
+            \`\`\`
+            ${output}
+            \`\`\`
+
+            </details>
+            `;
+
+            // Find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('Asset Check')
+            );
+
+            // Update or create comment
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: comment
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: comment
+              });
+            }
+
+      - name: Fail if asset check failed
+        if: steps.asset-check.outputs.status == 'failed'
+        run: |
+          echo "::error::Asset includes check failed"
+          exit 1
