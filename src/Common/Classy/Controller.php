@@ -1,0 +1,494 @@
+<?php
+/**
+ * The main controller responsible for the Classy editor feature.
+ *
+ * @since TBD
+ *
+ * @package TEC\Common\Classy;
+ */
+
+namespace TEC\Common\Classy;
+
+use Classic_Editor;
+use TEC\Common\Classy\Back_Compatibility\Editor;
+use TEC\Common\Classy\Back_Compatibility\Editor_Utils;
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Common\StellarWP\Assets\Asset;
+use TEC\Events\Classy\Supported_Post_Types;
+use Tribe__Date_Utils as Date_Utils;
+use Tribe__Timezones as Timezones;
+use Tribe__Main as Common;
+use WP_Block_Editor_Context;
+use WP_Post;
+use wpdb;
+use Tribe__Utils__Array as Arr;
+
+/**
+ * Class Controller.
+ *
+ * @since TBD
+ *
+ * @package TEC\Common\Classy;
+ */
+class Controller extends Controller_Contract {
+	/**
+	 * The name of the action that will be fired when this controller has registered.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $registration_action = 'tec_classy_registered';
+
+	/**
+	 * The name of the constant that will be used to disable the feature.
+	 * Setting it to a truthy value will disable the feature.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public const DISABLED = 'TEC_CLASSY_EDITOR_DISABLED';
+
+	/**
+	 * Determines if the feature is enabled or not.
+	 *
+	 * Since this class `early_register` method is already filtering the `tec_using_classy_editor` template
+	 * tag, this method will call the template tag to know whether it should activate or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the feature is enabled or not.
+	 */
+	public function is_active(): bool {
+		// The constant to disable the feature is defined and it's truthy.
+		if ( defined( self::DISABLED ) && constant( self::DISABLED ) ) {
+			return false;
+		}
+
+		// The environment variable to disable the feature is truthy.
+		if ( getenv( self::DISABLED ) ) {
+			return false;
+		}
+
+		// Read an option value to determine if the feature should be active or not.
+		$active = (bool) get_option( 'tec_common_classy_editor_enabled', true );
+
+		/**
+		 * Allows filtering whether the whole Classy feature should be activated or not.
+		 *
+		 * Note: this filter will only apply if the disable constant or env var
+		 * are not set or are set to falsy values.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $active Defaults to `true`.
+		 */
+		return (bool) apply_filters( 'tec_common_classy_editor_enabled', $active );
+	}
+
+	/**
+	 * Binds the implementations required by the feature and hooks the controller to the actions and filters required.
+	 *
+	 * @since TBD
+	 *
+	 * @return void Bindings are registered, the controller is hooked to actions and filters.
+	 */
+	protected function do_register(): void {
+		// Register the `editor` binding replacement for back-compatibility purposes.
+		$back_compatible_editor = new Editor();
+		$this->container->singleton( 'editor', $back_compatible_editor );
+		$this->container->singleton( 'events.editor', $back_compatible_editor );
+		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
+		$this->container->singleton( 'editor.utils', new Editor_Utils() );
+
+		$this->container->register( REST\Controller::class );
+
+		// We're using Classy editor.
+		add_filter( 'tec_using_classy_editor', [ $this, 'use_classy_editor' ] );
+
+		// Tell Common, TEC, ET and so on NOT to load blocks if we're not using Classy.
+		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'do_not_use_classy_editor' ] );
+
+
+		add_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100, 2 );
+
+		// Register the main assets entry point.
+		if ( did_action( 'tec_common_assets_loaded' ) ) {
+			$this->register_assets();
+		} else {
+			add_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
+		}
+
+		add_filter( 'get_user_metadata', [ $this,'disable_block_editor_welcome_screen' ], 10, 4 );
+		add_action( 'init', [ $this, 'register_blocks' ] );
+	}
+
+	/**
+	 * Unhooks the controller from the actions and filters required by the feature.
+	 *
+	 * @since TBD
+	 *
+	 * @return void The hooked actions and filters are removed.
+	 */
+	public function unregister(): void {
+		// Unregister the back-compat editor and utils.
+		if ( $this->container->has( 'editor' ) && $this->container->get( 'editor' ) instanceof Editor ) {
+			unset( $this->container['editor'] );
+			// @todo move this to TEC.
+			unset( $this->container['events.editor'] );
+			unset( $this->container['events.editor.compatibility'] );
+		}
+
+		if ( $this->container->has( 'editor.utils' ) && $this->container->get( 'editor.utils' ) instanceof Editor_Utils ) {
+			unset( $this->container['editor.utils'] );
+		}
+
+		$this->container->get( REST\Controller::class )->unregister();
+
+		// Remove filters and actions.
+		remove_filter( 'tribe_editor_should_load_blocks', [ $this, 'do_not_use_classy_editor' ] );
+		remove_filter( 'tec_using_classy_editor', [ $this, 'use_classy_editor' ] );
+		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
+		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
+		remove_filter( 'get_user_metadata', [ $this,'disable_block_editor_welcome_screen' ] );
+		remove_action( 'init', [ $this, 'register_blocks' ] );
+	}
+
+	/**
+	 * Registers the assets required for the Classy app.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function register_assets() {
+		$post_uses_classy = fn() => $this->is_post_type_supported( get_post_type() );
+
+		Asset::add(
+			'tec-classy',
+			'classy.js'
+		)->add_to_group_path( Common::class . '-packages' )
+			->add_to_group( 'tec-classy' )
+			->add_dependency( 'wp-tinymce' )
+			->add_dependency( 'tec-api' )
+			// @todo this should be dynamic depending on the loading context.
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( $post_uses_classy )
+			->add_localize_script( 'tec.common.classy.data', [ $this, 'get_data' ] )
+			->register();
+
+		Asset::add(
+			'tec-classy-style',
+			'style-classy.css'
+		)->add_to_group_path( Common::class . '-packages' )
+			->add_to_group( 'tec-classy' )
+			// @todo this should be dynamic depending on the loading context.
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( $post_uses_classy )
+			->register();
+	}
+
+	/**
+	 * Returns whether the given Post uses the Classy editor.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $post_type The post type to check.
+	 *
+	 * @return bool Whether the given Post uses the Classy editor.
+	 */
+	public function is_post_type_supported( string $post_type ): bool {
+		$supported_post_types = $this->get_supported_post_types();
+
+		return in_array( $post_type, $supported_post_types, true );
+	}
+
+	/**
+	 * Filters the Block Editor Settings for a given Post Type to lock the template.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,string>    $settings The Block Editor settings.
+	 * @param WP_Block_Editor_Context $context
+	 *
+	 * @return array<string,string> The updated Block Editor settings.
+	 */
+	public function filter_block_editor_settings( array $settings, WP_Block_Editor_Context $context ) {
+		if ( ! (
+			$context->post instanceof WP_Post
+			&& $this->is_post_type_supported( $context->post->post_type )
+		) ) {
+			return $settings;
+		}
+
+		// Lock the template.
+		$settings['templateLock'] = true;
+
+		return $settings;
+	}
+
+	/**
+	 * Returns the filtered list of Post Types that should be using the Classy editor.
+	 *
+	 * @since TBD
+	 *
+	 * @return list<string> The filtered list of Post Types that should be using the Classy editor.
+	 */
+	public function get_supported_post_types(): array {
+		$supported_post_types = [];
+
+		/*
+		 * This check will happen before The Events Calendar main file is loaded and before its Classy controller
+		 * has a chance to register and filter the supported post types.
+		 * This is a workaround to allow the Classy controller to get the post types supported by The Events Calendar
+		 * at the very first call to the Classy controller.
+		 */
+		if ( method_exists( Supported_Post_Types::class, 'get_supported_post_types' ) ) {
+			$supported_post_types = array_merge(
+				$supported_post_types,
+				( new class() {
+					use Supported_Post_Types;
+				} )->get_supported_post_types()
+			);
+		}
+
+		/**
+		 * Filters the list of post types that use the Classy editor.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $supported_post_types The list of post types that use the Classy editor.
+		 */
+		$supported_post_types = apply_filters( 'tec_classy_post_types', $supported_post_types );
+
+		return (array) $supported_post_types;
+	}
+
+	/**
+	 * Returns the data that is localized on the page for the Classy app.
+	 *
+	 * @since TBD
+	 *
+	 * @return array{
+	 *     settings: array{
+	 *          compactDateFormat: string,
+	 *          dateTimeSeparator: string,
+	 *          dateWithYearFormat: string,
+	 *          dateWithoutYearFormat: string,
+	 *          monthAndYearFormat: string,
+	 *          startOfWeek: int,
+	 *          timeFormat: string,
+	 *          timeInterval: int,
+	 *          timeRangeSeparator: string,
+	 *          timezoneChoice: string,
+	 *          timezoneString: string
+	 *      }
+	 * } The data that is localized on the page for the Classy app.
+	 */
+	public function get_data(): array {
+		$timezone_string          = Timezones::wp_timezone_string();
+		$start_of_week            = get_option( 'start_of_week' );
+		$date_with_year_format    = tribe_get_option( 'dateWithYearFormat', 'F j, Y' );
+		$date_without_year_format = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
+		$month_and_year_format    = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$compact_date_format      = Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat', 1 ) );
+		$data_time_separator      = tribe_get_option( 'dateTimeSeparator', ' @ ' );
+		$time_range_separator     = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$time_format              = tribe_get_option( 'time_format', 'g:i a' );
+		$timezone_choice          = wp_timezone_choice( $timezone_string );
+
+		/**
+		 * The time interval in minutes to use when populating the time picker options.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $time_interval The time interval in minutes; defaults to 15 minutes.
+		 */
+		$time_interval = apply_filters( 'tec_classy_time_picker_interval', 15 );
+
+		$default_data = [
+			'settings' => [
+				'compactDateFormat'     => $compact_date_format,
+				'dataTimeSeparator'     => $data_time_separator,
+				'dateWithYearFormat'    => $date_with_year_format,
+				'dateWithoutYearFormat' => $date_without_year_format,
+				'monthAndYearFormat'    => $month_and_year_format,
+				'startOfWeek'           => $start_of_week,
+				'timeFormat'            => $time_format,
+				'timeInterval'          => $time_interval,
+				'timeRangeSeparator'    => $time_range_separator,
+				'timezoneChoice'        => $timezone_choice,
+				'timezoneString'        => $timezone_string,
+			],
+		];
+
+		/**
+		 * Filter the data that will be localized on the page for the Classy application.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $data The localized data for Classy.
+		 */
+		$filtered_data = apply_filters( 'tec_classy_localized_data', $default_data );
+
+		if ( ! is_array( $filtered_data ) ) {
+			return $default_data;
+		}
+
+		return $filtered_data;
+	}
+
+	/**
+	 * Filters the Block Editor persisted user preferences to disable the Block Editor welcome guide in the context
+	 * of the Classy Editor.
+	 *
+	 * The user preference is changed ephemerally, and only in the context of a Classy request. The Block Editor
+	 * JS code will persist the preference in the browser local storage, though: if the first post users visit
+	 * is one edited using Classy, then the user will not see the Welcome Guide in other posts; to remedy this users
+	 * can just trigger the Welcome Guide again from the Block Editor menu.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed       $meta_value The original user meta value.
+	 * @param int         $object_id  The user ID, unused.
+	 * @param string|null $meta_key   The user meta key being fetched.
+	 * @param bool        $single     Whether to return a single instance of the meta value or not.
+	 *
+	 * @return mixed Either the original meta value, or the meta value modified to not show the Block Editor welcome
+	 *               guide.
+	 */
+	public function disable_block_editor_welcome_screen( $meta_value, $object_id, $meta_key, $single ) {
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		if ( "{$wpdb->get_blog_prefix()}persisted_preferences" !== $meta_key ) {
+			return $meta_value;
+		}
+
+		if ( ! $single ) {
+			return $meta_value;
+		}
+
+		$post_type = tribe_context()->get( 'post_type' ) ?: 'post';
+
+		if ( ! in_array( $post_type, $this->get_supported_post_types(), true ) ) {
+			return $meta_value;
+		}
+
+		if ( null !== $meta_value && ! is_array( $meta_value ) ) {
+			// The format does not match the expected one, let's bail.
+			return $meta_value;
+		}
+
+		if ( is_array( $meta_value ) && ! isset( $meta_value['core/edit-post'] ) ) {
+			$meta_value['core/edit-post'] = [ 'welcomeGuide' => false ];
+		} else {
+			$meta_value['core/edit-post']['welcomeGuide'] = false;
+		}
+
+		// The filter expects an array of values.
+		return [ 0 => $meta_value ];
+	}
+
+	/**
+	 * Trigger blocks action to register FE templates.
+	 *
+	 * @since TBD
+	 *
+	 * @see Tribe__Editor__Provider::register_blocks()
+	 *
+	 * @return void
+	 */
+	public function register_blocks() {
+		/**
+		 * Internal Action used to register blocks for Events
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tribe_editor_register_blocks' );
+	}
+
+	/**
+	 * Checks whether the current post should be using the Classy editor.
+	 *
+	 * Posts that are not of the supported type or that have been already creating using the Block Editor
+	 * will not use Classy.
+	 * If the Classic Editor plugin is active and the post should use the Classic Editor, then the
+	 * Classy Editor will not be used.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current post should be using the Classy editor.
+	 */
+	public function use_classy_editor(): bool {
+		$post_id = get_the_ID();
+
+		if ( ! $post_id ) {
+			$post_id = Arr::get_first_set( $_REQUEST, [ 'post', 'post_id', 'post_ID' ] )
+						?? Arr::get_first_set( $_GET, [ 'post', 'post_id', 'post_ID' ] );
+		}
+
+		if ( ! $post_id ) {
+			/*
+			 * If we do not have a post ID, then default to using Classy since we're loading the controller
+			 * and the Controller activation is controlled by the `is_active` method.
+			 */
+			return true;
+		}
+
+		$post = get_post( $post_id );
+
+		if ( ! $post instanceof WP_Post ) {
+			/*
+			 * If the post cannot be fetched, then default to using Classy since we're loading the controller
+			 * and the Controller activation is controlled by the `is_active` method.
+			 */
+			return true;
+		}
+
+		$post_type = $post->post_type;
+
+		if ( ! ( $post_type && $this->is_post_type_supported( $post_type ) ) ) {
+			// Either we do not have a post type (and should not use the default) or the post type is not supported.
+			return false;
+		}
+
+		if ( has_blocks( $post->post_content ) ) {
+			// Classy will save the content as plain text, without the Block Editor HTML tags.
+			return false;
+		}
+
+		if (
+			class_exists( Classic_Editor::class )
+			&& method_exists( Classic_Editor::class, 'choose_editor' )
+		) {
+			/*
+			 * The Classic Editor plugin is installed and active.
+			 * We use its own filtering system to decide whether to use the Classy Editor or not.
+			 * If the post should use the Block Editor (true), then we're going to use Classy,
+			 * else (false) we're going to use the Classic Editor.
+			 * We've already dealt with the post already existing and using blocks in the checks
+			 * above: this will only apply to new posts of the supported types or posts with an
+			 * empty content about which we have no information.
+			 */
+			return Classic_Editor::choose_editor( false, get_post( $post_id ) );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Checks whether the current post should not be using the Classy editor.
+	 *
+	 * This is the opposite of `use_classy_editor()` method, and it's explicitly defined,
+	 * in place of being just a closure, to allow it to be removed from the filter easily.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current post should not be using the Classy editor.
+	 */
+	public function do_not_use_classy_editor(): bool {
+		return ! $this->use_classy_editor();
+	}
+}

@@ -66,7 +66,7 @@ class TEC_Post_Entity_Request_Body_Definition extends Definition {
 				'slug',
 				fn() => __( 'An alphanumeric identifier for the entity unique to its type', 'tribe-common' ),
 			)
-		)->set_example( 'my-awesome-event' );
+		)->set_example( 'my-awesome-title' );
 
 		$properties[] = (
 			new Text(
@@ -82,21 +82,21 @@ class TEC_Post_Entity_Request_Body_Definition extends Definition {
 				'title',
 				fn() => __( 'HTML title for the entity, transformed for display', 'tribe-common' ),
 			)
-		)->set_example( 'My Awesome Event' );
+		)->set_example( 'My Awesome Title' );
 
 		$properties[] = (
 			new Text(
 				'content',
 				fn() => __( 'HTML content for the entity, transformed for display', 'tribe-common' ),
 			)
-		)->set_example( '<p>This is the content of my event...</p>' );
+		)->set_example( 'This is the content...' );
 
 		$properties[] = (
 			new Text(
 				'excerpt',
 				fn() => __( 'HTML excerpt for the entity, transformed for display', 'tribe-common' ),
 			)
-		)->set_example( '<p>This is the excerpt...</p>' );
+		)->set_example( 'This is the excerpt...' );
 
 		$properties[] = (
 			new Positive_Integer(

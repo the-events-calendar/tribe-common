@@ -27,8 +27,8 @@ use Tribe\Admin\Troubleshooting;
 ?>
 
 <div id="tribe-app-shop">
-
-	<?php
+	<div class="tribe-notice-wrap">
+		<?php
 		/**
 		 * Trigger the conditional content header notice.
 		 *
@@ -36,7 +36,9 @@ use Tribe\Admin\Troubleshooting;
 		 */
 		do_action( 'tec_conditional_content_header_notice' );
 		tribe( Troubleshooting::class )->admin_notice( 'app-shop' );
-	?>
+		?>
+		<div class="wp-header-end"></div>
+	</div>
 
 	<div class="tribe-header">
 		<div class="content-wrapper">

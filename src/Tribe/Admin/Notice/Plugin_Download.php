@@ -1,16 +1,27 @@
 <?php
+/**
+ * Shows an admin notice telling users which requisite plugins they need to download
+ */
+
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
 
 /**
  * Shows an admin notice telling users which requisite plugins they need to download
  */
 class Tribe__Admin__Notice__Plugin_Download {
 
-	private $plugin_path;
-
-	private $plugins_required = [];
+	/**
+	 * @var string
+	 */
+	private string $plugin_path;
 
 	/**
-	 * @param string $plugin_path Path to the plugin file we're showing a notice for
+	 * @var array
+	 */
+	private array $plugins_required = [];
+
+	/**
+	 * @param string $plugin_path Path to the plugin file we're showing a notice for.
 	 */
 	public function __construct( $plugin_path ) {
 		$this->plugin_path = $plugin_path;
@@ -29,11 +40,11 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 * @since 4.9.12 Add $has_pue_notice param
 	 * @since 4.9.17 Appended "+" to all version numbers to indicate "or any later version".
 	 *
-	 * @param string $name           Name of the required plugin
-	 * @param null   $thickbox_url   Download or purchase URL for plugin from within /wp-admin/ thickbox
-	 * @param bool   $is_active      Indicates if the plugin is installed and active or not
-	 * @param string $version        Optional version number of the required plugin
-	 * @param bool   $addon          Indicates if the plugin is an add-on for The Events Calendar or Event Tickets
+	 * @param string $name           Name of the required plugin.
+	 * @param null   $thickbox_url   Download or purchase URL for plugin from within /wp-admin/ thickbox.
+	 * @param bool   $is_active      Indicates if the plugin is installed and active or not.
+	 * @param string $version        Optional version number of the required plugin.
+	 * @param bool   $addon          Indicates if the plugin is an add-on for The Events Calendar or Event Tickets.
 	 * @param bool   $has_pue_notice Indicates that we need to change the messaging due to expired key.
 	 */
 	public function add_required_plugin( $name, $thickbox_url = null, $is_active = null, $version = null, $addon = false, $has_pue_notice = false ) {
@@ -48,7 +59,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 	}
 
 	/**
-	 * Echoes the admin notice, attach to admin_notices
+	 * Echoes the admin notice, attach to admin_notices.
 	 *
 	 * @see \Tribe__Admin__Notice__Plugin_Download::add_required_plugin()
 	 *
@@ -66,7 +77,7 @@ class Tribe__Admin__Notice__Plugin_Download {
 			return;
 		}
 
-		// Make sure Thickbox is available and consistent appearance regardless of which admin page we're on
+		// Make sure Thickbox is available and consistent appearance regardless of which admin page we're on.
 		add_thickbox();
 
 		$has_pue_notices = false;
@@ -114,23 +125,25 @@ class Tribe__Admin__Notice__Plugin_Download {
 			'a'      => [ 'href' => [] ],
 		];
 
-		$plugin_names_clean_text = wp_kses( $this->implode_with_grammar( $plugin_name ), $allowed_html );
+		$plugin_names_clean_text     = wp_kses( $this->implode_with_grammar( $plugin_name ), $allowed_html );
 		$req_plugin_names_clean_text = wp_kses( $this->implode_with_grammar( $req_plugins ), $allowed_html );
 
+		/* Translators: 1: plugin name(s), 2: required plugin(s) */
 		$notice_html_content = '<p>' . esc_html__( 'To begin using %2$s, please install (or upgrade) and activate %3$s.', 'tribe-common' ) . '</p>';
 
 		$read_more_link = '<a href="http://evnt.is/1aev" target="_blank">' . esc_html__( 'Read more', 'tribe-common' ) . '.</a>';
+		/* Translators: 1: plugin name(s), 2: "Read more" link */
 		$pue_notice_text = esc_html__( 'There’s a new version of %1$s available, but your license is expired. You’ll need to renew your license to get access to the latest version. If you plan to continue using your current version of the plugin(s), be sure to use a compatible version of The Events Calendar. %2$s', 'tribe-common' );
 		$pue_notice_html = '<p>' . sprintf( $pue_notice_text, $plugin_names_clean_text, $read_more_link ) . '</p>';
 
 		printf(
 			'<div class="error tribe-notice tribe-dependency-error" data-plugin="%1$s">'
-			. $notice_html_content
-			. ( $has_pue_notices ? $pue_notice_html : '' )
+			. $notice_html_content // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped
+			. ( (bool) $has_pue_notices ? $pue_notice_html : '' )
 			. '</div>',
 			esc_attr( sanitize_title( $plugin_data['Name'] ) ),
-			$plugin_names_clean_text,
-			$req_plugin_names_clean_text
+			$plugin_names_clean_text, // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped
+			$req_plugin_names_clean_text // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped
 		);
 	}
 
@@ -139,14 +152,15 @@ class Tribe__Admin__Notice__Plugin_Download {
 	 *
 	 * If only 1 item, no grammar. If 2 items, just conjunction. If 3+ items, commas with conjunction.
 	 *
-	 * @param array $items List of items to implode
+	 * @param array $items List of items to implode.
 	 *
 	 * @return string String of items
 	 */
 	public function implode_with_grammar( $items ) {
 		$separator   = _x( ', ', 'separator used in a list of items', 'tribe-common' );
 		$conjunction = _x( ' and ', 'the final separator in a list of two or more items', 'tribe-common' );
-		$output      = $last_item = array_pop( $items );
+		$output      = array_pop( $items );
+		$last_item   = $output;
 
 		if ( $items ) {
 			$output = implode( $separator, $items );
@@ -160,5 +174,4 @@ class Tribe__Admin__Notice__Plugin_Download {
 
 		return $output;
 	}
-
 }

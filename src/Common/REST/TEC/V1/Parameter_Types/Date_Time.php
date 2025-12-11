@@ -34,27 +34,25 @@ class Date_Time extends Text {
 	public function get_validator(): ?Closure {
 		return $this->validator ?? function ( $value ): bool {
 			if ( null !== $this->get_pattern() && ! preg_match( '/' . $this->get_pattern() . '/', (string) $value ) ) {
-				// translators: 1) is the name of the parameter.
-				$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must match the pattern.', 'the-events-calendar' ), $this->get_name() ) );
-
-				$exception->set_argument( $this->get_name() );
-				$exception->set_internal_error_code( 'tec_rest_invalid_' . str_replace( '-', '_', $this->get_format() ) . '_parameter' );
-
-				// translators: 1) is the name of the parameter, 2) is the pattern.
-				$exception->set_details( sprintf( __( 'The parameter `{%1$s}` does not match the pattern `%2$s`.', 'the-events-calendar' ), $this->get_name(), $this->get_pattern() ) );
-				throw $exception;
+				throw InvalidRestArgumentException::create(
+					// translators: 1) is the name of the parameter.
+					sprintf( __( 'Argument `{%1$s}` must match the pattern.', 'tribe-common' ), $this->get_name() ),
+					$this->get_name(),
+					'tec_rest_invalid_' . str_replace( '-', '_', $this->get_format() ) . '_argument',
+					// translators: 1) is the name of the parameter, 2) is the pattern.
+					sprintf( __( 'The argument `{%1$s}` does not match the pattern `%2$s`.', 'tribe-common' ), $this->get_name(), $this->get_pattern() )
+				);
 			}
 
 			if ( ! is_numeric( $value ) && ! ( is_string( $value ) && strtotime( $value ) ) ) {
-				// translators: 1) is the name of the parameter.
-				$exception = new InvalidRestArgumentException( sprintf( __( 'Parameter `{%1$s}` must be a date-time.', 'the-events-calendar' ), $this->get_name() ) );
-
-				$exception->set_argument( $this->get_name() );
-				$exception->set_internal_error_code( 'tec_rest_invalid_' . str_replace( '-', '_', $this->get_format() ) . '_parameter' );
-
-				// translators: 1) is the name of the parameter, 2) is the format of the parameter (date or date-time).
-				$exception->set_details( sprintf( __( 'We cannot parse the parameter `{%1$s}` as a %2$s.', 'the-events-calendar' ), $this->get_name(), $this->get_format() ) );
-				throw $exception;
+				throw InvalidRestArgumentException::create(
+					// translators: 1) is the name of the parameter.
+					sprintf( __( 'Argument `{%1$s}` must be a date-time.', 'tribe-common' ), $this->get_name() ),
+					$this->get_name(),
+					'tec_rest_invalid_' . str_replace( '-', '_', $this->get_format() ) . '_argument',
+					// translators: 1) is the name of the parameter, 2) is the format of the parameter (date or date-time).
+					sprintf( __( 'We cannot parse the argument `{%1$s}` as a %2$s.', 'tribe-common' ), $this->get_name(), $this->get_format() )
+				);
 			}
 
 			return true;

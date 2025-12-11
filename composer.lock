@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d23b5bb04d23ceaf748db5c9524747b5",
+    "content-hash": "1730544c896394ef2203f2d3c727e3d7",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -312,6 +312,86 @@
                 "source": "https://github.com/php-fig/log/tree/1.1.4"
             },
             "time": "2021-05-03T11:20:27+00:00"
+        },
+        {
+            "name": "scssphp/scssphp",
+            "version": "v1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scssphp/scssphp.git",
+                "reference": "63d1157457e5554edf00b0c1fabab4c1511d2520"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/63d1157457e5554edf00b0c1fabab4c1511d2520",
+                "reference": "63d1157457e5554edf00b0c1fabab4c1511d2520",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-json": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4",
+                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.3 || ^9.4",
+                "sass/sass-spec": "*",
+                "squizlabs/php_codesniffer": "~3.5",
+                "symfony/phpunit-bridge": "^5.1",
+                "thoughtbot/bourbon": "^7.0",
+                "twbs/bootstrap": "~5.0",
+                "twbs/bootstrap4": "4.6.1",
+                "zurb/foundation": "~6.7.0"
+            },
+            "suggest": {
+                "ext-iconv": "Can be used as fallback when ext-mbstring is not available",
+                "ext-mbstring": "For best performance, mbstring should be installed as it is faster than ext-iconv"
+            },
+            "bin": [
+                "bin/pscss"
+            ],
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": false,
+                    "forward-command": false
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ScssPhp\\ScssPhp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthon Pang",
+                    "email": "apang@softwaredevelopment.ca",
+                    "homepage": "https://github.com/robocoder"
+                },
+                {
+                    "name": "Cédric Morin",
+                    "email": "cedric@yterium.com",
+                    "homepage": "https://github.com/Cerdic"
+                }
+            ],
+            "description": "scssphp is a compiler for SCSS written in PHP.",
+            "homepage": "http://scssphp.github.io/scssphp/",
+            "keywords": [
+                "css",
+                "less",
+                "sass",
+                "scss",
+                "stylesheet"
+            ],
+            "support": {
+                "issues": "https://github.com/scssphp/scssphp/issues",
+                "source": "https://github.com/scssphp/scssphp/tree/v1.13.0"
+            },
+            "time": "2024-08-17T21:02:11+00:00"
         },
         {
             "name": "stellarwp/admin-notices",
@@ -640,16 +720,16 @@
         },
         {
             "name": "stellarwp/models",
-            "version": "dev-main",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/models.git",
-                "reference": "ac30397971ac654278ebe2cf703524db81459630"
+                "reference": "0571481c2e2f66b4c428be43c8d19ecb9ad3202d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/models/zipball/ac30397971ac654278ebe2cf703524db81459630",
-                "reference": "ac30397971ac654278ebe2cf703524db81459630",
+                "url": "https://api.github.com/repos/stellarwp/models/zipball/0571481c2e2f66b4c428be43c8d19ecb9ad3202d",
+                "reference": "0571481c2e2f66b4c428be43c8d19ecb9ad3202d",
                 "shasum": ""
             },
             "require": {
@@ -665,9 +745,9 @@
                 "codeception/module-webdriver": "^1.0",
                 "codeception/util-universalframework": "^1.0",
                 "lucatume/wp-browser": "^3.0.14",
+                "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "~6.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -691,22 +771,22 @@
             ],
             "support": {
                 "issues": "https://github.com/stellarwp/models/issues",
-                "source": "https://github.com/stellarwp/models/tree/1.2.2"
+                "source": "https://github.com/stellarwp/models/tree/2.0.0"
             },
-            "time": "2024-09-26T18:03:55+00:00"
+            "time": "2025-10-07T18:55:19+00:00"
         },
         {
             "name": "stellarwp/schema",
-            "version": "2.0.1",
+            "version": "3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema.git",
-                "reference": "b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6"
+                "reference": "6255ec18151ada45e30dd508671523684b2c6107"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema/zipball/b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6",
-                "reference": "b80c02c6ee6cebcf9c21b642a7b20db5480f0cd6",
+                "url": "https://api.github.com/repos/stellarwp/schema/zipball/6255ec18151ada45e30dd508671523684b2c6107",
+                "reference": "6255ec18151ada45e30dd508671523684b2c6107",
                 "shasum": ""
             },
             "require": {
@@ -751,29 +831,92 @@
             "description": "A library for simplifying the creation and updates of custom tables within WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/schema/issues",
-                "source": "https://github.com/stellarwp/schema/tree/2.0.1"
+                "source": "https://github.com/stellarwp/schema/tree/3.1.4"
             },
-            "time": "2025-07-18T14:24:06+00:00"
+            "time": "2025-10-17T15:03:39+00:00"
         },
         {
-            "name": "stellarwp/shepherd",
-            "version": "0.0.6",
+            "name": "stellarwp/schema-models",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/stellarwp/shepherd.git",
-                "reference": "d93bcedf3a28fee87365eb7ea699efed81e83c41"
+                "url": "https://github.com/stellarwp/schema-models.git",
+                "reference": "1f8ff095d5442455123798824c8f2456d95b3118"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/d93bcedf3a28fee87365eb7ea699efed81e83c41",
-                "reference": "d93bcedf3a28fee87365eb7ea699efed81e83c41",
+                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/1f8ff095d5442455123798824c8f2456d95b3118",
+                "reference": "1f8ff095d5442455123798824c8f2456d95b3118",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4",
+                "stellarwp/models": "^2.0.0",
+                "stellarwp/schema": "^3.1.2"
+            },
+            "require-dev": {
+                "codeception/module-asserts": "^1.3",
+                "codeception/module-cli": "^1.1",
+                "codeception/module-db": "^1.2",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-rest": "^2.0",
+                "codeception/module-webdriver": "^1.4",
+                "codeception/util-universalframework": "^1.0",
+                "lucatume/codeception-snapshot-assertions": "^0.4.0",
+                "lucatume/di52": "^4.0",
+                "lucatume/wp-browser": "^3.5.7",
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "slope-it/clock-mock": "^0.4.0",
+                "stellarwp/coding-standards": "^2.1",
+                "szepeviktor/phpstan-wordpress": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\SchemaModels\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "StellarWP",
+                    "email": "dev@stellarwp.com"
+                },
+                {
+                    "name": "Dimitrios Pantazis",
+                    "email": "dimi@stellarwp.com"
+                }
+            ],
+            "description": "A library for offloading tasks to background processes.",
+            "support": {
+                "issues": "https://github.com/stellarwp/schema-models/issues",
+                "source": "https://github.com/stellarwp/schema-models/tree/0.1.0"
+            },
+            "time": "2025-10-16T13:42:16+00:00"
+        },
+        {
+            "name": "stellarwp/shepherd",
+            "version": "0.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/shepherd.git",
+                "reference": "0af4cfc2a1242e795484dd311b74e4364caf4e24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/0af4cfc2a1242e795484dd311b74e4364caf4e24",
+                "reference": "0af4cfc2a1242e795484dd311b74e4364caf4e24",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
                 "psr/log": "^1.1",
                 "stellarwp/db": "^1.1",
-                "stellarwp/schema": "^2.0",
+                "stellarwp/schema": "^3.1.2",
                 "woocommerce/action-scheduler": "3.9.3"
             },
             "require-dev": {
@@ -816,9 +959,9 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/shepherd/issues",
-                "source": "https://github.com/stellarwp/shepherd/tree/0.0.6"
+                "source": "https://github.com/stellarwp/shepherd/tree/0.0.9"
             },
-            "time": "2025-08-26T17:51:20+00:00"
+            "time": "2025-11-17T19:42:39+00:00"
         },
         {
             "name": "stellarwp/telemetry",
@@ -935,6 +1078,65 @@
                 "source": "https://github.com/stellarwp/uplink/tree/v2.2.2"
             },
             "time": "2024-12-05T19:13:16+00:00"
+        },
+        {
+            "name": "trustedlogin/client",
+            "version": "v1.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/trustedlogin/client.git",
+                "reference": "b913058ae57b512a7766f449ab8d55952500fe72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/trustedlogin/client/zipball/b913058ae57b512a7766f449ab8d55952500fe72",
+                "reference": "b913058ae57b512a7766f449ab8d55952500fe72",
+                "shasum": ""
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.3.0",
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^1.10",
+                "szepeviktor/phpstan-wordpress": "^1.3",
+                "wp-coding-standards/wpcs": "^3.0",
+                "yoast/phpunit-polyfills": "^1.0.0"
+            },
+            "bin": [
+                "bin/build-sass"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TrustedLogin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "TrustedLogin",
+                    "email": "support@trustedlogin.com",
+                    "homepage": "https://www.trustedlogin.com"
+                }
+            ],
+            "description": "Easily and securely log in to your customers sites when providing support.",
+            "homepage": "https://www.trustedlogin.com",
+            "keywords": [
+                "login",
+                "security",
+                "support"
+            ],
+            "support": {
+                "issues": "https://github.com/trustedlogin/client/issues",
+                "source": "https://github.com/trustedlogin/client/tree/v1.9.0"
+            },
+            "time": "2024-08-26T01:13:42+00:00"
         },
         {
             "name": "woocommerce/action-scheduler",
@@ -7286,7 +7488,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/coding-standards": 20,
-        "stellarwp/models": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,

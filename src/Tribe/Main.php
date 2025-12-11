@@ -1,12 +1,13 @@
 <?php
 
+use TEC\Common\Asset;
+use TEC\Common\Controller as Common_Controller;
 use TEC\Common\Libraries;
+use TEC\Common\StellarWP\Assets\Asset as StellarWP_Asset;
+use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Common\Translations_Loader;
 use Tribe\Admin\Settings;
 use Tribe\DB_Lock;
-use TEC\Common\Asset;
-use TEC\Common\StellarWP\Assets\Config as Assets_Config;
-use TEC\Common\Controller as Common_Controller;
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 
 // Don't load directly.
@@ -23,7 +24,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.9.4';
+	const VERSION           = '7.0.0-common';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -209,6 +210,7 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/svg.php';
 
 		Tribe__Debug::instance();
 		tec_timed_option();
@@ -289,7 +291,7 @@ class Tribe__Main {
 				[ 'tec-common-php-date-formatter', 'node_modules/php-date-formatter/js/php-date-formatter.js' ],
 			]
 		);
-		
+
 		tec_asset(
 			$this,
 			'tec-user-agent',
@@ -409,6 +411,12 @@ class Tribe__Main {
 			]
 		);
 
+		// Register the TEC API functions that will be accessible at `window.tec.common.tecApi`.
+		StellarWP_Asset::add( 'tec-api', 'tecApi.js' )
+			->add_to_group_path( self::class . '-packages' )
+			->add_to_group( 'tec-api' )
+			->register();
+
 		tribe( Tribe__Admin__Help_Page::class )->register_assets();
 	}
 
@@ -525,18 +533,6 @@ class Tribe__Main {
 
 		add_filter( 'body_class', [ $this, 'add_js_class' ] );
 		add_action( 'wp_footer', [ $this, 'toggle_js_class' ] );
-
-		add_action( 'init', [ $this, 'load_action_scheduler' ], - 99999 );
-	}
-
-	/**
-	 * Load the Action Scheduler library.
-	 *
-	 * @since TDB
-	 */
-	public function load_action_scheduler(): void {
-		// Load the Action Scheduler library.
-		require_once $this->plugin_path . 'vendor/woocommerce/action-scheduler/action-scheduler.php';
 	}
 
 	/**
@@ -644,7 +640,29 @@ class Tribe__Main {
 
 		// Load textdomain from a custom folder or the plugin's language folder.
 		if ( file_exists( $file ) ) {
-			return load_plugin_textdomain( $domain, false, $plugin_rel_path );
+			/**
+			 * Starting from WordPress 6.7.1, the `load_plugin_textdomain` will reset the `$l10n` global variable.
+			 * WorPress 6.7.0 will not, though. Here we reset that var for back-compatibility with WordPress 6.7.0.
+			 */
+			if ( isset( $GLOBALS['l10n'][ $domain ] ) && $GLOBALS['l10n'][ $domain ] instanceof NOOP_Translations ) {
+				unset( $GLOBALS['l10n'][ $domain ] );
+			}
+
+			$loaded = load_plugin_textdomain( $domain, false, $plugin_rel_path );
+
+			/**
+			 * If an earlier call to get a translation for a string in this domain was fired (e.g., a call to `__()`),
+			 * then the text domain registry has cached a falsy value for this domain and locale to indicate no
+			 * translation file is available. Here we overwrite the value if it had been set, or set it if it had not.
+			 *
+			 * The `load_plugin_textdomain()` function will add the custom path to the registry, but will not invalidate
+			 * a previously set value.
+			 */
+			/** @var WP_Textdomain_Registry $wp_textdomain_registry */
+			global $wp_textdomain_registry;
+			$wp_textdomain_registry->set( $domain, $locale, dirname( $file ) );
+
+			return $loaded;
 		}
 
 		// If translation files are not found in the custom folder, then load textdomain from the plugin's language folder.
@@ -812,7 +830,13 @@ class Tribe__Main {
 		tribe_singleton( 'admin.activation.page', 'Tribe__Admin__Activation_Page' );
 		tribe_singleton( Translations_Loader::class, Translations_Loader::class );
 
-		tribe_register_provider( Tribe__Editor__Provider::class );
+		// Register the Classy controller; it will filter the following `tec_using_classy_editor` call.
+		tribe_register_provider( \TEC\Common\Classy\Controller::class );
+
+		if ( ! tec_using_classy_editor() ) {
+			tribe_register_provider( Tribe__Editor__Provider::class );
+		}
+
 		tribe_register_provider( Tribe__Service_Providers__Debug_Bar::class );
 		tribe_register_provider( Tribe\Service_Providers\Tooltip::class );
 		tribe_register_provider( Tribe\Service_Providers\Dialog::class );
@@ -830,6 +854,7 @@ class Tribe__Main {
 		tribe_register_provider( \TEC\Common\QR\Controller::class );
 		tribe_singleton( ContainerInterface::class, tribe() );
 		tribe_register_provider( Libraries\Provider::class );
+		tribe_register_provider( TEC\Common\TrustedLogin\Controller::class );
 
 		// Load the new third-party integration system.
 		tribe_register_provider( TEC\Common\Integrations\Provider::class );

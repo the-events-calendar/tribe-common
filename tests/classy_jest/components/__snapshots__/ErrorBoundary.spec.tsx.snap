@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorBoundary Component catches an error and displays the ErrorDisplay 1`] = `
+<div
+  class="classy-root classy-root--error"
+  style="align-items: center; background-color: rgb(255, 221, 221); border: 1px solid #d6e9c6; color: rgb(169, 68, 66); display: flex; flex-direction: column; gap: 20px; justify-content: center; overflow: scroll; padding: 20px;"
+>
+  <h2>
+    An error occurred in the Classy application:
+  </h2>
+  <pre
+    style="background-color: rgb(238, 238, 238); border-radius: 4px; margin-top: 20px; max-width: 100%; padding: 15px; text-wrap: pretty;"
+  >
+    __ERROR_CALL_STACK__
+  </pre>
+</div>
+`;
+
+exports[`ErrorBoundary Component renders children when there is no error 1`] = `
+<div>
+  Test Child
+</div>
+`;

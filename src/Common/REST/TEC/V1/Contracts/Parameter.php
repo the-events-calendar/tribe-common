@@ -11,8 +11,8 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Contracts;
 
-use JsonSerializable;
 use Closure;
+use JsonSerializable;
 use ReturnTypeWillChange;
 use TEC\Common\REST\TEC\V1\Collections\Collection;
 
@@ -67,15 +67,6 @@ interface Parameter extends JsonSerializable {
 	 * @return ?Closure
 	 */
 	public function get_validator(): ?Closure;
-
-	/**
-	 * Returns the parameter WP validator.
-	 *
-	 * @since 6.9.0
-	 *
-	 * @return ?Closure
-	 */
-	public function get_wp_validator(): ?Closure;
 
 	/**
 	 * Returns the parameter sanitizer.

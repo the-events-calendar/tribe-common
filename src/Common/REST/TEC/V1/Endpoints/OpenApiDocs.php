@@ -41,7 +41,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): QueryArgumentCollection {
+	public function read_params(): QueryArgumentCollection {
 		return new QueryArgumentCollection();
 	}
 
@@ -210,7 +210,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 			$this->get_operation_id( 'read' ),
 			$this->get_tags(),
 			null,
-			$this->read_args(),
+			$this->read_params(),
 		);
 
 		$schema->add_response(

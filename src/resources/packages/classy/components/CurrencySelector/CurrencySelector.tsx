@@ -1,0 +1,262 @@
+import React, { useEffect, useState } from 'react';
+import { __, _x } from '@wordpress/i18n';
+import { Button, Popover, SelectControl, ToggleControl } from '@wordpress/components';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { IconClose } from '../Icons';
+import { Currency, CurrencyPosition } from '../../types/Currency';
+import { CenteredSpinner } from '../CenteredSpinner';
+import { CoreEditorDispatch, CoreEditorSelect, StoreSelect } from '../../types/Store';
+
+type CurrencySelectorProps = {
+	/**
+	 * The meta key for storing the currency code.
+	 */
+	currencyCodeMeta: string;
+
+	/**
+	 * The meta key for storing the currency symbol.
+	 */
+	currencySymbolMeta: string;
+
+	/**
+	 * The meta key for storing the currency position (prefix or postfix).
+	 */
+	currencyPositionMeta: string;
+};
+
+type CurrencySelectOption = {
+	value: string;
+	label: string;
+};
+
+const currencyDefaultOption: CurrencySelectOption = {
+	label: _x( 'Default site currency', 'Default option for the currency selector', 'tribe-common' ),
+	value: 'default',
+};
+
+/**
+ * Renders a currency in the format of "symbol code" or "code symbol" based on the currency position.
+ *
+ * @since TBD
+ *
+ * @param {Currency} currency The Currency object containing the code, symbol, and position.
+ * @returns {string} The formatted currency string.
+ */
+const renderCurrency = ( currency: Currency ): string => {
+	const label = currency.label || currency.code;
+	return currency.position === 'prefix' ? `${ currency.symbol } ${ label }` : `${ label } ${ currency.symbol }`;
+};
+
+/**
+ * Builds a CurrencySelectOption object from a Currency object.
+ *
+ * @since TBD
+ *
+ * @param {Currency} currency The Currency object to build the option from.
+ * @returns {CurrencySelectOption} The built CurrencySelectOption object.
+ */
+const buildOptionFromCurrency = ( currency: Currency ): CurrencySelectOption => {
+	return {
+		label: renderCurrency( currency ),
+		value: currency.code,
+	};
+};
+
+/**
+ * Maps an array of Currency objects to an array of CurrencySelectOption objects.
+ *
+ * @param {Currency[]} currencies The array of Currency objects to map.
+ */
+const mapCurrenciesToOptions = ( currencies: Currency[] ): CurrencySelectOption[] => {
+	return currencies.map( buildOptionFromCurrency );
+};
+
+/**
+ * Finds a currency by its code in the provided array of currencies.
+ *
+ * @since TBD
+ *
+ * @param {string} code The currency code to search for.
+ * @param {Currency[]} currencies The array of Currency objects to search in.
+ * @returns {Currency | undefined} The found Currency object or undefined if not found.
+ */
+const findCurrencyByCode = ( code: string, currencies: Currency[] ): Currency | undefined => {
+	return currencies.find( ( currency ) => currency.code === code );
+};
+
+/**
+ * React component for selecting a currency for an event.
+ *
+ * @since TBD
+ *
+ * @param {CurrencySelectorProps} props Component properties.
+ * @return {React.JSX.Element} The rendered component.
+ */
+export default function CurrencySelector( props: CurrencySelectorProps ): React.JSX.Element {
+	const { currencyCodeMeta, currencySymbolMeta, currencyPositionMeta } = props;
+
+	const { meta, defaultCurrency, currencies } = useSelect( ( select ) => {
+		const { getDefaultCurrency, getCurrencyOptions }: StoreSelect = select( 'tec/classy' );
+		const { getEditedPostAttribute }: CoreEditorSelect = select( 'core/editor' );
+		return {
+			meta: getEditedPostAttribute( 'meta' ) || null,
+			defaultCurrency: getDefaultCurrency(),
+			currencies: getCurrencyOptions() || [],
+		};
+	}, [] );
+
+	const { editPost }: CoreEditorDispatch = useDispatch( 'core/editor' );
+
+	const eventCurrencyCodeMeta: string = meta?.[ currencyCodeMeta ] || defaultCurrency.code;
+	const [ eventCurrencyCode, setEventCurrencyCode ] = useState< string >( eventCurrencyCodeMeta );
+
+	const eventCurrencySymbolMeta: string = meta?.[ currencySymbolMeta ] || defaultCurrency.symbol;
+	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
+
+	const eventCurrencyPosition: CurrencyPosition =
+		meta?.[ currencyPositionMeta ] ||
+		findCurrencyByCode( eventCurrencyCode, currencies )?.position ||
+		defaultCurrency.position;
+	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
+
+	useEffect( () => {
+		setEventCurrencyCode( eventCurrencyCodeMeta );
+	}, [ eventCurrencyCodeMeta ] );
+
+	useEffect( () => {
+		setCurrencyPosition( eventCurrencyPosition );
+	}, [ eventCurrencyPosition ] );
+
+	useEffect( () => {
+		setCurrencySymbol( eventCurrencySymbolMeta );
+	}, [ eventCurrencySymbolMeta ] );
+
+	/**
+	 * Sets the event currency to the default currency.
+	 *
+	 * This function updates the event's currency code, symbol, and position to the default values,
+	 * and also updates the post metadata accordingly. The post metadata for the currency code is
+	 * set to an empty string, indicating that the default currency should be used for display.
+	 *
+	 * @since TBD
+	 */
+	const setToDefaultCurrency = (): void => {
+		setEventCurrencyCode( defaultCurrency.code );
+		setCurrencySymbol( defaultCurrency.symbol );
+		setCurrencyPosition( defaultCurrency.position );
+		editPost( {
+			meta: {
+				[ currencyCodeMeta ]: '',
+				[ currencySymbolMeta ]: defaultCurrency.symbol,
+				[ currencyPositionMeta ]: defaultCurrency.position,
+			},
+		} );
+	};
+
+	const onCurrencyChange = ( nextValue: string | undefined ): void => {
+		const selectedCurrency: Currency | undefined = findCurrencyByCode( nextValue ?? '', currencies );
+		if ( ! selectedCurrency || nextValue === 'default' ) {
+			setToDefaultCurrency();
+			return;
+		}
+
+		// Set the selected currency code and symbol. Position is determined separately.
+		setEventCurrencyCode( selectedCurrency.code );
+		setCurrencySymbol( selectedCurrency.symbol );
+		editPost( {
+			meta: {
+				[ currencyCodeMeta ]: selectedCurrency.code,
+				[ currencySymbolMeta ]: selectedCurrency.symbol,
+			},
+		} );
+	};
+
+	useEffect( () => {
+		setCurrencySymbol( eventCurrencySymbolMeta );
+	}, [ eventCurrencySymbolMeta ] );
+
+	const onCurrencyPositionChange = ( nextValue: boolean ): void => {
+		const newPosition: CurrencyPosition = nextValue ? 'prefix' : 'postfix';
+		setCurrencyPosition( newPosition );
+		editPost( { meta: { [ currencyPositionMeta ]: newPosition } } );
+	};
+
+	const [ isSelectingCurrency, setIsSelectingCurrency ] = useState< boolean >( false );
+
+	const onCurrencyClick = (): void => {
+		setIsSelectingCurrency( ! isSelectingCurrency );
+	};
+
+	const currencyOptions = [ currencyDefaultOption, ...mapCurrenciesToOptions( currencies ) ];
+
+	const onClose = (): void => {
+		setIsSelectingCurrency( false );
+	};
+
+	let popoverContent: React.ReactNode = null;
+	if ( currencies.length === 0 ) {
+		popoverContent = <CenteredSpinner />;
+	} else {
+		popoverContent = (
+			<div className="classy-component__popover-content">
+				<Button variant="link" onClick={ onClose } className="classy-component__popover-close">
+					<IconClose />
+				</Button>
+
+				<h4 className="classy-component__popover-title">
+					{ _x( 'Currency', 'Event currency selector title', 'tribe-common' ) }
+				</h4>
+
+				<p className="classy-component__popover-description">
+					{ __( 'Choose a different currency than your default for this event.', 'tribe-common' ) }
+				</p>
+
+				<SelectControl
+					label={ _x( 'Currency', 'Event currency selector label', 'tribe-common' ) }
+					hideLabelFromVision={ true }
+					value={ eventCurrencyCode === defaultCurrency.code ? 'default' : eventCurrencyCode }
+					onChange={ onCurrencyChange }
+					options={ currencyOptions }
+					__nextHasNoMarginBottom
+					__next40pxDefaultSize
+				/>
+
+				<ToggleControl
+					label={ _x(
+						'Currency symbol precedes price',
+						'Event currency position toggle label',
+						'tribe-common'
+					) }
+					checked={ currencyPosition === 'prefix' }
+					onChange={ onCurrencyPositionChange }
+					__nextHasNoMarginBottom
+				/>
+			</div>
+		);
+	}
+
+	return (
+		<div className="classy-field classy-field__currency-selector">
+			<Button className="is-link--dark" variant="link" onClick={ onCurrencyClick }>
+				{ renderCurrency( {
+					code: eventCurrencyCode,
+					symbol: currencySymbol,
+					position: currencyPosition,
+				} ) }
+			</Button>
+
+			{ isSelectingCurrency && (
+				<Popover
+					className="classy-component__popover classy-component__popover--choice"
+					expandOnMobile={ true }
+					placement="bottom-start"
+					noArrow={ true }
+					offset={ 4 }
+					onClose={ () => setIsSelectingCurrency( false ) }
+				>
+					{ popoverContent }
+				</Popover>
+			) }
+		</div>
+	);
+}

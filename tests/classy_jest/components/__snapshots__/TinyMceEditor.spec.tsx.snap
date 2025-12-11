@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TinyMceEditor Component renders correctly with default props 1`] = `
+<textarea
+  class="classy-control-tinymce-editor wp-editor-area"
+  id="editor-id"
+>
+  &lt;p&gt;Initial content&lt;/p&gt;
+</textarea>
+`;

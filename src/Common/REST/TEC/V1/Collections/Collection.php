@@ -11,11 +11,11 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Collections;
 
-use TEC\Common\REST\TEC\V1\Contracts\Parameter;
-use JsonSerializable;
 use ArrayAccess;
 use Countable;
 use Iterator;
+use JsonSerializable;
+use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 
 /**
  * Collection.
@@ -82,7 +82,7 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	/**
 	 * @inheritDoc
 	 *
-	 * @param TKey $offset The offset to check.
+	 * @param scalar $offset The offset to check.
 	 *
 	 * @return bool
 	 */
@@ -190,5 +190,23 @@ abstract class Collection implements ArrayAccess, Iterator, Countable, JsonSeria
 	 */
 	public function filter( callable $callback ): Collection {
 		return new static( array_filter( $this->resources, $callback ) );
+	}
+
+	/**
+	 * Gets a parameter from the collection.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @param string $parameter_name The name of the parameter to get.
+	 *
+	 * @return ?Parameter
+	 */
+	public function get( string $parameter_name ): ?Parameter {
+		foreach ( $this->resources as $parameter ) {
+			if ( $parameter->get_name() === $parameter_name ) {
+				return $parameter;
+			}
+		}
+		return null;
 	}
 }

@@ -156,4 +156,24 @@ class InvalidRestArgumentException extends Exception {
 			]
 		);
 	}
+
+	/**
+	 * Creates an exception.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @param string $generic_message The generic message to use for the exception.
+	 * @param string $argument        The argument that was invalid.
+	 * @param string $error_code      The error code.
+	 * @param string $details         The details.
+	 *
+	 * @return self
+	 */
+	public static function create( string $generic_message, string $argument, string $error_code, string $details = '' ): self {
+		$exception = new self( $generic_message );
+		$exception->set_argument( $argument );
+		$exception->set_details( $details );
+		$exception->set_internal_error_code( $error_code );
+		return $exception;
+	}
 }

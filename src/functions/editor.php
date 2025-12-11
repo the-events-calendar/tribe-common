@@ -18,3 +18,18 @@ if ( ! function_exists( 'tec_is_full_site_editor' ) ) {
 		return false;
 	}
 }
+
+if ( ! function_exists( 'tec_using_classy_editor' ) ) {
+	function tec_using_classy_editor(): bool {
+		/**
+		 * Filters whether the Classy experience is being used or not.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $using_classy_editor Whether the Classy experience is being used or not.
+		 */
+		$using_classy_editor = apply_filters( 'tec_using_classy_editor', false );
+
+		return (bool) $using_classy_editor;
+	}
+}

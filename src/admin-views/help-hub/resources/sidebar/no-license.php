@@ -12,6 +12,14 @@ use TEC\Common\Admin\Help_Hub\Hub;
 ?>
 
 <div class="tec-settings-form__sidebar tec-help-resources__sidebar">
+	<?php
+	/**
+	 * Trigger the conditional content sidebar notice.
+	 *
+	 * @since 6.15.9
+	 */
+	do_action( 'tec_conditional_content_sidebar_notice__help_hub_support' );
+	?>
 	<div class="tec-settings-form__sidebar-section">
 		<div class="tec-settings__sidebar-icon-wrap">
 			<div>

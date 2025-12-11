@@ -11,8 +11,10 @@ declare( strict_types=1 );
 
 namespace TEC\Common\REST\TEC\V1\Traits;
 
-use WP_REST_Response;
+use TEC\Common\Contracts\Repository_Interface;
 use TEC\Events_Pro\Custom_Tables\V1\WP_Query\Provider as Custom_Tables_Provider;
+use WP_Post;
+use WP_REST_Response;
 
 /**
  * Trait to handle the response for update entity requests.
@@ -98,4 +100,33 @@ trait Update_Entity_Response {
 			200
 		);
 	}
+
+	/**
+	 * Returns the ORM for the endpoint.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @return Repository_Interface
+	 */
+	abstract public function get_orm(): Repository_Interface;
+
+	/**
+	 * Formats a model into a model entity.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @param WP_Post $post The post to format.
+	 *
+	 * @return array
+	 */
+	abstract public function get_formatted_entity( WP_Post $post ): array;
+
+	/**
+	 * Returns the post type for the endpoint.
+	 *
+	 * @since 6.10.0
+	 *
+	 * @return string
+	 */
+	abstract public function get_post_type(): string;
 }

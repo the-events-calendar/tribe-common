@@ -13,7 +13,7 @@ namespace TEC\Common\REST\TEC\V1\Contracts;
 
 use WP_REST_Request;
 use WP_REST_Response;
-use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
+use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
 
 /**
  * Creatable endpoint interface.
@@ -49,10 +49,11 @@ interface Creatable_Endpoint {
 	 * Returns the arguments for the create method.
 	 *
 	 * @since 6.9.0
+	 * @since 6.10.0 Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
-	 * @return QueryArgumentCollection
+	 * @return RequestBodyCollection
 	 */
-	public function create_args(): QueryArgumentCollection;
+	public function create_params(): RequestBodyCollection;
 
 	/**
 	 * Returns the schema for the create method.

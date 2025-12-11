@@ -32,11 +32,12 @@
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
-    "stellarwp/models": "dev-main",
-    "stellarwp/schema": "2.0.1",
-    "stellarwp/shepherd": "0.0.6",
     "stellarwp/telemetry": "^2.3.4",
-    "stellarwp/uplink": "2.2.2"
+    "stellarwp/uplink": "2.2.2",
+    "stellarwp/schema-models": "^0.1.0",
+    "stellarwp/shepherd": "0.0.9",
+    "trustedlogin/client": "^1.9",
+    "scssphp/scssphp": "^1.13"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
@@ -68,7 +69,8 @@
   "autoload-dev": {
     "psr-4": {
       "TEC\\Common\\Tests\\": "tests/_data/classes",
-      "TEC\\Common\\Tests\\Provider\\": "tests/_support/Provider"
+      "TEC\\Common\\Tests\\Provider\\": "tests/_support/Provider",
+      "TEC\\Common\\Tests\\Extensions\\": "tests/_support/Extensions"
     }
   },
   "scripts": {
@@ -83,13 +85,21 @@
       "@php -d display_errors=on bin/strauss.phar",
       "@composer dump-autoload"
     ],
+    "trustedlogin": [
+      "mkdir -p vendor/vendor-prefixed/trustedlogin/client/src/assets/",
+      "@php vendor/bin/build-sass --namespace=the-events-calendar --assets_dir=vendor/vendor-prefixed/trustedlogin/client/src/assets/ --export_dir=vendor/vendor-prefixed/trustedlogin/client/src/assets/",
+      "rm -rf vendor/scssphp",
+      "rm -f vendor/bin/build-sass vendor/bin/pscss"
+    ],
     "post-install-cmd": [
       "@stellar-uplink",
-      "@strauss"
+      "@strauss",
+      "@trustedlogin"
     ],
     "post-update-cmd": [
       "@stellar-uplink",
-      "@strauss"
+      "@strauss",
+      "@trustedlogin"
     ],
     "stellar-uplink": [
       "vendor/bin/stellar-uplink domain=tribe-common"
@@ -101,7 +111,8 @@
     ],
     "analyze": [
       "phpstan analyse -c phpstan.neon.dist --memory-limit=512M"
-    ]
+    ],
+    "classy:format": "vendor/bin/phpcbf src/Common/Classy"
   },
   "extra": {
     "strauss": {
@@ -116,6 +127,7 @@
         "stellarwp/db",
         "stellarwp/models",
         "stellarwp/schema",
+        "stellarwp/schema-models",
         "stellarwp/shepherd",
         "stellarwp/installer",
         "stellarwp/telemetry",
@@ -125,8 +137,15 @@
         "firebase/php-jwt",
         "psr/container",
         "stellarwp/assets",
-        "stellarwp/admin-notices"
+        "stellarwp/admin-notices",
+        "trustedlogin/client"
       ],
+      "exclude_from_copy": {
+        "packages": [],
+        "file_patterns": [
+          "#trustedlogin\/client\/src\/assets\/trustedlogin.css#"
+        ]
+      },
       "exclude_from_prefix": {
         "file_patterns": []
       },

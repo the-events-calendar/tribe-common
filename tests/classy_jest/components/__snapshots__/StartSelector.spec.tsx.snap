@@ -1,0 +1,1738 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StartSelector Component all day events renders with time picker when isAllDay is false 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
+<div
+  class="classy-field__input classy-field__input--start-date classy-field__input--grow"
+>
+  <div
+    class="classy-field__input-title"
+  >
+    <h4>
+      Start Date
+    </h4>
+  </div>
+  <div
+    class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
+  >
+    <div
+      class="components-base-control__field emotion-2 emotion-3"
+    >
+      <div
+        class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
+        data-wp-c16t="true"
+        data-wp-component="InputBase"
+      >
+        <div
+          class="components-input-control__container emotion-7 emotion-8"
+        >
+          <input
+            class="components-input-control__input emotion-9 emotion-10"
+            id="inspector-input-control-2"
+            value="2023-12-23"
+          />
+          <span
+            class="components-input-control__suffix emotion-11 emotion-12"
+          >
+            <div
+              class="components-input-control-suffix-wrapper emotion-13 emotion-14"
+              data-wp-c16t="true"
+              data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
+            >
+              <svg
+                aria-hidden="true"
+                class="classy-suffix-icon classy-suffix-icon--calendar"
+                height="19"
+                viewBox="0 0 18 19"
+                width="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                  fill="#1E1E1E"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </span>
+          <div
+            aria-hidden="true"
+            class="components-input-control__backdrop emotion-15 emotion-16"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StartSelector Component all day events renders without time picker when isAllDay is true and isMultiday is false 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
+<div
+  class="classy-field__input classy-field__input--start-date classy-field__input-full-width"
+>
+  <div
+    class="classy-field__input-title"
+  >
+    <h4>
+      Start Date
+    </h4>
+  </div>
+  <div
+    class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
+  >
+    <div
+      class="components-base-control__field emotion-2 emotion-3"
+    >
+      <div
+        class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
+        data-wp-c16t="true"
+        data-wp-component="InputBase"
+      >
+        <div
+          class="components-input-control__container emotion-7 emotion-8"
+        >
+          <input
+            class="components-input-control__input emotion-9 emotion-10"
+            id="inspector-input-control-1"
+            value="2023-12-23"
+          />
+          <span
+            class="components-input-control__suffix emotion-11 emotion-12"
+          >
+            <div
+              class="components-input-control-suffix-wrapper emotion-13 emotion-14"
+              data-wp-c16t="true"
+              data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
+            >
+              <svg
+                aria-hidden="true"
+                class="classy-suffix-icon classy-suffix-icon--calendar"
+                height="19"
+                viewBox="0 0 18 19"
+                width="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                  fill="#1E1E1E"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </span>
+          <div
+            aria-hidden="true"
+            class="components-input-control__backdrop emotion-15 emotion-16"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StartSelector Component date selection does not show DatePicker popover when isSelectingDate is endDate 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
+<div
+  class="classy-field__input classy-field__input--start-date classy-field__input--grow"
+>
+  <div
+    class="classy-field__input-title"
+  >
+    <h4>
+      Start Date
+    </h4>
+  </div>
+  <div
+    class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
+  >
+    <div
+      class="components-base-control__field emotion-2 emotion-3"
+    >
+      <div
+        class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
+        data-wp-c16t="true"
+        data-wp-component="InputBase"
+      >
+        <div
+          class="components-input-control__container emotion-7 emotion-8"
+        >
+          <input
+            class="components-input-control__input emotion-9 emotion-10"
+            id="inspector-input-control-8"
+            value="2023-12-23"
+          />
+          <span
+            class="components-input-control__suffix emotion-11 emotion-12"
+          >
+            <div
+              class="components-input-control-suffix-wrapper emotion-13 emotion-14"
+              data-wp-c16t="true"
+              data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
+            >
+              <svg
+                aria-hidden="true"
+                class="classy-suffix-icon classy-suffix-icon--calendar"
+                height="19"
+                viewBox="0 0 18 19"
+                width="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                  fill="#1E1E1E"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </span>
+          <div
+            aria-hidden="true"
+            class="components-input-control__backdrop emotion-15 emotion-16"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StartSelector Component date selection does not show DatePicker popover when isSelectingDate is false 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
+<div
+  class="classy-field__input classy-field__input--start-date classy-field__input--grow"
+>
+  <div
+    class="classy-field__input-title"
+  >
+    <h4>
+      Start Date
+    </h4>
+  </div>
+  <div
+    class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
+  >
+    <div
+      class="components-base-control__field emotion-2 emotion-3"
+    >
+      <div
+        class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
+        data-wp-c16t="true"
+        data-wp-component="InputBase"
+      >
+        <div
+          class="components-input-control__container emotion-7 emotion-8"
+        >
+          <input
+            class="components-input-control__input emotion-9 emotion-10"
+            id="inspector-input-control-7"
+            value="2023-12-23"
+          />
+          <span
+            class="components-input-control__suffix emotion-11 emotion-12"
+          >
+            <div
+              class="components-input-control-suffix-wrapper emotion-13 emotion-14"
+              data-wp-c16t="true"
+              data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
+            >
+              <svg
+                aria-hidden="true"
+                class="classy-suffix-icon classy-suffix-icon--calendar"
+                height="19"
+                viewBox="0 0 18 19"
+                width="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                  fill="#1E1E1E"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </span>
+          <div
+            aria-hidden="true"
+            class="components-input-control__backdrop emotion-15 emotion-16"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StartSelector Component date selection shows DatePicker popover when isSelectingDate is startDate 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
+<div
+  class="classy-field__input classy-field__input--start-date classy-field__input--grow"
+>
+  <div
+    class="classy-field__input-title"
+  >
+    <h4>
+      Start Date
+    </h4>
+  </div>
+  <div
+    class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
+  >
+    <div
+      class="components-base-control__field emotion-2 emotion-3"
+    >
+      <div
+        class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
+        data-wp-c16t="true"
+        data-wp-component="InputBase"
+      >
+        <div
+          class="components-input-control__container emotion-7 emotion-8"
+        >
+          <input
+            class="components-input-control__input emotion-9 emotion-10"
+            id="inspector-input-control-6"
+            value="2023-12-23"
+          />
+          <span
+            class="components-input-control__suffix emotion-11 emotion-12"
+          >
+            <div
+              class="components-input-control-suffix-wrapper emotion-13 emotion-14"
+              data-wp-c16t="true"
+              data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
+            >
+              <svg
+                aria-hidden="true"
+                class="classy-suffix-icon classy-suffix-icon--calendar"
+                height="19"
+                viewBox="0 0 18 19"
+                width="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                  fill="#1E1E1E"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </span>
+          <div
+            aria-hidden="true"
+            class="components-input-control__backdrop emotion-15 emotion-16"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <span />
+</div>
+`;
+
+exports[`StartSelector Component renders correctly with default props 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
+<div
+  class="classy-field__input classy-field__input--start-date classy-field__input--grow"
+>
+  <div
+    class="classy-field__input-title"
+  >
+    <h4>
+      Start Date
+    </h4>
+  </div>
+  <div
+    class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
+  >
+    <div
+      class="components-base-control__field emotion-2 emotion-3"
+    >
+      <div
+        class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
+        data-wp-c16t="true"
+        data-wp-component="InputBase"
+      >
+        <div
+          class="components-input-control__container emotion-7 emotion-8"
+        >
+          <input
+            class="components-input-control__input emotion-9 emotion-10"
+            id="inspector-input-control-0"
+            value="2023-12-23"
+          />
+          <span
+            class="components-input-control__suffix emotion-11 emotion-12"
+          >
+            <div
+              class="components-input-control-suffix-wrapper emotion-13 emotion-14"
+              data-wp-c16t="true"
+              data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
+            >
+              <svg
+                aria-hidden="true"
+                class="classy-suffix-icon classy-suffix-icon--calendar"
+                height="19"
+                viewBox="0 0 18 19"
+                width="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                  fill="#1E1E1E"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </span>
+          <div
+            aria-hidden="true"
+            class="components-input-control__backdrop emotion-15 emotion-16"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StartSelector Component time interval from store uses time interval from WordPress data store 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
+<div
+  class="classy-field__input classy-field__input--start-date classy-field__input--grow"
+>
+  <div
+    class="classy-field__input-title"
+  >
+    <h4>
+      Start Date
+    </h4>
+  </div>
+  <div
+    class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
+  >
+    <div
+      class="components-base-control__field emotion-2 emotion-3"
+    >
+      <div
+        class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
+        data-wp-c16t="true"
+        data-wp-component="InputBase"
+      >
+        <div
+          class="components-input-control__container emotion-7 emotion-8"
+        >
+          <input
+            class="components-input-control__input emotion-9 emotion-10"
+            id="inspector-input-control-15"
+            value="2023-12-23"
+          />
+          <span
+            class="components-input-control__suffix emotion-11 emotion-12"
+          >
+            <div
+              class="components-input-control-suffix-wrapper emotion-13 emotion-14"
+              data-wp-c16t="true"
+              data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
+            >
+              <svg
+                aria-hidden="true"
+                class="classy-suffix-icon classy-suffix-icon--calendar"
+                height="19"
+                viewBox="0 0 18 19"
+                width="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                  fill="#1E1E1E"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </span>
+          <div
+            aria-hidden="true"
+            class="components-input-control__backdrop emotion-15 emotion-16"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StartSelector Component time selection highlights time when highlightTime is true 1`] = `
+.emotion-0 {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.emotion-0 *,
+.emotion-0 *::before,
+.emotion-0 *::after {
+  box-sizing: inherit;
+}
+
+.components-panel__row .emotion-2 {
+  margin-bottom: inherit;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: normal;
+  -webkit-box-align: normal;
+  -ms-flex-align: normal;
+  align-items: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: calc(4px * 2);
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  -webkit-justify-content: left;
+  justify-content: left;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 0;
+}
+
+.emotion-5>* {
+  min-height: 0;
+}
+
+.emotion-5:focus-within:not( :has( :is( .em5sgkm8, .emotion-12 ):focus-within ) ) .emotion-16 {
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+
+.emotion-7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: inherit;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  background-color: var(--wp-components-color-background, #fff);
+  width: 100%;
+}
+
+.emotion-9.emotion-9.emotion-9 {
+  background-color: transparent;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none!important;
+  color: var(--wp-components-color-foreground, #1e1e1e);
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1;
+  min-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  -webkit-padding-end: calc(4px * 1);
+  padding-inline-end: calc(4px * 1);
+}
+
+@media ( min-width: 600px ) {
+  .emotion-9.emotion-9.emotion-9 {
+    font-size: 13px;
+  }
+}
+
+.emotion-9.emotion-9.emotion-9::-webkit-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9::-moz-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9:-ms-input-placeholder {
+  color: color-mix(in srgb, var(--wp-components-color-foreground, #1e1e1e), transparent 38%);
+}
+
+.emotion-9.emotion-9.emotion-9[type='email'],
+.emotion-9.emotion-9.emotion-9[type='url'] {
+  direction: ltr;
+}
+
+.emotion-11 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-13 {
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+}
+
+.emotion-15.emotion-15.emotion-15 {
+  box-sizing: border-box;
+  border-color: var(--wp-components-color-gray-600, #949494);
+  border-radius: inherit;
+  border-style: solid;
+  border-width: 1px;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 2px;
+}
+
+<div
+  class="classy-field__input classy-field__input--start-date classy-field__input--grow"
+>
+  <div
+    class="classy-field__input-title"
+  >
+    <h4>
+      Start Date
+    </h4>
+  </div>
+  <div
+    class="components-base-control components-input-control classy-field__control classy-field__control--input classy-field__control--date-picker emotion-0 emotion-1"
+  >
+    <div
+      class="components-base-control__field emotion-2 emotion-3"
+    >
+      <div
+        class="components-flex components-input-base emotion-4 emotion-5 emotion-6"
+        data-wp-c16t="true"
+        data-wp-component="InputBase"
+      >
+        <div
+          class="components-input-control__container emotion-7 emotion-8"
+        >
+          <input
+            class="components-input-control__input emotion-9 emotion-10"
+            id="inspector-input-control-10"
+            value="2023-12-23"
+          />
+          <span
+            class="components-input-control__suffix emotion-11 emotion-12"
+          >
+            <div
+              class="components-input-control-suffix-wrapper emotion-13 emotion-14"
+              data-wp-c16t="true"
+              data-wp-component="InputControlSuffixWrapper"
+              style="cursor: pointer;"
+            >
+              <svg
+                aria-hidden="true"
+                class="classy-suffix-icon classy-suffix-icon--calendar"
+                height="19"
+                viewBox="0 0 18 19"
+                width="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M14.625 5.70367H3.375V14.7037C3.375 14.9108 3.54289 15.0787 3.75 15.0787H14.25C14.4571 15.0787 14.625 14.9108 14.625 14.7037V5.70367ZM2.25 5.70367V4.70367V4.20367C2.25 3.37525 2.92157 2.70367 3.75 2.70367H4.25H13.75H14.25C15.0784 2.70367 15.75 3.37525 15.75 4.20367V4.70367V5.70367V14.7037C15.75 15.5321 15.0784 16.2037 14.25 16.2037H3.75C2.92157 16.2037 2.25 15.5321 2.25 14.7037V5.70367ZM5.25 7.95367H6.75V9.45367H5.25V7.95367ZM6.75 10.9537H5.25V12.4537H6.75V10.9537ZM8.25 7.95367H9.75V9.45367H8.25V7.95367ZM12.75 7.95367H11.25V9.45367H12.75V7.95367ZM8.25 10.9537H9.75V12.4537H8.25V10.9537ZM12.75 10.9537H11.25V12.4537H12.75V10.9537Z"
+                  fill="#1E1E1E"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </span>
+          <div
+            aria-hidden="true"
+            class="components-input-control__backdrop emotion-15 emotion-16"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
