@@ -40,6 +40,8 @@
  *
  * Suite_Env::module_init( 'my_suite_name', $one, Some_Class::some_method, $three );
  * ```
+ *
+ * See documentation in file docs/tests/extension-suite-env.md.
  */
 
 namespace TEC\Common\Tests\Extensions;
@@ -275,7 +277,7 @@ class Suite_Env extends Extension {
 			$_ENV[ $disable_env_var ] = $enabled_by_default ? 0 : 1;
 			putenv( "{$disable_env_var}=" . ( $enabled_by_default ? '0' : '1' ) );
 			$enabled_string = $enabled_by_default ? 'enabled' : 'disabled';
-			codecept_debug( "Feature {$feature_name} is ${enabled_string} by default" );
+			codecept_debug( "Feature {$feature_name} is {$enabled_string} by default" );
 
 			if ( ! empty( $feature['active_for_suites'] ) ) {
 				$suites           = $feature['active_for_suites'];

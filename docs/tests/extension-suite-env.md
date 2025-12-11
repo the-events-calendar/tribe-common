@@ -135,8 +135,102 @@ Suite_Env::module_init('integration', function() {
 });
 ```
 
+## Toggle Features
+
+The `toggle_features` method provides a declarative way to manage feature flags across test suites. It handles the common pattern of disabling features by default and enabling them only for specific suites.
+
+### How It Works
+
+Each feature configuration includes:
+- `disable_env_var`: The environment variable that controls the feature (when set to `1`, the feature is disabled)
+- `enabled_by_default`: Whether the feature should be enabled when running most test suites
+- `active_for_suites`: (optional) Array of suite names where the feature should be explicitly enabled
+
+The method:
+1. Sets the environment variable based on `enabled_by_default` (disabled features get `ENVVAR=1`)
+2. Registers `module_init` callbacks for each suite in `active_for_suites` to enable the feature
+
+### Basic Usage
+
+```php
+use TEC\Common\Tests\Extensions\Suite_Env;
+
+Suite_Env::toggle_features( [
+    'My Feature' => [
+        'disable_env_var'    => 'MY_FEATURE_DISABLED',
+        'enabled_by_default' => false,
+        'active_for_suites'  => [
+            'feature_integration',
+            'feature_acceptance',
+        ],
+    ],
+] );
+```
+
+This will:
+- Set `MY_FEATURE_DISABLED=1` by default (feature off for most suites)
+- Set `MY_FEATURE_DISABLED=0` when running `feature_integration` or `feature_acceptance` suites
+
+### Multiple Features
+
+```php
+Suite_Env::toggle_features( [
+    'Custom Tables v1' => [
+        'disable_env_var'    => 'TEC_CUSTOM_TABLES_V1_DISABLED',
+        'enabled_by_default' => false,
+        'active_for_suites'  => [
+            'ct1_integration',
+            'ct1_migration',
+            'ct1_multisite_integration',
+            'ct1_wp_json_api',
+            'classy_integration',
+        ],
+    ],
+    'Classy Editor'    => [
+        'disable_env_var'    => 'TEC_CLASSY_EDITOR_DISABLED',
+        'enabled_by_default' => false,
+        'active_for_suites'  => [
+            'classy_integration'
+        ],
+    ],
+] );
+```
+
+### Feature Enabled by Default
+
+For features that should be on for most suites but disabled for specific ones:
+
+```php
+Suite_Env::toggle_features( [
+    'Legacy Mode' => [
+        'disable_env_var'    => 'LEGACY_MODE_DISABLED',
+        'enabled_by_default' => true,  // Feature is ON by default
+        // No active_for_suites needed - feature runs everywhere
+    ],
+] );
+```
+
+### Combining with Manual Callbacks
+
+`toggle_features` uses `module_init` internally, so it works alongside manually registered callbacks. If you register callbacks for the same suite, they will all execute:
+
+```php
+// First, toggle features
+Suite_Env::toggle_features( [
+    'My Feature' => [
+        'disable_env_var'    => 'MY_FEATURE_DISABLED',
+        'enabled_by_default' => false,
+        'active_for_suites'  => [ 'my_suite' ],
+    ],
+] );
+
+// Additional setup for the same suite
+Suite_Env::module_init( 'my_suite', fn() => putenv( 'ADDITIONAL_CONFIG=1' ) );
+```
+
 ## Notes
 
+- **Important**: All `Suite_Env` methods (`module_init`, `init`, `before`, `after`, `toggle_features`) must be called in the main Codeception bootstrap file (e.g., `tests/_bootstrap.php`), not in suite-specific bootstrap files
 - Callbacks execute in registration order
 - Suite names must match Codeception suite configuration
 - All callbacks receive no parameters
