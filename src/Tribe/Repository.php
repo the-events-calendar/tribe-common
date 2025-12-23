@@ -1924,9 +1924,11 @@ abstract class Tribe__Repository
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = $arg_1, '<=', $format = $arg_2 );
 				break;
 			case 'meta_in':
+				// phpcs:ignore
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = (array) $arg_1, 'IN', $format = $arg_2 );
 				break;
 			case 'meta_not_in':
+				// phpcs:ignore
 				$args = $this->build_meta_query( $meta_key = $value, $meta_value = (array) $arg_1, 'NOT IN', $format = $arg_2 );
 				break;
 			case 'meta_between':
@@ -2000,18 +2002,22 @@ abstract class Tribe__Repository
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'NOT EXISTS' );
 				break;
 			case 'term_id_in':
+				// phpcs:ignore
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = (array) $arg_1, 'term_id', 'IN' );
 				break;
 			case 'term_id_not_in':
+				// phpcs:ignore
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = (array) $arg_1, 'term_id', 'NOT IN' );
 				break;
 			case 'term_id_and':
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = $arg_1, 'term_id', 'AND' );
 				break;
 			case 'term_name_in':
+				// phpcs:ignore
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = (array) $arg_1, 'name', 'IN' );
 				break;
 			case 'term_name_not_in':
+				// phpcs:ignore
 				$args = $this->build_tax_query( $taxonomy = $value, $terms = (array) $arg_1, 'name', 'NOT IN' );
 				break;
 			case 'term_name_and':
