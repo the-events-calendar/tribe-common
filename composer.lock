@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1730544c896394ef2203f2d3c727e3d7",
+    "content-hash": "7460e3b88c77139583bebf977199b732",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -611,16 +611,16 @@
         },
         {
             "name": "stellarwp/db",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/db.git",
-                "reference": "cbaed00b77f212b791263689cb8a24cbdfdf2100"
+                "reference": "f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/db/zipball/cbaed00b77f212b791263689cb8a24cbdfdf2100",
-                "reference": "cbaed00b77f212b791263689cb8a24cbdfdf2100",
+                "url": "https://api.github.com/repos/stellarwp/db/zipball/f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96",
+                "reference": "f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96",
                 "shasum": ""
             },
             "require-dev": {
@@ -661,9 +661,9 @@
             "description": "A WPDB wrapper and query builder library.",
             "support": {
                 "issues": "https://github.com/stellarwp/db/issues",
-                "source": "https://github.com/stellarwp/db/tree/1.1.1"
+                "source": "https://github.com/stellarwp/db/tree/1.2.0"
             },
-            "time": "2024-06-06T20:03:23+00:00"
+            "time": "2025-11-10T10:55:50+00:00"
         },
         {
             "name": "stellarwp/installer",
@@ -777,16 +777,16 @@
         },
         {
             "name": "stellarwp/schema",
-            "version": "3.1.4",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema.git",
-                "reference": "6255ec18151ada45e30dd508671523684b2c6107"
+                "reference": "af60b60c2e532d04ba884f7f4f545569f4b7a467"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema/zipball/6255ec18151ada45e30dd508671523684b2c6107",
-                "reference": "6255ec18151ada45e30dd508671523684b2c6107",
+                "url": "https://api.github.com/repos/stellarwp/schema/zipball/af60b60c2e532d04ba884f7f4f545569f4b7a467",
+                "reference": "af60b60c2e532d04ba884f7f4f545569f4b7a467",
                 "shasum": ""
             },
             "require": {
@@ -803,6 +803,7 @@
                 "codeception/module-rest": "^1.0",
                 "codeception/module-webdriver": "^1.0",
                 "codeception/util-universalframework": "^1.0",
+                "lucatume/codeception-snapshot-assertions": "^0.5.0",
                 "lucatume/di52": "^4.0",
                 "lucatume/wp-browser": "^3.0 < 3.5",
                 "php-stubs/wp-cli-stubs": "^2.11",
@@ -831,28 +832,28 @@
             "description": "A library for simplifying the creation and updates of custom tables within WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/schema/issues",
-                "source": "https://github.com/stellarwp/schema/tree/3.1.4"
+                "source": "https://github.com/stellarwp/schema/tree/3.2.0"
             },
-            "time": "2025-10-17T15:03:39+00:00"
+            "time": "2026-01-05T12:55:16+00:00"
         },
         {
             "name": "stellarwp/schema-models",
-            "version": "0.1.0",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema-models.git",
-                "reference": "1f8ff095d5442455123798824c8f2456d95b3118"
+                "reference": "2ecd9d386a23a9451d0829c515a7c8ad9f10f4a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/1f8ff095d5442455123798824c8f2456d95b3118",
-                "reference": "1f8ff095d5442455123798824c8f2456d95b3118",
+                "url": "https://api.github.com/repos/stellarwp/schema-models/zipball/2ecd9d386a23a9451d0829c515a7c8ad9f10f4a2",
+                "reference": "2ecd9d386a23a9451d0829c515a7c8ad9f10f4a2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
                 "stellarwp/models": "^2.0.0",
-                "stellarwp/schema": "^3.1.2"
+                "stellarwp/schema": "^3.2"
             },
             "require-dev": {
                 "codeception/module-asserts": "^1.3",
@@ -894,29 +895,29 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/schema-models/issues",
-                "source": "https://github.com/stellarwp/schema-models/tree/0.1.0"
+                "source": "https://github.com/stellarwp/schema-models/tree/0.2.0"
             },
-            "time": "2025-10-16T13:42:16+00:00"
+            "time": "2026-01-05T13:29:53+00:00"
         },
         {
             "name": "stellarwp/shepherd",
-            "version": "0.0.9",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/shepherd.git",
-                "reference": "0af4cfc2a1242e795484dd311b74e4364caf4e24"
+                "reference": "63c02ff7d978452c2fd879eed910a756e7abd185"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/0af4cfc2a1242e795484dd311b74e4364caf4e24",
-                "reference": "0af4cfc2a1242e795484dd311b74e4364caf4e24",
+                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/63c02ff7d978452c2fd879eed910a756e7abd185",
+                "reference": "63c02ff7d978452c2fd879eed910a756e7abd185",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
                 "psr/log": "^1.1",
                 "stellarwp/db": "^1.1",
-                "stellarwp/schema": "^3.1.2",
+                "stellarwp/schema": "^3.2",
                 "woocommerce/action-scheduler": "3.9.3"
             },
             "require-dev": {
@@ -959,9 +960,9 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/shepherd/issues",
-                "source": "https://github.com/stellarwp/shepherd/tree/0.0.9"
+                "source": "https://github.com/stellarwp/shepherd/tree/0.2.0"
             },
-            "time": "2025-11-17T19:42:39+00:00"
+            "time": "2026-01-05T13:28:25+00:00"
         },
         {
             "name": "stellarwp/telemetry",
