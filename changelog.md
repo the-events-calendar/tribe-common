@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.10.1] 2025-12-18
+
+* Security - Strengthen the user access level in the system information opt-in functionality. [SVUL-35]
+
 ### [6.10.0] 2025-11-18
 
 * Feature - Introduce a Custom Table Repository contract, and split the Repository interfaces into ones more suitable for custom tables or the WP Posts table.
