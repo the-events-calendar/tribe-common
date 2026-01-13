@@ -21,10 +21,9 @@ if ( ! class_exists( WPBrowserTestCase::class ) ) {
 /**
  * Class Controller_Test_Case.
  *
- * @since 5.0.17
- *
  * @package TEC\Common\Tests\Provider;
- * @property string $controller_class The class name of the controller to test.
+ * @property string   $controller_class       The class name of the controller to test.
+ * @property string[] $sub_controller_classes The class names of the sub controllers to test along with this one.
  *
  * @package TEC\Common\Tests\Provider;
  */
@@ -66,19 +65,23 @@ class Controller_Test_Case extends WPBrowserTestCase {
 	 * The original controller instance.
 	 */
 	private ?Controller $original_controller;
+
 	/**
 	 * The original Service Locator.
-	 *
-	 * @since 5.2.7
 	 *
 	 * @var Container
 	 */
 	private $original_services;
 
 	/**
-	 * Unregisters the original controller and sets up the test case.
+	 * A set of original sub-controllers instances.
 	 *
-	 * @since 5.2.7
+	 * @var array<Controller>
+	 */
+	private array $original_sub_controllers = [];
+
+	/**
+	 * Unregisters the original controller and sets up the test case.
 	 *
 	 * @return void
 	 *
@@ -100,6 +103,18 @@ class Controller_Test_Case extends WPBrowserTestCase {
 		// Unhook all the controller instances to avoid callbacks running twice: original and test Controller.
 		$this->unregister_all_controller_instances( $this->original_controller );
 
+		if ( property_exists( $this, 'sub_controller_classes' ) ) {
+			foreach ( $this->sub_controller_classes as $sub_controller_class ) {
+				$original_sub_controller = $original_services->get( $sub_controller_class );
+
+				// Store a reference to the original sub-controller to be used in `tearDown`.
+				$this->original_sub_controllers[] = $original_sub_controller;
+
+				// Unhook all the sub-controller instances to avoid callbacks running twice: original and test Controller.
+				$this->unregister_all_controller_instances( $original_sub_controller );
+			}
+		}
+
 		// Clone the original Service Locator to be used as a test Service Locator.
 		$test_services = clone $original_services;
 
@@ -116,7 +131,7 @@ class Controller_Test_Case extends WPBrowserTestCase {
 		$this->test_services = $test_services;
 
 		// We should now be working with the test Service Locator.
-		$this->assertNotSame( $this->original_controller, $this->test_services );
+		$this->assertNotSame( $this->original_services, $this->test_services );
 		$this->assertSame( $this->test_services, tribe() );
 
 		// Register the test Service Locator in the test Service Locator itself.
@@ -130,12 +145,20 @@ class Controller_Test_Case extends WPBrowserTestCase {
 
 		// Unset the previous, maybe, bound and resolved instance of the controller.
 		unset( $this->test_services[ $this->controller_class ] );
+
+		foreach ( $this->original_sub_controllers as $sub_controller ) {
+			$sub_controller_class = get_class( $sub_controller );
+			// In the test Service Locator, the sub-controller should not be registered.
+			$this->test_services->setVar( $sub_controller_class . '_registered', false );
+			$this->assertFalse( $original_sub_controller::is_registered() );
+
+			// Unset the previous, maybe, bound and resolved instance of the sub-controller.
+			unset( $this->test_services[ $sub_controller_class ] );
+		}
 	}
 
 	/**
 	 * Unregisters all the controllers created by the test case.
-	 *
-	 * @since 5.2.7
 	 *
 	 * @return void
 	 *
@@ -165,17 +188,32 @@ class Controller_Test_Case extends WPBrowserTestCase {
 		$this->original_services->setVar( $this->controller_class . '_registered', false );
 		$this->assertFalse( $this->original_controller::is_registered() );
 
-		// Re-register the original controller after the Service Locator has been reset.
+		// Unregister all the original sub-controllers.
+		foreach($this->original_sub_controllers as $original_sub_controller){
+			$sub_controller_class = get_class($original_sub_controller);
+
+			// The original sub-controller should not be registered: let's make sure.
+			$this->original_services->setVar( $sub_controller_class . '_registered', false );
+			$this->assertFalse( $original_sub_controller::is_registered() );
+		}
+
+		/*
+		 * Re-register the original controller after the Service Locator has been reset.
+		 * If the context of the test allows it, then the original controller will re-register,
+		 * as part of its registration, the sub-controllers.
+		 */
 		$this->original_controller->register();
+
+		// Reset state.
 		$this->original_controller = null;
+		$this->original_sub_controllers = [];
 	}
 
 	/**
 	 * Creates a controller instance and sets up a dedicated Service Locator for it.
 	 *
-	 * In the context of the dedicated Service Locator the controller is not yet registered.
-	 *
-	 * @since 5.0.17
+	 * In the context of the dedicated Service Locator the controller is not yet registered and
+	 * neither are the sub-controllers managed by it.
 	 *
 	 * @param class-string<Controller>|null $controller_class The controller class to create an instance of, or `null`
 	 *                                                        to build from the `controller_class` property.
@@ -299,8 +337,6 @@ class Controller_Test_Case extends WPBrowserTestCase {
 	/**
 	 * Asserts the controller logged a message with the specified level and message.
 	 *
-	 * @since 5.0.17
-	 *
 	 * @param string $level  The log level.
 	 * @param string $needle The message to look for, or a part of it.
 	 *
@@ -323,8 +359,6 @@ class Controller_Test_Case extends WPBrowserTestCase {
 	 *
 	 * This assertion will look in all logs, including the ones logged by the controller.
 	 *
-	 * @since 5.0.17
-	 *
 	 * @param string $level  The log level.
 	 * @param string $needle The message to look for, or a part of it.
 	 *
@@ -344,8 +378,6 @@ class Controller_Test_Case extends WPBrowserTestCase {
 
 	/**
 	 * Removes any instance of the controller from any filter or action it might have hooked to.
-	 *
-	 * @since 5.2.7
 	 *
 	 * @param Controller $original_controller The controller to unhook.
 	 */
