@@ -16,7 +16,7 @@ class Tribe__REST__System {
 	 * Determines if we are coming from a REST API request.
 	 *
 	 * @since 5.0.0
-	 * @since TBD Introduced the `tec_common_is_rest_api` filter and added some escaping and sanitization.
+	 * @since 6.10.1 Introduced the `tec_common_is_rest_api` filter and added some escaping and sanitization.
 	 *
 	 * @return bool
 	 */
@@ -32,7 +32,7 @@ class Tribe__REST__System {
 		/**
 		 * Filters if the current request is a REST API request.
 		 *
-		 * @since TBD
+		 * @since 6.10.1
 		 *
 		 * @param bool $is_rest_api True if the current request is a REST API request, false otherwise.
 		 */

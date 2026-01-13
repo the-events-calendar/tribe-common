@@ -868,12 +868,12 @@ class Tribe__Main {
 	 *
 	 * @since 4.9.20
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.10.1
 	 *
 	 * @return void  Internal method without any return.
 	 */
 	public function promoter_connector() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.10.1' );
 	}
 
 	/**
