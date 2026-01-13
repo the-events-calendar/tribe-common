@@ -46,7 +46,7 @@ class Tribe__Promoter__Connector {
 	 * @return bool Whether connector was authorized.
 	 *
 	 * @since 4.9
-	 * @since TBD Pass the domain as well.
+	 * @since 6.10.1 Pass the domain as well.
 	 */
 	public function authorize_with_connector( $user_id, $secret_key, $promoter_key, $license_key ) {
 		$url = $this->base_url() . 'connect';
@@ -88,7 +88,7 @@ class Tribe__Promoter__Connector {
 	 * @return bool|string User ID or if promoter is authorized then it return true like a valid user.
 	 *
 	 * @since 4.9
-	 * @since TBD Ensured that the authentication is only attempted in a REST request.
+	 * @since 6.10.1 Ensured that the authentication is only attempted in a REST request.
 	 */
 	public function authenticate_user_with_connector( $user_id ) {
 		$this->authorized = false;
