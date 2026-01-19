@@ -218,11 +218,11 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 
 		$additional_properties = [];
 		foreach ( (array) $original_post as $key => $value ) {
-			$property_value = $properties_to_add[ $key ];
-
 			if ( ! isset( $property_value ) ) {
 				continue;
 			}
+
+			$property_value = $properties_to_add[ $key ];
 
 			if ( is_string( $property_value ) ) {
 				// Alias.
