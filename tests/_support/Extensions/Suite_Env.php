@@ -53,7 +53,7 @@ use Codeception\Extension;
 /**
  * Class Suite_Env.
  *
- * @since   TBD
+ * @since   6.10.2
  *
  * @package TEC\Common\Tests\Extensions;
  */
@@ -68,7 +68,7 @@ class Suite_Env extends Extension {
 	/**
 	 * A map from suite names to the callables that will run on the `SUITE_INIT` event.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @var array<string,callable[]>
 	 */
@@ -77,7 +77,7 @@ class Suite_Env extends Extension {
 	/**
 	 * A map from suite names to the callables that will run on the `SUITE_INIT` event.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @var array<string,callable[]>
 	 */
@@ -86,7 +86,7 @@ class Suite_Env extends Extension {
 	/**
 	 * A map from suite names to the callables that will run on the `SUITE_BEFORE` event.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @var array<string,callable[]>
 	 */
@@ -95,7 +95,7 @@ class Suite_Env extends Extension {
 	/**
 	 * A map from suite names to the callables that will run on the `SUITE_AFTER` event.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @var array<string,callable[]>
 	 */
@@ -104,7 +104,7 @@ class Suite_Env extends Extension {
 	/**
 	 * Registers the suite module init event callbacks.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @param string   $suite_name   The name of the suite to register the callbacks for.
 	 * @param callable ...$callbacks One or more callbacks to run during the suite module initialization event.
@@ -118,7 +118,7 @@ class Suite_Env extends Extension {
 	/**
 	 * Registers the suite init event callbacks.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @param string   $suite_name   The name of the suite to register the callbacks for.
 	 * @param callable ...$callbacks One or more callbacks to run during the suite initialization event.
@@ -132,7 +132,7 @@ class Suite_Env extends Extension {
 	/**
 	 * Registers the suite before event callbacks.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @param string   $suite_name   The name of the suite to register the callbacks for.
 	 * @param callable ...$callbacks One or more callbacks to run during the suite before event.
@@ -146,7 +146,7 @@ class Suite_Env extends Extension {
 	/**
 	 * Registers the suite after event callbacks.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @param string   $suite_name         The name of the suite to register the callbacks for.
 	 * @param callable ...$setup_callbacks One or more callbacks to run during the suite after event.
@@ -160,7 +160,7 @@ class Suite_Env extends Extension {
 	/**
 	 * Runs the suite module init callbacks, if any.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @param SuiteEvent $event The suite initialization event.
 	 *
@@ -181,7 +181,7 @@ class Suite_Env extends Extension {
 	/**
 	 * Runs the suite init callbacks, if any.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @param SuiteEvent $event The suite initialization event.
 	 *
@@ -202,7 +202,7 @@ class Suite_Env extends Extension {
 	/**
 	 * Runs the suite before callbacks, if any.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @param SuiteEvent $event The suite before event.
 	 *
@@ -223,7 +223,7 @@ class Suite_Env extends Extension {
 	/**
 	 * Runs the suite after callbacks, if any.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @param SuiteEvent $event The suite after event.
 	 *
@@ -244,7 +244,7 @@ class Suite_Env extends Extension {
 	/**
 	 * Toggles features on or off based on environment variables for specific test suites.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @param array<string, array{disable_env_var: string, enabled_by_default: bool, active_for_suites?: string[]}> $features
 	 *              An array of features to toggle. Each feature should have:
