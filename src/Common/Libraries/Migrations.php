@@ -28,7 +28,7 @@ class Migrations extends Controller_Contract {
 	public function do_register(): void {
 		$hook_prefix = tribe( Libraries_Provider::class )->get_hook_prefix();
 
-		$common = Common::instance();
+		$common   = Common::instance();
 		$template = new Template();
 
 		$template->set_template_origin( $common );
