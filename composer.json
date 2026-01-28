@@ -10,6 +10,12 @@
     "wordpress",
     "events"
   ],
+  "repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/stellarwp/migrations"
+		}
+	],
   "config": {
     "preferred-install": "dist",
     "platform": {
@@ -28,14 +34,14 @@
     "psr/container": "1.1.1",
     "stellarwp/admin-notices": "^1.1",
     "stellarwp/arrays": "1.2.2",
-    "stellarwp/assets": "1.4.10",
+    "stellarwp/assets": "^1.5",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
+    "stellarwp/migrations": "dev-main",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
     "stellarwp/schema-models": "^0.1.0",
-    "stellarwp/shepherd": "0.0.9",
     "trustedlogin/client": "^1.9",
     "scssphp/scssphp": "^1.13"
   },
@@ -78,7 +84,7 @@
       "[ -d './vendor/fakerphp/faker/src/Faker/Provider' ] && echo 'Removing folders:' && find ./vendor/fakerphp/faker/src/Faker/Provider -mindepth 1 -maxdepth 1 -type d ! -path './vendor/fakerphp/faker/src/Faker/Provider/en_US' -print -exec rm -r {} + || true"
     ],
     "strauss": [
-      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.24.0/strauss.phar",
+      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.26.3/strauss.phar",
       "@clean-faker-lang",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
       "@php -d display_errors=on bin/strauss.phar",
@@ -91,14 +97,14 @@
       "rm -f vendor/bin/build-sass vendor/bin/pscss"
     ],
     "post-install-cmd": [
-      "@strauss",
       "@trustedlogin",
-      "@stellar-uplink"
+      "@stellar-uplink",
+      "@strauss"
     ],
     "post-update-cmd": [
-      "@strauss",
       "@trustedlogin",
-      "@stellar-uplink"
+      "@stellar-uplink",
+      "@strauss"
     ],
     "stellar-uplink": [
       "vendor/bin/stellar-uplink domain=tribe-common"
@@ -126,6 +132,7 @@
         "stellarwp/models",
         "stellarwp/schema",
         "stellarwp/schema-models",
+        "stellarwp/migrations",
         "stellarwp/shepherd",
         "stellarwp/installer",
         "stellarwp/telemetry",
@@ -145,7 +152,9 @@
         ]
       },
       "exclude_from_prefix": {
-        "file_patterns": []
+        "packages": [
+          "woocommerce/action-scheduler"
+        ]
       },
       "delete_vendor_files": true,
       "include_modified_date": false,

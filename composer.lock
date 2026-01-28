@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1730544c896394ef2203f2d3c727e3d7",
+    "content-hash": "90f02be30be48d468b3fd80a7597c914",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -214,6 +214,69 @@
                 }
             ],
             "time": "2024-11-12T12:43:37+00:00"
+        },
+        {
+            "name": "myclabs/php-enum",
+            "version": "1.8.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/myclabs/php-enum.git",
+                "reference": "e7be26966b7398204a234f8673fdad5ac6277802"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/e7be26966b7398204a234f8673fdad5ac6277802",
+                "reference": "e7be26966b7398204a234f8673fdad5ac6277802",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "1.*",
+                "vimeo/psalm": "^4.6.2 || ^5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MyCLabs\\Enum\\": "src/"
+                },
+                "classmap": [
+                    "stubs/Stringable.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP Enum contributors",
+                    "homepage": "https://github.com/myclabs/php-enum/graphs/contributors"
+                }
+            ],
+            "description": "PHP Enum implementation",
+            "homepage": "https://github.com/myclabs/php-enum",
+            "keywords": [
+                "enum"
+            ],
+            "support": {
+                "issues": "https://github.com/myclabs/php-enum/issues",
+                "source": "https://github.com/myclabs/php-enum/tree/1.8.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/mnapoli",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/myclabs/php-enum",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-01-14T11:49:03+00:00"
         },
         {
             "name": "psr/container",
@@ -505,16 +568,16 @@
         },
         {
             "name": "stellarwp/assets",
-            "version": "1.4.10",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/assets.git",
-                "reference": "a7c196cd6a4189d3f8f1112c5e66bcf1a5d1f610"
+                "reference": "d1e1852299f838a54fb5b296e77cc3788bc530ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/assets/zipball/a7c196cd6a4189d3f8f1112c5e66bcf1a5d1f610",
-                "reference": "a7c196cd6a4189d3f8f1112c5e66bcf1a5d1f610",
+                "url": "https://api.github.com/repos/stellarwp/assets/zipball/d1e1852299f838a54fb5b296e77cc3788bc530ed",
+                "reference": "d1e1852299f838a54fb5b296e77cc3788bc530ed",
                 "shasum": ""
             },
             "require": {
@@ -558,9 +621,9 @@
             "description": "A library for managing asset registration and enqueuing in WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/assets/issues",
-                "source": "https://github.com/stellarwp/assets/tree/1.4.10"
+                "source": "https://github.com/stellarwp/assets/tree/1.5.1"
             },
-            "time": "2025-05-22T14:40:10+00:00"
+            "time": "2026-01-27T14:39:53+00:00"
         },
         {
             "name": "stellarwp/container-contract",
@@ -611,16 +674,16 @@
         },
         {
             "name": "stellarwp/db",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/db.git",
-                "reference": "cbaed00b77f212b791263689cb8a24cbdfdf2100"
+                "reference": "f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/db/zipball/cbaed00b77f212b791263689cb8a24cbdfdf2100",
-                "reference": "cbaed00b77f212b791263689cb8a24cbdfdf2100",
+                "url": "https://api.github.com/repos/stellarwp/db/zipball/f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96",
+                "reference": "f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96",
                 "shasum": ""
             },
             "require-dev": {
@@ -661,9 +724,9 @@
             "description": "A WPDB wrapper and query builder library.",
             "support": {
                 "issues": "https://github.com/stellarwp/db/issues",
-                "source": "https://github.com/stellarwp/db/tree/1.1.1"
+                "source": "https://github.com/stellarwp/db/tree/1.2.0"
             },
-            "time": "2024-06-06T20:03:23+00:00"
+            "time": "2025-11-10T10:55:50+00:00"
         },
         {
             "name": "stellarwp/installer",
@@ -717,6 +780,107 @@
                 "source": "https://github.com/stellarwp/installer/tree/1.1.1"
             },
             "time": "2023-06-06T13:25:04+00:00"
+        },
+        {
+            "name": "stellarwp/migrations",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/migrations.git",
+                "reference": "690e1298c1d5ef78f8fc7209fe47aeda94f754aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/migrations/zipball/690e1298c1d5ef78f8fc7209fe47aeda94f754aa",
+                "reference": "690e1298c1d5ef78f8fc7209fe47aeda94f754aa",
+                "shasum": ""
+            },
+            "require": {
+                "myclabs/php-enum": "^1.8",
+                "php": ">=7.4",
+                "stellarwp/shepherd": "^0.2"
+            },
+            "require-dev": {
+                "codeception/module-asserts": "^1.3",
+                "codeception/module-cli": "^1.1",
+                "codeception/module-db": "^1.2",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-rest": "^2.0",
+                "codeception/module-webdriver": "^1.4",
+                "codeception/util-universalframework": "^1.0",
+                "dpanta94/phpstan-containers": "^0.1.0",
+                "lucatume/codeception-snapshot-assertions": "^0.4.0",
+                "lucatume/di52": "^4.0",
+                "lucatume/wp-browser": "^3.5.7",
+                "php-stubs/wp-cli-stubs": "^2.12",
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "slope-it/clock-mock": "^0.4.0",
+                "stellarwp/coding-standards": "^2.1",
+                "szepeviktor/phpstan-wordpress": "^2.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\Migrations\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "StellarWP\\Migrations\\Tests\\": "tests/_support/Helper/"
+                }
+            },
+            "scripts": {
+                "test:analysis": [
+                    "phpstan analyse -c phpstan.neon.dist --memory-limit=1G"
+                ],
+                "compatibility:php-7.4": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 7.4"
+                ],
+                "compatibility:php-8.0": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.0"
+                ],
+                "compatibility:php-8.1": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.1"
+                ],
+                "compatibility:php-8.2": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.2"
+                ],
+                "compatibility:php-8.3": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.3"
+                ],
+                "compatibility:php-8.4": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.4"
+                ],
+                "compatibility": [
+                    "@compatibility:php-7.4",
+                    "@compatibility:php-8.0",
+                    "@compatibility:php-8.1",
+                    "@compatibility:php-8.2",
+                    "@compatibility:php-8.3",
+                    "@compatibility:php-8.4"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "StellarWP",
+                    "email": "dev@stellarwp.com"
+                },
+                {
+                    "name": "Dimitrios Pantazis",
+                    "email": "dimi@stellarwp.com"
+                }
+            ],
+            "description": "A library for running migrations.",
+            "support": {
+                "source": "https://github.com/stellarwp/migrations/tree/main",
+                "issues": "https://github.com/stellarwp/migrations/issues"
+            },
+            "time": "2026-01-27T13:09:11+00:00"
         },
         {
             "name": "stellarwp/models",
@@ -777,16 +941,16 @@
         },
         {
             "name": "stellarwp/schema",
-            "version": "3.1.4",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/schema.git",
-                "reference": "6255ec18151ada45e30dd508671523684b2c6107"
+                "reference": "af60b60c2e532d04ba884f7f4f545569f4b7a467"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/schema/zipball/6255ec18151ada45e30dd508671523684b2c6107",
-                "reference": "6255ec18151ada45e30dd508671523684b2c6107",
+                "url": "https://api.github.com/repos/stellarwp/schema/zipball/af60b60c2e532d04ba884f7f4f545569f4b7a467",
+                "reference": "af60b60c2e532d04ba884f7f4f545569f4b7a467",
                 "shasum": ""
             },
             "require": {
@@ -803,6 +967,7 @@
                 "codeception/module-rest": "^1.0",
                 "codeception/module-webdriver": "^1.0",
                 "codeception/util-universalframework": "^1.0",
+                "lucatume/codeception-snapshot-assertions": "^0.5.0",
                 "lucatume/di52": "^4.0",
                 "lucatume/wp-browser": "^3.0 < 3.5",
                 "php-stubs/wp-cli-stubs": "^2.11",
@@ -831,9 +996,9 @@
             "description": "A library for simplifying the creation and updates of custom tables within WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/schema/issues",
-                "source": "https://github.com/stellarwp/schema/tree/3.1.4"
+                "source": "https://github.com/stellarwp/schema/tree/3.2.0"
             },
-            "time": "2025-10-17T15:03:39+00:00"
+            "time": "2026-01-05T12:55:16+00:00"
         },
         {
             "name": "stellarwp/schema-models",
@@ -900,23 +1065,23 @@
         },
         {
             "name": "stellarwp/shepherd",
-            "version": "0.0.9",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/shepherd.git",
-                "reference": "0af4cfc2a1242e795484dd311b74e4364caf4e24"
+                "reference": "63c02ff7d978452c2fd879eed910a756e7abd185"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/0af4cfc2a1242e795484dd311b74e4364caf4e24",
-                "reference": "0af4cfc2a1242e795484dd311b74e4364caf4e24",
+                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/63c02ff7d978452c2fd879eed910a756e7abd185",
+                "reference": "63c02ff7d978452c2fd879eed910a756e7abd185",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
                 "psr/log": "^1.1",
                 "stellarwp/db": "^1.1",
-                "stellarwp/schema": "^3.1.2",
+                "stellarwp/schema": "^3.2",
                 "woocommerce/action-scheduler": "3.9.3"
             },
             "require-dev": {
@@ -959,9 +1124,9 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/shepherd/issues",
-                "source": "https://github.com/stellarwp/shepherd/tree/0.0.9"
+                "source": "https://github.com/stellarwp/shepherd/tree/0.2.0"
             },
-            "time": "2025-11-17T19:42:39+00:00"
+            "time": "2026-01-05T13:28:25+00:00"
         },
         {
             "name": "stellarwp/telemetry",
@@ -7488,6 +7653,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/coding-standards": 20,
+        "stellarwp/migrations": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,

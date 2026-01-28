@@ -1,6 +1,6 @@
 <?php
 /**
- * The Controller to set up the Uplink library.
+ * The Controller to set up the Shepherd library.
  */
 
 namespace TEC\Common\Libraries;
@@ -25,7 +25,7 @@ class Shepherd extends Controller_Contract {
 	 *
 	 * @since 6.9.0
 	 */
-	public function do_register(): void {
+	protected function do_register(): void {
 		$hook_prefix = tribe( Libraries_Provider::class )->get_hook_prefix();
 		Config::set_container( $this->container );
 		Config::set_hook_prefix( $hook_prefix );
