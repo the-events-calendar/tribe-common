@@ -1,6 +1,12 @@
 # Changelog
 
-### [6.10.1] 2026-01-13
+### [6.10.2] 2025-01-28
+
+* Tweak - Added filters: `tec_common_is_rest_api`
+* Performance - Ensures Promoter's authentication system is triggered only when there is a Promoter license key and only during REST API requests.
+* Language - 0 new strings added, 26 updated, 1 fuzzied, and 0 obsoleted.
+
+### [6.10.1] 2026-01-13 ( Version bump was missed for this release. )
 
 * Tweak - Added filters: `tec_common_is_rest_api`
 * Performance - Ensures Promoter's authentication system is triggered only when there is a Promoter license key and only during REST API requests.

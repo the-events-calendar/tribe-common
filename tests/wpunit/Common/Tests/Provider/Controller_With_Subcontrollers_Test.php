@@ -92,7 +92,7 @@ class Controller_With_Subcontrollers_Test extends Controller_Test_Case {
 	 * `Controller_Test_Case::setUpTestCase` method and with it are unregistered
 	 * the sub-controllers.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @return void
 	 */

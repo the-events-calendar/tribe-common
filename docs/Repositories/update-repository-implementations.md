@@ -260,7 +260,7 @@ class Stats_Repository extends Custom_Table_Repository {
 Apply filters during updates:
 
 ```php
-add_filter('tec_common_custom_table_query_where', function($where) {
+add_filter('stellarwp_schema_custom_table_query_where', function($where) {
     // Modify WHERE clause for updates
     return $where;
 });
