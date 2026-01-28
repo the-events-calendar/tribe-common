@@ -97,6 +97,20 @@ class Tribe__Main {
 		$this->parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $this->parent_plugin_dir );
 
+		require_once $this->plugin_path . 'src/functions/time.php';
+		require_once $this->plugin_path . 'src/functions/utils.php';
+		require_once $this->plugin_path . 'src/functions/conditionals.php';
+		require_once $this->plugin_path . 'src/functions/transient.php';
+		require_once $this->plugin_path . 'src/functions/url.php';
+		require_once $this->plugin_path . 'src/functions/query.php';
+		require_once $this->plugin_path . 'src/functions/multibyte.php';
+		require_once $this->plugin_path . 'src/functions/files.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/svg.php';
+
 		$this->promoter_connector();
 
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], -1 );
@@ -198,20 +212,6 @@ class Tribe__Main {
 	 * Initializes all required libraries.
 	 */
 	public function init_libraries() {
-		require_once $this->plugin_path . 'src/functions/time.php';
-		require_once $this->plugin_path . 'src/functions/utils.php';
-		require_once $this->plugin_path . 'src/functions/conditionals.php';
-		require_once $this->plugin_path . 'src/functions/transient.php';
-		require_once $this->plugin_path . 'src/functions/url.php';
-		require_once $this->plugin_path . 'src/functions/query.php';
-		require_once $this->plugin_path . 'src/functions/multibyte.php';
-		require_once $this->plugin_path . 'src/functions/files.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/svg.php';
-
 		Tribe__Debug::instance();
 		tec_timed_option();
 
