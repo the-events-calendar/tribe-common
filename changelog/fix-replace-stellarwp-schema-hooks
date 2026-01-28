@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Replaces usage of `tec_common_custom_table_query_where` hook with `stellarwp_schema_custom_table_query_where`.
