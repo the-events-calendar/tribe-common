@@ -38,12 +38,12 @@
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
+    "stellarwp/migrations": "dev-main",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
     "stellarwp/schema-models": "^0.1.0",
     "trustedlogin/client": "^1.9",
-    "scssphp/scssphp": "^1.13",
-    "stellarwp/migrations": "dev-main"
+    "scssphp/scssphp": "^1.13"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
