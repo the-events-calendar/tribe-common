@@ -4,6 +4,8 @@ namespace Tribe;
 
 use Tribe__Promoter__Connector;
 use WP_Error;
+use TEC\Common\Firebase\JWT\JWT as TEC_JWT;
+use TEC\Common\Firebase\JWT\Key as TEC_JWT_Key;
 
 class Promoter_Test extends \Codeception\TestCase\WPTestCase {
 
@@ -20,6 +22,13 @@ class Promoter_Test extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @after
+	 */
+	public function should_handle_payload_of_jwt_token(): void {
+		wp_set_current_user( 0 );
+	}
+
+	/**
 	 * Basic sanity check of "failed" connection.
 	 *
 	 * @test
@@ -30,12 +39,25 @@ class Promoter_Test extends \Codeception\TestCase\WPTestCase {
 		$promoter_key = 'fred';
 		$license_key  = 'jan';
 
-		add_filter( 'pre_http_request', function ( $response, $parsed_args, $url ) {
+		$user_id = self::factory()->user->create( [ 'role' => 'administrator' ] );
+
+		wp_set_current_user( $user_id );
+
+		$payload = [];
+
+		add_filter( 'pre_http_request', function ( $response, $parsed_args, $url ) use ( $promoter_key, &$payload ) {
+			$token = $parsed_args['body']['token'];
+			$key = new TEC_JWT_Key( $promoter_key, 'HS256' );
+			$payload = (array) TEC_JWT::decode( $token, $key );
 			return new WP_Error( 'http_request_failed', "Faux Failure." );
 		}, 99, 3 );
 
 		$response = $connector->authorize_with_connector( wp_get_current_user()->ID, $secret_key, $promoter_key, $license_key );
 		$this->assertFalse( $response );
+		$this->assertEquals( $payload['domain'], 'wordpress.test' );
+		$this->assertEquals( $payload['clientSecret'], $secret_key );
+		$this->assertEquals( $payload['licenseKey'], $license_key );
+		$this->assertEquals( $payload['userId'], $user_id );
 	}
 
 	/**
@@ -49,12 +71,25 @@ class Promoter_Test extends \Codeception\TestCase\WPTestCase {
 		$promoter_key = 'fred';
 		$license_key  = 'jan';
 
-		add_filter( 'pre_http_request', function ( $response, $parsed_args, $url ) {
+		$user_id = self::factory()->user->create( [ 'role' => 'administrator' ] );
+
+		wp_set_current_user( $user_id );
+
+		$payload = [];
+
+		add_filter( 'pre_http_request', function ( $response, $parsed_args, $url ) use ( $promoter_key, &$payload ) {
+			$token = $parsed_args['body']['token'];
+			$key = new TEC_JWT_Key( $promoter_key, 'HS256' );
+			$payload = (array) TEC_JWT::decode( $token, $key );
 			return [ 'headers' => '', 'body' => 'Hello World', 'response' => '', 'cookies' => '', 'filename' => '' ];
 		}, 99, 3 );
 
 		$response = $connector->authorize_with_connector( wp_get_current_user()->ID, $secret_key, $promoter_key, $license_key );
 		$this->assertTrue( $response );
+		$this->assertEquals( $payload['domain'], 'wordpress.test' );
+		$this->assertEquals( $payload['clientSecret'], $secret_key );
+		$this->assertEquals( $payload['licenseKey'], $license_key );
+		$this->assertEquals( $payload['userId'], $user_id );
 	}
 
 }

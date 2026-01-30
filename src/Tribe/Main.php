@@ -24,7 +24,7 @@ class Tribe__Main {
 	const OPTIONNAME        = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK = 'tribe_events_calendar_network_options';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
-	const VERSION           = '6.10.1';
+	const VERSION           = '6.10.2';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
@@ -110,8 +110,6 @@ class Tribe__Main {
 		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/svg.php';
-
-		$this->promoter_connector();
 
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], -1 );
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
@@ -870,15 +868,12 @@ class Tribe__Main {
 	 *
 	 * @since 4.9.20
 	 *
+	 * @deprecated 6.10.1
+	 *
 	 * @return void  Internal method without any return.
 	 */
 	public function promoter_connector() {
-		tribe_singleton( 'promoter.connector', 'Tribe__Promoter__Connector' );
-
-		add_filter(
-			'determine_current_user',
-			tribe_callback( 'promoter.connector', 'authenticate_user_with_connector' )
-		);
+		_deprecated_function( __METHOD__, '6.10.1' );
 	}
 
 	/**
