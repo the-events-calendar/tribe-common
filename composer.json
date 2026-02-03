@@ -38,7 +38,7 @@
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/installer": "^1.1.0",
-    "stellarwp/migrations": "dev-main",
+    "stellarwp/migrations": "dev-test/shepherd-lib-fix-0-2-1",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
     "stellarwp/schema-models": "^0.2",
