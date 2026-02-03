@@ -211,8 +211,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 
 					$this->schema_callbacks[] = $callback;
 
-					if ( ! has_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] ) ) {
-						add_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] );
+					if ( ! has_filter( 'stellarwp_schema_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] ) ) {
+						add_filter( 'stellarwp_schema_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] );
 					}
 
 					return [];
@@ -238,8 +238,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 
 					$this->schema_callbacks[] = $callback;
 
-					if ( ! has_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] ) ) {
-						add_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] );
+					if ( ! has_filter( 'stellarwp_schema_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] ) ) {
+						add_filter( 'stellarwp_schema_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] );
 					}
 
 					return [];
@@ -265,8 +265,8 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 
 					$this->schema_callbacks[] = $callback;
 
-					if ( ! has_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] ) ) {
-						add_filter( 'tec_common_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] );
+					if ( ! has_filter( 'stellarwp_schema_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] ) ) {
+						add_filter( 'stellarwp_schema_custom_table_query_where', [ $this, 'apply_schema_callbacks' ] );
 					}
 
 					return [];

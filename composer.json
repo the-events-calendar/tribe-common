@@ -41,7 +41,7 @@
     "stellarwp/migrations": "dev-main",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
-    "stellarwp/schema-models": "^0.1.0",
+    "stellarwp/schema-models": "^0.2",
     "trustedlogin/client": "^1.9",
     "scssphp/scssphp": "^1.13"
   },

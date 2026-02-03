@@ -1,15 +1,15 @@
-# Copyright (C) 2025 The Events Calendar
+# Copyright (C) 2026 The Events Calendar
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.10.0\n"
+"Project-Id-Version: Tribe Common 6.10.2\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-17T18:05:55+00:00\n"
+"POT-Creation-Date: 2026-01-28T15:23:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -2768,12 +2768,12 @@ msgctxt "Notice message after updating plugins to the merged version."
 msgid "Thanks for upgrading %1$s now with even more value! Learn more about the latest changes %2$shere%3$s."
 msgstr ""
 
-#: src/Common/Libraries/Shepherd.php:64
+#: src/Common/Libraries/Shepherd.php:81
 msgid "Shepherd tables could not be created/updated. This is a critical issue since important functionality might be affected. Reach out to support if you need help."
 msgstr ""
 
 #. Translators: %s is the query error message.
-#: src/Common/Libraries/Shepherd.php:66
+#: src/Common/Libraries/Shepherd.php:83
 #, php-format
 msgid "The below query failed with the message(s): %s"
 msgstr ""
@@ -5602,100 +5602,100 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:318
+#: src/Tribe/Main.php:316
 msgctxt "Copy to clipboard success message"
 msgid "Copied to Clipboard!"
 msgstr ""
 
-#: src/Tribe/Main.php:319
+#: src/Tribe/Main.php:317
 msgctxt "Copy to clipboard failed message"
 msgid "Failed to copy."
 msgstr ""
 
-#: src/Tribe/Main.php:476
+#: src/Tribe/Main.php:474
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:477
+#: src/Tribe/Main.php:475
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:479
+#: src/Tribe/Main.php:477
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:480
+#: src/Tribe/Main.php:478
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:481
+#: src/Tribe/Main.php:479
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:482
+#: src/Tribe/Main.php:480
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:483
+#: src/Tribe/Main.php:481
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:484
+#: src/Tribe/Main.php:482
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:485
+#: src/Tribe/Main.php:483
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:486
+#: src/Tribe/Main.php:484
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:487
+#: src/Tribe/Main.php:485
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:488
+#: src/Tribe/Main.php:486
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:490
+#: src/Tribe/Main.php:488
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:491
-#: src/Tribe/Main.php:508
+#: src/Tribe/Main.php:489
+#: src/Tribe/Main.php:506
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:492
+#: src/Tribe/Main.php:490
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:497
+#: src/Tribe/Main.php:495
 #, php-format
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:498
+#: src/Tribe/Main.php:496
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:509
+#: src/Tribe/Main.php:507
 msgid "Prev"
 msgstr ""
 
+#: src/Tribe/Main.php:508
 #: src/Tribe/Main.php:510
-#: src/Tribe/Main.php:512
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:511
+#: src/Tribe/Main.php:509
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:513
+#: src/Tribe/Main.php:511
 msgid "Clear"
 msgstr ""
 
@@ -6128,7 +6128,7 @@ msgstr ""
 msgid "Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s"
 msgstr ""
 
-#: src/Tribe/Repository.php:2582
+#: src/Tribe/Repository.php:2588
 msgid "Could not delete post with ID "
 msgstr ""
 
