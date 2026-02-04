@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02517f6b2828a5ad74879652eb892078",
+    "content-hash": "37187306175966fabbc473fed82cb62b",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -783,22 +783,22 @@
         },
         {
             "name": "stellarwp/migrations",
-            "version": "dev-test/shepherd-lib-fix-0-2-1",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/migrations.git",
-                "reference": "bceffa7de09008e992fada9cc166ba0a404a49b5"
+                "reference": "f912c84ba4a7e01da698a46c5b9d10b28c876d0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/migrations/zipball/bceffa7de09008e992fada9cc166ba0a404a49b5",
-                "reference": "bceffa7de09008e992fada9cc166ba0a404a49b5",
+                "url": "https://api.github.com/repos/stellarwp/migrations/zipball/f912c84ba4a7e01da698a46c5b9d10b28c876d0b",
+                "reference": "f912c84ba4a7e01da698a46c5b9d10b28c876d0b",
                 "shasum": ""
             },
             "require": {
                 "myclabs/php-enum": "^1.8",
                 "php": ">=7.4",
-                "stellarwp/shepherd": "dev-fix/no-table-ready-while-installing"
+                "stellarwp/shepherd": "^0.2"
             },
             "require-dev": {
                 "codeception/module-asserts": "^1.3",
@@ -819,6 +819,7 @@
                 "stellarwp/coding-standards": "^2.1",
                 "szepeviktor/phpstan-wordpress": "^2.0"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -876,10 +877,10 @@
             ],
             "description": "A library for running migrations.",
             "support": {
-                "source": "https://github.com/stellarwp/migrations/tree/test/shepherd-lib-fix-0-2-1",
+                "source": "https://github.com/stellarwp/migrations/tree/main",
                 "issues": "https://github.com/stellarwp/migrations/issues"
             },
-            "time": "2026-02-03T16:57:45+00:00"
+            "time": "2026-02-03T12:55:36+00:00"
         },
         {
             "name": "stellarwp/models",
@@ -1064,16 +1065,16 @@
         },
         {
             "name": "stellarwp/shepherd",
-            "version": "dev-fix/no-table-ready-while-installing",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/shepherd.git",
-                "reference": "c234792a1b5e383c0b0bf3249bfa317cc24861c1"
+                "reference": "f35d201d44f9c9edb7b359b2c4c23d6b6220296f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/c234792a1b5e383c0b0bf3249bfa317cc24861c1",
-                "reference": "c234792a1b5e383c0b0bf3249bfa317cc24861c1",
+                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/f35d201d44f9c9edb7b359b2c4c23d6b6220296f",
+                "reference": "f35d201d44f9c9edb7b359b2c4c23d6b6220296f",
                 "shasum": ""
             },
             "require": {
@@ -1123,9 +1124,9 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/shepherd/issues",
-                "source": "https://github.com/stellarwp/shepherd/tree/fix/no-table-ready-while-installing"
+                "source": "https://github.com/stellarwp/shepherd/tree/0.2.1"
             },
-            "time": "2026-02-03T16:53:18+00:00"
+            "time": "2026-02-04T14:53:38+00:00"
         },
         {
             "name": "stellarwp/telemetry",
