@@ -702,23 +702,7 @@ class Tribe__Settings {
 			],
 			$admin_page
 		);
-		$tab_object   = $this->get_tab( $current_tab );
-		$form_classes = [
-			"tec-settings-form__{$current_tab}-tab--active" => true,
-			'tec-settings-form__subnav-active'              => ( $tab_object && $tab_object->has_parent() ),
-			'tec-settings-form'                             => true,
-		];
-
-		/**
-		 * Filter the classes for the settings form.
-		 *
-		 * @since 6.1.0
-		 *
-		 * @param array<string>            $form_classes The classes for the settings form.
-		 * @param string                   $admin_page   The admin page ID.
-		 * @param Tribe__Settings_Tab|null $tab_object   The current tab object.
-		 */
-		$form_classes = apply_filters( 'tribe_settings_form_class', $form_classes, $admin_page, $tab_object );
+		$tab_object = $this->get_tab( $current_tab );
 
 		ob_start();
 		do_action( 'tribe_settings_top', $admin_page );
@@ -739,10 +723,9 @@ class Tribe__Settings {
 				<?php
 				do_action( 'tribe_settings_above_form_element' );
 				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
-				$form_id = 'tec-settings-form';
-				?>
-				<form id="<?php echo esc_attr( $form_id ); ?>" <?php tec_classes( $form_classes ); ?> method="post">
-				<?php
+
+				do_action( 'tribe_settings_form_element_open', $current_tab, $tab_object, $admin_page );
+
 				do_action( 'tribe_settings_before_content' );
 				do_action( 'tribe_settings_before_content_tab_' . $current_tab );
 				do_action( 'tribe_settings_content_tab_' . $current_tab );
@@ -757,7 +740,8 @@ class Tribe__Settings {
 
 				$this->do_footer();
 
-				echo apply_filters( 'tribe_settings_closing_form_element', '</form>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+				do_action( 'tribe_settings_form_element_close', $current_tab, $tab_object, $admin_page );
+
 				do_action( 'tribe_settings_after_form_element' );
 				do_action( 'tribe_settings_after_form_element_tab_' . $current_tab, $admin_page );
 				?>
