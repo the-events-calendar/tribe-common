@@ -702,6 +702,7 @@ class Tribe__Settings {
 			],
 			$admin_page
 		);
+
 		$tab_object = $this->get_tab( $current_tab );
 
 		ob_start();
