@@ -787,12 +787,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/migrations.git",
-                "reference": "690e1298c1d5ef78f8fc7209fe47aeda94f754aa"
+                "reference": "f912c84ba4a7e01da698a46c5b9d10b28c876d0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/migrations/zipball/690e1298c1d5ef78f8fc7209fe47aeda94f754aa",
-                "reference": "690e1298c1d5ef78f8fc7209fe47aeda94f754aa",
+                "url": "https://api.github.com/repos/stellarwp/migrations/zipball/f912c84ba4a7e01da698a46c5b9d10b28c876d0b",
+                "reference": "f912c84ba4a7e01da698a46c5b9d10b28c876d0b",
                 "shasum": ""
             },
             "require": {
@@ -880,7 +880,7 @@
                 "source": "https://github.com/stellarwp/migrations/tree/main",
                 "issues": "https://github.com/stellarwp/migrations/issues"
             },
-            "time": "2026-01-27T13:09:11+00:00"
+            "time": "2026-02-03T12:55:36+00:00"
         },
         {
             "name": "stellarwp/models",
@@ -1065,16 +1065,16 @@
         },
         {
             "name": "stellarwp/shepherd",
-            "version": "0.2.0",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/shepherd.git",
-                "reference": "63c02ff7d978452c2fd879eed910a756e7abd185"
+                "reference": "f35d201d44f9c9edb7b359b2c4c23d6b6220296f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/63c02ff7d978452c2fd879eed910a756e7abd185",
-                "reference": "63c02ff7d978452c2fd879eed910a756e7abd185",
+                "url": "https://api.github.com/repos/stellarwp/shepherd/zipball/f35d201d44f9c9edb7b359b2c4c23d6b6220296f",
+                "reference": "f35d201d44f9c9edb7b359b2c4c23d6b6220296f",
                 "shasum": ""
             },
             "require": {
@@ -1124,9 +1124,9 @@
             "description": "A library for offloading tasks to background processes.",
             "support": {
                 "issues": "https://github.com/stellarwp/shepherd/issues",
-                "source": "https://github.com/stellarwp/shepherd/tree/0.2.0"
+                "source": "https://github.com/stellarwp/shepherd/tree/0.2.1"
             },
-            "time": "2026-01-05T13:28:25+00:00"
+            "time": "2026-02-04T14:53:38+00:00"
         },
         {
             "name": "stellarwp/telemetry",
@@ -7663,5 +7663,5 @@
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
