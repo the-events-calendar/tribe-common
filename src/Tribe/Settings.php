@@ -365,17 +365,17 @@ class Tribe__Settings {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $tab The tab name.
+	 * @param string              $tab        The tab name.
 	 * @param Tribe__Settings_Tab $tab_object The tab object.
-	 * @param string $admin_page The admin page ID.
+	 * @param string              $admin_page The admin page ID.
 	 */
-	public function settings_form_element_open( $tab, $tab_object, $admin_page ) : void {
+	public function settings_form_element_open( $tab, $tab_object, $admin_page ): void {
 		$form_id = 'tec-settings-form';
 
 		$form_classes = [
 			"tec-settings-form__{$tab}-tab--active" => true,
-			'tec-settings-form__subnav-active'              => ( $tab_object && $tab_object->has_parent() ),
-			'tec-settings-form'                             => true,
+			'tec-settings-form__subnav-active'      => ( $tab_object && $tab_object->has_parent() ),
+			'tec-settings-form'                     => true,
 		];
 
 		/**
@@ -399,7 +399,7 @@ class Tribe__Settings {
 	 *
 	 * @since TBD
 	 */
-	public function settings_form_element_close() : void {
+	public function settings_form_element_close(): void {
 		echo apply_filters( 'tribe_settings_closing_form_element', '</form>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
