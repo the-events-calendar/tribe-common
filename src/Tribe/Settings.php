@@ -300,6 +300,13 @@ class Tribe__Settings {
 		$this->noSaveTabs  = $this->no_save_tabs;
 		$this->adminSlug   = $this->admin_slug;
 
+		/**
+		 * Binds itself as a singleton in the self::class id.
+		 * So when trying to get through tribe( 'settings' ) and tribe( self::class )
+		 * will return the same, already initialized instance.
+		 */
+		tribe_singleton( self::class, $this );
+
 		$this->hook();
 	}
 
@@ -349,13 +356,7 @@ class Tribe__Settings {
 		add_action( 'tribe_settings_below_tabs', [ $this, 'display_success' ] );
 		add_action( 'tribe_settings_tab_after_link', [ $this, 'add_child_tabs_to_nav' ] );
 
-		add_action(
-			'tribe_settings_form_element_open',
-			[ $this, 'settings_form_element_open' ],
-			10,
-			3
-		);
-
+		add_action( 'tribe_settings_form_element_open', [ $this, 'settings_form_element_open' ], 10, 3);
 		add_action( 'tribe_settings_form_element_close', [ $this, 'settings_form_element_close' ] );
 
 		do_action( 'tec_settings_init' );
