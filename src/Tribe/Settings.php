@@ -725,6 +725,15 @@ class Tribe__Settings {
 				do_action( 'tribe_settings_above_form_element' );
 				do_action( 'tribe_settings_above_form_element_tab_' . $current_tab, $admin_page );
 
+				/**
+				 * Fires in order to allow for the form element to be opened.
+				 *
+				 * @since TBD
+				 *
+				 * @param string              $current_tab The current tab ID.
+				 * @param Tribe__Settings_Tab $tab_object  The current tab object.
+				 * @param string              $admin_page  The admin page ID.
+				*/
 				do_action( 'tribe_settings_form_element_open', $current_tab, $tab_object, $admin_page );
 
 				do_action( 'tribe_settings_before_content' );
@@ -741,6 +750,15 @@ class Tribe__Settings {
 
 				$this->do_footer();
 
+				/**
+				 * Fires in order to allow for the form element to be closed.
+				 *
+				 * @since TBD
+				 *
+				 * @param string              $current_tab The current tab ID.
+				 * @param Tribe__Settings_Tab $tab_object  The current tab object.
+				 * @param string              $admin_page  The admin page ID.
+				*/
 				do_action( 'tribe_settings_form_element_close', $current_tab, $tab_object, $admin_page );
 
 				do_action( 'tribe_settings_after_form_element' );
