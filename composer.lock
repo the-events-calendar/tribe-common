@@ -787,12 +787,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/migrations.git",
-                "reference": "f912c84ba4a7e01da698a46c5b9d10b28c876d0b"
+                "reference": "4211ab8bb3af5d7b46c54340f17012a15c4f9b66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/migrations/zipball/f912c84ba4a7e01da698a46c5b9d10b28c876d0b",
-                "reference": "f912c84ba4a7e01da698a46c5b9d10b28c876d0b",
+                "url": "https://api.github.com/repos/stellarwp/migrations/zipball/4211ab8bb3af5d7b46c54340f17012a15c4f9b66",
+                "reference": "4211ab8bb3af5d7b46c54340f17012a15c4f9b66",
                 "shasum": ""
             },
             "require": {
@@ -880,7 +880,7 @@
                 "source": "https://github.com/stellarwp/migrations/tree/main",
                 "issues": "https://github.com/stellarwp/migrations/issues"
             },
-            "time": "2026-02-03T12:55:36+00:00"
+            "time": "2026-02-06T11:06:42+00:00"
         },
         {
             "name": "stellarwp/models",
@@ -7663,5 +7663,5 @@
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
