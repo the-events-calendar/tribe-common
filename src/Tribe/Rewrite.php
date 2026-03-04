@@ -556,17 +556,20 @@ class Tribe__Rewrite {
 					return '';
 				}
 
-				if ( isset( $localized_matcher['localized_slug'] ) ) {
+				if ( isset( $localized_matcher['localized_slug'] ) && $localized_matcher['localized_slug'] !== '' ) {
 					// If available, then return the localized slug instead of inferring it as we do below.
 					return $localized_matcher['localized_slug'];
 				}
 
 				/*
 				 * We use `end` as, by default, the localized version of the slug in the current language will be at the
-				 * end of the array.
+				 * end of the array. Fall back to the first (English) slug when the localized one is empty, so the regex
+				 * pattern is always replaced and never leaked into the URL (e.g. for ru_RU when translation is blank).
 				 */
+				$localized_slugs = $localized_matcher['localized_slugs'];
+				$slug            = end( $localized_slugs );
 
-				return end( $localized_matcher['localized_slugs'] );
+				return $slug !== '' && $slug !== false ? $slug : reset( $localized_slugs );
 			}, $localized_matchers );
 
 			// Include dynamic matchers now.
@@ -972,8 +975,9 @@ class Tribe__Rewrite {
 
 		if ( ! empty( $rewrite_rules ) ) {
 			foreach ( (array) $rewrite_rules as $match => $query ) {
-				$matches_regex = preg_match( "#^$match#", $request_match, $matches )
-				                 || preg_match( "#^$match#", $decoded_request_match, $matches );
+				// Use UTF-8 modifier so patterns and paths with non-ASCII (e.g. Cyrillic) match correctly.
+				$matches_regex = preg_match( "#^$match#u", $request_match, $matches )
+				                 || preg_match( "#^$match#u", $decoded_request_match, $matches );
 
 				if ( ! $matches_regex ) {
 					continue;
@@ -1057,7 +1061,12 @@ class Tribe__Rewrite {
 		// Convert urldecoded spaces back into `+`.
 		foreach ( get_taxonomies( [], 'objects' ) as $taxonomy => $t ) {
 			if ( $t->query_var && isset( $query_vars[ $t->query_var ] ) ) {
-				$query_vars[ $t->query_var ] = str_replace( ' ', '+', $query_vars[ $t->query_var ] );
+				$slug = $query_vars[ $t->query_var ];
+				// Decode percent-encoded slugs (e.g. Cyrillic in URLs) so term lookups work.
+				if ( is_string( $slug ) && strpos( $slug, '%' ) !== false ) {
+					$slug = urldecode( $slug );
+				}
+				$query_vars[ $t->query_var ] = str_replace( ' ', '+', $slug );
 			}
 		}
 
