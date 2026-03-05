@@ -362,9 +362,9 @@ class Tribe__Rewrite {
 	 *
 	 * @since 4.0.6
 	 *
-	 * @param array  &$array   The Rules Array should be used here
-	 * @param string $search  Search for this Key
-	 * @param string $replace Replace with this key]
+	 * @param array  &$array   The Rules Array should be used here.
+	 * @param string $search  Search for this Key.
+	 * @param string $replace Replace with this key].
 	 *
 	 * @return bool            Did we replace anything?
 	 */
@@ -573,7 +573,7 @@ class Tribe__Rewrite {
 
 					return $slug !== '' && $slug !== false ? $slug : reset( $localized_slugs );
 				},
-				$localized_matchers 
+				$localized_matchers
 			);
 
 			// Include dynamic matchers now.
@@ -594,7 +594,7 @@ class Tribe__Rewrite {
 							$key
 						);
 					},
-					array_keys( $replace ) 
+					array_keys( $replace )
 				),
 				$replace
 			);
@@ -1130,7 +1130,7 @@ class Tribe__Rewrite {
 			static function ( $value, $key ) {
 				return ! in_array( $key, [ 'paged', 'page' ] ) || (int) $value !== 0;
 			},
-			ARRAY_FILTER_USE_BOTH 
+			ARRAY_FILTER_USE_BOTH
 		);
 
 		/**
