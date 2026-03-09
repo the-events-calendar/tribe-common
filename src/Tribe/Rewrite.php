@@ -364,7 +364,7 @@ class Tribe__Rewrite {
 	 *
 	 * @param array  &$array   The Rules Array should be used here.
 	 * @param string $search  Search for this Key.
-	 * @param string $replace Replace with this key].
+	 * @param string $replace Replace with this key.
 	 *
 	 * @return bool            Did we replace anything?
 	 */
