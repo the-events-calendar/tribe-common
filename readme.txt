@@ -1,5 +1,11 @@
 == Changelog ==
 
+= [6.10.3] 2026-03-25 =
+
+* Tweak - Add filter `tec_common_is_rest_api` to improve the URL compatibility with non-ASCII languages. [TEC-4848]
+* Performance - Ensures Promoter's authentication system is triggered only when there is a Promoter license key and only during REST API requests.
+* Language - 0 new strings added, 26 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.10.2] 2026-01-28 =
 
 * Tweak - Added filters: `tec_common_is_rest_api`
