@@ -110,7 +110,7 @@ class Tribe__Rewrite {
 	 */
 	public static function instance() {
 		if ( ! static::$instance ) {
-			static::$instance = new static;
+			static::$instance = new static();
 		}
 
 		return static::$instance;
@@ -328,7 +328,10 @@ class Tribe__Rewrite {
 			 * @var string $slug
 			 */
 			$needs_handling = apply_filters(
-				'tribe_events_rewrite_utf8_handling', true, $permastruct_name, $slug
+				'tribe_events_rewrite_utf8_handling',
+				true,
+				$permastruct_name,
+				$slug
 			);
 		}
 
@@ -338,7 +341,7 @@ class Tribe__Rewrite {
 
 			// UTF8 encoding results in lots of "%" chars in our string which play havoc
 			// with WP_Rewrite::generate_rewrite_rules(), so we swap them out temporarily
-			$sanitized_slug = str_replace( '%', Tribe__Rewrite::PERCENT_PLACEHOLDER, $sanitized_slug );
+			$sanitized_slug = str_replace( '%', self::PERCENT_PLACEHOLDER, $sanitized_slug );
 		}
 
 		$prepared_slug = $is_regular_exp ? preg_quote( $sanitized_slug ) : $sanitized_slug;
@@ -359,9 +362,9 @@ class Tribe__Rewrite {
 	 *
 	 * @since 4.0.6
 	 *
-	 * @param array  &$array   The Rules Array should be used here
-	 * @param string  $search  Search for this Key
-	 * @param string  $replace Replace with this key]
+	 * @param array  &$array   The Rules Array should be used here.
+	 * @param string $search  Search for this Key.
+	 * @param string $replace Replace with this key.
 	 *
 	 * @return bool            Did we replace anything?
 	 */
@@ -393,7 +396,7 @@ class Tribe__Rewrite {
 	 * @return string The canonical URL, or the input URL if it could not be resolved to a canonical one.
 	 */
 	public function get_canonical_url( $url, $force = false ) {
-		if ( get_class( $this ) === Tribe__Rewrite::class ) {
+		if ( get_class( $this ) === self::class ) {
 			throw new BadMethodCallException(
 				'Method get_canonical_url should only be called on extending classes.'
 			);
@@ -537,37 +540,41 @@ class Tribe__Rewrite {
 				continue;
 			}
 
-			$replace = array_map( function ( $localized_matcher ) use ( $matched_vars ) {
-				if ( ! is_array( $localized_matcher ) ) {
-					// For the dates.
-					return isset( $matched_vars[ $localized_matcher ] )
-						? $matched_vars[ $localized_matcher ]
-						: '';
-				}
+			$replace = array_map(
+				function ( $localized_matcher ) use ( $matched_vars ) {
+					if ( ! is_array( $localized_matcher ) ) {
+							// For the dates.
+							return $matched_vars[ $localized_matcher ] ?? '';
+					}
 
-				$query_var  = $localized_matcher['query_var'];
-				$query_vars = [ $query_var ];
+					$query_var  = $localized_matcher['query_var'];
+					$query_vars = [ $query_var ];
 
-				if ( $query_var === 'name' ) {
-					$query_vars = array_merge( $query_vars, $this->get_post_types() );
-				}
+					if ( $query_var === 'name' ) {
+						$query_vars = array_merge( $query_vars, $this->get_post_types() );
+					}
 
-				if ( ! array_intersect( array_keys( $matched_vars ), $query_vars ) ) {
-					return '';
-				}
+					if ( ! array_intersect( array_keys( $matched_vars ), $query_vars ) ) {
+						return '';
+					}
 
-				if ( isset( $localized_matcher['localized_slug'] ) ) {
-					// If available, then return the localized slug instead of inferring it as we do below.
-					return $localized_matcher['localized_slug'];
-				}
+					if ( isset( $localized_matcher['localized_slug'] ) && $localized_matcher['localized_slug'] !== '' ) {
+						// If available, then return the localized slug instead of inferring it as we do below.
+						return $localized_matcher['localized_slug'];
+					}
 
-				/*
-				 * We use `end` as, by default, the localized version of the slug in the current language will be at the
-				 * end of the array.
-				 */
+					/*
+						* We use `end` as, by default, the localized version of the slug in the current language will be at the
+						* end of the array. Fall back to the first (English) slug when the localized one is empty, so the regex
+						* pattern is always replaced and never leaked into the URL (e.g. for ru_RU when translation is blank).
+						*/
+					$localized_slugs = $localized_matcher['localized_slugs'];
+					$slug            = end( $localized_slugs );
 
-				return end( $localized_matcher['localized_slugs'] );
-			}, $localized_matchers );
+					return $slug !== '' && $slug !== false ? $slug : reset( $localized_slugs );
+				},
+				$localized_matchers
+			);
 
 			// Include dynamic matchers now.
 			$replace = array_merge( $dynamic_matchers, $replace );
@@ -579,13 +586,16 @@ class Tribe__Rewrite {
 			 */
 			$replace = array_filter( $replace );
 			$replace = array_combine(
-				array_map( static function ( $key ) {
-					return preg_replace(
-						'/' . preg_quote( Tribe__Rewrite::$localized_matcher_delimiter, '/' ) . '\\w*$/',
-						'',
-						$key
-					);
-				}, array_keys( $replace ) ),
+				array_map(
+					static function ( $key ) {
+						return preg_replace(
+							'/' . preg_quote( Tribe__Rewrite::$localized_matcher_delimiter, '/' ) . '\\w*$/',
+							'',
+							$key
+						);
+					},
+					array_keys( $replace )
+				),
 				$replace
 			);
 
@@ -663,7 +673,8 @@ class Tribe__Rewrite {
 			// While this is specific to The Events Calendar we're handling a small enough post type base to keep it here.
 			$pattern = '/post_type=tribe_(events|venue|organizer)/';
 			// Reverse the rules to try and match the most complex first.
-			$our_rules = array_filter( $all_rules,
+			$our_rules = array_filter(
+				$all_rules,
 				static function ( $rule_query_string ) use ( $pattern ) {
 					return is_string( $rule_query_string ) && preg_match( $pattern, $rule_query_string );
 				}
@@ -837,11 +848,11 @@ class Tribe__Rewrite {
 
 					// We use two different regular expressions to read pages, let's add both.
 					if ( $localized_slug ) {
-						$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$localized_slug}/{$query_vars[$page_var]}";
-						$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$localized_slug}/{$query_vars[$page_var]}";
+						$dynamic_matchers[ "{$page_regex}/(\d+)" ]       = "{$localized_slug}/{$query_vars[$page_var]}";
+						$dynamic_matchers[ "{$page_regex}/([0-9]{1,})" ] = "{$localized_slug}/{$query_vars[$page_var]}";
 					} else {
-						$dynamic_matchers["{$page_regex}/(\d+)"]       = "{$en_slug}/{$query_vars[$page_var]}";
-						$dynamic_matchers["{$page_regex}/([0-9]{1,})"] = "{$en_slug}/{$query_vars[$page_var]}";
+						$dynamic_matchers[ "{$page_regex}/(\d+)" ]       = "{$en_slug}/{$query_vars[$page_var]}";
+						$dynamic_matchers[ "{$page_regex}/([0-9]{1,})" ] = "{$en_slug}/{$query_vars[$page_var]}";
 					}
 				}
 			}
@@ -862,9 +873,9 @@ class Tribe__Rewrite {
 					$localized_slug = $this->filter_matcher( null, 'tag' );
 
 					if ( $localized_slug ) {
-						$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$localized_slug}/{$tag}";
+						$dynamic_matchers[ "{$tag_regex}/([^/]+)" ] = "{$localized_slug}/{$tag}";
 					} else {
-						$dynamic_matchers["{$tag_regex}/([^/]+)"] = "{$en_slug}/{$tag}";
+						$dynamic_matchers[ "{$tag_regex}/([^/]+)" ] = "{$en_slug}/{$tag}";
 					}
 				}
 			}
@@ -972,8 +983,9 @@ class Tribe__Rewrite {
 
 		if ( ! empty( $rewrite_rules ) ) {
 			foreach ( (array) $rewrite_rules as $match => $query ) {
-				$matches_regex = preg_match( "#^$match#", $request_match, $matches )
-				                 || preg_match( "#^$match#", $decoded_request_match, $matches );
+				// Use UTF-8 modifier so patterns and paths with non-ASCII (e.g. Cyrillic) match correctly.
+				$matches_regex = preg_match( "#^$match#u", $request_match, $matches )
+								|| preg_match( "#^$match#u", $decoded_request_match, $matches );
 
 				if ( ! $matches_regex ) {
 					continue;
@@ -1057,7 +1069,12 @@ class Tribe__Rewrite {
 		// Convert urldecoded spaces back into `+`.
 		foreach ( get_taxonomies( [], 'objects' ) as $taxonomy => $t ) {
 			if ( $t->query_var && isset( $query_vars[ $t->query_var ] ) ) {
-				$query_vars[ $t->query_var ] = str_replace( ' ', '+', $query_vars[ $t->query_var ] );
+				$slug = $query_vars[ $t->query_var ];
+				// Decode percent-encoded slugs (e.g. Cyrillic in URLs) so term lookups work.
+				if ( is_string( $slug ) && strpos( $slug, '%' ) !== false ) {
+					$slug = urldecode( $slug );
+				}
+				$query_vars[ $t->query_var ] = str_replace( ' ', '+', $slug );
 			}
 		}
 
@@ -1108,9 +1125,13 @@ class Tribe__Rewrite {
 		}
 
 		// Prune the query vars to drop the empty `page` or `paged` ones.
-		$query_vars = array_filter( $query_vars, static function ( $value, $key ) {
-			return ! in_array( $key, [ 'paged', 'page' ] ) || (int) $value !== 0;
-		}, ARRAY_FILTER_USE_BOTH );
+		$query_vars = array_filter(
+			$query_vars,
+			static function ( $value, $key ) {
+				return ! in_array( $key, [ 'paged', 'page' ] ) || (int) $value !== 0;
+			},
+			ARRAY_FILTER_USE_BOTH
+		);
 
 		/**
 		 * Filters the array of parsed query variables after the class logic has been applied to it.
