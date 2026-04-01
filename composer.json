@@ -31,6 +31,7 @@
     "stellarwp/assets": "1.4.10",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
+    "stellarwp/harbor": "dev-main",
     "stellarwp/installer": "^1.1.0",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
@@ -91,17 +92,22 @@
       "rm -f vendor/bin/build-sass vendor/bin/pscss"
     ],
     "post-install-cmd": [
-      "@strauss",
       "@trustedlogin",
-      "@stellar-uplink"
+      "@stellar-uplink",
+      "@stellar-harbor",
+      "@strauss"
     ],
     "post-update-cmd": [
-      "@strauss",
       "@trustedlogin",
-      "@stellar-uplink"
+      "@stellar-uplink",
+      "@stellar-harbor",
+      "@strauss"
     ],
     "stellar-uplink": [
       "vendor/bin/stellar-uplink domain=tribe-common"
+    ],
+    "stellar-harbor": [
+      "@php vendor/stellarwp/harbor/bin/stellar-harbor domain=tribe-common"
     ],
     "pup": [
       "Composer\\Config::disableProcessTimeout",
@@ -123,6 +129,7 @@
         "stellarwp/assets",
         "stellarwp/container-contract",
         "stellarwp/db",
+        "stellarwp/harbor",
         "stellarwp/models",
         "stellarwp/schema",
         "stellarwp/schema-models",
