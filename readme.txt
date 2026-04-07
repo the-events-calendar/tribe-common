@@ -192,7 +192,7 @@
 = [6.5.5] 2025-04-07 =
 
 * Fix - Prevents logging while common hasn't fully loaded yet.
-* Tweak - Compatibility update for Stellar Telemetry library.
+* Tweak - Compatibility update for Liquid Web Telemetry library.
 * Tweak - Modified how tribe_context() function and class handle populating locations, prevents `tribe_context_locations` filter from happening 500x per pageload.
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 
@@ -320,7 +320,7 @@
 = [6.0.2] 2024-08-20 =
 
 * Fix - Fixed attendee, updated attendee, and checkin endpoints from having invalid response for workflow operation 'id' to be of type 'Integer' but is of type 'String'. [EVA-160]
-* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
+* Fix - Liquid Web Sale's banner links, details, and HTML tags handling. [TEC-5121]
 * Tweak - Change setup of queues for Automator integrations to use Event Tickets Plus and Events Calendar Pro hooks instead of the core versions. [EVA-160]
 * Tweak - Move Registering of Power Automate and Zapier endpoints to Event Tickets Plus and Events Calendar Pro. [EVA-160]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
@@ -333,7 +333,7 @@
 
 = [6.0.0.2] 2024-07-24 =
 
-* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
+* Fix - Liquid Web Sale's banner links, details, and HTML tags handling. [TEC-5121]
 
 = [6.0.0.1] 2024-07-23 =
 
@@ -383,7 +383,7 @@
 
 = [5.3.0] 2024-06-11 =
 
-* Feature - Refactor tribe_asset to use Stellar Assets. [TCMN-172]
+* Feature - Refactor tribe_asset to use Liquid Web Assets. [TCMN-172]
 * Tweak - Remove ini_check for deprecated safe_mode. [6.2.0]
 * Tweak - Added information about upcoming promotion. [ET-2113]
 * Tweak - Added filters: `tribe_asset_enqueue_{$asset->get_slug()}`
@@ -569,7 +569,7 @@
 
 * Tweak - Prevents Telemetry servers from being hit when migrating from Freemius to Telemetry more than once.
 * Tweak - Various improvements to event creation to improve sanitization.
-* Tweak - Update Stellar Sale banner. [TEC-4841]
+* Tweak - Update Liquid Web Sale banner. [TEC-4841]
 * Fix - Properly handle plugin paths on Windows during telemetry booting. [TEC-4842]
 * Language - 16 new strings added, 24 updated, 1 fuzzied, and 1 obsoleted.
 
@@ -755,7 +755,7 @@
 
 = [4.15.4] 2022-07-20 =
 
-* Tweak - Implement 2022 Stellar Sale banner. [TEC-4433]
+* Tweak - Implement 2022 Liquid Web Sale banner. [TEC-4433]
 * Tweak - Added filters: `tribe_{$this->slug}_notice_extension_date`
 * Tweak - Changed views: `v2/components/icons/stellar-icon`
 * Language - 2 new strings added, 4 updated, 1 fuzzied, and 0 obsoleted
@@ -772,9 +772,9 @@
 = [4.15.1] 2022-05-31 =
 
 * Feature - Add Calendar Export icon as a template. [TEC-4176]
-* Tweak - Add Stellar Discounts tab in Event Add-Ons
+* Tweak - Add Liquid Web Discounts tab in Event Add-Ons
 * Tweak - Element Classes now will support callbacks inside of arrays as well as non boolean values that are validated by `tribe_is_truthy`
-* Tweak - Add Stellar Discounts tab in Event Add-Ons. [TEC-4302]
+* Tweak - Add Liquid Web Discounts tab in Event Add-Ons. [TEC-4302]
 * Fix - On the import preview screen when ctrl/shift click to multi-select rows make sure all the in between rows are counted as selected. [EA-123]
 * Language - 21 new strings added, 46 updated, 1 fuzzied, and 0 obsoleted
 
@@ -785,7 +785,7 @@
 = [4.15.0] 2022-05-19 =
 
 * Feature - Introducing new admin pages structure and updating the settings framework to have Settings on multiple pages. [ET-1335]
-* Tweak - Add Stellar Discounts tab in Event Add-Ons
+* Tweak - Add Liquid Web Discounts tab in Event Add-Ons
 * Language - 0 new strings added, 150 updated, 0 fuzzied, and 43 obsoleted
 
 = [4.14.20.1] 2022-05-12 =
@@ -930,7 +930,7 @@
 
 = [4.14.1] 2021-07-21 =
 
-* Feature - Add new notice for Stellar Sale. [TCMN-111]
+* Feature - Add new notice for Liquid Web Sale. [TCMN-111]
 * Feature - Create a Notice Service Provider and some initial tests. Move the BF sale notice to the new provider, as well as several of the others.  [TCMN-111]
 * Language - 0 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
 

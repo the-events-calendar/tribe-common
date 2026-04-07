@@ -248,7 +248,7 @@ final class Telemetry {
 	 * @since 5.1.0
 	 *
 	 * @param array<string|mixed> $args The current optin modal args.
-	 * @param ?string             $slug The Stellar slug being used for Telemetry.
+	 * @param ?string             $slug The Liquid Web slug being used for Telemetry.
 	 *
 	 * @return array<string|mixed>
 	 */
@@ -274,7 +274,7 @@ final class Telemetry {
 			'heading'               => __( 'We hope you love TEC Common!', 'tribe-common' ),
 			'intro'                 => sprintf(
 				/* Translators: %s is the current user's display name. */
-				__( 'Hi, %1$s! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of TEC Common and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that\'s okay! Our products still work just fine.', 'tribe-common' ),
+				__( 'Hi, %1$s! This is an invitation to help our Liquid Web community. If you opt-in, some data about your usage of TEC Common and future Liquid Web Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that\'s okay! Our products still work just fine.', 'tribe-common' ),
 				$user_name
 			),
 		];

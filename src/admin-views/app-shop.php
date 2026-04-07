@@ -53,7 +53,7 @@ use Tribe\Admin\Troubleshooting;
 				<li class="selected" data-tab="tribe-all-solutions"><?php esc_html_e( 'All Solutions', 'tribe-common' ); ?></li>
 				<li data-tab="tribe-bundles"><?php esc_html_e( 'Save with Bundles', 'tribe-common' ); ?></li>
 				<li data-tab="tribe-extensions"><?php esc_html_e( 'Extensions', 'tribe-common' ); ?></li>
-				<li data-tab="tribe-stellar"><?php esc_html_e( 'Stellar Discounts', 'tribe-common' ); ?></li>
+				<li data-tab="tribe-stellar"><?php esc_html_e( 'Liquid Web Discounts', 'tribe-common' ); ?></li>
 			</ul>
 		</div>
 	</div>
@@ -224,14 +224,14 @@ use Tribe\Admin\Troubleshooting;
 			</div>
 
 			<div class="stellar-discounts-description">
-				<p><?php esc_html_e( 'Stellar is a collective of WordPress innovators, and home to WordPress products done right.', 'tribe-common' ); ?></p>
+				<p><?php esc_html_e( 'Liquid Web is a collective of WordPress innovators, and home to WordPress products done right.', 'tribe-common' ); ?></p>
 			</div>
 
 			<div class="stellar-discounts-coupon-callout">
 				<p>
 					<?php
 					/* translators: %s is the coupon code */
-					printf( wp_kses( __( '$25 towards any Stellar product using code <u>%s</u>', 'tribe-common' ), [ 'u' => [] ] ), 'Stellar25' );
+					printf( wp_kses( __( '$25 towards any Liquid Web product using code <u>%s</u>', 'tribe-common' ), [ 'u' => [] ] ), 'Stellar25' );
 					?>
 				</p>
 			</div>

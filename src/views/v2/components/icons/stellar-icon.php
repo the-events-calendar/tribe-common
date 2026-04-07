@@ -1,6 +1,6 @@
 <?php
 /**
- * View: Stellar Icon
+ * View: Liquid Web Icon
  *
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe/events/v2/components/icons/stellar-icon.php

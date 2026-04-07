@@ -609,7 +609,7 @@ class Tribe__Assets {
 	}
 
 	/**
-	 * Enqueue StellarWP fonts.
+	 * Enqueue Liquid Web fonts.
 	 *
 	 * @since 5.1.3
 	 *
