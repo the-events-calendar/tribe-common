@@ -1,6 +1,6 @@
 <?php
 /**
- * TEC Implementation of Liquid Web Asset.
+ * TEC Implementation of StellarWP Asset.
  *
  * @since 6.3.2
  *

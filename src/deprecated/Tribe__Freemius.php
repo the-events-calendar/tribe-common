@@ -1,5 +1,5 @@
 <?php
-_deprecated_file( __FILE__, '5.1.0', 'No direct replacement, we now use Liquid Web Telemetry' );
+_deprecated_file( __FILE__, '5.1.0', 'No direct replacement, we now use StellarWP Telemetry' );
 
 /**
  * Class Tribe__Freemius
