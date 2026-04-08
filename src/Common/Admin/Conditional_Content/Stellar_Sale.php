@@ -1,6 +1,6 @@
 <?php
 /**
- * Liquid Web Sale Promo Conditional Content.
+ * Stellar Sale Promo Conditional Content.
  *
  * @since 6.8.2
  *
@@ -18,7 +18,7 @@ use TEC\Common\Admin\Conditional_Content\Traits\{
 use Tribe\Utils\Date_I18n;
 
 /**
- * Set up for Liquid Web Sale promo.
+ * Set up for Stellar Sale promo.
  *
  * @since 6.8.2
  * @since 6.9.8 Modified to use the Has_Datetime_Conditions trait instead of extending the Datetime_Conditional_Abstract class.
@@ -82,7 +82,7 @@ class Stellar_Sale extends Promotional_Content_Abstract {
 	 * @inheritdoc
 	 */
 	protected function get_sale_name(): string {
-		return __( 'Liquid Web Sale', 'tribe-common' );
+		return __( 'Stellar Sale', 'tribe-common' );
 	}
 
 	/**
