@@ -224,7 +224,7 @@ use Tribe\Admin\Troubleshooting;
 			</div>
 
 			<div class="stellar-discounts-description">
-				<p><?php esc_html_e( 'Liquid Web is a collective of WordPress innovators, and home to WordPress products done right.', 'tribe-common' ); ?></p>
+				<p><?php esc_html_e( 'Liquid Web is the company behind The Events Calendar and a number of other category-leading tools for site building, online learning, and fundraising. In addition to its plugins, Liquid Web offers world-class hosting for WordPress, WooCommerce, and more.', 'tribe-common' ); ?></p>
 			</div>
 
 			<div class="stellar-discounts-coupon-callout">

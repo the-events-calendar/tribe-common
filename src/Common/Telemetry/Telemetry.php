@@ -272,11 +272,7 @@ final class Telemetry {
 			'privacy_url'           => self::get_privacy_url(),
 			'opted_in_plugins_text' => __( 'See which plugins you have opted in to tracking for', 'tribe-common' ),
 			'heading'               => __( 'We hope you love TEC Common!', 'tribe-common' ),
-			'intro'                 => sprintf(
-				/* Translators: %s is the current user's display name. */
-				__( 'Hi, %1$s! This is an invitation to help our Liquid Web community. If you opt-in, some data about your usage of TEC Common and future Liquid Web Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that\'s okay! Our products still work just fine.', 'tribe-common' ),
-				$user_name
-			),
+			'intro'                 => __( 'Want to help shape the future of The Events Calendar? Opting in shares anonymous usage data with our team at Liquid Web, the company behind The Events Calendar, giving us the insights we need to keep improving the tools you rely on.', 'tribe-common' ),
 		];
 
 		/**
