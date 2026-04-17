@@ -25,7 +25,17 @@ class Harbor extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		Config::set_container( $this->container );
-		// Config::set_api_base_url( 'https://licensing-dev.stellarwp.com' );
+
+		/**
+		 * Allow plugins to hook in before Harbor is initialized.
+		 *
+		 * Useful for setting the licensing and portal base URLs
+		 * to other than the default values.
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tec_common_harbor_pre_init' );
+
 		Harbor_Provider::init();
 
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
