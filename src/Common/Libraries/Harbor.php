@@ -8,6 +8,7 @@ namespace TEC\Common\Libraries;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\LiquidWeb\Harbor\Config;
 use TEC\Common\LiquidWeb\Harbor\Harbor as Harbor_Provider;
+use TEC\Common\Integrations\Harbor\EA;
 use function TEC\Common\StellarWP\Uplink\get_plugins;
 
 /**
@@ -39,6 +40,8 @@ class Harbor extends Controller_Contract {
 		Harbor_Provider::init();
 
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
+
+		$this->container->register( EA::class );
 	}
 
 	/**
@@ -78,5 +81,72 @@ class Harbor extends Controller_Contract {
 		}
 
 		return $licenses;
+	}
+
+	/**
+	 * Get the unified license key.
+	 *
+	 * @since TBD
+	 *
+	 * @return string|null The unified license key, or null if no key is found.
+	 */
+	public function get_unified_license_key(): ?string {
+		if ( ! lw_harbor_has_unified_license_key() ) {
+			return null;
+		}
+
+		return lw_harbor_get_unified_license_key();
+	}
+
+	public function get_activated_unified_license_tier(): ?string {
+		if ( ! lw_harbor_has_unified_license_key() ) {
+			return null;
+		}
+
+		return lw_harbor_get_unified_license_tier();
+	}
+
+	/**
+	 * Get the unified license key if the feature is enabled.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $feature The feature slug.
+	 *
+	 * @return string|null The unified license key, or null if no key is found.
+	 */
+	public function get_unified_license_key_if_feature_enabled( string $feature ): ?string {
+		$key = $this->get_unified_license_key();
+		if ( ! $key ) {
+			return null;
+		}
+
+		if ( ! lw_harbor_is_feature_enabled( $feature ) ) {
+			return null;
+		}
+
+		return $key;
+	}
+
+	/**
+	 * Get the unified license key if the feature is available.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $feature The feature slug.
+	 *
+	 * @return string|null The unified license key, or null if no key is found.
+	 */
+	public function get_unified_license_key_if_feature_available( string $feature ): ?string {
+		$key = $this->get_unified_license_key();
+		if ( ! $key ) {
+			return null;
+		}
+
+		if ( ! lw_harbor_is_feature_available( $feature ) ) {
+			return null;
+		}
+
+		return $key;
 	}
 }
