@@ -83,7 +83,11 @@
       "@clean-faker-lang",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
       "@php -d display_errors=on bin/strauss.phar",
-      "@composer dump-autoload"
+      "@composer dump-autoload",
+      "@restore-psr-http-dev"
+    ],
+    "restore-psr-http-dev": [
+      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer reinstall psr/http-message psr/http-client psr/http-factory --no-scripts --no-plugins || true"
     ],
     "trustedlogin": [
       "mkdir -p vendor/vendor-prefixed/trustedlogin/client/src/assets/",
