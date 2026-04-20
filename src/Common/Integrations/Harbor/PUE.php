@@ -136,6 +136,10 @@ class PUE extends Integration_Controller {
 
 		$allowed_paths = '/api/plugins/v2/license/validate';
 
+		if ( empty( $parsed_url['path'] ) ) {
+			return $response;
+		}
+
 		if ( rtrim( $parsed_url['path'], '/' ) !== $allowed_paths ) {
 			return $response;
 		}
