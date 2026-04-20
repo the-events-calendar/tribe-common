@@ -104,6 +104,7 @@ $license_fields = [
  */
 $license_fields = apply_filters( 'tribe_license_fields', $license_fields );
 
+lw_harbor_display_legacy_license_page_notice( 'The Events Calendar' );
 
 $licenses_tab = new Tribe__Settings_Tab(
 	'licenses',
