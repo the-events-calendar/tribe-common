@@ -90,7 +90,7 @@ class Harbor extends Controller_Contract {
 
 		foreach ( $plugins as $plugin ) {
 			$license_object = $plugin->get_license_object();
-			$licenses[] = [
+			$licenses[]     = [
 				'key'        => $license_object->get_key(),
 				'slug'       => $plugin->get_slug(),
 				'name'       => $plugin->get_name(),
@@ -192,10 +192,10 @@ class Harbor extends Controller_Contract {
 	 * @throws InvalidArgumentException If the TEC product slug is invalid.
 	 */
 	public function get_harbor_product_slug( string $tec_product_slug ): ?string {
-		if ( ! isset( self::TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP[$tec_product_slug] ) ) {
+		if ( ! isset( self::TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP[ $tec_product_slug ] ) ) {
 			throw new InvalidArgumentException( sprintf( 'Invalid TEC product slug: %s', $tec_product_slug ) );
 		}
 
-		return self::TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP[$tec_product_slug];
+		return self::TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP[ $tec_product_slug ];
 	}
 }

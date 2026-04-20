@@ -15,7 +15,7 @@ use TEC\Common\LiquidWeb\Harbor\Portal\Catalog_Repository;
 use TEC\Common\LiquidWeb\Harbor\Portal\Catalog_Collection;
 use TEC\Common\LiquidWeb\Harbor\Portal\Results\Catalog_Feature;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
-use TEC\Common\StellarWP\Uplink\Resources\Resource;
+use TEC\Common\StellarWP\Uplink\Resources\Resource as Uplink_Resource;
 
 /**
  * The PUE Harbor integration.
@@ -76,13 +76,13 @@ class PUE extends Integration_Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $license The license.
-	 * @param Resource $resource The resource.
+	 * @param string          $license         The license.
+	 * @param Uplink_Resource $uplink_resource The resource.
 	 *
 	 * @return string
 	 */
-	public function filter_stellarwp_uplink_tec_license_get_key( string $license, Resource $resource ) {
-		$harbor_slug = $this->harbor->get_harbor_product_slug( $resource->get_slug() );
+	public function filter_stellarwp_uplink_tec_license_get_key( string $license, Uplink_Resource $uplink_resource ) {
+		$harbor_slug = $this->harbor->get_harbor_product_slug( $uplink_resource->get_slug() );
 		if ( ! $this->harbor->is_product_licensed( $harbor_slug ) ) {
 			return $license;
 		}
@@ -95,9 +95,9 @@ class PUE extends Integration_Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param mixed $value The value.
-	 * @param string $option The option.
-	 * @param mixed $default_value The default value.
+	 * @param mixed  $value         The value.
+	 * @param string $option        The option.
+	 * @param mixed  $default_value The default value.
 	 *
 	 * @return mixed
 	 */
@@ -169,48 +169,50 @@ class PUE extends Integration_Controller {
 		}
 
 		return [
-			'headers' => [],
-			'body'    => wp_json_encode( [
-				'results' => [
-					[
-						'name'     => '',
-						'plugin'   => $body['plugin'],
-						'slug'     => $body['plugin'],
-						'version'  => '',
-						'homepage' => '',
-						'sections' => [],
-						'download_url' => '',
-						'home_url' => '',
-						'origin_url' => '',
-						'zip_url' => '',
-						'icon_svg_url' => '',
-						'auth_url' => '',
-						'file_prefix' => '',
-						'author' => '',
-						'author_homepage' => '',
-						'requires' => '',
-						'auth_required' => '',
-						'is_authorized' => '',
-						'tested' => '',
-						'upgrade_notice' => '',
-						'rating' => '',
-						'num_ratings' => '',
-						'downloaded' => '',
-						'release_date' => '',
-						'last_updated' => '',
-						'expiration' => '',
-						'daily_limit' => '',
-						'custom_update' => '',
-						'api_message' => '',
-						'license_key' => ''
-					]
-				],
-			] ),
+			'headers'  => [],
+			'body'     => wp_json_encode(
+				[
+					'results' => [
+						[
+							'name'            => '',
+							'plugin'          => $body['plugin'],
+							'slug'            => $body['plugin'],
+							'version'         => '',
+							'homepage'        => '',
+							'sections'        => [],
+							'download_url'    => '',
+							'home_url'        => '',
+							'origin_url'      => '',
+							'zip_url'         => '',
+							'icon_svg_url'    => '',
+							'auth_url'        => '',
+							'file_prefix'     => '',
+							'author'          => '',
+							'author_homepage' => '',
+							'requires'        => '',
+							'auth_required'   => '',
+							'is_authorized'   => '',
+							'tested'          => '',
+							'upgrade_notice'  => '',
+							'rating'          => '',
+							'num_ratings'     => '',
+							'downloaded'      => '',
+							'release_date'    => '',
+							'last_updated'    => '',
+							'expiration'      => '',
+							'daily_limit'     => '',
+							'custom_update'   => '',
+							'api_message'     => '',
+							'license_key'     => '',
+						],
+					],
+				]
+			),
 			'response' => [
-				'code' => 200,
+				'code'    => 200,
 				'message' => 'OK',
 			],
-			'cookies' => [],
+			'cookies'  => [],
 		];
 	}
 
@@ -220,8 +222,8 @@ class PUE extends Integration_Controller {
 	 * @since TBD
 	 *
 	 * @param Catalog_Collection $catalog The catalog.
-	 * @param Product_Entry $tec The TEC product.
-	 * @param string $plugin The plugin.
+	 * @param Product_Entry      $tec     The TEC product.
+	 * @param string             $plugin  The plugin.
 	 *
 	 * @return array|null
 	 */
@@ -231,10 +233,12 @@ class PUE extends Integration_Controller {
 
 		$features = $tec_product_catalog->get_features();
 
-		$feature = current( array_filter(
-			$features,
-			static fn( Catalog_Feature $feature ) => $feature->get_slug() === $harbor_product_slug
-		) );
+		$feature = current(
+			array_filter(
+				$features,
+				static fn( Catalog_Feature $feature ) => $feature->get_slug() === $harbor_product_slug
+			)
+		);
 
 		if ( ! $feature ) {
 			return null;
@@ -246,43 +250,45 @@ class PUE extends Integration_Controller {
 
 		return [
 			'headers'  => [],
-			'body'     => wp_json_encode( [
-				'results' => [
-					[
-						'name'            => $feature->get_name(),
-						'plugin'          => $plugin,
-						'slug'            => $feature->get_slug(),
-						'version'         => $version,
-						'homepage'        => $feature->get_homepage(),
-						'sections'        => [],
-						'download_url'    => '',
-						'home_url'        => $feature->get_homepage(),
-						'origin_url'      => $feature->get_homepage(),
-						'zip_url'         => '',
-						'icon_svg_url'    => $feature->get_homepage(),
-						'auth_url'        => $feature->get_homepage(),
-						'file_prefix'     => $feature->get_homepage(),
-						'author'          => $feature->get_authors()['0'],
-						'author_homepage' => $feature->get_homepage(),
-						'requires'        => '',
-						'auth_required'   => false,
-						'is_authorized'   => '',
-						'tested'          => '',
-						'upgrade_notice'  => '',
-						'rating'          => '',
-						'num_ratings'     => '',
-						'downloaded'      => '',
-						'release_date'    => $feature->get_release_date(),
-						'last_updated'    => '',
-						'expiration'      => $tec->get_expires()->format( 'Y-m-d H:i:s' ),
-						'daily_limit'     => '',
-						'custom_update'   => '',
-						'license_key'     => $this->harbor->get_unified_license_key()
-					]
-				],
-			] ),
+			'body'     => wp_json_encode(
+				[
+					'results' => [
+						[
+							'name'            => $feature->get_name(),
+							'plugin'          => $plugin,
+							'slug'            => $feature->get_slug(),
+							'version'         => $version,
+							'homepage'        => $feature->get_homepage(),
+							'sections'        => [],
+							'download_url'    => '',
+							'home_url'        => $feature->get_homepage(),
+							'origin_url'      => $feature->get_homepage(),
+							'zip_url'         => '',
+							'icon_svg_url'    => $feature->get_homepage(),
+							'auth_url'        => $feature->get_homepage(),
+							'file_prefix'     => $feature->get_homepage(),
+							'author'          => $feature->get_authors()['0'],
+							'author_homepage' => $feature->get_homepage(),
+							'requires'        => '',
+							'auth_required'   => false,
+							'is_authorized'   => '',
+							'tested'          => '',
+							'upgrade_notice'  => '',
+							'rating'          => '',
+							'num_ratings'     => '',
+							'downloaded'      => '',
+							'release_date'    => $feature->get_release_date(),
+							'last_updated'    => '',
+							'expiration'      => $tec->get_expires()->format( 'Y-m-d H:i:s' ),
+							'daily_limit'     => '',
+							'custom_update'   => '',
+							'license_key'     => $this->harbor->get_unified_license_key(),
+						],
+					],
+				]
+			),
 			'response' => [
-				'code' => 200,
+				'code'    => 200,
 				'message' => 'OK',
 			],
 			'cookies'  => [],

@@ -9,7 +9,8 @@
 
 namespace TEC\Common\Integrations\Harbor;
 
-// phpcs:ignore StellarWP.Classes.ValidClassName.NotSnakeCaseClass
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
+
 
 /**
  * The Event Aggregator Harbor integration.
