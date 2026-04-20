@@ -15,6 +15,7 @@ use function lw_harbor_has_unified_license_key;
 use function lw_harbor_get_unified_license_key;
 use function lw_harbor_is_feature_enabled;
 use function lw_harbor_is_feature_available;
+use Tribe__Dependency as Dependency;
 
 /**
  * Controller for setting up the Harbor library.
@@ -104,6 +105,8 @@ class Harbor extends Controller_Contract {
 			$filters_removed = true;
 		}
 
+		$slugs_added = [];
+
 		foreach ( $plugins as $plugin ) {
 			$license_object = $plugin->get_license_object();
 			$licenses[]     = [
@@ -114,6 +117,24 @@ class Harbor extends Controller_Contract {
 				'is_active'  => $license_object->is_valid(),
 				'page_url'   => 'https://my.theeventscalendar.com/my-account/',
 				'expires_at' => '',
+			];
+
+			$slugs_added[] = $plugin->get_slug();
+		}
+
+		/** @var Dependency $dependencies */
+		$dependencies = tribe( Dependency::class );
+		$active_plugins = $dependencies->get_active_plugins();
+
+		foreach ( $active_plugins as $active_plugin_class => $active_plugin ) {
+			if ( in_array( $active_plugin['class'], $slugs_added, true ) ) {
+				continue;
+			}
+
+			$pue = $dependencies->get_pue_from_class( $active_plugin_class );
+
+			$licenses[] = [
+				'key' => '',
 			];
 		}
 

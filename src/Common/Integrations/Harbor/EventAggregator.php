@@ -27,7 +27,7 @@ class EventAggregator extends Integration_Controller {
 	 * @return void
 	 */
 	protected function do_register(): void {
-		add_filter( 'tec_events_aggregator_consolidation_took_over', [ $this, 'filter_consolidation_took_over' ] );
+		add_filter( 'tec_events_aggregator_harbor_took_over', [ $this, 'filter_harbor_took_over' ] );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class EventAggregator extends Integration_Controller {
 	 * @return void
 	 */
 	public function unregister(): void {
-		remove_filter( 'tec_events_aggregator_consolidation_took_over', [ $this, 'filter_consolidation_took_over' ] );
+		remove_filter( 'tec_events_aggregator_harbor_took_over', [ $this, 'filter_harbor_took_over' ] );
 	}
 
 	/**
@@ -48,7 +48,7 @@ class EventAggregator extends Integration_Controller {
 	 *
 	 * @return bool
 	 */
-	public function filter_consolidation_took_over(): bool {
+	public function filter_harbor_took_over(): bool {
 		return (bool) $this->harbor->get_unified_license_key_if_feature_enabled( 'event-aggregator' );
 	}
 }

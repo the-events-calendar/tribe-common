@@ -15,6 +15,7 @@ use TEC\Common\LiquidWeb\Harbor\Portal\Catalog_Repository;
 use TEC\Common\LiquidWeb\Harbor\Portal\Catalog_Collection;
 use TEC\Common\LiquidWeb\Harbor\Portal\Results\Catalog_Feature;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
+use TEC\Common\LiquidWeb\Harbor\Portal\Results\Product_Catalog;
 use TEC\Common\StellarWP\Uplink\Resources\Resource as Uplink_Resource;
 
 /**
@@ -165,8 +166,8 @@ class PUE extends Integration_Controller {
 
 		$products = tribe( License_Repository::class )->get_products();
 
-		if ( $catalog && $products && ! is_wp_error( $products ) ) {
-			$response = $this->response_from_catalog( $catalog, $products->get( 'the-events-calendar' ), $body['plugin'] );
+		if ( $catalog && ! is_wp_error( $catalog ) && $products && ! is_wp_error( $products ) ) {
+			$response = $this->response_from_catalog( $catalog->get( 'the-events-calendar' ), $products->get( 'the-events-calendar' ), $body['plugin'] );
 			if ( $response ) {
 				return $response;
 			}
@@ -225,15 +226,14 @@ class PUE extends Integration_Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param Catalog_Collection $catalog The catalog.
-	 * @param Product_Entry      $tec     The TEC product.
-	 * @param string             $plugin  The plugin.
+	 * @param Product_Catalog $tec_product_catalog The TEC product entry.
+	 * @param Product_Entry   $tec                 The TEC product.
+	 * @param string          $plugin              The plugin.
 	 *
 	 * @return array|null
 	 */
-	private function response_from_catalog( Catalog_Collection $catalog, Product_Entry $tec, string $plugin ): ?array {
+	private function response_from_catalog( Product_Catalog $tec_product_catalog, Product_Entry $tec, string $plugin ): ?array {
 		$harbor_product_slug = $this->harbor->get_harbor_product_slug( $plugin );
-		$tec_product_catalog = $catalog->get( 'the-events-calendar' );
 
 		$features = $tec_product_catalog->get_features();
 
