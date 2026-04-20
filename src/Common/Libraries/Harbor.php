@@ -8,8 +8,14 @@ namespace TEC\Common\Libraries;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\LiquidWeb\Harbor\Config;
 use TEC\Common\LiquidWeb\Harbor\Harbor as Harbor_Provider;
-use TEC\Common\Integrations\Harbor\EA;
+use TEC\Common\Integrations\Harbor\EventAggregator;
+use TEC\Common\Integrations\Harbor\PUE;
+use InvalidArgumentException;
 use function TEC\Common\StellarWP\Uplink\get_plugins;
+use function lw_harbor_has_unified_license_key;
+use function lw_harbor_get_unified_license_key;
+use function lw_harbor_is_feature_enabled;
+use function lw_harbor_is_feature_available;
 
 /**
  * Controller for setting up the Harbor library.
@@ -19,6 +25,20 @@ use function TEC\Common\StellarWP\Uplink\get_plugins;
  * @package TEC\Common\Libraries\Harbor
  */
 class Harbor extends Controller_Contract {
+	private const TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP = [
+		'the-events-calendar'    => 'the-events-calendar',
+		'events-calendar-pro'    => 'events-calendar-pro',
+		'event-tickets'          => 'event-tickets',
+		'event-tickets-plus'     => 'event-tickets-plus',
+		'tribe-filterbar'        => 'tribe-filterbar',
+		'events-community'       => 'events-community',
+		'tribe-eventbrite'       => 'tribe-eventbriter',
+		'event-schedule-manager' => 'event-schedule-manager',
+		'promoter'               => 'events-promoter',
+		'tec-seating'            => 'assigned-seating',
+		'event-aggregator'       => 'event-aggregator',
+	];
+
 	/**
 	 * Register the controller.
 	 *
@@ -41,7 +61,8 @@ class Harbor extends Controller_Contract {
 
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
 
-		$this->container->register( EA::class );
+		$this->container->register( PUE::class );
+		$this->container->register( EventAggregator::class );
 	}
 
 	/**
@@ -98,12 +119,21 @@ class Harbor extends Controller_Contract {
 		return lw_harbor_get_unified_license_key();
 	}
 
-	public function get_activated_unified_license_tier(): ?string {
+	/**
+	 * Check if the product is licensed.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $product The product slug.
+	 *
+	 * @return bool
+	 */
+	public function is_product_licensed( string $product ): bool {
 		if ( ! lw_harbor_has_unified_license_key() ) {
-			return null;
+			return false;
 		}
 
-		return lw_harbor_get_unified_license_tier();
+		return lw_harbor_is_feature_enabled( $product );
 	}
 
 	/**
@@ -148,5 +178,24 @@ class Harbor extends Controller_Contract {
 		}
 
 		return $key;
+	}
+
+	/**
+	 * Get the Harbor product slug for a TEC product slug.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $tec_product_slug The TEC product slug.
+	 *
+	 * @return string The Harbor product slug.
+	 *
+	 * @throws InvalidArgumentException If the TEC product slug is invalid.
+	 */
+	public function get_harbor_product_slug( string $tec_product_slug ): ?string {
+		if ( ! isset( self::TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP[$tec_product_slug] ) ) {
+			throw new InvalidArgumentException( sprintf( 'Invalid TEC product slug: %s', $tec_product_slug ) );
+		}
+
+		return self::TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP[$tec_product_slug];
 	}
 }

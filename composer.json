@@ -152,7 +152,9 @@
         ]
       },
       "exclude_from_prefix": {
-        "file_patterns": []
+        "file_patterns": [
+          "#stellarwp\/harbor\/src\/Harbor\/global-functions.php#"
+        ]
       },
       "delete_vendor_files": true,
       "include_modified_date": false,
