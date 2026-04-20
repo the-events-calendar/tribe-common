@@ -87,7 +87,7 @@
       "@restore-psr-http-dev"
     ],
     "restore-psr-http-dev": [
-      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer reinstall psr/http-message psr/http-client psr/http-factory --no-scripts --no-plugins || true"
+      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer reinstall psr/http-message psr/http-client psr/http-factory psr/log psr/container nyholm/psr7 --no-scripts --no-plugins || true"
     ],
     "trustedlogin": [
       "mkdir -p vendor/vendor-prefixed/trustedlogin/client/src/assets/",
