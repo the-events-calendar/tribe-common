@@ -94,11 +94,15 @@ class Harbor extends Controller_Contract {
 	public function register_legacy_licenses( array $licenses ): array {
 		$plugins = get_plugins();
 
+		$filters_removed = false;
+
+		if ( has_filter( 'pre_option', [ tribe( PUE::class ), 'filter_pre_get_option' ] ) ) {}
+
 		foreach ( $plugins as $plugin ) {
 			$license_object = $plugin->get_license_object();
 			$licenses[]     = [
 				'key'        => $license_object->get_key(),
-				'slug'       => $plugin->get_slug(),
+				'slug'       => $this->get_harbor_product_slug( $plugin->get_slug() ),
 				'name'       => $plugin->get_name(),
 				'product'    => 'the-events-calendar',
 				'is_active'  => $license_object->is_valid(),
