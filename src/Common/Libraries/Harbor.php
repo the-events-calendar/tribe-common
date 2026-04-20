@@ -40,7 +40,7 @@ class Harbor extends Controller_Contract {
 		'event-tickets-plus'     => 'event-tickets-plus',
 		'tribe-filterbar'        => 'tribe-filterbar',
 		'events-community'       => 'events-community',
-		'tribe-eventbrite'       => 'tribe-eventbriter',
+		'tribe-eventbrite'       => 'tribe-eventbrite',
 		'event-schedule-manager' => 'event-schedule-manager',
 		'promoter'               => 'events-promoter',
 		'tec-seating'            => 'assigned-seating',
@@ -124,27 +124,27 @@ class Harbor extends Controller_Contract {
 		}
 
 		/** @var Dependency $dependencies */
-		$dependencies = tribe( Dependency::class );
+		$dependencies   = tribe( Dependency::class );
 		$active_plugins = $dependencies->get_active_plugins();
 
 		foreach ( array_keys( $active_plugins ) as $active_plugin_class ) {
-			$pue = tribe( PUE_Resolver::class )->get_pue_from_class( $active_plugin_class );
+			$pue_checker = tribe( PUE_Resolver::class )->get_pue_from_class( $active_plugin_class );
 
-			if ( ! $pue || in_array( $pue->get_slug(), $slugs_added, true ) ) {
+			if ( ! $pue_checker || in_array( $pue_checker->get_slug(), $slugs_added, true ) ) {
 				continue;
 			}
 
 			$licenses[] = [
-				'key'        => $pue->get_key(),
-				'slug'       => $this->get_harbor_product_slug( $pue->get_slug() ),
-				'name'       => $pue->get_plugin_name(),
+				'key'        => $pue_checker->get_key(),
+				'slug'       => $this->get_harbor_product_slug( $pue_checker->get_slug() ),
+				'name'       => $pue_checker->get_plugin_name(),
 				'product'    => 'the-events-calendar',
-				'is_active'  => $pue->is_key_valid(),
+				'is_active'  => $pue_checker->is_key_valid(),
 				'page_url'   => 'https://my.theeventscalendar.com/my-account/',
 				'expires_at' => '',
 			];
 
-			$slugs_added[] = $pue->get_slug();
+			$slugs_added[] = $pue_checker->get_slug();
 		}
 
 		if ( $filters_removed ) {

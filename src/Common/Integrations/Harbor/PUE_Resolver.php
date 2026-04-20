@@ -62,6 +62,7 @@ class PUE_Resolver {
 		$pue_reflection = new ReflectionClass( self::PUE_CLASS_MAP[ $class ] );
 		$values = $pue_reflection->getStaticProperties();
 		$values['plugin_file'] = $this->get_pue_plugin_file( $class );
+		$values['update_url'] = $values['update_url'] ?? 'http://theeventscalendar.com/';
 
 		return new PUE_Checker( $values['update_url'], $values['pue_slug'], [], plugin_basename( $values['plugin_file'] ) );
 	}
