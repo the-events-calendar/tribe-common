@@ -96,8 +96,9 @@ class Harbor extends Controller_Contract {
 
 		$filters_removed = false;
 
-		if ( has_filter( 'pre_option', [ tribe( PUE::class ), 'filter_pre_get_option' ] ) ) {
-			$pue = tribe( PUE::class );
+		$pue = tribe( PUE::class );
+
+		if ( has_filter( 'pre_option', [ $pue, 'filter_pre_get_option' ] ) ) {
 			remove_filter( 'pre_option', [ $pue, 'filter_pre_get_option' ], 10 );
 			remove_filter( 'stellarwp/uplink/tec/license_get_key', [ $pue, 'filter_stellarwp_uplink_tec_license_get_key' ], 10 );
 			$filters_removed = true;
@@ -117,7 +118,7 @@ class Harbor extends Controller_Contract {
 		}
 
 		if ( $filters_removed ) {
-			add_filter( 'pre_option', [ tribe( PUE::class ), 'filter_pre_get_option' ], 10, 3 );
+			add_filter( 'pre_option', [ $pue, 'filter_pre_get_option' ], 10, 3 );
 			add_filter( 'stellarwp/uplink/tec/license_get_key', [ $pue, 'filter_stellarwp_uplink_tec_license_get_key' ], 10, 2 );
 		}
 
