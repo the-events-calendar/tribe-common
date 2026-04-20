@@ -39,8 +39,10 @@ class PUE extends Integration_Controller {
 	 * @return void
 	 */
 	public function unregister(): void {
-		remove_filter( 'pue_get_update_url', [ $this, 'filter_pue_get_update_url' ], 10, 2 );
 		remove_filter( 'pre_http_request', [ $this, 'filter_pre_http_request' ], 10, 3 );
+		remove_filter( 'pre_option', [ $this, 'filter_pre_get_option' ], 10, 3 );
+		remove_filter( 'stellarwp/uplink/tec/license_get_key', [ $this, 'filter_stellarwp_uplink_tec_license_get_key' ], 10, 2 );
+		remove_filter( 'pue_get_update_url', [ $this, 'filter_pue_get_update_url' ], 10, 2 );
 	}
 
 	/**
@@ -58,7 +60,7 @@ class PUE extends Integration_Controller {
 			return $update_url;
 		}
 
-		return $update_url;
+		return 'https://herald.stellarwp.com';
 	}
 
 	public function filter_stellarwp_uplink_tec_license_get_key( string $license, Resource $resource ) {
