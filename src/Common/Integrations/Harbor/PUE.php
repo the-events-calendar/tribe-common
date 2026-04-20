@@ -76,8 +76,8 @@ class PUE extends Integration_Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param ?string          $license         The license.
-	 * @param Uplink_Resource  $uplink_resource The resource.
+	 * @param ?string         $license         The license.
+	 * @param Uplink_Resource $uplink_resource The resource.
 	 *
 	 * @return ?string
 	 */
