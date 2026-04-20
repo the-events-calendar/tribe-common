@@ -6,6 +6,7 @@
  *
  * @package TEC\Common\Integrations\Harbor
  */
+
 namespace TEC\Common\Integrations\Harbor;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
@@ -35,7 +36,7 @@ abstract class Integration_Controller extends Controller_Contract {
 	 * @since TBD
 	 *
 	 * @param Container $container The container.
-	 * @param Harbor   $harbor     The Harbor instance.
+	 * @param Harbor    $harbor    The Harbor instance.
 	 */
 	public function __construct( Container $container, Harbor $harbor ) {
 		parent::__construct( $container );

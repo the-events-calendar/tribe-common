@@ -6,6 +6,7 @@
  *
  * @package TEC\Common\Integrations\Harbor
  */
+
 namespace TEC\Common\Integrations\Harbor;
 
 use TEC\Common\Integrations\Harbor\Integration_Controller;
@@ -16,6 +17,13 @@ use TEC\Common\LiquidWeb\Harbor\Portal\Results\Catalog_Feature;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
 use TEC\Common\StellarWP\Uplink\Resources\Resource;
 
+/**
+ * The PUE Harbor integration.
+ *
+ * @since TBD
+ *
+ * @package TEC\Common\Integrations\Harbor
+ */
 class PUE extends Integration_Controller {
 	/**
 	 * Register the controller.
@@ -63,6 +71,16 @@ class PUE extends Integration_Controller {
 		return 'https://herald.stellarwp.com';
 	}
 
+	/**
+	 * Filter the StellarWP Uplink TEC license get key.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $license The license.
+	 * @param Resource $resource The resource.
+	 *
+	 * @return string
+	 */
 	public function filter_stellarwp_uplink_tec_license_get_key( string $license, Resource $resource ) {
 		$harbor_slug = $this->harbor->get_harbor_product_slug( $resource->get_slug() );
 		if ( ! $this->harbor->is_product_licensed( $harbor_slug ) ) {
@@ -72,12 +90,24 @@ class PUE extends Integration_Controller {
 		return $this->harbor->get_unified_license_key();
 	}
 
+	/**
+	 * Filter the pre get option.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $value The value.
+	 * @param string $option The option.
+	 * @param mixed $default_value The default value.
+	 *
+	 * @return mixed
+	 */
 	public function filter_pre_get_option( $value, $option, $default_value ) {
 		if ( ! str_starts_with( $option, 'pue_install_key_' ) ) {
 			return $value;
 		}
 
 		$product = str_replace( [ 'pue_install_key_', '_' ], [ '', '-' ], $option );
+
 		$harbor_product_slug = $this->harbor->get_harbor_product_slug( $product );
 		if ( ! $this->harbor->is_product_licensed( $harbor_product_slug ) ) {
 			return $value;
@@ -184,6 +214,17 @@ class PUE extends Integration_Controller {
 		];
 	}
 
+	/**
+	 * Get the response from the catalog.
+	 *
+	 * @since TBD
+	 *
+	 * @param Catalog_Collection $catalog The catalog.
+	 * @param Product_Entry $tec The TEC product.
+	 * @param string $plugin The plugin.
+	 *
+	 * @return array|null
+	 */
 	private function response_from_catalog( Catalog_Collection $catalog, Product_Entry $tec, string $plugin ): ?array {
 		$harbor_product_slug = $this->harbor->get_harbor_product_slug( $plugin );
 		$tec_product_catalog = $catalog->get( 'the-events-calendar' );
@@ -204,39 +245,39 @@ class PUE extends Integration_Controller {
 		$version = $version ? $version : '1.0.0';
 
 		return [
-			'headers' => [],
-			'body'    => wp_json_encode( [
+			'headers'  => [],
+			'body'     => wp_json_encode( [
 				'results' => [
 					[
-						'name'     => $feature->get_name(),
-						'plugin'   => $plugin,
-						'slug'     => $feature->get_slug(),
-						'version'  => $version,
-						'homepage' => $feature->get_homepage(),
-						'sections' => [],
-						'download_url' => '',
-						'home_url' => $feature->get_homepage(),
-						'origin_url' => $feature->get_homepage(),
-						'zip_url' => '',
-						'icon_svg_url' => $feature->get_homepage(),
-						'auth_url' => $feature->get_homepage(),
-						'file_prefix' => $feature->get_homepage(),
-						'author' => $feature->get_authors()['0'],
+						'name'            => $feature->get_name(),
+						'plugin'          => $plugin,
+						'slug'            => $feature->get_slug(),
+						'version'         => $version,
+						'homepage'        => $feature->get_homepage(),
+						'sections'        => [],
+						'download_url'    => '',
+						'home_url'        => $feature->get_homepage(),
+						'origin_url'      => $feature->get_homepage(),
+						'zip_url'         => '',
+						'icon_svg_url'    => $feature->get_homepage(),
+						'auth_url'        => $feature->get_homepage(),
+						'file_prefix'     => $feature->get_homepage(),
+						'author'          => $feature->get_authors()['0'],
 						'author_homepage' => $feature->get_homepage(),
-						'requires' => '',
-						'auth_required' => false,
-						'is_authorized' => '',
-						'tested' => '',
-						'upgrade_notice' => '',
-						'rating' => '',
-						'num_ratings' => '',
-						'downloaded' => '',
-						'release_date' => $feature->get_release_date(),
-						'last_updated' => '',
-						'expiration' => $tec->get_expires()->format( 'Y-m-d H:i:s' ),
-						'daily_limit' => '',
-						'custom_update' => '',
-						'license_key' => $this->harbor->get_unified_license_key()
+						'requires'        => '',
+						'auth_required'   => false,
+						'is_authorized'   => '',
+						'tested'          => '',
+						'upgrade_notice'  => '',
+						'rating'          => '',
+						'num_ratings'     => '',
+						'downloaded'      => '',
+						'release_date'    => $feature->get_release_date(),
+						'last_updated'    => '',
+						'expiration'      => $tec->get_expires()->format( 'Y-m-d H:i:s' ),
+						'daily_limit'     => '',
+						'custom_update'   => '',
+						'license_key'     => $this->harbor->get_unified_license_key()
 					]
 				],
 			] ),
@@ -244,7 +285,7 @@ class PUE extends Integration_Controller {
 				'code' => 200,
 				'message' => 'OK',
 			],
-			'cookies' => [],
+			'cookies'  => [],
 		];
 	}
 }
