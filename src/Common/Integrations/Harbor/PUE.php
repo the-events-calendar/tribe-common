@@ -76,12 +76,12 @@ class PUE extends Integration_Controller {
 	 *
 	 * @since TBD
 	 *
-	 * @param string          $license         The license.
-	 * @param Uplink_Resource $uplink_resource The resource.
+	 * @param ?string          $license         The license.
+	 * @param Uplink_Resource  $uplink_resource The resource.
 	 *
-	 * @return string
+	 * @return ?string
 	 */
-	public function filter_stellarwp_uplink_tec_license_get_key( string $license, Uplink_Resource $uplink_resource ) {
+	public function filter_stellarwp_uplink_tec_license_get_key( ?string $license, Uplink_Resource $uplink_resource ) {
 		$harbor_slug = $this->harbor->get_harbor_product_slug( $uplink_resource->get_slug() );
 		if ( ! $this->harbor->is_product_licensed( $harbor_slug ) ) {
 			return $license;
