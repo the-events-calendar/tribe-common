@@ -70,12 +70,7 @@
   "autoload-dev": {
     "psr-4": {
       "TEC\\Common\\Tests\\": "tests/_data/classes",
-      "TEC\\Common\\Tests\\Provider\\": "tests/_support/Provider",
-      "Psr\\Http\\Message\\": ["vendor/psr/http-message/src", "vendor/psr/http-factory/src"],
-      "Psr\\Http\\Client\\": "vendor/psr/http-client/src",
-      "Psr\\Log\\": "vendor/psr/log/Psr/Log",
-      "Psr\\Container\\": "vendor/psr/container/src",
-      "Nyholm\\Psr7\\": "vendor/nyholm/psr7/src"
+      "TEC\\Common\\Tests\\Provider\\": "tests/_support/Provider"
     }
   },
   "scripts": {
@@ -92,7 +87,9 @@
       "@restore-psr-http-dev"
     ],
     "restore-psr-http-dev": [
-      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer reinstall psr/http-message psr/http-client psr/http-factory psr/log psr/container nyholm/psr7 --no-scripts --no-plugins || true"
+      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer reinstall psr/http-message psr/http-client psr/http-factory psr/log psr/container nyholm/psr7 --no-scripts --no-plugins || true",
+      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && php bin/restore-psr-autoload.php || true",
+      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer dump-autoload --no-scripts || true"
     ],
     "trustedlogin": [
       "mkdir -p vendor/vendor-prefixed/trustedlogin/client/src/assets/",
