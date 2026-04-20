@@ -10,7 +10,6 @@ use TEC\Common\LiquidWeb\Harbor\Config;
 use TEC\Common\LiquidWeb\Harbor\Harbor as Harbor_Provider;
 use TEC\Common\Integrations\Harbor\EventAggregator;
 use TEC\Common\Integrations\Harbor\PUE;
-use InvalidArgumentException;
 use function TEC\Common\StellarWP\Uplink\get_plugins;
 use function lw_harbor_has_unified_license_key;
 use function lw_harbor_get_unified_license_key;
