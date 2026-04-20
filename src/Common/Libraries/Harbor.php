@@ -24,6 +24,13 @@ use function lw_harbor_is_feature_available;
  * @package TEC\Common\Libraries\Harbor
  */
 class Harbor extends Controller_Contract {
+	/**
+	 * The TEC product slug to Harbor product slug map.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
 	private const TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP = [
 		'the-events-calendar'    => 'the-events-calendar',
 		'events-calendar-pro'    => 'events-calendar-pro',
