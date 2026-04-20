@@ -188,12 +188,10 @@ class Harbor extends Controller_Contract {
 	 * @param string $tec_product_slug The TEC product slug.
 	 *
 	 * @return string The Harbor product slug.
-	 *
-	 * @throws InvalidArgumentException If the TEC product slug is invalid.
 	 */
-	public function get_harbor_product_slug( string $tec_product_slug ): ?string {
+	public function get_harbor_product_slug( string $tec_product_slug ): string {
 		if ( ! isset( self::TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP[ $tec_product_slug ] ) ) {
-			throw new InvalidArgumentException( sprintf( 'Invalid TEC product slug: %s', $tec_product_slug ) );
+			return $tec_product_slug;
 		}
 
 		return self::TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP[ $tec_product_slug ];
