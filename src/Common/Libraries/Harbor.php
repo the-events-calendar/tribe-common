@@ -10,12 +10,13 @@ use TEC\Common\LiquidWeb\Harbor\Config;
 use TEC\Common\LiquidWeb\Harbor\Harbor as Harbor_Provider;
 use TEC\Common\Integrations\Harbor\EventAggregator;
 use TEC\Common\Integrations\Harbor\PUE;
+use TEC\Common\Integrations\Harbor\PUE_Resolver;
+use Tribe__Dependency as Dependency;
 use function TEC\Common\StellarWP\Uplink\get_plugins;
 use function lw_harbor_has_unified_license_key;
 use function lw_harbor_get_unified_license_key;
 use function lw_harbor_is_feature_enabled;
 use function lw_harbor_is_feature_available;
-use Tribe__Dependency as Dependency;
 
 /**
  * Controller for setting up the Harbor library.
@@ -126,16 +127,24 @@ class Harbor extends Controller_Contract {
 		$dependencies = tribe( Dependency::class );
 		$active_plugins = $dependencies->get_active_plugins();
 
-		foreach ( $active_plugins as $active_plugin_class => $active_plugin ) {
-			if ( in_array( $active_plugin['class'], $slugs_added, true ) ) {
+		foreach ( array_keys( $active_plugins ) as $active_plugin_class ) {
+			$pue = tribe( PUE_Resolver::class )->get_pue_from_class( $active_plugin_class );
+
+			if ( ! $pue || in_array( $pue->get_slug(), $slugs_added, true ) ) {
 				continue;
 			}
 
-			$pue = $dependencies->get_pue_from_class( $active_plugin_class );
-
 			$licenses[] = [
-				'key' => '',
+				'key'        => $pue->get_key(),
+				'slug'       => $this->get_harbor_product_slug( $pue->get_slug() ),
+				'name'       => $pue->get_plugin_name(),
+				'product'    => 'the-events-calendar',
+				'is_active'  => $pue->is_key_valid(),
+				'page_url'   => 'https://my.theeventscalendar.com/my-account/',
+				'expires_at' => '',
 			];
+
+			$slugs_added[] = $pue->get_slug();
 		}
 
 		if ( $filters_removed ) {
