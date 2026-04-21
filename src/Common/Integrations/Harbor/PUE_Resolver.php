@@ -50,19 +50,19 @@ class PUE_Resolver {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $class The class.
+	 * @param string $class_name The class.
 	 *
 	 * @return PUE_Checker|null
 	 */
-	public function get_pue_from_class( string $class ): ?PUE_Checker {
-		if ( ! isset( self::PUE_CLASS_MAP[ $class ] ) ) {
+	public function get_pue_from_class( string $class_name ): ?PUE_Checker {
+		if ( ! isset( self::PUE_CLASS_MAP[ $class_name ] ) ) {
 			return null;
 		}
 
-		$pue_reflection = new ReflectionClass( self::PUE_CLASS_MAP[ $class ] );
-		$values = $pue_reflection->getStaticProperties();
-		$values['plugin_file'] = $this->get_pue_plugin_file( $class );
-		$values['update_url'] = $values['update_url'] ?? 'http://theeventscalendar.com/';
+		$pue_reflection         = new ReflectionClass( self::PUE_CLASS_MAP[ $class_name ] );
+		$values                 = $pue_reflection->getStaticProperties();
+		$values['plugin_file']  = $this->get_pue_plugin_file( $class_name );
+		$values['update_url'] ??= 'http://theeventscalendar.com/';
 
 		return new PUE_Checker( $values['update_url'], $values['pue_slug'], [], plugin_basename( $values['plugin_file'] ) );
 	}
@@ -72,16 +72,16 @@ class PUE_Resolver {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $class The class.
+	 * @param string $class_name The class.
 	 *
 	 * @return string
 	 */
-	private function get_pue_plugin_file( string $class ): string {
-		if ( ! isset( self::PUE_CLASS_MAP[ $class ] ) ) {
+	private function get_pue_plugin_file( string $class_name ): string {
+		if ( ! isset( self::PUE_CLASS_MAP[ $class_name ] ) ) {
 			return '';
 		}
 
-		switch ( $class ) {
+		switch ( $class_name ) {
 			case ECP_Main::class:
 				return EVENTS_CALENDAR_PRO_FILE;
 			case Filterbar_View::class:
