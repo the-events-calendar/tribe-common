@@ -43,7 +43,7 @@ class Harbor extends Controller_Contract {
 		'tribe-eventbrite'       => 'tribe-eventbrite',
 		'event-schedule-manager' => 'event-schedule-manager',
 		'promoter'               => 'events-promoter',
-		'tec-seating'            => 'assigned-seating',
+		'tec-seating'            => 'seating',
 		'event-aggregator'       => 'event-aggregator',
 	];
 
