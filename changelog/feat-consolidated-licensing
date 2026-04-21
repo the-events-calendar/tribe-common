@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Support for the new Liquid Web licensing system integrated with existing PUE and Uplink. [SCON-651]
