@@ -152,7 +152,7 @@ class Harbor extends Controller_Contract {
 			add_filter( 'stellarwp/uplink/tec/license_get_key', [ $pue, 'filter_stellarwp_uplink_tec_license_get_key' ], 10, 2 );
 		}
 
-		return $licenses;
+		return array_values( array_filter( $licenses, static fn( array $license ): bool => ! empty( $license['key'] ) ) );
 	}
 
 	/**
