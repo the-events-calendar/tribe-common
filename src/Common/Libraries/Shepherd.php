@@ -1,6 +1,6 @@
 <?php
 /**
- * The Controller to set up the Uplink library.
+ * The Controller to set up the Shepherd library.
  */
 
 namespace TEC\Common\Libraries;
