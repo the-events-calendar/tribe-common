@@ -280,7 +280,7 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 		}
 
 		/**
-		 * Gets Stellar brands
+		 * Gets Liquid Web brands
 		 *
 		 * @return array|WP_Error
 		 */
