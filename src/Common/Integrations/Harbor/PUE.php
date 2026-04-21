@@ -17,6 +17,7 @@ use TEC\Common\LiquidWeb\Harbor\Portal\Results\Catalog_Feature;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
 use TEC\Common\LiquidWeb\Harbor\Portal\Results\Product_Catalog;
 use TEC\Common\StellarWP\Uplink\Resources\Resource as Uplink_Resource;
+use TEC\Common\LiquidWeb\Harbor\Config;
 
 /**
  * The PUE Harbor integration.
@@ -137,11 +138,23 @@ class PUE extends Integration_Controller {
 
 		$allowed_paths = '/api/plugins/v2/license/validate';
 
-		if ( empty( $parsed_url['path'] ) ) {
+		if ( empty( $parsed_url['path'] ) || empty( $parsed_url['host'] ) ) {
 			return $response;
 		}
 
 		if ( rtrim( $parsed_url['path'], '/' ) !== $allowed_paths ) {
+			return $response;
+		}
+
+		$is_production = Config::get_licensing_base_url() === Config::DEFAULT_LICENSING_BASE_URL;
+
+		$allowed_hosts = [
+			'licensing.stellarwp.com',
+			'pue.theeventscalendar.com',
+		];
+
+		// Be extra safe for production requests.
+		if ( $is_production && ! in_array( $parsed_url['host'], $allowed_hosts, true ) ) {
 			return $response;
 		}
 
