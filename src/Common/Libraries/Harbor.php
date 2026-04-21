@@ -163,10 +163,6 @@ class Harbor extends Controller_Contract {
 	 * @return string|null The unified license key, or null if no key is found.
 	 */
 	public function get_unified_license_key(): ?string {
-		if ( ! lw_harbor_has_unified_license_key() ) {
-			return null;
-		}
-
 		return lw_harbor_get_unified_license_key();
 	}
 
@@ -184,7 +180,7 @@ class Harbor extends Controller_Contract {
 			return false;
 		}
 
-		return lw_harbor_is_feature_enabled( $product );
+		return lw_harbor_is_feature_available( $product );
 	}
 
 	/**
