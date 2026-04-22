@@ -6,6 +6,7 @@
  *
  * @package TEC\Common\Integrations\Uplink
  */
+
 namespace TEC\Common\Integrations\Uplink;
 
 use TEC\Common\StellarWP\Uplink\API\V3\Auth\Auth_Url_Cache_Decorator;
@@ -30,9 +31,9 @@ class Auth_URL_Decorator implements Auth_Url {
 	 *
 	 * @since TBD
 	 *
-	 * @param Auth_Url_Cache_Decorator $auth_url_cache_decorator
+	 * @param Auth_Url_Cache_Decorator $auth_url_cache_decorator The auth URL cache decorator.
 	 */
-	 public function __construct( Auth_Url_Cache_Decorator $auth_url_cache_decorator ) {
+	public function __construct( Auth_Url_Cache_Decorator $auth_url_cache_decorator ) {
 		$this->auth_url_cache_decorator = $auth_url_cache_decorator;
 	}
 
