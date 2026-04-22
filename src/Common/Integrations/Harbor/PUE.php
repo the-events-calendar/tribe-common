@@ -184,7 +184,7 @@ class PUE extends Integration_Controller {
 		$products = tribe( License_Repository::class )->get_products();
 
 		if ( $catalog && ! is_wp_error( $catalog ) && $products && ! is_wp_error( $products ) ) {
-			$tec_product         = $products->get( 'the-events-calendar' );
+			$tec_product         = $products->get_activated_entry( 'the-events-calendar' );
 			$tec_product_catalog = $catalog->get( 'the-events-calendar' );
 			if ( $tec_product && $tec_product_catalog ) {
 				$response = $this->response_from_catalog( $tec_product_catalog, $tec_product, $body['plugin'] );
