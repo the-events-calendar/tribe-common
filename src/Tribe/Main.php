@@ -92,7 +92,8 @@ class Tribe__Main {
 			$this->plugin_context_class = get_class( $context );
 		}
 
- 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
+		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
+		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 		$this->parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $this->parent_plugin_dir );
 
