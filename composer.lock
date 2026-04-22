@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b07b97ebc6f88f5d9ac6c09c0da510f",
+    "content-hash": "448643d398d1cd9c05dc52e4ab73961a",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -905,16 +905,16 @@
         },
         {
             "name": "stellarwp/harbor",
-            "version": "dev-main",
+            "version": "v0.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/harbor.git",
-                "reference": "a8363683bd4280dd00c2c307efbcd44d3cd71348"
+                "reference": "d204d37170e1f8f78b64a77f5bac6103b09d86b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/harbor/zipball/a8363683bd4280dd00c2c307efbcd44d3cd71348",
-                "reference": "a8363683bd4280dd00c2c307efbcd44d3cd71348",
+                "url": "https://api.github.com/repos/stellarwp/harbor/zipball/d204d37170e1f8f78b64a77f5bac6103b09d86b3",
+                "reference": "d204d37170e1f8f78b64a77f5bac6103b09d86b3",
                 "shasum": ""
             },
             "require": {
@@ -944,7 +944,6 @@
                 "szepeviktor/phpstan-wordpress": ">=1.0",
                 "wp-cli/wp-cli": "^2"
             },
-            "default-branch": true,
             "bin": [
                 "bin/stellar-harbor"
             ],
@@ -970,9 +969,9 @@
             "description": "A library that integrates a WordPress product with the Liquid Web licensing system.",
             "support": {
                 "issues": "https://github.com/stellarwp/harbor/issues",
-                "source": "https://github.com/stellarwp/harbor/tree/main"
+                "source": "https://github.com/stellarwp/harbor/tree/v0.1.5"
             },
-            "time": "2026-04-20T18:53:12+00:00"
+            "time": "2026-04-21T18:58:25+00:00"
         },
         {
             "name": "stellarwp/installer",
@@ -7827,7 +7826,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/coding-standards": 20,
-        "stellarwp/harbor": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
