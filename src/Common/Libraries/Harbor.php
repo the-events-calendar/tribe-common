@@ -74,7 +74,7 @@ class Harbor extends Controller_Contract {
 		Harbor_Provider::init();
 
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
-		// Uplink is being initialized in init with prio 8 - so we want to decorate it our own decorator later.
+		// Uplink is being initialized in init with prio 8 - so we want to decorate it with our own decorator later.
 		add_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
 
 		$this->container->register( PUE::class );
