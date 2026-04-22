@@ -11,6 +11,8 @@ use TEC\Common\LiquidWeb\Harbor\Harbor as Harbor_Provider;
 use TEC\Common\Integrations\Harbor\EventAggregator;
 use TEC\Common\Integrations\Harbor\PUE;
 use TEC\Common\Integrations\Harbor\PUE_Resolver;
+use TEC\Common\StellarWP\Uplink\API\V3\Auth\Contracts\Auth_Url;
+use TEC\Common\Integrations\Uplink\Auth_URL_Decorator;
 use Tribe__Dependency as Dependency;
 use function TEC\Common\StellarWP\Uplink\get_plugins;
 use function lw_harbor_has_unified_license_key;
@@ -68,6 +70,8 @@ class Harbor extends Controller_Contract {
 		Harbor_Provider::init();
 
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
+		// Uplink is being initialized in init with prio 8 - so we want to decorate it our own decorator later.
+		add_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
 
 		$this->container->register( PUE::class );
 		$this->container->register( EventAggregator::class );
@@ -82,6 +86,18 @@ class Harbor extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
+		remove_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
+	}
+
+	/**
+	 * Decorate the uplinks auth URL.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function decorate_uplinks_auth_url(): void {
+		$this->container->bind( Auth_Url::class, Auth_URL_Decorator::class );
 	}
 
 	/**
@@ -242,5 +258,18 @@ class Harbor extends Controller_Contract {
 		}
 
 		return self::TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP[ $tec_product_slug ];
+	}
+
+	/**
+	 * Get the portal URL.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $path The path.
+	 *
+	 * @return string The portal URL.
+	 */
+	public function get_portal_url( string $path = '' ): string {
+		return trailingslashit( trailingslashit( Config::get_portal_base_url() ) . ( $path ? ltrim( $path, '/' ) : '' ) );
 	}
 }
