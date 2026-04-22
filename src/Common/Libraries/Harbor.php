@@ -14,6 +14,7 @@ use TEC\Common\Integrations\Harbor\PUE_Resolver;
 use TEC\Common\StellarWP\Uplink\API\V3\Auth\Contracts\Auth_Url;
 use TEC\Common\Integrations\Uplink\Auth_URL_Decorator;
 use Tribe__Dependency as Dependency;
+use Tribe__Main as Common;
 use function TEC\Common\StellarWP\Uplink\get_plugins;
 use function lw_harbor_has_unified_license_key;
 use function lw_harbor_get_unified_license_key;
@@ -55,7 +56,10 @@ class Harbor extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
+		$common = Common::instance();
+
 		Config::set_container( $this->container );
+		Config::set_plugin_basename( plugin_basename( $common->get_parent_plugin_file_path() ) );
 
 		/**
 		 * Allow plugins to hook in before Harbor is initialized.
