@@ -39,6 +39,7 @@ class PUE extends Integration_Controller {
 		add_filter( 'pre_http_request', [ $this, 'filter_pre_http_request' ], 10, 3 );
 		add_filter( 'pre_option', [ $this, 'filter_pre_get_option' ], 10, 3 );
 		add_filter( 'stellarwp/uplink/tec/license_get_key', [ $this, 'filter_stellarwp_uplink_tec_license_get_key' ], 10, 2 );
+		add_filter( 'tec_common_uplink_auth_url', [ $this, 'filter_stellarwp_uplink_tec_authorize_button_url' ], 10, 2 );
 		add_filter( 'pue_get_update_url', [ $this, 'filter_pue_get_update_url' ], 10, 2 );
 	}
 
@@ -50,10 +51,11 @@ class PUE extends Integration_Controller {
 	 * @return void
 	 */
 	public function unregister(): void {
-		remove_filter( 'pre_http_request', [ $this, 'filter_pre_http_request' ], 10, 3 );
-		remove_filter( 'pre_option', [ $this, 'filter_pre_get_option' ], 10, 3 );
-		remove_filter( 'stellarwp/uplink/tec/license_get_key', [ $this, 'filter_stellarwp_uplink_tec_license_get_key' ], 10, 2 );
-		remove_filter( 'pue_get_update_url', [ $this, 'filter_pue_get_update_url' ], 10, 2 );
+		remove_filter( 'pre_http_request', [ $this, 'filter_pre_http_request' ] );
+		remove_filter( 'pre_option', [ $this, 'filter_pre_get_option' ] );
+		remove_filter( 'stellarwp/uplink/tec/license_get_key', [ $this, 'filter_stellarwp_uplink_tec_license_get_key' ] );
+		remove_filter( 'tec_common_uplink_auth_url', [ $this, 'filter_stellarwp_uplink_tec_authorize_button_url' ] );
+		remove_filter( 'pue_get_update_url', [ $this, 'filter_pue_get_update_url' ] );
 	}
 
 	/**
@@ -182,7 +184,7 @@ class PUE extends Integration_Controller {
 		$products = tribe( License_Repository::class )->get_products();
 
 		if ( $catalog && ! is_wp_error( $catalog ) && $products && ! is_wp_error( $products ) ) {
-			$tec_product         = $products->get( 'the-events-calendar' );
+			$tec_product         = $products->get_activated_entry( 'the-events-calendar' );
 			$tec_product_catalog = $catalog->get( 'the-events-calendar' );
 			if ( $tec_product && $tec_product_catalog ) {
 				$response = $this->response_from_catalog( $tec_product_catalog, $tec_product, $body['plugin'] );
@@ -316,5 +318,32 @@ class PUE extends Integration_Controller {
 			],
 			'cookies'  => [],
 		];
+	}
+
+	/**
+	 * Filter the StellarWP Uplink TEC authorize button URL.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url   The URL.
+	 * @param string $slug  The slug.
+	 *
+	 * @return string
+	 */
+	public function filter_stellarwp_uplink_tec_authorize_button_url( string $url, string $slug ): string {
+		if ( 'tec-seating' !== $slug ) {
+			return $url;
+		}
+
+		$url_parsed = wp_parse_url( $url );
+		if ( empty( $url_parsed['host'] ) || empty( $url_parsed['path'] ) ) {
+			return $url;
+		}
+
+		if ( $url_parsed['path'] !== '/seating-connect/' ) {
+			return $url;
+		}
+
+		return $this->harbor->get_portal_url( $url_parsed['path'] );
 	}
 }

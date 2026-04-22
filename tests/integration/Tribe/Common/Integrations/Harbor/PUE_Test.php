@@ -329,4 +329,26 @@ class PUE_Test extends WPTestCase {
 		delete_option( 'pue_install_key_event_tickets_plus' );
 		delete_option( 'pue_install_key_tribe_filterbar' );
 	}
+
+	/**
+	 * @test
+	 * @dataProvider auth_url_decorator_provider
+	 */
+	public function it_should_decorate_auth_url_only_for_matching_slug_and_path( string $slug, string $url, bool $should_change ): void {
+		$result = apply_filters( 'tec_common_uplink_auth_url', $url, $slug );
+
+		if ( $should_change ) {
+			$this->assertNotSame( $url, $result );
+		} else {
+			$this->assertSame( $url, $result );
+		}
+	}
+
+	public function auth_url_decorator_provider(): array {
+		return [
+			'matching slug and path rewrites to portal URL' => [ 'tec-seating', 'https://example.com/seating-connect/', true ],
+			'matching slug but wrong path leaves URL untouched' => [ 'tec-seating', 'https://example.com/seating-connect/wrong-path', false ],
+			'non-matching slug leaves URL untouched'        => [ 'events-calendar-pro', 'https://example.com/seating-connect/', false ],
+		];
+	}
 }
