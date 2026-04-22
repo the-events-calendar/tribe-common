@@ -16,6 +16,7 @@ use TEC\Common\LiquidWeb\Harbor\Portal\Catalog_Collection;
 use TEC\Common\LiquidWeb\Harbor\Portal\Results\Catalog_Feature;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
 use TEC\Common\LiquidWeb\Harbor\Portal\Results\Product_Catalog;
+use TEC\Common\LiquidWeb\Harbor\Licensing\Product_Collection;
 use TEC\Common\StellarWP\Uplink\Resources\Resource as Uplink_Resource;
 use TEC\Common\LiquidWeb\Harbor\Config;
 
@@ -177,12 +178,17 @@ class PUE extends Integration_Controller {
 		/** @var ?Catalog_Collection $catalog */
 		$catalog = tribe( Catalog_Repository::class )->get_cached();
 
+		/** @var ?Product_Collection $products */
 		$products = tribe( License_Repository::class )->get_products();
 
 		if ( $catalog && ! is_wp_error( $catalog ) && $products && ! is_wp_error( $products ) ) {
-			$response = $this->response_from_catalog( $catalog->get( 'the-events-calendar' ), $products->get( 'the-events-calendar' ), $body['plugin'] );
-			if ( $response ) {
-				return $response;
+			$tec_product         = $products->get( 'the-events-calendar' );
+			$tec_product_catalog = $catalog->get( 'the-events-calendar' );
+			if ( $tec_product && $tec_product_catalog ) {
+				$response = $this->response_from_catalog( $tec_product_catalog, $tec_product, $body['plugin'] );
+				if ( $response ) {
+					return $response;
+				}
 			}
 		}
 
