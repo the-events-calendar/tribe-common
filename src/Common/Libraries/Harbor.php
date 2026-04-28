@@ -175,7 +175,8 @@ class Harbor extends Controller_Contract {
 		return array_values(
 			array_filter(
 				$licenses,
-				static fn( array $license ): bool => ! empty( $license['key'] ) && ! str_starts_with( $license['key'], 'LWSW-' ) )
+				static fn( array $license ): bool => ! empty( $license['key'] ) && ! str_starts_with( $license['key'], 'LWSW-' )
+			)
 		);
 	}
 
