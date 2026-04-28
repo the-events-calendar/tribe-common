@@ -152,6 +152,7 @@ class PUE extends Integration_Controller {
 		$is_production = Config::get_licensing_base_url() === Config::DEFAULT_LICENSING_BASE_URL;
 
 		$allowed_hosts = [
+			'licensing.nexcess.com',
 			'licensing.stellarwp.com',
 			'pue.theeventscalendar.com',
 		];
