@@ -2,7 +2,7 @@
 /**
  * The PUE resolver.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Common\Integrations\Harbor
  */
@@ -25,7 +25,7 @@ use ReflectionClass;
 /**
  * The PUE resolver.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Common\Integrations\Harbor
  */
@@ -33,7 +33,7 @@ class PUE_Resolver {
 	/**
 	 * The PUE class map.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @var array
 	 */
@@ -48,7 +48,7 @@ class PUE_Resolver {
 	/**
 	 * Get the PUE from the class.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $class_name The class.
 	 *
@@ -70,7 +70,7 @@ class PUE_Resolver {
 	/**
 	 * Get the PUE plugin file from the class.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $class_name The class.
 	 *

@@ -24,7 +24,7 @@ use function lw_harbor_is_feature_available;
 /**
  * Controller for setting up the Harbor library.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Common\Libraries\Harbor
  */
@@ -32,7 +32,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * The TEC product slug to Harbor product slug map.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @var array
 	 */
@@ -53,7 +53,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Register the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 */
 	public function do_register(): void {
 		$common = Common::instance();
@@ -67,7 +67,7 @@ class Harbor extends Controller_Contract {
 		 * Useful for setting the licensing and portal base URLs
 		 * to other than the default values.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 */
 		do_action( 'tec_common_harbor_pre_init' );
 
@@ -84,7 +84,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -96,7 +96,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Decorate the uplinks auth URL.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -107,7 +107,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Register the legacy licenses.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array $licenses The licenses.
 	 *
@@ -183,7 +183,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Get the unified license key.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return string|null The unified license key, or null if no key is found.
 	 */
@@ -194,7 +194,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Check if the product is licensed.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $product The product slug.
 	 *
@@ -211,7 +211,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Get the unified license key if the feature is enabled.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $feature The feature slug.
 	 *
@@ -233,7 +233,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Get the unified license key if the feature is available.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $feature The feature slug.
 	 *
@@ -255,7 +255,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Get the Harbor product slug for a TEC product slug.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $tec_product_slug The TEC product slug.
 	 *
@@ -272,7 +272,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Get the portal URL.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $path The path.
 	 *

@@ -2,7 +2,7 @@
 /**
  * The Harbor integration controller.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Common\Integrations\Harbor
  */
@@ -16,7 +16,7 @@ use TEC\Common\Contracts\Container;
 /**
  * The Harbor integration controller.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Common\Integrations\Harbor
  */
@@ -24,7 +24,7 @@ abstract class Integration_Controller extends Controller_Contract {
 	/**
 	 * The Harbor instance.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @var Harbor
 	 */
@@ -33,7 +33,7 @@ abstract class Integration_Controller extends Controller_Contract {
 	/**
 	 * The constructor.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param Container $container The container.
 	 * @param Harbor    $harbor    The Harbor instance.

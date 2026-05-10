@@ -2,7 +2,7 @@
 /**
  * Auth URL decorator.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Common\Integrations\Uplink
  */
@@ -15,7 +15,7 @@ use TEC\Common\StellarWP\Uplink\API\V3\Auth\Contracts\Auth_Url;
 /**
  * Auth URL decorator.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Common\Integrations\Uplink
  */
@@ -29,7 +29,7 @@ class Auth_URL_Decorator implements Auth_Url {
 	/**
 	 * The auth URL cache decorator constructor.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param Auth_Url_Cache_Decorator $auth_url_cache_decorator The auth URL cache decorator.
 	 */
@@ -40,7 +40,7 @@ class Auth_URL_Decorator implements Auth_Url {
 	/**
 	 * Get the auth URL.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $slug The slug.
 	 *
@@ -52,7 +52,7 @@ class Auth_URL_Decorator implements Auth_Url {
 		/**
 		 * Filter the auth URL.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param string $url The auth URL.
 		 * @param string $slug The slug.

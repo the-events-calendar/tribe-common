@@ -2,7 +2,7 @@
 /**
  * The PUE Harbor integration.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Common\Integrations\Harbor
  */
@@ -23,7 +23,7 @@ use TEC\Common\LiquidWeb\Harbor\Config;
 /**
  * The PUE Harbor integration.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Common\Integrations\Harbor
  */
@@ -31,7 +31,7 @@ class PUE extends Integration_Controller {
 	/**
 	 * Register the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -46,7 +46,7 @@ class PUE extends Integration_Controller {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -61,7 +61,7 @@ class PUE extends Integration_Controller {
 	/**
 	 * Filter the PUE update URL.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $update_url The update URL.
 	 * @param string $slug The plugin slug.
@@ -79,7 +79,7 @@ class PUE extends Integration_Controller {
 	/**
 	 * Filter the StellarWP Uplink TEC license get key.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param ?string         $license         The license.
 	 * @param Uplink_Resource $uplink_resource The resource.
@@ -98,7 +98,7 @@ class PUE extends Integration_Controller {
 	/**
 	 * Filter the pre get option.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param mixed  $value         The value.
 	 * @param string $option        The option.
@@ -124,7 +124,7 @@ class PUE extends Integration_Controller {
 	/**
 	 * Filter the pre HTTP request.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param false|array|WP_Error $response    The response.
 	 * @param array                $parsed_args The parsed arguments.
@@ -246,7 +246,7 @@ class PUE extends Integration_Controller {
 	/**
 	 * Get the response from the catalog.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param Product_Catalog $tec_product_catalog The TEC product entry.
 	 * @param Product_Entry   $tec                 The TEC product.
@@ -324,7 +324,7 @@ class PUE extends Integration_Controller {
 	/**
 	 * Filter the StellarWP Uplink TEC authorize button URL.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $url   The URL.
 	 * @param string $slug  The slug.

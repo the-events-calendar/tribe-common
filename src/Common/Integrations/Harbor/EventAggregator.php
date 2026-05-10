@@ -2,7 +2,7 @@
 /**
  * The Event Aggregator Harbor integration.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Common\Integrations\Harbor
  */
@@ -14,7 +14,7 @@ namespace TEC\Common\Integrations\Harbor;
 /**
  * The Event Aggregator Harbor integration.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Common\Integrations\Harbor
  */
@@ -22,7 +22,7 @@ class EventAggregator extends Integration_Controller {
 	/**
 	 * Register the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -33,7 +33,7 @@ class EventAggregator extends Integration_Controller {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -44,7 +44,7 @@ class EventAggregator extends Integration_Controller {
 	/**
 	 * Filter the consolidation took over.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return bool
 	 */
