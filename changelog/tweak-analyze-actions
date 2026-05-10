@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Added actions: `tec_common_harbor_pre_init`
