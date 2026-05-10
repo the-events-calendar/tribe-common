@@ -2,7 +2,7 @@
 
 = [6.11.0] 2026-05-11 =
 
-* Feature - Support for the new Liquid Web licensing system integrated with existing PUE and Uplink. [SCON-651]
+* Feature - Support for the new Nexcess licensing system integrated with existing PUE and Uplink. [SCON-651]
 * Tweak - Update Authentication URL for Assigned Seating's connector.
 * Tweak - Updated branding references from StellarWP to Nexcess.
 * Tweak - Added actions: `tec_common_harbor_pre_init`
