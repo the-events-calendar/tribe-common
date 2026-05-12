@@ -39,8 +39,8 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 		if ( $date_format ) {
 			$format = $date_format;
 		} else {
-			$date_year = date( 'Y', $date );
-			$cur_year  = date( 'Y', current_time( 'timestamp' ) );
+			$date_year = wp_date( 'Y', $date );
+			$cur_year  = wp_date( 'Y' );
 
 			// only show the year in the date if it's not in the current year
 			$with_year = $date_year == $cur_year ? false : true;
