@@ -1,5 +1,19 @@
 # Changelog
 
+### [6.11.0] 2026-05-11
+
+* Feature - Support for the new Nexcess licensing system integrated with existing PUE and Uplink. [SCON-651]
+* Tweak - Update Authentication URL for Assigned Seating's connector.
+* Tweak - Updated branding references from StellarWP to Nexcess.
+* Tweak - Added actions: `tec_common_harbor_pre_init`
+* Tweak - Added filters: `tec_common_uplink_auth_url`
+
+### [6.10.3] 2026-03-25
+
+* Tweak - Add filter `tec_common_is_rest_api` to improve the URL compatibility with non-ASCII languages. [TEC-4848]
+* Performance - Ensures Promoter's authentication system is triggered only when there is a Promoter license key and only during REST API requests.
+* Language - 0 new strings added, 26 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.10.2] 2025-01-28
 
 * Tweak - Added filters: `tec_common_is_rest_api`

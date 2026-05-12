@@ -31,6 +31,7 @@
     "stellarwp/assets": "1.4.10",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
+    "stellarwp/harbor": "^1.0",
     "stellarwp/installer": "^1.1.0",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
@@ -82,7 +83,13 @@
       "@clean-faker-lang",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
       "@php -d display_errors=on bin/strauss.phar",
-      "@composer dump-autoload"
+      "@composer dump-autoload",
+      "@restore-psr-http-dev"
+    ],
+    "restore-psr-http-dev": [
+      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer reinstall psr/http-message psr/http-client psr/http-factory psr/log psr/container nyholm/psr7 --no-scripts --no-plugins || true",
+      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && php bin/restore-psr-autoload.php || true",
+      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer dump-autoload --no-scripts || true"
     ],
     "trustedlogin": [
       "mkdir -p vendor/vendor-prefixed/trustedlogin/client/src/assets/",
@@ -91,21 +98,26 @@
       "rm -f vendor/bin/build-sass vendor/bin/pscss"
     ],
     "post-install-cmd": [
-      "@strauss",
       "@trustedlogin",
-      "@stellar-uplink"
+      "@stellar-uplink",
+      "@stellar-harbor",
+      "@strauss"
     ],
     "post-update-cmd": [
-      "@strauss",
       "@trustedlogin",
-      "@stellar-uplink"
+      "@stellar-uplink",
+      "@stellar-harbor",
+      "@strauss"
     ],
     "stellar-uplink": [
       "vendor/bin/stellar-uplink domain=tribe-common"
     ],
+    "stellar-harbor": [
+      "@php vendor/stellarwp/harbor/bin/stellar-harbor domain=tribe-common"
+    ],
     "pup": [
       "Composer\\Config::disableProcessTimeout",
-      "test -f ./bin/pup.phar || curl -o ./bin/pup.phar -L -C - https://github.com/stellarwp/pup/releases/download/1.3.8/pup.phar",
+      "test -f ./bin/pup.phar || curl -o ./bin/pup.phar -L -C - https://github.com/stellarwp/pup/releases/download/1.3.9/pup.phar",
       "@php bin/pup.phar"
     ],
     "analyze": [
@@ -123,6 +135,7 @@
         "stellarwp/assets",
         "stellarwp/container-contract",
         "stellarwp/db",
+        "stellarwp/harbor",
         "stellarwp/models",
         "stellarwp/schema",
         "stellarwp/schema-models",
@@ -145,7 +158,9 @@
         ]
       },
       "exclude_from_prefix": {
-        "file_patterns": []
+        "file_patterns": [
+          "#stellarwp\/harbor\/src\/Harbor\/global-functions.php#"
+        ]
       },
       "delete_vendor_files": true,
       "include_modified_date": false,
