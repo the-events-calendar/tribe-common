@@ -150,21 +150,23 @@ class Harbor extends Controller_Contract {
 		foreach ( array_keys( $active_plugins ) as $active_plugin_class ) {
 			$pue_checker = tribe( PUE_Resolver::class )->get_pue_from_class( $active_plugin_class );
 
-			if ( ! $pue_checker || in_array( $pue_checker->get_slug(), $slugs_added, true ) ) {
+			$pue_plugin_slug = $pue_checker ? $pue_checker->get_slug() : '';
+
+			if ( ! $pue_checker || in_array( $pue_plugin_slug, $slugs_added, true ) ) {
 				continue;
 			}
 
 			$licenses[] = [
 				'key'        => $pue_checker->get_key(),
-				'slug'       => $this->get_harbor_product_slug( $pue_checker->get_slug() ),
+				'slug'       => $this->get_harbor_product_slug( $pue_plugin_slug ),
 				'name'       => $pue_checker->get_plugin_name(),
 				'product'    => 'the-events-calendar',
-				'is_active'  => $pue_checker->is_key_valid(),
+				'is_active'  => method_exists( $pue_checker, 'is_key_valid' ) ? $pue_checker->is_key_valid() : false,
 				'page_url'   => 'https://my.theeventscalendar.com/my-account/',
 				'expires_at' => '',
 			];
 
-			$slugs_added[] = $pue_checker->get_slug();
+			$slugs_added[] = $pue_plugin_slug;
 		}
 
 		if ( $filters_removed ) {
