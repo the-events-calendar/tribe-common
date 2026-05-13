@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "611d09008377985c5de4de05b46153ca",
+    "content-hash": "5e54f1abf06911ccadf581d127013576",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -905,16 +905,16 @@
         },
         {
             "name": "stellarwp/harbor",
-            "version": "dev-fix/doing-it-wrong-issues",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/harbor.git",
-                "reference": "4c6aef1f16eb5ac4a4e4397ff8a4e8fabde0fed6"
+                "reference": "c9519c36168f40aebb4210b033235eceda3e6366"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/harbor/zipball/4c6aef1f16eb5ac4a4e4397ff8a4e8fabde0fed6",
-                "reference": "4c6aef1f16eb5ac4a4e4397ff8a4e8fabde0fed6",
+                "url": "https://api.github.com/repos/stellarwp/harbor/zipball/c9519c36168f40aebb4210b033235eceda3e6366",
+                "reference": "c9519c36168f40aebb4210b033235eceda3e6366",
                 "shasum": ""
             },
             "require": {
@@ -969,9 +969,9 @@
             "description": "A library that integrates a WordPress product with the Liquid Web licensing system.",
             "support": {
                 "issues": "https://github.com/stellarwp/harbor/issues",
-                "source": "https://github.com/stellarwp/harbor/tree/fix/doing-it-wrong-issues"
+                "source": "https://github.com/stellarwp/harbor/tree/v1.2.0"
             },
-            "time": "2026-05-13T21:26:38+00:00"
+            "time": "2026-05-13T22:44:25+00:00"
         },
         {
             "name": "stellarwp/installer",
@@ -7826,7 +7826,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/coding-standards": 20,
-        "stellarwp/harbor": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
