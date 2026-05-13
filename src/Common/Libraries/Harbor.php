@@ -112,27 +112,32 @@ class Harbor extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
+	 * @param array<string, callable> $other_brands The other brands.
+	 *
 	 * @return array
 	 */
-	public function get_premium_plugin_existence_callbacks(): array {
+	public function get_premium_plugin_existence_callbacks( $other_brands ): array {
 		$premium_actions = [
 			'tec_events_pro_fully_loaded',
 			'tec_tickets_plus_fully_loaded'
 		];
 
-		return [
-			'tec' => static function () use ( $premium_actions ): bool {
-				foreach ( $premium_actions as $premium_action ) {
-					if ( ! did_action( $premium_action ) ) {
-						continue;
+		return array_merge(
+			$other_brands,
+			[
+				'tec' => static function () use ( $premium_actions ): bool {
+					foreach ( $premium_actions as $premium_action ) {
+						if ( ! did_action( $premium_action ) ) {
+							continue;
+						}
+
+						return true;
 					}
 
-					return true;
+					return false;
 				}
-
-				return false;
-			}
-		];
+			]
+		);
 	}
 
 	/**
