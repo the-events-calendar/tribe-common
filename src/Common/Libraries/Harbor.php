@@ -79,7 +79,7 @@ class Harbor extends Controller_Contract {
 		// Uplink is being initialized in init with prio 8 - so we want to decorate it with our own decorator later.
 		add_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
 
-		if ( ! did_action( 'lw_harbor/fully_loaded' ) ) {
+		if ( ! did_action( 'lw_harbor/loaded' ) ) {
 			return;
 		}
 
