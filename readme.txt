@@ -2,7 +2,7 @@
 
 = [6.11.2] 2026-05-14 =
 
-* Tweak - Update Harbor to version 1.1.0 to remove the top level Liquid Web page added to the dashboard.
+* Tweak - Update Harbor to 1.2.0, removing the Liquid Web Products page when there are no premium plugins present.
 
 = [6.11.0] 2026-05-11 =
 

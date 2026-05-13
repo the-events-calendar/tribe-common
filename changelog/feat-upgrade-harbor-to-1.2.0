@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Update Harbor to 1.2.0, removing the Liquid Web Products page when there are no premium plugins present.
