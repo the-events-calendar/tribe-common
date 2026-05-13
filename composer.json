@@ -31,7 +31,7 @@
     "stellarwp/assets": "1.4.10",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
-    "stellarwp/harbor": "1.1.0",
+    "stellarwp/harbor": "dev-feat/add-premium-plugins-check",
     "stellarwp/installer": "^1.1.0",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
