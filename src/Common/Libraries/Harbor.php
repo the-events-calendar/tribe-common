@@ -71,11 +71,17 @@ class Harbor extends Controller_Contract {
 		 */
 		do_action( 'tec_common_harbor_pre_init' );
 
+		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
+		add_filter( 'lw_harbor/premium_plugin_exists', [ $this, 'register_premium_plugin_exists' ] );
+
 		Harbor_Provider::init();
 
-		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
 		// Uplink is being initialized in init with prio 8 - so we want to decorate it with our own decorator later.
 		add_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
+
+		if ( ! did_action( 'lw_harbor/loaded' ) ) {
+			return;
+		}
 
 		$this->container->register( PUE::class );
 		$this->container->register( EventAggregator::class );
@@ -90,6 +96,7 @@ class Harbor extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
+		remove_filter( 'lw_harbor/premium_plugin_exists', [ $this, 'register_premium_plugin_exists' ] );
 		remove_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
 	}
 
@@ -102,6 +109,40 @@ class Harbor extends Controller_Contract {
 	 */
 	public function decorate_uplinks_auth_url(): void {
 		$this->container->bind( Auth_Url::class, Auth_URL_Decorator::class );
+	}
+
+	/**
+	 * Get the premium plugin existence callbacks.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $exists Whether a premium plugin exists.
+	 *
+	 * @return bool
+	 */
+	public function register_premium_plugin_exists( bool $exists ): bool {
+		if ( $exists ) {
+			// It already exists.
+			return true;
+		}
+
+		$premium_constants = [
+			'EVENTS_CALENDAR_PRO_FILE',
+			'EVENT_TICKETS_PLUS_FILE',
+			'EVENTS_COMMUNITY_FILE',
+			'EVENTBRITE_PLUGIN_FILE',
+			'TRIBE_EVENTS_FILTERBAR_FILE',
+		];
+
+		foreach ( $premium_constants as $premium_constant ) {
+			if ( ! defined( $premium_constant ) ) {
+				continue;
+			}
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

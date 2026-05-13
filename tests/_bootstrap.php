@@ -4,6 +4,11 @@
 use Codeception\Util\Autoload;
 use TEC\Common\StellarWP\DB\DB;
 
+$GLOBALS['wp_filter']['lw_harbor/premium_plugin_exists'][ 10 ][ md5( 'lw_harbor/premium_plugin_exists' . '10' . '1' . '__return_true' ) ] = [
+	'function'      => '__return_true',
+	'accepted_args' => 1,
+];
+
 require_once dirname( __DIR__, 1 ) . '/tribe-autoload.php';
 Autoload::addNamespace( 'Tribe\\Tests', __DIR__ . '/_support' );
 // Silence the logger in the tests.
