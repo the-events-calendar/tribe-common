@@ -71,13 +71,17 @@ class Harbor extends Controller_Contract {
 		 */
 		do_action( 'tec_common_harbor_pre_init' );
 
-		Harbor_Provider::init();
-
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
 		add_filter( 'lw_harbor/premium_plugin_exists', [ $this, 'register_premium_plugin_exists' ] );
 
+		Harbor_Provider::init();
+
 		// Uplink is being initialized in init with prio 8 - so we want to decorate it with our own decorator later.
 		add_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
+
+		if ( ! did_action( 'lw_harbor/fully_loaded' ) ) {
+			return;
+		}
 
 		$this->container->register( PUE::class );
 		$this->container->register( EventAggregator::class );
@@ -114,7 +118,7 @@ class Harbor extends Controller_Contract {
 	 *
 	 * @param bool $exists Whether a premium plugin exists.
 	 *
-	 * @return array
+	 * @return bool
 	 */
 	public function register_premium_plugin_exists( bool $exists ): bool {
 		if ( $exists ) {
@@ -122,13 +126,16 @@ class Harbor extends Controller_Contract {
 			return true;
 		}
 
-		$premium_actions = [
-			'tec_events_pro_fully_loaded',
-			'tec_tickets_plus_fully_loaded',
+		$premium_constants = [
+			'EVENTS_CALENDAR_PRO_FILE',
+			'EVENT_TICKETS_PLUS_FILE',
+			'EVENTS_COMMUNITY_FILE',
+			'EVENTBRITE_PLUGIN_FILE',
+			'TRIBE_EVENTS_FILTERBAR_FILE',
 		];
 
-		foreach ( $premium_actions as $premium_action ) {
-			if ( ! did_action( $premium_action ) ) {
+		foreach ( $premium_constants as $premium_constant ) {
+			if ( ! defined( $premium_constant ) ) {
 				continue;
 			}
 
