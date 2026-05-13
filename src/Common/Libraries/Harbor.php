@@ -74,7 +74,7 @@ class Harbor extends Controller_Contract {
 		Harbor_Provider::init();
 
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
-		add_filter( 'lw_harbor/premium_plugin_existence_callbacks', [ $this, 'get_premium_plugin_existence_callbacks' ] );
+		add_filter( 'lw_harbor/premium_plugin_exists', [ $this, 'register_premium_plugin_exists' ] );
 
 		// Uplink is being initialized in init with prio 8 - so we want to decorate it with our own decorator later.
 		add_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
@@ -112,32 +112,30 @@ class Harbor extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string, callable> $other_brands The other brands.
+	 * @param bool $exists Whether a premium plugin exists.
 	 *
 	 * @return array
 	 */
-	public function get_premium_plugin_existence_callbacks( $other_brands ): array {
+	public function register_premium_plugin_exists( bool $exists ): bool {
+		if ( $exists ) {
+			// It already exists.
+			return true;
+		}
+
 		$premium_actions = [
 			'tec_events_pro_fully_loaded',
 			'tec_tickets_plus_fully_loaded'
 		];
 
-		return array_merge(
-			$other_brands,
-			[
-				'tec' => static function () use ( $premium_actions ): bool {
-					foreach ( $premium_actions as $premium_action ) {
-						if ( ! did_action( $premium_action ) ) {
-							continue;
-						}
+		foreach ( $premium_actions as $premium_action ) {
+			if ( ! did_action( $premium_action ) ) {
+				continue;
+			}
 
-						return true;
-					}
+			return true;
+		}
 
-					return false;
-				}
-			]
-		);
+		return false;
 	}
 
 	/**
