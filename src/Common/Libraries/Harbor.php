@@ -58,14 +58,8 @@ class Harbor extends Controller_Contract {
 	public function do_register(): void {
 		$common = Common::instance();
 
-		$premium_actions = [
-			'tec_events_pro_fully_loaded',
-			'tec_tickets_plus_fully_loaded'
-		];
-
 		Config::set_container( $this->container );
 		Config::set_plugin_basename( plugin_basename( $common->get_parent_plugin_file_path() ) );
-
 
 		/**
 		 * Allow plugins to hook in before Harbor is initialized.
@@ -81,6 +75,7 @@ class Harbor extends Controller_Contract {
 
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
 		add_filter( 'lw_harbor/premium_plugin_existence_callbacks', [ $this, 'get_premium_plugin_existence_callbacks' ] );
+
 		// Uplink is being initialized in init with prio 8 - so we want to decorate it with our own decorator later.
 		add_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
 
@@ -97,6 +92,7 @@ class Harbor extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
+		remove_filter( 'lw_harbor/premium_plugin_existence_callbacks', [ $this, 'get_premium_plugin_existence_callbacks' ] );
 		remove_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
 	}
 
