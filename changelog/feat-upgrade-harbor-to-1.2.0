@@ -1,4 +1,4 @@
 Significance: patch
 Type: tweak
 
-Update Harbor to 1.2.0, making the Liquid Web Products page not be registered at all without premium plugins present.
+Update Harbor to 1.2.0, removing the Liquid Web Products page when there are no premium plugins present.
