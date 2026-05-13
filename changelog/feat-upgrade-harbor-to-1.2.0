@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Updates Harbor to 1.2.0, making it load at all if there are no premium plugins.
