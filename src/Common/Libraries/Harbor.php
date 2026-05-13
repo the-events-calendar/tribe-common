@@ -114,7 +114,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Get the premium plugin existence callbacks.
 	 *
-	 * @since TBD
+	 * @since 6.11.2
 	 *
 	 * @param bool $exists Whether a premium plugin exists.
 	 *
