@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87386d958d17f2a3e61960770703512f",
+    "content-hash": "2b07b97ebc6f88f5d9ac6c09c0da510f",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -905,16 +905,16 @@
         },
         {
             "name": "stellarwp/harbor",
-            "version": "dev-feat/add-premium-plugins-check",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/harbor.git",
-                "reference": "100955e02a203a879499a930dcdd7077afa02b43"
+                "reference": "8e28ba546b7cd0baa04a5085038b093ef04bada5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/harbor/zipball/100955e02a203a879499a930dcdd7077afa02b43",
-                "reference": "100955e02a203a879499a930dcdd7077afa02b43",
+                "url": "https://api.github.com/repos/stellarwp/harbor/zipball/8e28ba546b7cd0baa04a5085038b093ef04bada5",
+                "reference": "8e28ba546b7cd0baa04a5085038b093ef04bada5",
                 "shasum": ""
             },
             "require": {
@@ -944,6 +944,7 @@
                 "szepeviktor/phpstan-wordpress": ">=1.0",
                 "wp-cli/wp-cli": "^2"
             },
+            "default-branch": true,
             "bin": [
                 "bin/stellar-harbor"
             ],
@@ -969,9 +970,9 @@
             "description": "A library that integrates a WordPress product with the Liquid Web licensing system.",
             "support": {
                 "issues": "https://github.com/stellarwp/harbor/issues",
-                "source": "https://github.com/stellarwp/harbor/tree/feat/add-premium-plugins-check"
+                "source": "https://github.com/stellarwp/harbor/tree/main"
             },
-            "time": "2026-05-13T17:50:00+00:00"
+            "time": "2026-05-13T20:48:27+00:00"
         },
         {
             "name": "stellarwp/installer",
