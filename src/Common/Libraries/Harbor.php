@@ -92,7 +92,7 @@ class Harbor extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
-		remove_filter( 'lw_harbor/premium_plugin_existence_callbacks', [ $this, 'get_premium_plugin_existence_callbacks' ] );
+		remove_filter( 'lw_harbor/premium_plugin_exists', [ $this, 'register_premium_plugin_exists' ] );
 		remove_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
 	}
 
@@ -124,7 +124,7 @@ class Harbor extends Controller_Contract {
 
 		$premium_actions = [
 			'tec_events_pro_fully_loaded',
-			'tec_tickets_plus_fully_loaded'
+			'tec_tickets_plus_fully_loaded',
 		];
 
 		foreach ( $premium_actions as $premium_action ) {
