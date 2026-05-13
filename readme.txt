@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [6.11.2] 2026-05-14 =
+
+* Tweak - Update Harbor to version 1.1.0 to remove the top level Liquid Web page added to the dashboard.
+
 = [6.11.0] 2026-05-11 =
 
 * Feature - Support for the new Nexcess licensing system integrated with existing PUE and Uplink. [SCON-651]
