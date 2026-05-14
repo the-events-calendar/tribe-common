@@ -56,6 +56,14 @@ class Harbor extends Controller_Contract {
 	 * @since 6.11.0
 	 */
 	public function do_register(): void {
+		if ( defined( 'WP_SANDBOX_SCRAPING' ) && WP_SANDBOX_SCRAPING ) {
+			return;
+		}
+
+		if ( did_action( 'activate_plugin' ) ) {
+			return;
+		}
+
 		$common = Common::instance();
 
 		Config::set_container( $this->container );
