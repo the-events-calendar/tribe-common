@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Update Herald URL to be provided through Harbor's Configuration. [CONS-353]
