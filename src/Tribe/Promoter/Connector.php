@@ -113,7 +113,10 @@ class Tribe__Promoter__Connector {
 		$url = $this->base_url() . 'connect/auth';
 
 		$response = $this->make_call( $url, [
-			'body'      => [ 'token' => $token ],
+			'body'      => [
+				'token'  => $token,
+				'domain' => strtolower( untrailingslashit( preg_replace( '#^https?://#i', '', home_url( '/' ) ) ) ),
+			],
 			'sslverify' => false,
 		] );
 

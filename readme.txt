@@ -1,5 +1,17 @@
 == Changelog ==
 
+= [6.11.2] 2026-05-14 =
+
+* Tweak - Update Harbor to 1.2.0, removing the Liquid Web Products page when there are no premium plugins present.
+
+= [6.11.0] 2026-05-11 =
+
+* Feature - Support for the new Nexcess licensing system integrated with existing PUE and Uplink. [SCON-651]
+* Tweak - Update Authentication URL for Assigned Seating's connector.
+* Tweak - Updated branding references from StellarWP to Nexcess.
+* Tweak - Added actions: `tec_common_harbor_pre_init`
+* Tweak - Added filters: `tec_common_uplink_auth_url`
+
 = [6.10.3] 2026-03-25 =
 
 * Tweak - Add filter `tec_common_is_rest_api` to improve the URL compatibility with non-ASCII languages. [TEC-4848]
