@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e54f1abf06911ccadf581d127013576",
+    "content-hash": "83d2c51b34fae861e4466714ee6b6db9",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -214,6 +214,69 @@
                 }
             ],
             "time": "2024-11-12T12:43:37+00:00"
+        },
+        {
+            "name": "myclabs/php-enum",
+            "version": "1.8.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/myclabs/php-enum.git",
+                "reference": "e7be26966b7398204a234f8673fdad5ac6277802"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/e7be26966b7398204a234f8673fdad5ac6277802",
+                "reference": "e7be26966b7398204a234f8673fdad5ac6277802",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "1.*",
+                "vimeo/psalm": "^4.6.2 || ^5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MyCLabs\\Enum\\": "src/"
+                },
+                "classmap": [
+                    "stubs/Stringable.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP Enum contributors",
+                    "homepage": "https://github.com/myclabs/php-enum/graphs/contributors"
+                }
+            ],
+            "description": "PHP Enum implementation",
+            "homepage": "https://github.com/myclabs/php-enum",
+            "keywords": [
+                "enum"
+            ],
+            "support": {
+                "issues": "https://github.com/myclabs/php-enum/issues",
+                "source": "https://github.com/myclabs/php-enum/tree/1.8.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/mnapoli",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/myclabs/php-enum",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-01-14T11:49:03+00:00"
         },
         {
             "name": "nyholm/psr7",
@@ -1107,6 +1170,107 @@
                 "source": "https://github.com/stellarwp/licensing-api-client-wordpress/tree/2.0.0"
             },
             "time": "2026-04-23T03:38:52+00:00"
+        },
+        {
+            "name": "stellarwp/migrations",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/migrations.git",
+                "reference": "84edb1bb995adc7c94fb5c2687756938121345a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/migrations/zipball/84edb1bb995adc7c94fb5c2687756938121345a8",
+                "reference": "84edb1bb995adc7c94fb5c2687756938121345a8",
+                "shasum": ""
+            },
+            "require": {
+                "myclabs/php-enum": "^1.8",
+                "php": ">=7.4",
+                "stellarwp/shepherd": "^0.2"
+            },
+            "require-dev": {
+                "codeception/module-asserts": "^1.3",
+                "codeception/module-cli": "^1.1",
+                "codeception/module-db": "^1.2",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-rest": "^2.0",
+                "codeception/module-webdriver": "^1.4",
+                "codeception/util-universalframework": "^1.0",
+                "dpanta94/phpstan-containers": "^0.1.0",
+                "lucatume/codeception-snapshot-assertions": "^0.4.0",
+                "lucatume/di52": "^4.0",
+                "lucatume/wp-browser": "^3.5.7",
+                "php-stubs/wp-cli-stubs": "^2.12",
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "slope-it/clock-mock": "^0.4.0",
+                "stellarwp/coding-standards": "^2.1",
+                "szepeviktor/phpstan-wordpress": "^2.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "StellarWP\\Migrations\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "StellarWP\\Migrations\\Tests\\": "tests/_support/Helper/"
+                }
+            },
+            "scripts": {
+                "test:analysis": [
+                    "phpstan analyse -c phpstan.neon.dist --memory-limit=1G"
+                ],
+                "compatibility:php-7.4": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 7.4"
+                ],
+                "compatibility:php-8.0": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.0"
+                ],
+                "compatibility:php-8.1": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.1"
+                ],
+                "compatibility:php-8.2": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.2"
+                ],
+                "compatibility:php-8.3": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.3"
+                ],
+                "compatibility:php-8.4": [
+                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.4"
+                ],
+                "compatibility": [
+                    "@compatibility:php-7.4",
+                    "@compatibility:php-8.0",
+                    "@compatibility:php-8.1",
+                    "@compatibility:php-8.2",
+                    "@compatibility:php-8.3",
+                    "@compatibility:php-8.4"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "StellarWP",
+                    "email": "dev@stellarwp.com"
+                },
+                {
+                    "name": "Dimitrios Pantazis",
+                    "email": "dimi@stellarwp.com"
+                }
+            ],
+            "description": "A library for running migrations.",
+            "support": {
+                "source": "https://github.com/stellarwp/migrations/tree/main",
+                "issues": "https://github.com/stellarwp/migrations/issues"
+            },
+            "time": "2026-02-16T17:51:30+00:00"
         },
         {
             "name": "stellarwp/models",
@@ -7826,6 +7990,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/coding-standards": 20,
+        "stellarwp/migrations": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
@@ -7835,5 +8000,5 @@
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
