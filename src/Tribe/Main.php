@@ -97,6 +97,20 @@ class Tribe__Main {
 		$this->parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $this->parent_plugin_dir );
 
+		require_once $this->plugin_path . 'src/functions/time.php';
+		require_once $this->plugin_path . 'src/functions/utils.php';
+		require_once $this->plugin_path . 'src/functions/conditionals.php';
+		require_once $this->plugin_path . 'src/functions/transient.php';
+		require_once $this->plugin_path . 'src/functions/url.php';
+		require_once $this->plugin_path . 'src/functions/query.php';
+		require_once $this->plugin_path . 'src/functions/multibyte.php';
+		require_once $this->plugin_path . 'src/functions/files.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
+		require_once $this->plugin_path . 'src/functions/template-tags/svg.php';
+
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], -1 );
 		add_action( 'tribe_common_loaded', [ $this, 'tribe_common_app_store' ], 10 );
 		add_action( 'customize_controls_print_styles', [ $this, 'load_tec_variables' ], 10 );
@@ -196,20 +210,6 @@ class Tribe__Main {
 	 * Initializes all required libraries.
 	 */
 	public function init_libraries() {
-		require_once $this->plugin_path . 'src/functions/time.php';
-		require_once $this->plugin_path . 'src/functions/utils.php';
-		require_once $this->plugin_path . 'src/functions/conditionals.php';
-		require_once $this->plugin_path . 'src/functions/transient.php';
-		require_once $this->plugin_path . 'src/functions/url.php';
-		require_once $this->plugin_path . 'src/functions/query.php';
-		require_once $this->plugin_path . 'src/functions/multibyte.php';
-		require_once $this->plugin_path . 'src/functions/files.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/html.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/post.php';
-		require_once $this->plugin_path . 'src/functions/template-tags/svg.php';
-
 		Tribe__Debug::instance();
 		tec_timed_option();
 
@@ -799,7 +799,7 @@ class Tribe__Main {
 		tribe_singleton( 'updater', 'TEC\Common\Updater' );
 		tribe_singleton( \TEC\Common\Storage\Timed_Option::class, \TEC\Common\Storage\Timed_Option::class );
 		tribe_singleton( 'settings.manager', 'Tribe__Settings_Manager' );
-		tribe_singleton( 'settings', 'Tribe__Settings', [ 'hook' ] );
+		tribe_singleton( 'settings', 'Tribe__Settings' );
 		tribe_singleton( 'ajax.dropdown', 'Tribe__Ajax__Dropdown', [ 'hook' ] );
 		tribe_singleton( 'assets', 'Tribe__Assets', [ 'hook' ] );
 		tribe_singleton( 'assets.pipeline', 'Tribe__Assets_Pipeline', [ 'hook' ] );
