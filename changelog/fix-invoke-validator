@@ -1,4 +1,0 @@
-Significance: patch
-Type: security
-
-Validator callback improvements for new experimental REST API.
