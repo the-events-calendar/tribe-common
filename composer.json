@@ -88,13 +88,13 @@
       "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.26.3/strauss.phar",
       "@clean-faker-lang",
       "vendor/stellarwp/installer/bin/set-domain domain=tribe-common",
+      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && php bin/psr-http-dev.php backup || true",
       "@php -d display_errors=on bin/strauss.phar",
       "@composer dump-autoload",
       "@restore-psr-http-dev"
     ],
     "restore-psr-http-dev": [
-      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer reinstall psr/http-message psr/http-client psr/http-factory psr/log psr/container nyholm/psr7 --no-scripts --no-plugins || true",
-      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && php bin/restore-psr-autoload.php || true",
+      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && php bin/psr-http-dev.php restore || true",
       "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer dump-autoload --no-scripts || true"
     ],
     "trustedlogin": [
