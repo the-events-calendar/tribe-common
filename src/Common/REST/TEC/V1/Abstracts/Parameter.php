@@ -618,14 +618,12 @@ abstract class Parameter implements Parameter_Contract {
 				'uniqueItems'       => $this->is_unique_items(),
 				'properties'        => $this->get_properties(),
 				'enum'              => 'array' === $this->get_type() ? null : $this->get_enum(),
-				'validate_callback' => function () {
-					return function ( $value ) {
-						try {
-							return $this->get_validator()( $value );
-						} catch ( InvalidRestArgumentException $e ) {
-							return $e->to_wp_error();
-						}
-					};
+				'validate_callback' => function ( $value ) {
+					try {
+						return $this->get_validator()( $value );
+					} catch ( InvalidRestArgumentException $e ) {
+						return $e->to_wp_error();
+					}
 				},
 				'sanitize_callback' => $this->get_sanitizer(),
 			],

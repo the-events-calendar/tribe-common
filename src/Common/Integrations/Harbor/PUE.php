@@ -73,7 +73,7 @@ class PUE extends Integration_Controller {
 			return $update_url;
 		}
 
-		return 'https://herald.stellarwp.com';
+		return Config::get_herald_base_url();
 	}
 
 	/**
