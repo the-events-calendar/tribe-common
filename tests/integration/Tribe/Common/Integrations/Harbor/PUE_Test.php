@@ -170,7 +170,7 @@ class PUE_Test extends WPTestCase {
 
 		$result = apply_filters( 'pue_get_update_url', 'https://pue.theeventscalendar.com/', 'events-calendar-pro' );
 
-		$this->assertSame( 'https://herald.stellarwp.com', $result );
+		$this->assertSame( 'https://herald.nexcess.com', $result );
 	}
 
 	/**
@@ -323,7 +323,7 @@ class PUE_Test extends WPTestCase {
 		// X2 is authorized but not installed — validate URL still flips to herald
 		// if PUE code ever asks about it (e.g. background check).
 		$update_url = apply_filters( 'pue_get_update_url', 'https://pue.theeventscalendar.com/', 'event-tickets' );
-		$this->assertSame( 'https://herald.stellarwp.com', $update_url );
+		$this->assertSame( 'https://herald.nexcess.com', $update_url );
 
 		delete_option( 'pue_install_key_events_calendar_pro' );
 		delete_option( 'pue_install_key_event_tickets_plus' );
