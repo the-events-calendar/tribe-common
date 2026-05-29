@@ -1,5 +1,12 @@
 # Changelog
 
+### [6.11.3] 2026-05-28
+
+* Fix - Update Herald URL to be provided through Harbor's Configuration. [CONS-353]
+* Tweak - Update Harbor to 1.4.
+* Security - Validator callback improvements for new experimental REST API.
+* Language - 1 new strings added, 47 updated, 1 fuzzied, and 22 obsoleted.
+
 ### [6.11.2] 2026-05-14
 
 * Tweak - Update Harbor to 1.2.0, removing the Liquid Web Products page when there are no premium plugins present.
@@ -28,8 +35,9 @@
 * Performance - Ensures Promoter's authentication system is triggered only when there is a Promoter license key and only during REST API requests.
 * Language - 0 new strings added, 26 updated, 1 fuzzied, and 0 obsoleted.
 
-### [6.10.1] 2026-01-13 ( Version bump was missed for this release. )
+### [6.10.1] 2026-01-13
 
+*  - _Note: Version bump was missed for this release._
 * Tweak - Added filters: `tec_common_is_rest_api`
 * Performance - Ensures Promoter's authentication system is triggered only when there is a Promoter license key and only during REST API requests.
 * Language - 0 new strings added, 26 updated, 1 fuzzied, and 0 obsoleted.
