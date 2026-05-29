@@ -37,7 +37,7 @@
     "stellarwp/assets": "1.4.10",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
-    "stellarwp/harbor": "^1.2",
+    "stellarwp/harbor": "^1.4",
     "stellarwp/installer": "^1.1.0",
     "stellarwp/migrations": "dev-main",
     "stellarwp/telemetry": "^2.3.4",
