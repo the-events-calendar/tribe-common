@@ -1,13 +1,43 @@
 # Changelog
 
+### [6.11.3] 2026-05-28
+
+* Fix - Update Herald URL to be provided through Harbor's Configuration. [CONS-353]
+* Tweak - Update Harbor to 1.4.
+* Security - Validator callback improvements for new experimental REST API.
+* Language - 1 new strings added, 47 updated, 1 fuzzied, and 22 obsoleted.
+
+### [6.11.2] 2026-05-14
+
+* Tweak - Update Harbor to 1.2.0, removing the Liquid Web Products page when there are no premium plugins present.
+
+### [6.11.1] 2026-05-12
+
+* Tweak - Update Harbor to version 1.1.0 to remove the top level Liquid Web page added to the dashboard.
+
+### [6.11.0] 2026-05-11
+
+* Feature - Support for the new Nexcess licensing system integrated with existing PUE and Uplink. [SCON-651]
+* Tweak - Update Authentication URL for Assigned Seating's connector.
+* Tweak - Updated branding references from StellarWP to Nexcess.
+* Tweak - Added actions: `tec_common_harbor_pre_init`
+* Tweak - Added filters: `tec_common_uplink_auth_url`
+
+### [6.10.3] 2026-03-25
+
+* Tweak - Add filter `tec_common_is_rest_api` to improve the URL compatibility with non-ASCII languages. [TEC-4848]
+* Performance - Ensures Promoter's authentication system is triggered only when there is a Promoter license key and only during REST API requests.
+* Language - 0 new strings added, 26 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.10.2] 2025-01-28
 
 * Tweak - Added filters: `tec_common_is_rest_api`
 * Performance - Ensures Promoter's authentication system is triggered only when there is a Promoter license key and only during REST API requests.
 * Language - 0 new strings added, 26 updated, 1 fuzzied, and 0 obsoleted.
 
-### [6.10.1] 2026-01-13 ( Version bump was missed for this release. )
+### [6.10.1] 2026-01-13
 
+*  - _Note: Version bump was missed for this release._
 * Tweak - Added filters: `tec_common_is_rest_api`
 * Performance - Ensures Promoter's authentication system is triggered only when there is a Promoter license key and only during REST API requests.
 * Language - 0 new strings added, 26 updated, 1 fuzzied, and 0 obsoleted.

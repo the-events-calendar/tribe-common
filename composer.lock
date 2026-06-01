@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37187306175966fabbc473fed82cb62b",
+    "content-hash": "72cacbba0c0d39d72ae81a71338a136a",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -216,36 +216,46 @@
             "time": "2024-11-12T12:43:37+00:00"
         },
         {
-            "name": "myclabs/php-enum",
-            "version": "1.8.5",
+            "name": "nyholm/psr7",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/myclabs/php-enum.git",
-                "reference": "e7be26966b7398204a234f8673fdad5ac6277802"
+                "url": "https://github.com/Nyholm/psr7.git",
+                "reference": "a71f2b11690f4b24d099d6b16690a90ae14fc6f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/e7be26966b7398204a234f8673fdad5ac6277802",
-                "reference": "e7be26966b7398204a234f8673fdad5ac6277802",
+                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/a71f2b11690f4b24d099d6b16690a90ae14fc6f3",
+                "reference": "a71f2b11690f4b24d099d6b16690a90ae14fc6f3",
                 "shasum": ""
             },
             "require": {
-                "ext-json": "*",
-                "php": "^7.3 || ^8.0"
+                "php": ">=7.2",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.1 || ^2.0"
+            },
+            "provide": {
+                "php-http/message-factory-implementation": "1.0",
+                "psr/http-factory-implementation": "1.0",
+                "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.5",
-                "squizlabs/php_codesniffer": "1.*",
-                "vimeo/psalm": "^4.6.2 || ^5.2"
+                "http-interop/http-factory-tests": "^0.9",
+                "php-http/message-factory": "^1.0",
+                "php-http/psr7-integration-tests": "^1.0",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.4",
+                "symfony/error-handler": "^4.4"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "MyCLabs\\Enum\\": "src/"
-                },
-                "classmap": [
-                    "stubs/Stringable.php"
-                ]
+                    "Nyholm\\Psr7\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -253,30 +263,35 @@
             ],
             "authors": [
                 {
-                    "name": "PHP Enum contributors",
-                    "homepage": "https://github.com/myclabs/php-enum/graphs/contributors"
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com"
+                },
+                {
+                    "name": "Martijn van der Ven",
+                    "email": "martijn@vanderven.se"
                 }
             ],
-            "description": "PHP Enum implementation",
-            "homepage": "https://github.com/myclabs/php-enum",
+            "description": "A fast PHP7 implementation of PSR-7",
+            "homepage": "https://tnyholm.se",
             "keywords": [
-                "enum"
+                "psr-17",
+                "psr-7"
             ],
             "support": {
-                "issues": "https://github.com/myclabs/php-enum/issues",
-                "source": "https://github.com/myclabs/php-enum/tree/1.8.5"
+                "issues": "https://github.com/Nyholm/psr7/issues",
+                "source": "https://github.com/Nyholm/psr7/tree/1.8.2"
             },
             "funding": [
                 {
-                    "url": "https://github.com/mnapoli",
+                    "url": "https://github.com/Zegnat",
                     "type": "github"
                 },
                 {
-                    "url": "https://tidelift.com/funding/github/packagist/myclabs/php-enum",
-                    "type": "tidelift"
+                    "url": "https://github.com/nyholm",
+                    "type": "github"
                 }
             ],
-            "time": "2025-01-14T11:49:03+00:00"
+            "time": "2024-09-09T07:06:30+00:00"
         },
         {
             "name": "psr/container",
@@ -325,6 +340,166 @@
                 "source": "https://github.com/php-fig/container/tree/1.1.1"
             },
             "time": "2021-03-05T17:36:06+00:00"
+        },
+        {
+            "name": "psr/http-client",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-client.git",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/bb5906edc1c324c9a05aa0873d40117941e5fa90",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0",
+                "psr/http-message": "^1.0 || ^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP clients",
+            "homepage": "https://github.com/php-fig/http-client",
+            "keywords": [
+                "http",
+                "http-client",
+                "psr",
+                "psr-18"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-client"
+            },
+            "time": "2023-09-23T14:17:50+00:00"
+        },
+        {
+            "name": "psr/http-factory",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-factory.git",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "psr/http-message": "^1.0 || ^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "psr",
+                "psr-17",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-factory"
+            },
+            "time": "2024-04-15T12:06:14+00:00"
+        },
+        {
+            "name": "psr/http-message",
+            "version": "1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP messages",
+            "homepage": "https://github.com/php-fig/http-message",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-message/tree/1.1"
+            },
+            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "psr/log",
@@ -729,6 +904,76 @@
             "time": "2025-11-10T10:55:50+00:00"
         },
         {
+            "name": "stellarwp/harbor",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/harbor.git",
+                "reference": "0d21b6e6da4352364610168c053ed0ec9d59253d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/harbor/zipball/0d21b6e6da4352364610168c053ed0ec9d59253d",
+                "reference": "0d21b6e6da4352364610168c053ed0ec9d59253d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "nyholm/psr7": "^1.0",
+                "php": ">=7.4",
+                "psr/http-client": "^1.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.1",
+                "stellarwp/container-contract": "^1.0",
+                "stellarwp/licensing-api-client-wordpress": "^2.0"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^1",
+                "dpanta94/phpstan-containers": "^0",
+                "exussum12/coverage-checker": "^1.1",
+                "lucatume/codeception-snapshot-assertions": "*",
+                "lucatume/di52": "^3",
+                "lucatume/wp-browser": "*",
+                "php-stubs/wp-cli-stubs": "^2",
+                "phpcompatibility/phpcompatibility-wp": "^2",
+                "phpspec/prophecy": "*",
+                "phpspec/prophecy-phpunit": "*",
+                "phpstan/phpstan": "^2",
+                "phpunit/phpunit": "*",
+                "stellarwp/coding-standards": "^2",
+                "szepeviktor/phpstan-wordpress": ">=1.0",
+                "wp-cli/wp-cli": "^2"
+            },
+            "bin": [
+                "bin/stellar-harbor"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LiquidWeb\\Harbor\\": "src/Harbor/",
+                    "LiquidWeb\\Harbor\\Views\\": "src/views/",
+                    "LiquidWeb\\Harbor\\Build_Dir\\": "build/",
+                    "LiquidWeb\\Harbor\\Build_Dev_Dir\\": "build-dev/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Liquid Web",
+                    "homepage": "https://liquidweb.com"
+                }
+            ],
+            "description": "A library that integrates a WordPress product with the Liquid Web licensing system.",
+            "support": {
+                "issues": "https://github.com/stellarwp/harbor/issues",
+                "source": "https://github.com/stellarwp/harbor/tree/v1.4.0"
+            },
+            "time": "2026-05-21T17:13:36+00:00"
+        },
+        {
             "name": "stellarwp/installer",
             "version": "1.1.1",
             "source": {
@@ -782,105 +1027,86 @@
             "time": "2023-06-06T13:25:04+00:00"
         },
         {
-            "name": "stellarwp/migrations",
-            "version": "dev-main",
+            "name": "stellarwp/licensing-api-client",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/stellarwp/migrations.git",
-                "reference": "84edb1bb995adc7c94fb5c2687756938121345a8"
+                "url": "https://github.com/stellarwp/licensing-api-client.git",
+                "reference": "6f9e0b3e49831f49b735a9544c5fb2fea4eeedeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/migrations/zipball/84edb1bb995adc7c94fb5c2687756938121345a8",
-                "reference": "84edb1bb995adc7c94fb5c2687756938121345a8",
+                "url": "https://api.github.com/repos/stellarwp/licensing-api-client/zipball/6f9e0b3e49831f49b735a9544c5fb2fea4eeedeb",
+                "reference": "6f9e0b3e49831f49b735a9544c5fb2fea4eeedeb",
                 "shasum": ""
             },
             "require": {
-                "myclabs/php-enum": "^1.8",
+                "ext-json": "*",
                 "php": ">=7.4",
-                "stellarwp/shepherd": "^0.2"
+                "psr/http-client": "^1.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.0 || ^2.0"
             },
-            "require-dev": {
-                "codeception/module-asserts": "^1.3",
-                "codeception/module-cli": "^1.1",
-                "codeception/module-db": "^1.2",
-                "codeception/module-filesystem": "^1.0",
-                "codeception/module-phpbrowser": "^1.0",
-                "codeception/module-rest": "^2.0",
-                "codeception/module-webdriver": "^1.4",
-                "codeception/util-universalframework": "^1.0",
-                "dpanta94/phpstan-containers": "^0.1.0",
-                "lucatume/codeception-snapshot-assertions": "^0.4.0",
-                "lucatume/di52": "^4.0",
-                "lucatume/wp-browser": "^3.5.7",
-                "php-stubs/wp-cli-stubs": "^2.12",
-                "phpcompatibility/phpcompatibility-wp": "^2.1",
-                "slope-it/clock-mock": "^0.4.0",
-                "stellarwp/coding-standards": "^2.1",
-                "szepeviktor/phpstan-wordpress": "^2.0"
-            },
-            "default-branch": true,
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "StellarWP\\Migrations\\": "src/"
+                    "LiquidWeb\\LicensingApiClient\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "StellarWP\\Migrations\\Tests\\": "tests/_support/Helper/"
-                }
-            },
-            "scripts": {
-                "test:analysis": [
-                    "phpstan analyse -c phpstan.neon.dist --memory-limit=1G"
-                ],
-                "compatibility:php-7.4": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 7.4"
-                ],
-                "compatibility:php-8.0": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.0"
-                ],
-                "compatibility:php-8.1": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.1"
-                ],
-                "compatibility:php-8.2": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.2"
-                ],
-                "compatibility:php-8.3": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.3"
-                ],
-                "compatibility:php-8.4": [
-                    "phpcs ./src -s --standard=PHPCompatibilityWP --runtime-set testVersion 8.4"
-                ],
-                "compatibility": [
-                    "@compatibility:php-7.4",
-                    "@compatibility:php-8.0",
-                    "@compatibility:php-8.1",
-                    "@compatibility:php-8.2",
-                    "@compatibility:php-8.3",
-                    "@compatibility:php-8.4"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0-or-later"
             ],
-            "authors": [
-                {
-                    "name": "StellarWP",
-                    "email": "dev@stellarwp.com"
-                },
-                {
-                    "name": "Dimitrios Pantazis",
-                    "email": "dimi@stellarwp.com"
-                }
-            ],
-            "description": "A library for running migrations.",
+            "description": "A PHP client for the Liquid Web Licensing API.",
             "support": {
-                "source": "https://github.com/stellarwp/migrations/tree/main",
-                "issues": "https://github.com/stellarwp/migrations/issues"
+                "source": "https://github.com/stellarwp/licensing-api-client/tree/2.0.0"
             },
-            "time": "2026-02-16T17:51:30+00:00"
+            "time": "2026-04-23T03:36:42+00:00"
+        },
+        {
+            "name": "stellarwp/licensing-api-client-wordpress",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stellarwp/licensing-api-client-wordpress.git",
+                "reference": "f4ece66587cd6de175ffd35d0fbc3dc06c76a1f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stellarwp/licensing-api-client-wordpress/zipball/f4ece66587cd6de175ffd35d0fbc3dc06c76a1f8",
+                "reference": "f4ece66587cd6de175ffd35d0fbc3dc06c76a1f8",
+                "shasum": ""
+            },
+            "require": {
+                "nyholm/psr7": "^1.8",
+                "php": ">=7.4",
+                "stellarwp/licensing-api-client": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LiquidWeb\\LicensingApiClientWordPress\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "WordPress transport and factory integration for the Liquid Web Licensing API client.",
+            "support": {
+                "source": "https://github.com/stellarwp/licensing-api-client-wordpress/tree/2.0.0"
+            },
+            "time": "2026-04-23T03:38:52+00:00"
         },
         {
             "name": "stellarwp/models",
@@ -4583,59 +4809,6 @@
                 "source": "https://github.com/sebastianbergmann/phpunit/tree/7.5.20"
             },
             "time": "2020-01-08T08:45:45+00:00"
-        },
-        {
-            "name": "psr/http-message",
-            "version": "1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/http-message.git",
-                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
-                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2 || ^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Http\\Message\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for HTTP messages",
-            "homepage": "https://github.com/php-fig/http-message",
-            "keywords": [
-                "http",
-                "http-message",
-                "psr",
-                "psr-7",
-                "request",
-                "response"
-            ],
-            "support": {
-                "source": "https://github.com/php-fig/http-message/tree/1.1"
-            },
-            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

@@ -49,6 +49,7 @@ class Provider extends Service_Provider {
 
 		$this->container->register( Shepherd::class );
 		$this->container->register( Migrations::class );
+		$this->container->register( Harbor::class );
 	}
 
 	/**
