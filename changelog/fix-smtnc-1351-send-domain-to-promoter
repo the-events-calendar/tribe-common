@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Send the `domain` property over to Promoter's Authentication layer during update notificaitons. [SMTNC-1351]
