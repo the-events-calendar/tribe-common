@@ -57,6 +57,16 @@ class Integer extends Number {
 
 	/**
 	 * @inheritDoc
+	 *
+	 * Returns the default as an integer so it satisfies the strict integer validators. The parent
+	 * Number::get_default() would otherwise coerce it to a float, failing `is_int()` validation.
+	 */
+	public function get_default(): ?int {
+		return null === $this->default ? null : (int) $this->default;
+	}
+
+	/**
+	 * @inheritDoc
 	 */
 	public static function get_subitem_format(): array {
 		return [
