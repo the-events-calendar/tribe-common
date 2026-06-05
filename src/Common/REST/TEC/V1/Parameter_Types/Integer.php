@@ -33,7 +33,7 @@ class Integer extends Number {
 	 */
 	public function get_validator(): Closure {
 		return $this->validator ?? function ( $value ): bool {
-			if ( ! is_int( $value ) ) {
+			if ( ! is_numeric( $value ) || (int) $value != $value ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
 					sprintf( __( 'Argument `{%1$s}` must be an integer.', 'tribe-common' ), $this->get_name() ),
