@@ -1,5 +1,11 @@
 == Changelog ==
 
+= [6.11.4] 2026-06-11 =
+
+* Fix - Prevent integer REST API parameters such as `page` and `per_page` from being incorrectly rejected as invalid, which caused archive endpoints (e.g. the Series list) to return a 400 error. [SMTNC-1460]
+* Fix - Send the `domain` property over to Promoter's Authentication layer during update notifications. [SMTNC-1351]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.11.3.1] 2026-06-09 =
 
 * Fix - Send the `domain` property over to Promoter's Authentication layer during update notifications. [SMTNC-1351]
