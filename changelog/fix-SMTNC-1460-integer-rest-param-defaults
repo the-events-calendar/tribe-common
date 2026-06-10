@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Prevent integer REST API parameters such as `page` and `per_page` from being incorrectly rejected as invalid, which caused archive endpoints (e.g. the Series list) to return a 400 error. [SMTNC-1460]
