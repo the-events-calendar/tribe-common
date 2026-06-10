@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [6.11.3.1] 2026-06-09 =
+
+* Fix - Send the `domain` property over to Promoter's Authentication layer during update notifications. [SMTNC-1351]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.11.3] 2026-05-28 =
 
 * Tweak - Update Harbor to 1.2.0, removing the Liquid Web Products page when there are no premium plugins present.

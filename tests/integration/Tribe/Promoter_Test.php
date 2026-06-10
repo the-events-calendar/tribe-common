@@ -91,4 +91,37 @@ class Promoter_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $payload['userId'], $user_id );
 	}
 
+	/**
+	 * @test
+	 */
+	public function should_send_domain_in_notify_payload(): void {
+		$connector   = tribe( Tribe__Promoter__Connector::class );
+		$secret_key  = 'bob';
+		$license_key = 'jan';
+
+		// The secret key used to sign the notify payload.
+		update_option( 'tribe_promoter_auth_key', $secret_key );
+		// The license info pulled by Tribe__Promoter__PUE::get_license_info().
+		update_option( 'pue_install_key_promoter', $license_key );
+
+		$post_id = self::factory()->post->create( [ 'post_type' => 'tribe_events' ] );
+
+		$payload = [];
+
+		add_filter( 'pre_http_request', function ( $response, $parsed_args, $url ) use ( $secret_key, &$payload ) {
+			$token   = $parsed_args['body']['token'];
+			$key     = new TEC_JWT_Key( $secret_key, 'HS256' );
+			$payload = (array) TEC_JWT::decode( $token, $key );
+
+			return [ 'headers' => '', 'body' => 'Hello World', 'response' => '', 'cookies' => '', 'filename' => '' ];
+		}, 99, 3 );
+
+		$connector->notify_promoter_of_changes( $post_id );
+
+		$this->assertArrayHasKey( 'domain', $payload );
+		$this->assertEquals( 'wordpress.test', $payload['domain'] );
+		$this->assertEquals( $license_key, $payload['licenseKey'] );
+		$this->assertEquals( $post_id, $payload['sourceId'] );
+	}
+
 }
