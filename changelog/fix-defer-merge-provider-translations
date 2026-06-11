@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Defer translated plugin-merge notices to `init` to avoid triggering `_doing_it_wrong` notices for early textdomain loading on WordPress 6.8+.
