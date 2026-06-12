@@ -40,7 +40,7 @@ class PUE extends Integration_Controller {
 		add_filter( 'pre_option', [ $this, 'filter_pre_get_option' ], 10, 3 );
 		add_filter( 'stellarwp/uplink/tec/license_get_key', [ $this, 'filter_stellarwp_uplink_tec_license_get_key' ], 10, 2 );
 		add_filter( 'tec_common_uplink_auth_url', [ $this, 'filter_stellarwp_uplink_tec_authorize_button_url' ], 10, 2 );
-		add_filter('pue_get_update_url', [ $this, 'filter_pue_get_update_url' ], 10, 2 );
+		add_filter( 'pue_get_update_url', [ $this, 'filter_pue_get_update_url' ], 10, 2 );
 	}
 
 	/**
