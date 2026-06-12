@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.11.4] 2026-06-11
+### [6.11.4] 2026-06-15
 
 * Fix - Prevent integer REST API parameters such as `page` and `per_page` from being incorrectly rejected as invalid, which caused archive endpoints (e.g. the Series list) to return a 400 error. [SMTNC-1460]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
