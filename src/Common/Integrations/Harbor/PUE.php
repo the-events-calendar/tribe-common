@@ -150,11 +150,13 @@ class PUE extends Integration_Controller {
 		}
 
 		$is_production = Config::get_licensing_base_url() === Config::DEFAULT_LICENSING_BASE_URL;
+		$herald_host = wp_parse_url(Config::get_herald_base_url(), PHP_URL_HOST);
 
 		$allowed_hosts = [
 			'licensing.nexcess.com',
 			'licensing.stellarwp.com',
 			'pue.theeventscalendar.com',
+			$herald_host,
 		];
 
 		// Be extra safe for production requests.
