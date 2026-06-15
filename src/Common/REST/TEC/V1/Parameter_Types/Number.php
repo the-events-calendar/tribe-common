@@ -110,9 +110,13 @@ class Number extends Parameter {
 
 	/**
 	 * @inheritDoc
+	 *
+	 * The return type is intentionally left untyped so that integer subtypes (see Integer) can
+	 * narrow it to `?int`. A declared `?float` return type would coerce integer defaults (e.g. `1`)
+	 * into floats (`1.0`), which then fail the strict integer validators.
 	 */
-	public function get_default(): ?float {
-		return $this->default;
+	public function get_default() {
+		return null === $this->default ? null : (float) $this->default;
 	}
 
 	/**
