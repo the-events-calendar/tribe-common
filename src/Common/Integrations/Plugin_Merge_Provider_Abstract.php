@@ -310,7 +310,12 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since 6.0.0
 	 */
 	public function send_updated_notice(): void {
-		$this->register_update();
+		// `register_update()` translates the plugin name; before `init` that triggers a `_doing_it_wrong` on WP 6.8+.
+		if ( did_action( 'init' ) ) {
+			$this->register_update();
+		} else {
+			add_action( 'init', [ $this, 'register_update' ] );
+		}
 
 		// Defer so we have time to register updates for each plugin.
 		add_action( 'admin_init', [ $this, 'register_updated_notice' ], 99 );
@@ -396,6 +401,12 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since 6.0.0
 	 */
 	public function send_updated_merge_notice(): void {
+		// The notice message is translated; before `init` that triggers a `_doing_it_wrong` on WP 6.8+.
+		if ( ! did_action( 'init' ) ) {
+			add_action( 'init', [ $this, 'send_updated_merge_notice' ] );
+			return;
+		}
+
 		// Remove dismissed flag since we want to show the notice every time this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
 
@@ -421,6 +432,12 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 	 * @since 6.0.0
 	 */
 	public function send_activating_merge_notice(): void {
+		// The notice message is translated; before `init` that triggers a `_doing_it_wrong` on WP 6.8+.
+		if ( ! did_action( 'init' ) ) {
+			add_action( 'init', [ $this, 'send_activating_merge_notice' ] );
+			return;
+		}
+
 		// Remove dismissed flag since we want to show the notice every time this is triggered.
 		Tribe__Admin__Notices::instance()->undismiss( $this->get_merge_notice_slug() );
 
