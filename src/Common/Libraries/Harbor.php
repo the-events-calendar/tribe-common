@@ -163,6 +163,12 @@ class Harbor extends Controller_Contract {
 	 * @return array
 	 */
 	public function register_legacy_licenses( array $licenses ): array {
+		// The imported get_plugins() is Uplink's, only declared once Uplink::init() requires its functions.php on `init`.
+		// This filter can fire earlier (e.g. a Promoter PUE license lookup on `plugins_loaded`), so bail until it is loaded.
+		if ( ! function_exists( '\TEC\Common\StellarWP\Uplink\get_plugins' ) ) {
+			return $licenses;
+		}
+
 		$plugins = get_plugins();
 
 		$filters_removed = false;

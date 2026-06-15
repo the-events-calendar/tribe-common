@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Prevent a fatal error ("Call to undefined function TEC\Common\StellarWP\Uplink\get_plugins()") when Harbor resolves legacy licenses before Uplink is initialized, such as during a Promoter PUE license lookup on plugins_loaded.
