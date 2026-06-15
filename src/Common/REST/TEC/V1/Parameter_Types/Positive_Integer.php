@@ -26,7 +26,7 @@ class Positive_Integer extends Integer {
 	 */
 	public function get_validator(): Closure {
 		return $this->validator ?? function ( $value ): bool {
-			if ( ! is_int( $value ) || $value <= 0 ) {
+			if ( ! is_numeric( $value ) || (int) $value != $value || (int) $value <= 0 ) {
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
 					sprintf( __( 'Argument `{%1$s}` must be a positive integer.', 'tribe-common' ), $this->get_name() ),

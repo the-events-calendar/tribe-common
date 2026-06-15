@@ -1,5 +1,12 @@
 == Changelog ==
 
+= [6.11.4] 2026-06-15 =
+
+* Fix - Prevent a fatal error ("Call to undefined function TEC\Common\StellarWP\Uplink\get_plugins()") when Harbor resolves legacy licenses before Uplink is initialized, such as during a Promoter PUE license lookup on plugins_loaded.[SMTNC-1447]
+* Fix - Prevent integer REST API parameters such as `page` and `per_page` from being incorrectly rejected as invalid, which caused archive endpoints (e.g. the Series list) to return a 400 error. [SMTNC-1460]
+* Fix - Resolve license key validation server not available message on liceses screen. [CONS-478]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.11.3.1] 2026-06-09 =
 
 * Fix - Send the `domain` property over to Promoter's Authentication layer during update notifications. [SMTNC-1351]
