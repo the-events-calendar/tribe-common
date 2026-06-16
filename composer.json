@@ -207,6 +207,9 @@
     "patches": {
       "fakerphp/faker": {
         "Use prefixed Psr\\Container\\ContainerInterface": "tests/_patches/faker-use-prefixed-containerinterface.patch"
+      },
+      "myclabs/php-enum": {
+        "Add Stringable stub omitted from the dist tarball (export-ignored) but required by its classmap autoload": "tests/_patches/php-enum-add-stringable-stub.patch"
       }
     }
   }
