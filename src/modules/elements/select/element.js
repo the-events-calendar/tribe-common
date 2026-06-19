@@ -1,17 +1,16 @@
 /**
  * External dependencies
  */
-import React, { useCallback, useMemo, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ReactSelect, { components } from 'react-select';
-import { CacheProvider } from '@emotion/react';
-import createCache from '@emotion/cache';
 import { Dashicon } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
+import EmotionStylesProvider from '../emotion-styles-provider';
 import './style.pcss';
 
 const DropdownIndicator = ( props ) =>
@@ -23,41 +22,16 @@ const DropdownIndicator = ( props ) =>
 
 const IndicatorSeparator = () => null;
 
-const Select = ( { className, ...rest } ) => {
-	// In the iframed block editor canvas (WP 6.x+/7), react-select's emotion styles are
-	// injected into the wrong document by default. Bind an emotion cache to the owner
-	// document's head so the styles land inside the iframe where the select renders.
-	const [ ownerDocument, setOwnerDocument ] = useState( null );
-
-	const refCallback = useCallback( ( node ) => {
-		if ( node ) {
-			setOwnerDocument( node.ownerDocument );
-		}
-	}, [] );
-
-	const cache = useMemo(
-		() =>
-			ownerDocument
-				? createCache( { key: 'tribe-editor-select', container: ownerDocument.head } )
-				: null,
-		[ ownerDocument ]
-	);
-
-	const select = (
+const Select = ( { className, ...rest } ) => (
+	<EmotionStylesProvider cacheKey="tribe-editor-select" className="tribe-editor__select-wrapper">
 		<ReactSelect
 			className={ classNames( 'tribe-editor__select', className ) }
 			classNamePrefix="tribe-editor__select"
 			components={ { DropdownIndicator, IndicatorSeparator } }
 			{ ...rest }
 		/>
-	);
-
-	return (
-		<div ref={ refCallback } className="tribe-editor__select-wrapper">
-			{ cache ? <CacheProvider value={ cache }>{ select }</CacheProvider> : select }
-		</div>
-	);
-};
+	</EmotionStylesProvider>
+);
 
 Select.propTypes = {
 	className: PropTypes.string,

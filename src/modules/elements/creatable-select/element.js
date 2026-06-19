@@ -1,18 +1,17 @@
 /**
  * External dependencies
  */
-import React, { useCallback, useMemo, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { components } from 'react-select';
 import Select from 'react-select';
-import { CacheProvider } from '@emotion/react';
-import createCache from '@emotion/cache';
 import { Dashicon } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
+import EmotionStylesProvider from '../emotion-styles-provider';
 import './style.pcss';
 
 const DropdownIndicator = ( props ) =>
@@ -33,41 +32,16 @@ const IndicatorSeparator = () => null;
  * - https://github.com/JedWatson/react-select/issues/2944
  */
 
-const CreatableSelect = ( { className, ...rest } ) => {
-	// In the iframed block editor canvas (WP 6.x+/7), react-select's emotion styles are
-	// injected into the wrong document by default. Bind an emotion cache to the owner
-	// document's head so the styles land inside the iframe where the select renders.
-	const [ ownerDocument, setOwnerDocument ] = useState( null );
-
-	const refCallback = useCallback( ( node ) => {
-		if ( node ) {
-			setOwnerDocument( node.ownerDocument );
-		}
-	}, [] );
-
-	const cache = useMemo(
-		() =>
-			ownerDocument
-				? createCache( { key: 'tribe-editor-creatable-select', container: ownerDocument.head } )
-				: null,
-		[ ownerDocument ]
-	);
-
-	const select = (
+const CreatableSelect = ( { className, ...rest } ) => (
+	<EmotionStylesProvider cacheKey="tribe-editor-creatable-select" className="tribe-editor__creatable-select-wrapper">
 		<Select
 			className={ classNames( 'tribe-editor__creatable-select', className ) }
 			classNamePrefix="tribe-editor__creatable-select"
 			components={ { DropdownIndicator, IndicatorSeparator } }
 			{ ...rest }
 		/>
-	);
-
-	return (
-		<div ref={ refCallback } className="tribe-editor__creatable-select-wrapper">
-			{ cache ? <CacheProvider value={ cache }>{ select }</CacheProvider> : select }
-		</div>
-	);
-};
+	</EmotionStylesProvider>
+);
 
 CreatableSelect.propTypes = {
 	className: PropTypes.string,
