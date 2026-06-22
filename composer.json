@@ -159,8 +159,12 @@
         ]
       },
       "exclude_from_prefix": {
+        "packages": [
+          "woocommerce/action-scheduler"
+        ],
         "file_patterns": [
-          "#stellarwp\/harbor\/src\/Harbor\/global-functions.php#"
+          "#stellarwp\/harbor\/src\/Harbor\/global-functions.php#",
+          "#psr\/http-message\/*"
         ]
       },
       "delete_vendor_files": true,
