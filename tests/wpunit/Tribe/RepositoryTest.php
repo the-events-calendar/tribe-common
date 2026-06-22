@@ -172,15 +172,15 @@ class RepositoryTest extends WPTestCase {
 			$this->repository()->where( 'meta_in', 'author_name', [ 'Lewis Carroll' ] )->get_ids(),
 			"meta_in should support single values with space"
 		);
-		$this->assertEqualSets(
+		$this->assertEquals(
 			[ $book_2_id, $book_3_id ],
-			$this->repository()->where( 'meta_not_in', 'author_name', 'Lewis Carroll' )->get_ids(),
+			$this->repository()->where( 'meta_not_in', 'author_name', 'Lewis Carroll' )->order_by( 'ID', 'ASC' )->get_ids(),
 			"meta_not_in should support single values with space"
 		);
 
-		$this->assertEqualSets(
+		$this->assertEquals(
 			[ $book_2_id, $book_3_id ],
-			$this->repository()->where( 'meta_not_in', 'author_name', [ 'Lewis Carroll' ] )->get_ids(),
+			$this->repository()->where( 'meta_not_in', 'author_name', [ 'Lewis Carroll' ] )->order_by( 'ID', 'ASC' )->get_ids(),
 			"meta_not_in should support single values with spaces in array"
 		);
 	}
@@ -193,9 +193,9 @@ class RepositoryTest extends WPTestCase {
 
 		$for_kids_term_id = get_term_by( 'name', 'for kids', 'audience' )->term_id;
 
-		$this->assertEqualSets(
+		$this->assertEquals(
 			[ $book_1_id, $book_2_id ],
-			$this->repository()->where( 'term_id_in', 'audience', $for_kids_term_id )->get_ids(),
+			$this->repository()->where( 'term_id_in', 'audience', $for_kids_term_id )->order_by( 'ID', 'ASC' )->get_ids(),
 			"term_id_in should support single values"
 		);
 		$this->assertEquals(
@@ -211,14 +211,14 @@ class RepositoryTest extends WPTestCase {
 	public function should_build_term_name_in_not_in_query_correctly(): void {
 		[ $book_1_id, $book_2_id, $book_3_id ] = $this->create_three_books();
 
-		$this->assertEqualSets(
+		$this->assertEquals(
 			[ $book_1_id, $book_2_id ],
-			$this->repository()->where( 'term_name_in', 'audience', 'for kids' )->get_ids(),
+			$this->repository()->where( 'term_name_in', 'audience', 'for kids' )->order_by( 'ID', 'ASC' )->get_ids(),
 			"term_name_in should support single values with space"
 		);
-		$this->assertEqualSets(
+		$this->assertEquals(
 			[ $book_1_id, $book_2_id ],
-			$this->repository()->where( 'term_name_in', 'audience', [ 'for kids' ] )->get_ids(),
+			$this->repository()->where( 'term_name_in', 'audience', [ 'for kids' ] )->order_by( 'ID', 'ASC' )->get_ids(),
 			"term_name_in should support single values with space in array"
 		);
 		$this->assertEquals(
@@ -239,14 +239,14 @@ class RepositoryTest extends WPTestCase {
 	public function should_build_term_slug_in_not_in_query_correctly(): void {
 		[ $book_1_id, $book_2_id, $book_3_id ] = $this->create_three_books();
 
-		$this->assertEqualSets(
+		$this->assertEquals(
 			[ $book_1_id, $book_2_id ],
-			$this->repository()->where( 'term_slug_in', 'audience', 'for-kids' )->get_ids(),
+			$this->repository()->where( 'term_slug_in', 'audience', 'for-kids' )->order_by( 'ID', 'ASC' )->get_ids(),
 			"term_slug_in should support single values with space"
 		);
-		$this->assertEqualSets(
+		$this->assertEquals(
 			[ $book_1_id, $book_2_id ],
-			$this->repository()->where( 'term_slug_in', 'audience', [ 'for-kids' ] )->get_ids(),
+			$this->repository()->where( 'term_slug_in', 'audience', [ 'for-kids' ] )->order_by( 'ID', 'ASC' )->get_ids(),
 			"term_slug_in should support single values with space in array"
 		);
 		$this->assertEquals(
