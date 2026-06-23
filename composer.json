@@ -25,7 +25,7 @@
     "firebase/php-jwt": "~6.3.0",
     "lucatume/di52": "^3.3.7",
     "monolog/monolog": "2.10.*",
-    "psr/container": "1.1.1",
+    "psr/container": "^1.1",
     "stellarwp/admin-notices": "^1.1",
     "stellarwp/arrays": "1.2.2",
     "stellarwp/assets": "1.4.10",
@@ -38,7 +38,12 @@
     "stellarwp/schema-models": "^0.2",
     "stellarwp/shepherd": "^0.2",
     "trustedlogin/client": "^1.9",
-    "scssphp/scssphp": "^1.13"
+    "scssphp/scssphp": "^1.13",
+    "psr/http-message": "^1.1",
+    "psr/http-client": "^1.0",
+    "psr/http-factory": "^1.1",
+    "psr/log": "^1.1",
+    "nyholm/psr7": "^1.8"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
@@ -87,7 +92,7 @@
       "@restore-psr-http-dev"
     ],
     "restore-psr-http-dev": [
-      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer reinstall psr/http-message psr/http-client psr/http-factory psr/log psr/container nyholm/psr7 --no-scripts --no-plugins || true",
+      "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer require psr/http-message psr/http-client psr/http-factory psr/log psr/container nyholm/psr7 --no-scripts --no-plugins || true",
       "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && php bin/restore-psr-autoload.php || true",
       "[ \"$COMPOSER_DEV_MODE\" = \"1\" ] && composer dump-autoload --no-scripts || true"
     ],
@@ -139,7 +144,6 @@
         "stellarwp/models",
         "stellarwp/schema",
         "stellarwp/schema-models",
-        "stellarwp/migrations",
         "stellarwp/shepherd",
         "stellarwp/installer",
         "stellarwp/telemetry",
@@ -164,7 +168,7 @@
         ],
         "file_patterns": [
           "#stellarwp\/harbor\/src\/Harbor\/global-functions.php#",
-          "#psr\/http-message\/*"
+          "#psr\/http-message\/*#"
         ]
       },
       "delete_vendor_files": true,
