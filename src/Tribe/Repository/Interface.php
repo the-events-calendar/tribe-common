@@ -212,7 +212,7 @@ interface Tribe__Repository__Interface extends
 	 * @return string The generated hash string.
 	 *
 	 */
-	public function hash( array $settings = [], WP_Query $query = null );
+	public function hash( array $settings = [], ?WP_Query $query = null );
 
 	/**
 	 * Returns the data the repository would use to build the hash.
@@ -226,7 +226,7 @@ interface Tribe__Repository__Interface extends
 	 *
 	 * @return array An array of hash data components.
 	 */
-	public function get_hash_data( array $settings, WP_Query $query = null );
+	public function get_hash_data( array $settings, ?WP_Query $query = null );
 
 	/**
 	 * Returns the last built query from the repository instance.
@@ -335,5 +335,5 @@ interface Tribe__Repository__Interface extends
 	 *
 	 * @return void
 	 */
-	public function set_request_context( string $context = null ): self;
+	public function set_request_context( ?string $context = null ): self;
 }

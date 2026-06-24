@@ -898,7 +898,7 @@ class Tribe__Meta__Chunker {
 	 *
 	 * @param array $post_types
 	 */
-	public function set_post_types( array $post_types = null ) {
+	public function set_post_types( ?array $post_types = null ) {
 		if ( null === $post_types ) {
 			/**
 			 * Filters the chunk-able post types.

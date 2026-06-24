@@ -91,14 +91,14 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 	 *
 	 * @see   tribe_upload_image()
 	 */
-	protected function handle( array $data_source = null ) {
+	protected function handle( ?array $data_source = null ) {
 		$this->sync_handle( $data_source );
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function sync_handle( array $data_source = null ) {
+	public function sync_handle( ?array $data_source = null ) {
 		do_action( 'tribe_log', 'debug', $this->identifier, [ 'status' => 'handling request' ] );
 
 		$data_source = isset( $data_source ) ? $data_source : $_POST;

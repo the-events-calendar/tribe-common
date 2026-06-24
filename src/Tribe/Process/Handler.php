@@ -257,7 +257,7 @@ abstract class Tribe__Process__Handler {
 	 *
 	 * @return mixed|null The result of the synchronous handling.
 	 */
-	abstract public function sync_handle( array $data_source = null );
+	abstract public function sync_handle( ?array $data_source = null );
 
 	/**
 	 * Returns an array of arguments that will be used to send the POST request.
@@ -357,5 +357,5 @@ abstract class Tribe__Process__Handler {
 	 * @return null|array Depending on the context of the call, cron or async, either the result
 	 *                    of the handling (cron) or nothing (async).
 	 */
-	abstract protected function handle( array $data_source = null );
+	abstract protected function handle( ?array $data_source = null );
 }

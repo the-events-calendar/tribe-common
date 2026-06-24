@@ -83,7 +83,7 @@ if ( ! function_exists( 'tribe_singleton' ) ) {
 	 *                                                    will be called only once after the singleton instance
 	 *                                                    construction.
 	 */
-	function tribe_singleton( $slug, $class, array $after_build_methods = null ) {
+	function tribe_singleton( $slug, $class, ?array $after_build_methods = null ) {
 		Tribe__Container::init()->singleton( $slug, $class, $after_build_methods );
 	}
 }
@@ -147,7 +147,7 @@ if ( ! function_exists( 'tribe_register' ) ) {
 	 *                                                    the built object after the `__construct` method; the methods
 	 *                                                    will be called each time after the instance construction.
 	 */
-	function tribe_register( $slug, $class, array $after_build_methods = null ) {
+	function tribe_register( $slug, $class, ?array $after_build_methods = null ) {
 		Tribe__Container::init()->bind( $slug, $class, $after_build_methods );
 	}
 }

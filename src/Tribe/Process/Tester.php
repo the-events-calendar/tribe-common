@@ -24,7 +24,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 *
 	 * @return mixed
 	 */
-	public function sync_handle( array $data_source = null ) {
+	public function sync_handle( ?array $data_source = null ) {
 		/*
 		 * The purpose of this class is exactly to make sure async processing works
 		 * so it will do nothing if running in synchronous mode.
@@ -81,7 +81,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 *
 	 * @param array|null $data_source Unused.
 	 */
-	protected function handle( array $data_source = null ) {
+	protected function handle( ?array $data_source = null ) {
 		tec_timed_option()->set( static::TRANSIENT_NAME, 1, WEEK_IN_SECONDS );
 	}
 

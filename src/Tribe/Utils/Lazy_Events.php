@@ -131,7 +131,7 @@ trait Lazy_Events {
 	 *
 	 * @see Lazy_Events::resolved()
 	 */
-	public function on_resolve( callable $callback = null ) {
+	public function on_resolve( ?callable $callback = null ) {
 		if ( null === $callback ) {
 			return $this;
 		}

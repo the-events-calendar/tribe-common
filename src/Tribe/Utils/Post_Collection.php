@@ -156,7 +156,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 *                                    custom fields or taxonomy terms, or an array of arrays, each one a list
 	 *                                    of all the taxonomy terms or custom fields entries for each post.
 	 */
-	public function pluck( $key, $single = true, array $args = null ) {
+	public function pluck( $key, $single = true, ?array $args = null ) {
 		$type = $this->detect_field_type( $key );
 
 		switch ( $type ) {
@@ -253,7 +253,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 * @return array<mixed>|array<array> Either an array of the requested results if `$single` is `true`
 	 *                                   or an array of arrays if `$single` is `false`.
 	 */
-	public function pluck_taxonomy( $taxonomy, $single = true, array $args = null ) {
+	public function pluck_taxonomy( $taxonomy, $single = true, ?array $args = null ) {
 		$plucked = [];
 		$args    = null === $args ? [ 'fields' => 'names' ] : $args;
 

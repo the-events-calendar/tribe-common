@@ -838,7 +838,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * @param array|null $data_source Unused and kept for compatibility with parent; the queue
 	 *                                data is stored and read from the database.
 	 */
-	protected function handle( array $data_source = null ) {
+	protected function handle( ?array $data_source = null ) {
 		$this->lock_process();
 
 		do {
@@ -1122,7 +1122,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @return array|mixed|null The synchronous process result.
 	 */
-	public function sync_handle( array $data_source = null ) {
+	public function sync_handle( ?array $data_source = null ) {
 		// In the base implementation the data source is unused and read from the database.
 		return $this->sync_process();
 	}

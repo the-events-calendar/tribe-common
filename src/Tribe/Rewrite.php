@@ -124,7 +124,7 @@ class Tribe__Rewrite {
 	 * @param WP_Rewrite|null          $wp_rewrite          An instance of the `WP_Rewrite` class.
 	 * @param Translations_Loader|null $translations_loader An instance of the translations loader.
 	 */
-	public function __construct( $wp_rewrite = null, Translations_Loader $translations_loader = null ) {
+	public function __construct( $wp_rewrite = null, ?Translations_Loader $translations_loader = null ) {
 		$this->rewrite             = $wp_rewrite;
 		$this->translations_loader = $translations_loader ?? tribe( Translations_Loader::class );
 	}

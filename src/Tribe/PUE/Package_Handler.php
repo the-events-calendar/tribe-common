@@ -26,7 +26,7 @@ class Tribe__PUE__Package_Handler {
 	 *
 	 * @param WP_Filesystem_Base|null $wp_filesystem
 	 */
-	public function __construct( WP_Filesystem_Base $wp_filesystem = null ) {
+	public function __construct( ?WP_Filesystem_Base $wp_filesystem = null ) {
 		if ( null === $wp_filesystem ) {
 			global $wp_filesystem;
 		}

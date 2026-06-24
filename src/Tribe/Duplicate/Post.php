@@ -77,7 +77,7 @@ class Tribe__Duplicate__Post {
 	 *
 	 * @since 4.6
 	 */
-	public function __construct( Tribe__Duplicate__Strategy_Factory $factory = null ) {
+	public function __construct( ?Tribe__Duplicate__Strategy_Factory $factory = null ) {
 		$this->factory = null !== $factory ? $factory : tribe( 'post-duplicate.strategy-factory' );
 	}
 

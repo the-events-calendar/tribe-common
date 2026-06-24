@@ -60,7 +60,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 * @param array                               $extra_args An array of extra arguments that will be passed to the
 	 *                                                        callback function.
 	 */
-	public function __construct( $callback = null, array $items = null, array $extra_args = [] ) {
+	public function __construct( $callback = null, ?array $items = null, array $extra_args = [] ) {
 		parent::__construct();
 
 		if ( ! empty( $callback ) && ! empty( $items ) ) {
@@ -99,7 +99,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 *
 	 * @throws LogicException If this method is called after saving the promise.
 	 */
-	public function then( $resolved, $rejected = null, array $resolved_args = null, array $rejected_args = null ) {
+	public function then( $resolved, $rejected = null, ?array $resolved_args = null, ?array $rejected_args = null ) {
 		if ( $this->did_save ) {
 			throw new LogicException( 'The promise "then" method should be called before the "save" one' );
 		}
@@ -233,7 +233,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 *
 	 * @return mixed The callback invocation return value.
 	 */
-	protected function do_callback( $callback, array $callback_args = null ) {
+	protected function do_callback( $callback, ?array $callback_args = null ) {
 		try {
 			set_error_handler( [ $this, 'error_handler' ] );
 

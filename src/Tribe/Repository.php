@@ -3306,14 +3306,14 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritDoc}
 	 */
-	public function hash( array $settings = [], WP_Query $query = null ) {
+	public function hash( array $settings = [], ?WP_Query $query = null ) {
 		return md5( json_encode( $this->get_hash_data( $settings, $query ) ) );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_hash_data( array $settings, WP_Query $query = null ) {
+	public function get_hash_data( array $settings, ?WP_Query $query = null ) {
 		$filters    = $this->current_filters;
 		$query_vars = null !== $query
 			? $query->query
@@ -3977,7 +3977,7 @@ abstract class Tribe__Repository
 	/**
 	 * {@inheritDoc}
 	 */
-	public function set_request_context( string $context = null ): self {
+	public function set_request_context( ?string $context = null ): self {
 		$this->request_context = $context;
 
 		return $this;
