@@ -76,7 +76,7 @@ trait Event {
 			'sticky'             => $event->sticky,
 			'organizers'         => $this->get_organizers( $event ),
 			'venue'              => $this->get_venues( $event ),
-			'cost'               => html_entity_decode( $event->cost ),
+			'cost'               => html_entity_decode( $event->cost, ENT_COMPAT ),
 			'website_url'        => get_post_meta( $event->ID, '_EventURL', true ),
 			'featured_image_url' => isset( $event->thumbnail->full->url ) ? $event->thumbnail->full->url : '',
 			'category'           => $this->get_taxonomy_terms( TEC::TAXONOMY, $event ),

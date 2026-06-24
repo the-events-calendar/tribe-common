@@ -433,7 +433,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		$max_frag_size = $this->get_max_frag_size();
 		// we add a 15% to the size to take the serialization and query overhead into account when fragmenting
-		$serialized_size = strlen( utf8_decode( maybe_serialize( $data ) ) ) * 1.15;
+		$serialized_size = strlen( mb_convert_encoding( maybe_serialize( $data ), 'ISO-8859-1', 'UTF-8' ) ) * 1.15;
 		$frags_count     = (int) ceil( $serialized_size / $max_frag_size );
 		$per_frag        = max( (int) floor( count( $data ) / $frags_count ), 1 );
 

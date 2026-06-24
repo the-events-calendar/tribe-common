@@ -469,7 +469,7 @@ class Tribe__Meta__Chunker {
 	 * @return int
 	 */
 	public function get_byte_size( $data ) {
-		return strlen( utf8_decode( maybe_serialize( $data ) ) );
+		return strlen( mb_convert_encoding( maybe_serialize( $data ), 'ISO-8859-1', 'UTF-8' ) );
 	}
 
 	/**

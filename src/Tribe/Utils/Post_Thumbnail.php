@@ -27,7 +27,7 @@ use Tribe__Utils__Array as Arr;
  * @since 4.9.14
  * @package Tribe\Utils
  */
-class Post_Thumbnail implements \ArrayAccess, \Serializable {
+class Post_Thumbnail implements \ArrayAccess {
 	use Lazy_Events;
 
 	/**

@@ -257,7 +257,7 @@ class Tribe__Log__Admin {
 		$output = fopen( 'php://output', 'w' );
 
 		foreach ( $this->current_logger()->retrieve() as $log_entry ) {
-			fputcsv( $output, $log_entry );
+			fputcsv( $output, $log_entry, ',', '"', '\\' );
 		}
 
 		fclose( $output );

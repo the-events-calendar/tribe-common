@@ -92,7 +92,7 @@ class Tribe__Image__Uploader {
 			return $id;
 		}
 
-		$decoded = esc_url_raw( html_entity_decode( $this->featured_image ) );
+		$decoded = esc_url_raw( html_entity_decode( $this->featured_image, ENT_COMPAT ) );
 
 		do_action( 'tribe_log', 'debug', __CLASS__, [
 			'message' => 'Retry upload decoding the URL of the image',
