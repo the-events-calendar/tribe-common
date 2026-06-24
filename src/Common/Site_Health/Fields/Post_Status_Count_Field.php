@@ -25,12 +25,13 @@ class Post_Status_Count_Field extends Generic_Info_Field {
 	/**
 	 * Configure all the params for a generic field.
 	 *
+	 * @since TBD Made second argument $post_type explicity nullable.
+	 *
 	 * @param string                           $id
-	 * @param string                           $label
-	 * @param array<string,string>|string|null $value
+	 * @param ?string                          $post_type
 	 * @param int                              $priority
 	 */
-	public function __construct( string $id, string $post_type = null, int $priority = 50 ) {
+	public function __construct( string $id, ?string $post_type = null, int $priority = 50 ) {
 		$this->id         = $id;
 		$this->post_type  = $post_type;
 		$this->priority   = $priority;
