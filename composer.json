@@ -28,7 +28,7 @@
     "psr/container": "^1.1",
     "stellarwp/admin-notices": "^1.1",
     "stellarwp/arrays": "^1.3",
-    "stellarwp/assets": "1.4.10",
+    "stellarwp/assets": "^1.5",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
     "stellarwp/harbor": "^1.4",

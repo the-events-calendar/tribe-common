@@ -733,16 +733,16 @@
         },
         {
             "name": "stellarwp/assets",
-            "version": "1.4.10",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/assets.git",
-                "reference": "a7c196cd6a4189d3f8f1112c5e66bcf1a5d1f610"
+                "reference": "55045a2751222c5ade7f192acfaada2cea9a92f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/assets/zipball/a7c196cd6a4189d3f8f1112c5e66bcf1a5d1f610",
-                "reference": "a7c196cd6a4189d3f8f1112c5e66bcf1a5d1f610",
+                "url": "https://api.github.com/repos/stellarwp/assets/zipball/55045a2751222c5ade7f192acfaada2cea9a92f7",
+                "reference": "55045a2751222c5ade7f192acfaada2cea9a92f7",
                 "shasum": ""
             },
             "require": {
@@ -786,9 +786,9 @@
             "description": "A library for managing asset registration and enqueuing in WordPress.",
             "support": {
                 "issues": "https://github.com/stellarwp/assets/issues",
-                "source": "https://github.com/stellarwp/assets/tree/1.4.10"
+                "source": "https://github.com/stellarwp/assets/tree/1.5.2"
             },
-            "time": "2025-05-22T14:40:10+00:00"
+            "time": "2026-06-15T20:46:24+00:00"
         },
         {
             "name": "stellarwp/container-contract",
