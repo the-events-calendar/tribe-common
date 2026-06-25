@@ -1,5 +1,10 @@
 # Changelog
 
+### [6.11.5] 2026-06-24
+
+* Fix - Resolved an issue where select dropdowns, such as Ticket Capacity, rendered unstyled in the WordPress 7 block editor.
+* Language - 0 new strings added, 3 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.11.4] 2026-06-15
 
 * Fix - Prevent a fatal error ("Call to undefined function TEC\Common\StellarWP\Uplink\get_plugins()") when Harbor resolves legacy licenses before Uplink is initialized, such as during a Promoter PUE license lookup on plugins_loaded.[SMTNC-1447]

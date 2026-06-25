@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "6.11.4",
+  "version": "6.11.5",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -41,6 +41,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.15.3",
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
     "@moderntribe/common": "file:src/modules",
     "@nfen/redux-reducer-injector": "0.0.3",
     "@redux-devtools/extension": "^3.3.0",

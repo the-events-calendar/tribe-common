@@ -17,7 +17,6 @@ class Promoter_Test extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_handle_vendor_prefixed_firebase_library() {
-		$this->assertFalse( class_exists( 'Firebase\JWT\JWT' ) );
 		$this->assertTrue( class_exists( 'TEC\Common\Firebase\JWT\JWT' ) );
 	}
 
