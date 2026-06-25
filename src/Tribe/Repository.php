@@ -3653,6 +3653,7 @@ abstract class Tribe__Repository
 			}
 
 			$intersection = count( $all_matching_term_ids ) > 1
+				// phpcs:ignore PHPCompatibility.FunctionUse.RequiredToOptionalFunctionParameters.array_intersect_arraysMissing -- Arguments supplied via spread unpacking; false positive.
 				? array_intersect( ...$all_matching_term_ids )
 				: reset( $all_matching_term_ids );
 
