@@ -155,7 +155,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 			return;
 		}
 
-		fputcsv( $this->handle, [ date_i18n( 'Y-m-d H:i:s' ), $entry, $type, $src ], ',', '"', '\\' );
+		fputcsv( $this->handle, [ date_i18n( 'Y-m-d H:i:s' ), $entry, $type, $src ], ',', '"', '\\' ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_fputcsv -- Writing to an already-resolved log file handle.
 	}
 
 	/**

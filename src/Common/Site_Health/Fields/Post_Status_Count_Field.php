@@ -27,9 +27,9 @@ class Post_Status_Count_Field extends Generic_Info_Field {
 	 *
 	 * @since TBD Made second argument $post_type explicity nullable.
 	 *
-	 * @param string                           $id
-	 * @param ?string                          $post_type
-	 * @param int                              $priority
+	 * @param string  $id        The unique ID for the field.
+	 * @param ?string $post_type The post type the field is associated with.
+	 * @param int     $priority  The priority used to order the field.
 	 */
 	public function __construct( string $id, ?string $post_type = null, int $priority = 50 ) {
 		$this->id         = $id;

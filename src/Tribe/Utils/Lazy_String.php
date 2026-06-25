@@ -10,7 +10,13 @@
 
 namespace Tribe\Utils;
 
-
+/**
+ * Class Lazy_String.
+ *
+ * @since 4.9.16
+ *
+ * @package Tribe\Utils
+ */
 class Lazy_String implements \JsonSerializable {
 	use Lazy_Events;
 
