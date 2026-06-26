@@ -15,8 +15,10 @@ import { parse as parseDate } from 'date-fns';
 import {
 	markDatePickerInteractionPending,
 	registerDatePickerClose,
+	registerDatePickerCloseHandler,
 	registerDatePickerOpen,
 } from '../../utils/date-picker-popover-state';
+import './style.pcss';
 
 const DatePickerInput = ( props ) => {
 	const { setPopoverAnchor, inputRef, onDayChange, ...inputProps } = props;
@@ -137,6 +139,8 @@ const DayPickerInput = ( props ) => {
 		} );
 	}, [] );
 
+	useEffect( () => registerDatePickerCloseHandler( closeCalendar ), [ closeCalendar ] );
+
 	/**
 	 * Formats the datepicker Date object to the datepicker format.
 	 *
@@ -156,7 +160,7 @@ const DayPickerInput = ( props ) => {
 				inputRef={ inputRef } // Pass the ref to DatePickerInput
 				onClick={ toggleVisible }
 				onMouseDown={ handleInputMouseDown }
-				value={ formatDatepickerValue( selectedDate ) }
+				value={ value || formatDatepickerValue( selectedDate ) }
 				onDayChange={ onDayChange }
 			/>
 			{ isVisible && (

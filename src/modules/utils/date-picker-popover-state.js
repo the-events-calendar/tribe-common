@@ -5,6 +5,7 @@
 let openDatePickerCount = 0;
 let interactionPending = false;
 let clearInteractionPendingTimerId = null;
+const datePickerCloseHandlers = new Set();
 
 /**
  * @return {number} The number of open date-picker popovers.
@@ -48,4 +49,35 @@ export const registerDatePickerOpen = () => {
  */
 export const registerDatePickerClose = () => {
 	openDatePickerCount = Math.max( 0, openDatePickerCount - 1 );
+};
+
+/**
+ * Registers a handler that closes a date-picker popover instance.
+ *
+ * @param {Function} handler Callback that closes the picker.
+ * @return {Function} Unregister function.
+ */
+export const registerDatePickerCloseHandler = ( handler ) => {
+	datePickerCloseHandlers.add( handler );
+
+	return () => {
+		datePickerCloseHandlers.delete( handler );
+	};
+};
+
+/**
+ * Closes every registered date-picker popover.
+ */
+export const closeAllDatePickers = () => {
+	datePickerCloseHandlers.forEach( ( handler ) => {
+		handler();
+	} );
+
+	openDatePickerCount = 0;
+	interactionPending = false;
+
+	if ( clearInteractionPendingTimerId ) {
+		clearTimeout( clearInteractionPendingTimerId );
+		clearInteractionPendingTimerId = null;
+	}
 };
