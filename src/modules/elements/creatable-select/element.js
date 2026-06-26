@@ -11,6 +11,7 @@ import { Dashicon } from '@wordpress/components';
 /**
  * Internal dependencies
  */
+import EmotionStylesProvider from '../emotion-styles-provider';
 import './style.pcss';
 
 const DropdownIndicator = ( props ) =>
@@ -32,12 +33,14 @@ const IndicatorSeparator = () => null;
  */
 
 const CreatableSelect = ( { className, ...rest } ) => (
-	<Select
-		className={ classNames( 'tribe-editor__creatable-select', className ) }
-		classNamePrefix="tribe-editor__creatable-select"
-		components={ { DropdownIndicator, IndicatorSeparator } }
-		{ ...rest }
-	/>
+	<EmotionStylesProvider cacheKey="tribe-editor-creatable-select" className="tribe-editor__creatable-select-wrapper">
+		<Select
+			className={ classNames( 'tribe-editor__creatable-select', className ) }
+			classNamePrefix="tribe-editor__creatable-select"
+			components={ { DropdownIndicator, IndicatorSeparator } }
+			{ ...rest }
+		/>
+	</EmotionStylesProvider>
 );
 
 CreatableSelect.propTypes = {
