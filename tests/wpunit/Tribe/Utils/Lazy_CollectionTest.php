@@ -109,7 +109,11 @@ class Lazy_CollectionTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertTrue( $called );
 
-		$this->assertEquals( [ 'foo', 'bar', 'baz' ], unserialize( $serialized ) );
+		// Global serialize()/unserialize() round-trips through __serialize()/__unserialize(), so we get the object back.
+		$unserialized = unserialize( $serialized );
+
+		$this->assertInstanceOf( Lazy_Collection::class, $unserialized );
+		$this->assertEquals( [ 'foo', 'bar', 'baz' ], $unserialized->all() );
 	}
 
 	/**
