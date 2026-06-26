@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useState, useRef, useMemo, useCallback } from 'react';
+import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import classNames from 'classnames';
 import 'react-day-picker/src/style.css';
 import { DayPicker } from 'react-day-picker';
@@ -12,6 +12,12 @@ import { parse as parseDate } from 'date-fns';
 /**
  * Internal dependencies
  */
+import {
+	markDatePickerInteractionPending,
+	registerDatePickerClose,
+	registerDatePickerCloseHandler,
+	registerDatePickerOpen,
+} from '../../utils/date-picker-popover-state';
 import './style.pcss';
 
 const DatePickerInput = ( props ) => {
@@ -45,6 +51,7 @@ const momentToDateFnsFormatter = ( momentFormat ) => {
 const DayPickerInput = ( props ) => {
 	const popoverAnchor = useRef( null ); // Ref for the Popover anchor
 	const inputRef = useRef( null ); // Ref for the input field
+	const isVisibleRef = useRef( false );
 	const [ isVisible, setIsVisible ] = useState( false );
 	// Do not memoize this: it could be changed in the context of the Block Editor elsewhere.
 	const phpDateFormat = getDateSettings()?.formats?.date ?? 'MMMM d, y';
@@ -52,8 +59,22 @@ const DayPickerInput = ( props ) => {
 	const parsePhpDate = useCallback( ( value ) => dateFormatter.parseDate( value, phpDateFormat ), [ phpDateFormat ] );
 	const formatPhpDate = useCallback( ( date ) => dateFormatter.formatDate( date, phpDateFormat ), [ phpDateFormat ] );
 
+	const handleInputMouseDown = () => {
+		markDatePickerInteractionPending();
+	};
+
 	const toggleVisible = () => {
-		setIsVisible( ( state ) => ! state );
+		setIsVisible( ( state ) => {
+			if ( state ) {
+				registerDatePickerClose();
+				isVisibleRef.current = false;
+				return false;
+			}
+
+			registerDatePickerOpen();
+			isVisibleRef.current = true;
+			return true;
+		} );
 	};
 
 	const { value, onDayChange, formatDate, format } = props;
@@ -80,6 +101,46 @@ const DayPickerInput = ( props ) => {
 
 	const [ selectedDate, setSelectedDate ] = useState( value ? getSelectedDateInitialState( value ) : new Date() );
 
+	useEffect( () => {
+		if ( ! value ) {
+			return;
+		}
+
+		const nextDate = getSelectedDateInitialState( value );
+
+		setSelectedDate( ( previousDate ) => {
+			if (
+				previousDate?.getTime?.() === nextDate?.getTime?.() &&
+				! isNaN( previousDate?.getTime?.() )
+			) {
+				return previousDate;
+			}
+
+			return nextDate;
+		} );
+	}, [ value, getSelectedDateInitialState ] );
+
+	useEffect( () => {
+		return () => {
+			if ( isVisibleRef.current ) {
+				registerDatePickerClose();
+			}
+		};
+	}, [] );
+
+	const closeCalendar = useCallback( () => {
+		setIsVisible( ( state ) => {
+			if ( state ) {
+				registerDatePickerClose();
+				isVisibleRef.current = false;
+			}
+
+			return false;
+		} );
+	}, [] );
+
+	useEffect( () => registerDatePickerCloseHandler( closeCalendar ), [ closeCalendar ] );
+
 	/**
 	 * Formats the datepicker Date object to the datepicker format.
 	 *
@@ -98,29 +159,29 @@ const DayPickerInput = ( props ) => {
 				setPopoverAnchor={ popoverAnchor }
 				inputRef={ inputRef } // Pass the ref to DatePickerInput
 				onClick={ toggleVisible }
-				value={ formatDatepickerValue( selectedDate ) }
+				onMouseDown={ handleInputMouseDown }
+				value={ value || formatDatepickerValue( selectedDate ) }
 				onDayChange={ onDayChange }
 			/>
 			{ isVisible && (
-				<>
-					<Popover.Slot />
-					<Popover
-						className={ classNames( 'tribe-editor__date-input__popover' ) }
-						anchor={ popoverAnchor.current }
-						noArrow={ false }
-					>
-						<DayPicker
-							mode="single"
-							selected={ selectedDate }
-							onSelect={ ( date ) => {
-								onDayChange( date, {}, formatDatepickerValue( date ) );
-								setSelectedDate( date );
-								toggleVisible();
-							} }
-							isSelected={ true }
-						/>
-					</Popover>
-				</>
+				<Popover
+					className={ classNames( 'tribe-editor__date-input__popover' ) }
+					anchor={ popoverAnchor.current }
+					focusOnMount={ false }
+					noArrow={ false }
+					onClose={ closeCalendar }
+				>
+					<DayPicker
+						mode="single"
+						selected={ selectedDate }
+						onSelect={ ( date ) => {
+							onDayChange( date, {}, formatDatepickerValue( date ) );
+							setSelectedDate( date );
+							closeCalendar();
+						} }
+						isSelected={ true }
+					/>
+				</Popover>
 			) }
 		</>
 	);
