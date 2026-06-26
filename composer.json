@@ -10,6 +10,12 @@
     "wordpress",
     "events"
   ],
+  "repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/stellarwp/migrations"
+		}
+	],
   "config": {
     "preferred-install": "dist",
     "platform": {
@@ -33,10 +39,10 @@
     "stellarwp/db": "^1.0.3",
     "stellarwp/harbor": "^1.4",
     "stellarwp/installer": "^1.1.0",
+    "stellarwp/migrations": "dev-main",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
     "stellarwp/schema-models": "^0.2",
-    "stellarwp/shepherd": "^0.2",
     "trustedlogin/client": "^1.9",
     "scssphp/scssphp": "^1.13",
     "psr/http-message": "^1.1",
@@ -145,6 +151,7 @@
         "stellarwp/models",
         "stellarwp/schema",
         "stellarwp/schema-models",
+        "stellarwp/migrations",
         "stellarwp/shepherd",
         "stellarwp/installer",
         "stellarwp/telemetry",
@@ -201,6 +208,9 @@
     "patches": {
       "fakerphp/faker": {
         "Use prefixed Psr\\Container\\ContainerInterface": "tests/_patches/faker-use-prefixed-containerinterface.patch"
+      },
+      "myclabs/php-enum": {
+        "Add Stringable stub omitted from the dist tarball (export-ignored) but required by its classmap autoload": "tests/_patches/php-enum-add-stringable-stub.patch"
       }
     }
   }
