@@ -105,7 +105,7 @@ class Lazy_CollectionTest extends \Codeception\TestCase\WPTestCase {
 		};
 
 		$collection = new Lazy_Collection( $callback );
-		$serialized = $collection->serialize();
+		$serialized = serialize( $collection );
 
 		$this->assertTrue( $called );
 
