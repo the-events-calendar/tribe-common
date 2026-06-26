@@ -23,7 +23,7 @@
   },
   "require": {
     "firebase/php-jwt": "~6.3.0",
-    "lucatume/di52": "^3.3.7",
+    "lucatume/di52": "^4.1",
     "monolog/monolog": "2.10.*",
     "psr/container": "^1.1",
     "stellarwp/admin-notices": "^1.1",
