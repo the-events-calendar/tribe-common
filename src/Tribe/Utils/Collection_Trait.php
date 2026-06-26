@@ -171,7 +171,7 @@ trait Collection_Trait {
 	public function serialize() {
 		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
 
-		return serialize( $this->__serialize() );
+		return maybe_serialize( $this->__serialize() );
 	}
 
 	/**
@@ -186,7 +186,7 @@ trait Collection_Trait {
 	public function unserialize( $serialized ) {
 		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
 
-		$this->__unserialize( unserialize( $serialized ) );
+		$this->__unserialize( maybe_unserialize( $serialized ) );
 	}
 
 	/**
@@ -246,7 +246,7 @@ trait Collection_Trait {
 	 */
 	public function __unserialize( array $data ): void {
 		if ( method_exists( $this, 'custom_unserialize' ) ) {
-			$this->items = $this->custom_unserialize( serialize( $data ) );
+			$this->items = $this->custom_unserialize( maybe_serialize( $data ) );
 
 			return;
 		}

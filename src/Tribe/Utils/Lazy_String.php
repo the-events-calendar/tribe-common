@@ -130,7 +130,7 @@ class Lazy_String implements \JsonSerializable {
 	public function serialize() {
 		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
 
-		return serialize( $this->__serialize() );
+		return maybe_serialize( $this->__serialize() );
 	}
 
 	/**
@@ -146,7 +146,7 @@ class Lazy_String implements \JsonSerializable {
 	public function unserialize( $serialized ) {
 		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
 
-		$data = unserialize( $serialized );
+		$data = maybe_unserialize( $serialized );
 		$this->__unserialize( $data );
 	}
 
