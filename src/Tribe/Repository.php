@@ -3305,15 +3305,19 @@ abstract class Tribe__Repository
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD Made $query explicitly nullable.
 	 */
-	public function hash( array $settings = [], WP_Query $query = null ) {
+	public function hash( array $settings = [], ?WP_Query $query = null ) {
 		return md5( json_encode( $this->get_hash_data( $settings, $query ) ) );
 	}
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD Made $query explicitly nullable.
 	 */
-	public function get_hash_data( array $settings, WP_Query $query = null ) {
+	public function get_hash_data( array $settings, ?WP_Query $query = null ) {
 		$filters    = $this->current_filters;
 		$query_vars = null !== $query
 			? $query->query
@@ -3653,6 +3657,7 @@ abstract class Tribe__Repository
 			}
 
 			$intersection = count( $all_matching_term_ids ) > 1
+				// phpcs:ignore PHPCompatibility.FunctionUse.RequiredToOptionalFunctionParameters.array_intersect_arraysMissing -- Arguments supplied via spread unpacking; false positive.
 				? array_intersect( ...$all_matching_term_ids )
 				: reset( $all_matching_term_ids );
 
@@ -3976,8 +3981,10 @@ abstract class Tribe__Repository
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD Made $context explicitly nullable.
 	 */
-	public function set_request_context( string $context = null ): self {
+	public function set_request_context( ?string $context = null ): self {
 		$this->request_context = $context;
 
 		return $this;

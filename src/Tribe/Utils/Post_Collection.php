@@ -142,6 +142,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 * Plucks a post field, a taxonomy or a custom field from the collection.
 	 *
 	 * @since 4.12.6
+	 * @since TBD Made $args explicitly nullable.
 	 *
 	 * @param string $key      The name of the field to pluck; the method will try to detect the type of field
 	 *                         from its name. If any issues might arise due to fields of different types with the
@@ -156,7 +157,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 *                                    custom fields or taxonomy terms, or an array of arrays, each one a list
 	 *                                    of all the taxonomy terms or custom fields entries for each post.
 	 */
-	public function pluck( $key, $single = true, array $args = null ) {
+	public function pluck( $key, $single = true, ?array $args = null ) {
 		$type = $this->detect_field_type( $key );
 
 		switch ( $type ) {
@@ -244,6 +245,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 * is on the user code.
 	 *
 	 * @since 4.12.6
+	 * @since TBD Made $args explicitly nullable.
 	 *
 	 * @param string                     $taxonomy The name of the post taxonomy to pluck terms for.
 	 * @param bool                       $single   Whether to return only the first results or all of them.
@@ -253,7 +255,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 * @return array<mixed>|array<array> Either an array of the requested results if `$single` is `true`
 	 *                                   or an array of arrays if `$single` is `false`.
 	 */
-	public function pluck_taxonomy( $taxonomy, $single = true, array $args = null ) {
+	public function pluck_taxonomy( $taxonomy, $single = true, ?array $args = null ) {
 		$plucked = [];
 		$args    = null === $args ? [ 'fields' => 'names' ] : $args;
 

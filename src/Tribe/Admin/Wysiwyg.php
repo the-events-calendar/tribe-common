@@ -117,7 +117,7 @@ class Wysiwyg {
 
 		// Get HTML of editor.
 		ob_start();
-		wp_editor( html_entity_decode( ( $this->value ) ), sanitize_html_class( $this->name ), $this->args );
+		wp_editor( html_entity_decode( ( $this->value ), ENT_COMPAT ), sanitize_html_class( $this->name ), $this->args );
 		$html = ob_get_clean();
 
 		// Remove button filters.

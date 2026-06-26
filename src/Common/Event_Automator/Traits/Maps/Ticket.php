@@ -46,13 +46,13 @@ trait Ticket {
 		$event_title = '';
 		if ( isset( $event->ID ) ) {
 			$event_id    = $event->ID;
-			$event_title = html_entity_decode( get_the_title( $event->ID ) );
+			$event_title = html_entity_decode( get_the_title( $event->ID ), ENT_COMPAT );
 		}
 
 		$next_ticket = [
 			// Ticket.
 			'id'                            => (int) $ticket['id'],
-			'title'                         => html_entity_decode( $ticket['title'] ?? '' ),
+			'title'                         => html_entity_decode( $ticket['title'] ?? '', ENT_COMPAT ),
 			'description'                   => $ticket['description'] ?? '',
 			'capacity'                      => (int) $ticket['capacity'] ?? 0,
 			'capacity_details'              => $ticket['capacity_details'] ?? [],
