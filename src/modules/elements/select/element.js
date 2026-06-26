@@ -10,6 +10,7 @@ import { Dashicon } from '@wordpress/components';
 /**
  * Internal dependencies
  */
+import EmotionStylesProvider from '../emotion-styles-provider';
 import './style.pcss';
 
 const DropdownIndicator = ( props ) =>
@@ -22,12 +23,14 @@ const DropdownIndicator = ( props ) =>
 const IndicatorSeparator = () => null;
 
 const Select = ( { className, ...rest } ) => (
-	<ReactSelect
-		className={ classNames( 'tribe-editor__select', className ) }
-		classNamePrefix="tribe-editor__select"
-		components={ { DropdownIndicator, IndicatorSeparator } }
-		{ ...rest }
-	/>
+	<EmotionStylesProvider cacheKey="tribe-editor-select" className="tribe-editor__select-wrapper">
+		<ReactSelect
+			className={ classNames( 'tribe-editor__select', className ) }
+			classNamePrefix="tribe-editor__select"
+			components={ { DropdownIndicator, IndicatorSeparator } }
+			{ ...rest }
+		/>
+	</EmotionStylesProvider>
 );
 
 Select.propTypes = {

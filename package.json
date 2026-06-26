@@ -41,6 +41,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.15.3",
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
     "@moderntribe/common": "file:src/modules",
     "@nfen/redux-reducer-injector": "0.0.3",
     "@redux-devtools/extension": "^3.3.0",
