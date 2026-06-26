@@ -3305,6 +3305,8 @@ abstract class Tribe__Repository
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD Made $query explicitly nullable.
 	 */
 	public function hash( array $settings = [], ?WP_Query $query = null ) {
 		return md5( json_encode( $this->get_hash_data( $settings, $query ) ) );
@@ -3312,6 +3314,8 @@ abstract class Tribe__Repository
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD Made $query explicitly nullable.
 	 */
 	public function get_hash_data( array $settings, ?WP_Query $query = null ) {
 		$filters    = $this->current_filters;
@@ -3977,6 +3981,8 @@ abstract class Tribe__Repository
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD Made $context explicitly nullable.
 	 */
 	public function set_request_context( ?string $context = null ): self {
 		$this->request_context = $context;

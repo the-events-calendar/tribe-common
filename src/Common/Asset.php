@@ -34,6 +34,8 @@ class Asset extends Stellar_Asset {
 	/**
 	 * Registers an asset.
 	 *
+	 * @since TBD Made $version explicitly nullable.
+	 *
 	 * @param string      $slug      The asset slug.
 	 * @param string      $file      The asset file path.
 	 * @param string|null $version   The asset version.

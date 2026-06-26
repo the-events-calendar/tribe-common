@@ -142,6 +142,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 * Plucks a post field, a taxonomy or a custom field from the collection.
 	 *
 	 * @since 4.12.6
+	 * @since TBD Made $args explicitly nullable.
 	 *
 	 * @param string $key      The name of the field to pluck; the method will try to detect the type of field
 	 *                         from its name. If any issues might arise due to fields of different types with the
@@ -244,6 +245,7 @@ class Tribe__Utils__Post_Collection extends Tribe__Utils__Collection {
 	 * is on the user code.
 	 *
 	 * @since 4.12.6
+	 * @since TBD Made $args explicitly nullable.
 	 *
 	 * @param string                     $taxonomy The name of the post taxonomy to pluck terms for.
 	 * @param bool                       $single   Whether to return only the first results or all of them.

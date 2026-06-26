@@ -834,6 +834,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * within server memory and time limit constraints.
 	 *
 	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
+	 * @since TBD Made $data_source explicitly nullable.
 	 *
 	 * @param array|null $data_source Unused and kept for compatibility with parent; the queue
 	 *                                data is stored and read from the database.
@@ -1116,6 +1117,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Just a proxy to the `sync_process` method.
 	 *
 	 * @since 4.9.5
+	 * @since TBD Made $data_source explicitly nullable.
 	 *
 	 * @param array|null $data_source If not provided the method will read the handler data from the
 	 *                                request array.

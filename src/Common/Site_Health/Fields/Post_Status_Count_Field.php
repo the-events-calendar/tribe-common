@@ -25,7 +25,7 @@ class Post_Status_Count_Field extends Generic_Info_Field {
 	/**
 	 * Configure all the params for a generic field.
 	 *
-	 * @since TBD Made second argument $post_type explicity nullable.
+	 * @since TBD Made second argument $post_type explicitly nullable.
 	 *
 	 * @param string  $id        The unique ID for the field.
 	 * @param ?string $post_type The post type the field is associated with.

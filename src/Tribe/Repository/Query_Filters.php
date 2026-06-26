@@ -1037,6 +1037,7 @@ class Tribe__Repository__Query_Filters {
 	 * This happens on the `posts_pre_query` filter and
 	 *
 	 * @since 4.9.5
+	 * @since TBD Made $query explicitly nullable.
 	 *
 	 * @param null|array     $posts A pre-filled array of post results.
 	 * @param \WP_Query|null $query The current query object; this is used by the
@@ -1137,6 +1138,7 @@ class Tribe__Repository__Query_Filters {
 	 * the excessive use of JOINs the use of `meta_query` implies.
 	 *
 	 * @since 5.1.5
+	 * @since TBD Made $query_slug explicitly nullable.
 	 *
 	 * @param string|array<string>    $meta_keys  The meta keys to filter by.
 	 * @param mixed|array<mixed>|null $values     The values to filter by or `null` to filter by existence only.

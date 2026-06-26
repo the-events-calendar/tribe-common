@@ -18,6 +18,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 * Handles the process immediately, not in an async manner.
 	 *
 	 * @since 4.7.12
+	 * @since TBD Made $data_source explicitly nullable.
 	 *
 	 * @param array|null $data_source If not provided the method will read the handler data from the
 	 *                                request array.
@@ -78,6 +79,7 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 * background processing is supported.
 	 *
 	 * @since 4.7.23
+	 * @since TBD Made $data_source explicitly nullable.
 	 *
 	 * @param array|null $data_source Unused.
 	 */

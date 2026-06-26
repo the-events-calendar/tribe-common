@@ -203,6 +203,7 @@ interface Tribe__Repository__Interface extends
 	 * be further modified after the repository filters are applied and the query is built.
 	 *
 	 * @since 4.9.5
+	 * @since TBD Made $query explicitly nullable.
 	 *
 	 * @param array         $settings  An array of settings to define how the hash should be produced in the shape
 	 *                                 `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`. This array
@@ -218,6 +219,7 @@ interface Tribe__Repository__Interface extends
 	 * Returns the data the repository would use to build the hash.
 	 *
 	 * @since 4.9.5
+	 * @since TBD Made $query explicitly nullable.
 	 *
 	 * @param array         $settings  An array of settings to define how the hash should be produced in the shape
 	 *                                 `[ 'exclude' => [ 'ex_1', ... ], 'include' => [ 'inc_1', ... ] ]`. This array
@@ -330,6 +332,7 @@ interface Tribe__Repository__Interface extends
 	 * Sets the request context for the current request.
 	 *
 	 * @since 5.2.0
+	 * @since TBD Made $context explicitly nullable.
 	 *
 	 * @param string|null $context The request context.
 	 *
