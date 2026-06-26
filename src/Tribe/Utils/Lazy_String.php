@@ -10,8 +10,14 @@
 
 namespace Tribe\Utils;
 
-
-class Lazy_String implements \Serializable, \JsonSerializable {
+/**
+ * Class Lazy_String.
+ *
+ * @since 4.9.16
+ *
+ * @package Tribe\Utils
+ */
+class Lazy_String implements \JsonSerializable {
 	use Lazy_Events;
 
 	/**
@@ -114,25 +120,33 @@ class Lazy_String implements \Serializable, \JsonSerializable {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Legacy serialization method kept for backward compatibility.
 	 *
 	 * @since 4.9.16
+	 * @deprecated TBD Use __serialize() instead.
+	 *
+	 * @return string The serialized representation of the object.
 	 */
 	public function serialize() {
-		$serialized = serialize( [ $this->__toString(), $this->escaped() ] );
+		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
 
-		unset( $this->value_callback, $this->escape_callback );
-
-		return $serialized;
+		return maybe_serialize( $this->__serialize() );
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Legacy unserialization method kept for backward compatibility.
 	 *
 	 * @since 4.9.16
+	 * @deprecated TBD Use __unserialize() instead.
+	 *
+	 * @param string $serialized The serialized data.
+	 *
+	 * @return void
 	 */
 	public function unserialize( $serialized ) {
-		$data = unserialize( $serialized );
+		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
+
+		$data = maybe_unserialize( $serialized );
 		$this->__unserialize( $data );
 	}
 

@@ -1,0 +1,10 @@
+"2026-01-01 00:00:00","Plain log message",debug,tribe
+"2026-01-01 00:00:01","Message, with a comma",warning,"tribe,src"
+"2026-01-01 00:00:02","He said ""hello"" loudly",error,"tribe""src"
+"2026-01-01 00:00:03","Path C:\Windows\system32",debug,"back\slash"
+"2026-01-01 00:00:04","Line one
+Line two",error,"multi\nline"
+"2026-01-01 00:00:05","Mix ""q"", c, and \ back",warning,mixed
+"2026-01-01 00:00:06",,debug,
+"2026-01-01 00:00:07","  padded message  ",debug,"  src  "
+"2026-01-01 00:00:08","Café — naïve façade 日本語",debug,tribe

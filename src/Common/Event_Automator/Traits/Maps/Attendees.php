@@ -71,7 +71,7 @@ trait Attendees {
 		$next_attendee = [
 			// Attendee.
 			'id'                => $attendee_id,
-			'holder_name'       => html_entity_decode( $attendee['holder_name'] ?? '' ),
+			'holder_name'       => html_entity_decode( $attendee['holder_name'] ?? '', ENT_COMPAT ),
 			'holder_email'      => $attendee['holder_email'] ?? '',
 			'ticket_id'         => strval( $attendee['ticket_id'] ) ?? '',
 			'security_code'     => $attendee['security_code'] ?? '',
@@ -83,7 +83,7 @@ trait Attendees {
 
 			// Ticket & Order.
 			'is_purchaser'      => $attendee['is_purchaser'] ?? '',
-			'purchaser_name'    => html_entity_decode( $attendee['purchaser_name'] ?? '' ),
+			'purchaser_name'    => html_entity_decode( $attendee['purchaser_name'] ?? '', ENT_COMPAT ),
 			'purchaser_email'   => $attendee['purchaser_email'] ?? '',
 			'provider'          => $attendee['provider_slug'] ?? '',
 			'ticket'            => $attendee['ticket'] ?? '',
@@ -93,7 +93,7 @@ trait Attendees {
 
 			// Event.
 			'event_id'          => $attendee['event_id'] ?? '',
-			'event_title'       => html_entity_decode( get_the_title( $attendee['event_id'] ) ),
+			'event_title'       => html_entity_decode( get_the_title( $attendee['event_id'] ), ENT_COMPAT ),
 		];
 
 		/**

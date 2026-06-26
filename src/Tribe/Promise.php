@@ -54,13 +54,15 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	/**
 	 * Tribe__Promise constructor.
 	 *
+	 * @since TBD Made $items explicitly nullable.
+	 *
 	 * @param string|array|Tribe__Utils__Callback $callback   The callback that should run to perform the promise task.
 	 * @param array                               $items      The items to process, each item will be passed as first
 	 *                                                        argument to the callback at run-time.
 	 * @param array                               $extra_args An array of extra arguments that will be passed to the
 	 *                                                        callback function.
 	 */
-	public function __construct( $callback = null, array $items = null, array $extra_args = [] ) {
+	public function __construct( $callback = null, ?array $items = null, array $extra_args = [] ) {
 		parent::__construct();
 
 		if ( ! empty( $callback ) && ! empty( $items ) ) {
@@ -87,6 +89,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 * potentially, a different call from the one where this method is called.
 	 *
 	 * @since 4.9.5
+	 * @since TBD Made $resolved_args and $rejected_args explicitly nullable.
 	 *
 	 * @param callable|Tribe__Utils__Callback $resolved            The callback to call on success.
 	 * @param callable|Tribe__Utils__Callback $rejected            The callback to call on failure.
@@ -99,7 +102,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 *
 	 * @throws LogicException If this method is called after saving the promise.
 	 */
-	public function then( $resolved, $rejected = null, array $resolved_args = null, array $rejected_args = null ) {
+	public function then( $resolved, $rejected = null, ?array $resolved_args = null, ?array $rejected_args = null ) {
 		if ( $this->did_save ) {
 			throw new LogicException( 'The promise "then" method should be called before the "save" one' );
 		}
@@ -226,6 +229,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 * and log.
 	 *
 	 * @since 4.9.5
+	 * @since TBD Made $callback_args explicitly nullable.
 	 *
 	 * @param           callable|Tribe__Utils__Callback $callback      The callback to call.
 	 * @param array|null                                 $callback_args An optional array of arguments to call the
@@ -233,7 +237,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 *
 	 * @return mixed The callback invocation return value.
 	 */
-	protected function do_callback( $callback, array $callback_args = null ) {
+	protected function do_callback( $callback, ?array $callback_args = null ) {
 		try {
 			set_error_handler( [ $this, 'error_handler' ] );
 

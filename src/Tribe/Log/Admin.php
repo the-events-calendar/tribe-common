@@ -257,7 +257,7 @@ class Tribe__Log__Admin {
 		$output = fopen( 'php://output', 'w' );
 
 		foreach ( $this->current_logger()->retrieve() as $log_entry ) {
-			fputcsv( $output, $log_entry );
+			fputcsv( $output, $log_entry, ',', '"', '\\' ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_fputcsv -- Writing to the PHP output stream for a file download, not the filesystem.
 		}
 
 		fclose( $output );

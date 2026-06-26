@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed -- The container class and its procedural helper functions are intentionally bundled together.
 
 use TEC\Common\Contracts\Container;
 
@@ -75,16 +76,18 @@ if ( ! function_exists( 'tribe_singleton' ) ) {
 	 * The class will be built only once (if passing the class name or a callback function), stored
 	 * and the same instance will be returned from that moment on.
 	 *
+	 * @since TBD Made $after_build_methods explicitly nullable.
+	 *
 	 * @param string                 $slug                The human-readable and catchy name of the class.
-	 * @param string|object|callable $class               The full class name or an instance of the class
+	 * @param string|object|callable $class_name          The full class name or an instance of the class
 	 *                                                    or a callback that will return the instance of the class.
 	 * @param array                  $after_build_methods An array of methods that should be called on
 	 *                                                    the built object after the `__construct` method; the methods
 	 *                                                    will be called only once after the singleton instance
 	 *                                                    construction.
 	 */
-	function tribe_singleton( $slug, $class, array $after_build_methods = null ) {
-		Tribe__Container::init()->singleton( $slug, $class, $after_build_methods );
+	function tribe_singleton( $slug, $class_name, ?array $after_build_methods = null ) {
+		Tribe__Container::init()->singleton( $slug, $class_name, $after_build_methods );
 	}
 }
 
@@ -140,15 +143,17 @@ if ( ! function_exists( 'tribe_register' ) ) {
 	 *      // the `hook` and `register` methods will be called on the built instance.
 	 *      tribe( 'tec.admin.class' )->doSomething();
 	 *
+	 * @since TBD Made $after_build_methods explicitly nullable.
+	 *
 	 * @param string                 $slug                The human-readable and catchy name of the class.
-	 * @param string|object|callable $class               The full class name or an instance of the class
+	 * @param string|object|callable $class_name          The full class name or an instance of the class
 	 *                                                    or a callback that will return the instance of the class.
 	 * @param array                  $after_build_methods An array of methods that should be called on
 	 *                                                    the built object after the `__construct` method; the methods
 	 *                                                    will be called each time after the instance construction.
 	 */
-	function tribe_register( $slug, $class, array $after_build_methods = null ) {
-		Tribe__Container::init()->bind( $slug, $class, $after_build_methods );
+	function tribe_register( $slug, $class_name, ?array $after_build_methods = null ) {
+		Tribe__Container::init()->bind( $slug, $class_name, $after_build_methods );
 	}
 }
 

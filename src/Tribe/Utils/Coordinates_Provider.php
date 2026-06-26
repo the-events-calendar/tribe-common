@@ -54,9 +54,11 @@ class Tribe__Utils__Coordinates_Provider {
 	/**
 	 * Tribe__Utils__Coordinates_Provider constructor.
 	 *
+	 * @since TBD Made $https explicitly nullable.
+	 *
 	 * @param WP_Http|null $https
 	 */
-	public function __construct( WP_Http $https = null ) {
+	public function __construct( ?WP_Http $https = null ) {
 		$this->http = ! empty( $https ) ? $https : _wp_http_get_object();
 	}
 

@@ -251,13 +251,14 @@ abstract class Tribe__Process__Handler {
 	 * Handles the process immediately, not in an async manner.
 	 *
 	 * @since 4.7.12
+	 * @since TBD Made $data_source explicitly nullable.
 	 *
 	 * @param array|null $data_source If not provided the method will read the handler data from the
 	 *                                request array.
 	 *
 	 * @return mixed|null The result of the synchronous handling.
 	 */
-	abstract public function sync_handle( array $data_source = null );
+	abstract public function sync_handle( ?array $data_source = null );
 
 	/**
 	 * Returns an array of arguments that will be used to send the POST request.
@@ -350,6 +351,7 @@ abstract class Tribe__Process__Handler {
 	 * Handles the request and performs an action.
 	 *
 	 * @since 4.9.5 Pulled from the `WP_Async_Request` class.
+	 * @since TBD Made $data_source explicitly nullable.
 	 *
 	 * @param array|null $data_source A source of data if not provided in the request; used for
 	 *                                cron-based fallback.
@@ -357,5 +359,5 @@ abstract class Tribe__Process__Handler {
 	 * @return null|array Depending on the context of the call, cron or async, either the result
 	 *                    of the handling (cron) or nothing (async).
 	 */
-	abstract protected function handle( array $data_source = null );
+	abstract protected function handle( ?array $data_source = null );
 }

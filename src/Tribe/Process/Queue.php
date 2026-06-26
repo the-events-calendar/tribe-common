@@ -433,7 +433,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		$max_frag_size = $this->get_max_frag_size();
 		// we add a 15% to the size to take the serialization and query overhead into account when fragmenting
-		$serialized_size = strlen( utf8_decode( maybe_serialize( $data ) ) ) * 1.15;
+		$serialized_size = strlen( mb_convert_encoding( maybe_serialize( $data ), 'ISO-8859-1', 'UTF-8' ) ) * 1.15;
 		$frags_count     = (int) ceil( $serialized_size / $max_frag_size );
 		$per_frag        = max( (int) floor( count( $data ) / $frags_count ), 1 );
 
@@ -834,11 +834,12 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * within server memory and time limit constraints.
 	 *
 	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
+	 * @since TBD Made $data_source explicitly nullable.
 	 *
 	 * @param array|null $data_source Unused and kept for compatibility with parent; the queue
 	 *                                data is stored and read from the database.
 	 */
-	protected function handle( array $data_source = null ) {
+	protected function handle( ?array $data_source = null ) {
 		$this->lock_process();
 
 		do {
@@ -1116,13 +1117,14 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Just a proxy to the `sync_process` method.
 	 *
 	 * @since 4.9.5
+	 * @since TBD Made $data_source explicitly nullable.
 	 *
 	 * @param array|null $data_source If not provided the method will read the handler data from the
 	 *                                request array.
 	 *
 	 * @return array|mixed|null The synchronous process result.
 	 */
-	public function sync_handle( array $data_source = null ) {
+	public function sync_handle( ?array $data_source = null ) {
 		// In the base implementation the data source is unused and read from the database.
 		return $this->sync_process();
 	}

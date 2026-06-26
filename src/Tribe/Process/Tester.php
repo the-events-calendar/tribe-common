@@ -18,13 +18,14 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 * Handles the process immediately, not in an async manner.
 	 *
 	 * @since 4.7.12
+	 * @since TBD Made $data_source explicitly nullable.
 	 *
 	 * @param array|null $data_source If not provided the method will read the handler data from the
 	 *                                request array.
 	 *
 	 * @return mixed
 	 */
-	public function sync_handle( array $data_source = null ) {
+	public function sync_handle( ?array $data_source = null ) {
 		/*
 		 * The purpose of this class is exactly to make sure async processing works
 		 * so it will do nothing if running in synchronous mode.
@@ -78,10 +79,11 @@ class Tribe__Process__Tester extends Tribe__Process__Handler {
 	 * background processing is supported.
 	 *
 	 * @since 4.7.23
+	 * @since TBD Made $data_source explicitly nullable.
 	 *
 	 * @param array|null $data_source Unused.
 	 */
-	protected function handle( array $data_source = null ) {
+	protected function handle( ?array $data_source = null ) {
 		tec_timed_option()->set( static::TRANSIENT_NAME, 1, WEEK_IN_SECONDS );
 	}
 
