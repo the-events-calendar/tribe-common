@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruleset name="Tribe Common PHP 8 Compatibility">
+	<description>Detects PHP 8.0–8.4 deprecations and removals. Run via bin/php-compat.sh.</description>
+
+	<!-- Target the supported PHP range (min supported – production runtime). -->
+	<config name="testVersion" value="7.4-8.4"/>
+
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Only PHP files. -->
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+
+	<file>src</file>
+	<file>tribe-common.php</file>
+	<file>tribe-autoload.php</file>
+
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<exclude-pattern>*/build/*</exclude-pattern>
+	<!-- Compiled/minified assets and other non-source PHP. -->
+	<exclude-pattern>*/src/resources/*</exclude-pattern>
+</ruleset>

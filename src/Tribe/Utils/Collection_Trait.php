@@ -162,31 +162,31 @@ trait Collection_Trait {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Legacy serialization method kept for backward compatibility.
+	 *
+	 * @deprecated TBD Use __serialize() instead.
+	 *
+	 * @return string The serialized representation of the collection.
 	 */
 	public function serialize() {
-		$to_serialize = $this->all();
+		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
 
-		if ( method_exists( $this, 'before_serialize' ) ) {
-			$to_serialize = $this->before_serialize( $this->all() );
-		}
-
-		return serialize( $to_serialize );
+		return maybe_serialize( $this->__serialize() );
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Legacy unserialization method kept for backward compatibility.
+	 *
+	 * @deprecated TBD Use __unserialize() instead.
+	 *
+	 * @param string $serialized The serialized data.
+	 *
+	 * @return void
 	 */
 	public function unserialize( $serialized ) {
-		$to_unserialize = $serialized;
+		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
 
-		if ( method_exists( $this, 'custom_unserialize' ) ) {
-			$this->items = $this->custom_unserialize( $to_unserialize );
-
-			return;
-		}
-
-		$this->items = unserialize( $to_unserialize );
+		$this->__unserialize( maybe_unserialize( $serialized ) );
 	}
 
 	/**
@@ -246,7 +246,7 @@ trait Collection_Trait {
 	 */
 	public function __unserialize( array $data ): void {
 		if ( method_exists( $this, 'custom_unserialize' ) ) {
-			$this->items = $this->custom_unserialize( serialize( $data ) );
+			$this->items = $this->custom_unserialize( maybe_serialize( $data ) );
 
 			return;
 		}

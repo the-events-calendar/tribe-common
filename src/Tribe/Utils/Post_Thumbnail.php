@@ -27,7 +27,7 @@ use Tribe__Utils__Array as Arr;
  * @since 4.9.14
  * @package Tribe\Utils
  */
-class Post_Thumbnail implements \ArrayAccess, \Serializable {
+class Post_Thumbnail implements \ArrayAccess {
 	use Lazy_Events;
 
 	/**
@@ -284,16 +284,30 @@ class Post_Thumbnail implements \ArrayAccess, \Serializable {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Legacy serialization method kept for backward compatibility.
+	 *
+	 * @deprecated TBD Use __serialize() instead.
+	 *
+	 * @return string The serialized representation of the object.
 	 */
 	public function serialize() {
+		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
+
 		return wp_json_encode( $this->__serialize() );
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Legacy unserialization method kept for backward compatibility.
+	 *
+	 * @deprecated TBD Use __unserialize() instead.
+	 *
+	 * @param string $serialized The serialized data.
+	 *
+	 * @return void
 	 */
 	public function unserialize( $serialized ) {
+		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
+
 		$data = json_decode( $serialized, true );
 		$this->__unserialize( $data );
 	}

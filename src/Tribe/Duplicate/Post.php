@@ -76,8 +76,9 @@ class Tribe__Duplicate__Post {
 	 * @param Tribe__Duplicate__Strategy_Factory|null $factory
 	 *
 	 * @since 4.6
+	 * @since TBD Made $factory explicitly nullable.
 	 */
-	public function __construct( Tribe__Duplicate__Strategy_Factory $factory = null ) {
+	public function __construct( ?Tribe__Duplicate__Strategy_Factory $factory = null ) {
 		$this->factory = null !== $factory ? $factory : tribe( 'post-duplicate.strategy-factory' );
 	}
 
