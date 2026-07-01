@@ -51,6 +51,7 @@ const momentToDateFnsFormatter = ( momentFormat ) => {
 const DayPickerInput = ( props ) => {
 	const popoverAnchor = useRef( null ); // Ref for the Popover anchor
 	const inputRef = useRef( null ); // Ref for the input field
+	const popoverRef = useRef( null ); // Ref for the popover portal element
 	const isVisibleRef = useRef( false );
 	const [ isVisible, setIsVisible ] = useState( false );
 	// Do not memoize this: it could be changed in the context of the Block Editor elsewhere.
@@ -77,14 +78,18 @@ const DayPickerInput = ( props ) => {
 		} );
 	};
 
-	const { value, onDayChange, formatDate, format } = props;
+	const { value, onDayChange, formatDate, format, dayPickerProps } = props;
 
 	// Convert the format from the moment.js one to date-fns one using Unicode characters.
 	const dateFnsFormat = momentToDateFnsFormatter( format );
 
 	const getSelectedDateInitialState = useCallback(
 		( value ) => {
-			// Try and parse the value using teh date-fns format.
+			if ( ! value ) {
+				return undefined;
+			}
+
+			// Try and parse the value using the date-fns format.
 			const d = parseDate( value, dateFnsFormat, new Date() );
 
 			if ( d instanceof Date && ! isNaN( d ) ) {
@@ -92,32 +97,16 @@ const DayPickerInput = ( props ) => {
 			}
 
 			// Try and parse the value using the PHP date format.
-			const parsed = parsePhpDate( value );
-
-			return parsed;
+			return parsePhpDate( value );
 		},
 		[ dateFnsFormat, parsePhpDate ]
 	);
 
-	const [ selectedDate, setSelectedDate ] = useState( value ? getSelectedDateInitialState( value ) : new Date() );
+	const [ selectedDate, setSelectedDate ] = useState( () => getSelectedDateInitialState( value ) );
 
+	// Sync selectedDate when the value prop changes (e.g. Redux state arrives after mount in React 17).
 	useEffect( () => {
-		if ( ! value ) {
-			return;
-		}
-
-		const nextDate = getSelectedDateInitialState( value );
-
-		setSelectedDate( ( previousDate ) => {
-			if (
-				previousDate?.getTime?.() === nextDate?.getTime?.() &&
-				! isNaN( previousDate?.getTime?.() )
-			) {
-				return previousDate;
-			}
-
-			return nextDate;
-		} );
+		setSelectedDate( getSelectedDateInitialState( value ) );
 	}, [ value, getSelectedDateInitialState ] );
 
 	useEffect( () => {
@@ -140,6 +129,40 @@ const DayPickerInput = ( props ) => {
 	}, [] );
 
 	useEffect( () => registerDatePickerCloseHandler( closeCalendar ), [ closeCalendar ] );
+
+	const clickOutsideHandlerRef = useRef( null );
+	clickOutsideHandlerRef.current = ( event ) => {
+		const { target } = event;
+		const anchorEl = popoverAnchor.current;
+		const popoverEl = popoverRef.current;
+
+		if ( anchorEl && anchorEl.contains( target ) ) {
+			return;
+		}
+
+		if ( popoverEl && popoverEl.contains( target ) ) {
+			return;
+		}
+
+		closeCalendar();
+	};
+
+	useEffect( () => {
+		if ( ! isVisible ) {
+			return;
+		}
+
+		const onMouseDown = ( event ) => clickOutsideHandlerRef.current( event );
+
+		const timerId = setTimeout( () => {
+			document.addEventListener( 'mousedown', onMouseDown );
+		}, 0 );
+
+		return () => {
+			clearTimeout( timerId );
+			document.removeEventListener( 'mousedown', onMouseDown );
+		};
+	}, [ isVisible ] );
 
 	/**
 	 * Formats the datepicker Date object to the datepicker format.
@@ -171,16 +194,23 @@ const DayPickerInput = ( props ) => {
 					noArrow={ false }
 					onClose={ closeCalendar }
 				>
-					<DayPicker
-						mode="single"
-						selected={ selectedDate }
-						onSelect={ ( date ) => {
-							onDayChange( date, {}, formatDatepickerValue( date ) );
-							setSelectedDate( date );
-							closeCalendar();
-						} }
-						isSelected={ true }
-					/>
+					<div ref={ popoverRef }>
+						<DayPicker
+							mode="single"
+							selected={ selectedDate }
+							onSelect={ ( date ) => {
+								onDayChange( date, {}, formatDatepickerValue( date ) );
+								setSelectedDate( date );
+								closeCalendar();
+							} }
+							disabled={ dayPickerProps?.disabledDays }
+							modifiers={ dayPickerProps?.modifiers }
+							month={ selectedDate || dayPickerProps?.month || new Date() }
+							startMonth={ dayPickerProps?.fromMonth }
+							endMonth={ dayPickerProps?.toMonth }
+							isSelected={ true }
+						/>
+					</div>
 				</Popover>
 			) }
 		</>
