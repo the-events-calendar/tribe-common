@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react';
-import classNames from 'classnames';
-import 'react-day-picker/src/style.css';
-import { DayPicker } from 'react-day-picker';
 import { Popover } from '@wordpress/components';
 import { getSettings as getDateSettings } from '@wordpress/date';
+import classNames from 'classnames';
 import { parse as parseDate } from 'date-fns';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/src/style.css';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ const DatePickerInput = ( props ) => {
 	const { setPopoverAnchor, inputRef, onDayChange, ...inputProps } = props;
 
 	return (
-		<div ref={ setPopoverAnchor } className={ classNames( 'tribe-editor__date-input__container' ) }>
+		<div ref={ setPopoverAnchor } className={ classNames( 'tribe-editor__date-input__container', 'tribe-editor__day-picker-input', 'DayPickerInput' ) }>
 			<input
 				ref={ inputRef } // Attach the ref to the input element
 				className={ classNames( 'tribe-editor__date-input' ) }

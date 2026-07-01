@@ -2,7 +2,7 @@
 
 exports[`DayPickerInput element Should render the component 1`] = `
 <div
-  className="tribe-editor__date-input__container"
+  className="tribe-editor__date-input__container tribe-editor__day-picker-input DayPickerInput"
 >
   <input
     className="tribe-editor__date-input"
