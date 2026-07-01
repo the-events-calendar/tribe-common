@@ -2,16 +2,13 @@
 
 exports[`DayPickerInput element Should render the component 1`] = `
 <div
-  className="tribe-editor__day-picker-input DayPickerInput"
+  className="tribe-editor__date-input__container"
 >
   <input
-    onBlur={[Function]}
+    className="tribe-editor__date-input"
     onChange={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    placeholder="YYYY-M-D"
+    onMouseDown={[Function]}
     value="September 7, 2019"
   />
 </div>
