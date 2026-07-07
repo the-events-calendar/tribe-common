@@ -896,7 +896,7 @@ class Tribe__Meta__Chunker {
 	/**
 	 * Sets the post types the Chunker should support.
 	 *
-	 * @since TBD Made $post_types explicitly nullable.
+	 * @since 6.12.0 Made $post_types explicitly nullable.
 	 *
 	 * @param array $post_types
 	 */

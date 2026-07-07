@@ -54,7 +54,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	/**
 	 * Tribe__Promise constructor.
 	 *
-	 * @since TBD Made $items explicitly nullable.
+	 * @since 6.12.0 Made $items explicitly nullable.
 	 *
 	 * @param string|array|Tribe__Utils__Callback $callback   The callback that should run to perform the promise task.
 	 * @param array                               $items      The items to process, each item will be passed as first
@@ -89,7 +89,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 * potentially, a different call from the one where this method is called.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Made $resolved_args and $rejected_args explicitly nullable.
+	 * @since 6.12.0 Made $resolved_args and $rejected_args explicitly nullable.
 	 *
 	 * @param callable|Tribe__Utils__Callback $resolved            The callback to call on success.
 	 * @param callable|Tribe__Utils__Callback $rejected            The callback to call on failure.
@@ -229,7 +229,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 * and log.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Made $callback_args explicitly nullable.
+	 * @since 6.12.0 Made $callback_args explicitly nullable.
 	 *
 	 * @param           callable|Tribe__Utils__Callback $callback      The callback to call.
 	 * @param array|null                                 $callback_args An optional array of arguments to call the
