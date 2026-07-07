@@ -2,6 +2,10 @@
 
 = [6.12.0] 2026-07-08 =
 
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.12.0] 2026-07-08 =
+
 * Compatibility - Improved PHP compatibility for versions 7.4 and up to 8.4.
 
 = [6.11.5] 2026-06-24 =
