@@ -286,12 +286,12 @@ class Post_Thumbnail implements \ArrayAccess {
 	/**
 	 * Legacy serialization method kept for backward compatibility.
 	 *
-	 * @deprecated TBD Use __serialize() instead.
+	 * @deprecated 6.12.0 Use __serialize() instead.
 	 *
 	 * @return string The serialized representation of the object.
 	 */
 	public function serialize() {
-		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
+		_deprecated_function( __METHOD__, '6.12.0', '__serialize()' );
 
 		return wp_json_encode( $this->__serialize() );
 	}
@@ -299,14 +299,14 @@ class Post_Thumbnail implements \ArrayAccess {
 	/**
 	 * Legacy unserialization method kept for backward compatibility.
 	 *
-	 * @deprecated TBD Use __unserialize() instead.
+	 * @deprecated 6.12.0 Use __unserialize() instead.
 	 *
 	 * @param string $serialized The serialized data.
 	 *
 	 * @return void
 	 */
 	public function unserialize( $serialized ) {
-		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
+		_deprecated_function( __METHOD__, '6.12.0', '__unserialize()' );
 
 		$data = json_decode( $serialized, true );
 		$this->__unserialize( $data );
