@@ -54,7 +54,7 @@ class Tribe__Utils__Coordinates_Provider {
 	/**
 	 * Tribe__Utils__Coordinates_Provider constructor.
 	 *
-	 * @since TBD Made $https explicitly nullable.
+	 * @since 6.12.0 Made $https explicitly nullable.
 	 *
 	 * @param WP_Http|null $https
 	 */
