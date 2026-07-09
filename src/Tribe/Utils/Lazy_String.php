@@ -123,12 +123,12 @@ class Lazy_String implements \JsonSerializable {
 	 * Legacy serialization method kept for backward compatibility.
 	 *
 	 * @since 4.9.16
-	 * @deprecated TBD Use __serialize() instead.
+	 * @deprecated 6.12.0 Use __serialize() instead.
 	 *
 	 * @return string The serialized representation of the object.
 	 */
 	public function serialize() {
-		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
+		_deprecated_function( __METHOD__, '6.12.0', '__serialize()' );
 
 		return maybe_serialize( $this->__serialize() );
 	}
@@ -137,14 +137,14 @@ class Lazy_String implements \JsonSerializable {
 	 * Legacy unserialization method kept for backward compatibility.
 	 *
 	 * @since 4.9.16
-	 * @deprecated TBD Use __unserialize() instead.
+	 * @deprecated 6.12.0 Use __unserialize() instead.
 	 *
 	 * @param string $serialized The serialized data.
 	 *
 	 * @return void
 	 */
 	public function unserialize( $serialized ) {
-		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
+		_deprecated_function( __METHOD__, '6.12.0', '__unserialize()' );
 
 		$data = maybe_unserialize( $serialized );
 		$this->__unserialize( $data );

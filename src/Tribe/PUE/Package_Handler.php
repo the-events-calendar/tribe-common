@@ -24,7 +24,7 @@ class Tribe__PUE__Package_Handler {
 	/**
 	 * Tribe__PUE__Package_Handler constructor.
 	 *
-	 * @since TBD Made $wp_filesystem explicitly nullable.
+	 * @since 6.12.0 Made $wp_filesystem explicitly nullable.
 	 *
 	 * @param WP_Filesystem_Base|null $wp_filesystem
 	 */
