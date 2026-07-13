@@ -582,7 +582,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @since TBD Made $query explicitly nullable.
+	 * @since 6.12.0 Made $query explicitly nullable.
 	 */
 	public function hash( array $settings = [], ?WP_Query $query = null ) {
 		return $this->decorated->hash( $settings );
@@ -591,7 +591,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD Made $query explicitly nullable.
+	 * @since 6.12.0 Made $query explicitly nullable.
 	 */
 	public function get_hash_data( array $settings, ?WP_Query $query = null ) {
 		return $this->decorated->get_hash_data( $settings, $query );
@@ -723,7 +723,7 @@ abstract class Tribe__Repository__Decorator implements Tribe__Repository__Interf
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD Made $context explicitly nullable.
+	 * @since 6.12.0 Made $context explicitly nullable.
 	 */
 	public function set_request_context( ?string $context = null ): self {
 		$this->decorated->set_request_context( $context );
