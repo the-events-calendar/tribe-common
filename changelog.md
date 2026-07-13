@@ -1,5 +1,10 @@
 # Changelog
 
+### [6.12.0] 2026-07-08
+
+* Compatibility - Improved PHP compatibility for versions 7.4 and up to 8.4.
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.11.5] 2026-06-24
 
 * Fix - Resolved an issue where select dropdowns, such as Ticket Capacity, rendered unstyled in the WordPress 7 block editor.
