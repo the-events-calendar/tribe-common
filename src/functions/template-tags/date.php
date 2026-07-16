@@ -42,7 +42,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 			$format = $date_format;
 		} else {
 			$date_year = gmdate( 'Y', $date );
-			$cur_year  = gmdate( 'Y', current_time( 'timestamp' ) );
+			$cur_year  = ( new DateTimeImmutable( 'now', wp_timezone() ) )->format( 'Y' );
 
 			// only show the year in the date if it's not in the current year
 			$with_year = $date_year == $cur_year ? false : true;
