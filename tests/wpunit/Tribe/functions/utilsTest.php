@@ -579,4 +579,129 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 	public function test_tec_sanitize_string( $input, $expected ) {
 		$this->assertEquals( $expected, tec_sanitize_string( $input ) );
 	}
+
+	public function test_tribe_run_on_action_runs_immediately_if_action_already_fired() {
+		do_action( 'tribe_test_run_on_action_fired' );
+
+		$ran = false;
+		tribe_run_on_action( 'tribe_test_run_on_action_fired', function () use ( &$ran ) {
+			$ran = true;
+		} );
+
+		$this->assertTrue( $ran );
+		$this->assertFalse( has_action( 'tribe_test_run_on_action_fired' ) );
+	}
+
+	public function test_tribe_run_on_action_runs_immediately_while_action_is_firing() {
+		$ran = false;
+
+		add_action( 'tribe_test_run_on_action_doing', function () use ( &$ran ) {
+			tribe_run_on_action( 'tribe_test_run_on_action_doing', function () use ( &$ran ) {
+				$ran = true;
+			} );
+		} );
+
+		do_action( 'tribe_test_run_on_action_doing' );
+
+		$this->assertTrue( $ran );
+	}
+
+	public function test_tribe_run_on_action_defers_until_action_fires() {
+		$ran = false;
+
+		tribe_run_on_action( 'tribe_test_run_on_action_deferred', function () use ( &$ran ) {
+			$ran = true;
+		} );
+
+		$this->assertFalse( $ran );
+
+		do_action( 'tribe_test_run_on_action_deferred' );
+
+		$this->assertTrue( $ran );
+	}
+
+	public function test_tribe_run_on_action_deferred_callback_runs_only_once() {
+		$runs = 0;
+
+		tribe_run_on_action( 'tribe_test_run_on_action_once', function () use ( &$runs ) {
+			$runs++;
+		} );
+
+		do_action( 'tribe_test_run_on_action_once' );
+		do_action( 'tribe_test_run_on_action_once' );
+
+		$this->assertEquals( 1, $runs );
+	}
+
+	public function test_tribe_run_on_action_honors_priority() {
+		$order = [];
+
+		add_action( 'tribe_test_run_on_action_priority', function () use ( &$order ) {
+			$order[] = 'default';
+		} );
+
+		tribe_run_on_action( 'tribe_test_run_on_action_priority', function () use ( &$order ) {
+			$order[] = 'early';
+		}, 0 );
+
+		do_action( 'tribe_test_run_on_action_priority' );
+
+		$this->assertEquals( [ 'early', 'default' ], $order );
+	}
+
+	public function test_tribe_run_on_filter_runs_immediately_if_filter_already_applied() {
+		apply_filters( 'tribe_test_run_on_filter_applied', 'value' );
+
+		$ran = false;
+		tribe_run_on_filter( 'tribe_test_run_on_filter_applied', function () use ( &$ran ) {
+			$ran = true;
+		} );
+
+		$this->assertTrue( $ran );
+		$this->assertFalse( has_filter( 'tribe_test_run_on_filter_applied' ) );
+	}
+
+	public function test_tribe_run_on_filter_defers_until_filter_runs_and_passes_value_through() {
+		$ran = false;
+
+		tribe_run_on_filter( 'tribe_test_run_on_filter_deferred', function () use ( &$ran ) {
+			$ran = true;
+		} );
+
+		$this->assertFalse( $ran );
+
+		$result = apply_filters( 'tribe_test_run_on_filter_deferred', 'unchanged' );
+
+		$this->assertTrue( $ran );
+		$this->assertEquals( 'unchanged', $result );
+	}
+
+	public function test_tribe_run_on_filter_deferred_callback_runs_only_once() {
+		$runs = 0;
+
+		tribe_run_on_filter( 'tribe_test_run_on_filter_once', function () use ( &$runs ) {
+			$runs++;
+		} );
+
+		apply_filters( 'tribe_test_run_on_filter_once', 'a' );
+		apply_filters( 'tribe_test_run_on_filter_once', 'b' );
+
+		$this->assertEquals( 1, $runs );
+	}
+
+	public function test_tribe_run_on_filter_does_not_treat_matching_action_as_fired() {
+		// An action with the same name firing must not be mistaken for the filter having run.
+		do_action( 'tribe_test_run_on_filter_vs_action' );
+
+		$ran = false;
+		tribe_run_on_filter( 'tribe_test_run_on_filter_vs_action', function () use ( &$ran ) {
+			$ran = true;
+		} );
+
+		$this->assertFalse( $ran );
+
+		apply_filters( 'tribe_test_run_on_filter_vs_action', 'value' );
+
+		$this->assertTrue( $ran );
+	}
 }

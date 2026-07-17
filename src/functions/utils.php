@@ -1479,3 +1479,76 @@ if ( ! function_exists( 'tec_json_unpack' ) ) {
 		return tribe( Json_Packer::class )->unpack( $json, $fail_on_error, $allowed_classes );
 	}
 }
+
+if ( ! function_exists( 'tribe_run_on_action' ) ) {
+	/**
+	 * Runs a callback immediately if the given action has already fired (or is currently
+	 * firing), otherwise defers it to run once that action fires.
+	 *
+	 * Useful for avoiding "ran too early" bugs (e.g. translation functions, or hooks that
+	 * depend on them, called before `init`) when some code needs to happen no earlier than
+	 * a given action, regardless of how early the registering code itself runs.
+	 *
+	 * For the same problem where the pivot hook is a filter rather than an action, use
+	 * `tribe_run_on_filter()` instead — WordPress tracks action and filter execution counts
+	 * separately, so `did_action()`/`doing_action()` cannot answer "has this filter run yet".
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $action   The action hook to check against / defer to.
+	 * @param callable $callback The callback to run now or on that action.
+	 * @param int      $priority Priority to use if the callback has to be deferred.
+	 *
+	 * @return void
+	 */
+	function tribe_run_on_action( $action, callable $callback, $priority = 10 ) {
+		if ( did_action( $action ) || doing_action( $action ) ) {
+			$callback();
+
+			return;
+		}
+
+		$wrapper = static function () use ( $action, $callback, &$wrapper ) {
+			remove_action( $action, $wrapper );
+			$callback();
+		};
+
+		add_action( $action, $wrapper, $priority );
+	}
+}
+
+if ( ! function_exists( 'tribe_run_on_filter' ) ) {
+	/**
+	 * Runs a callback immediately if the given filter has already been applied (or is
+	 * currently being applied), otherwise defers it to run the next time that filter runs.
+	 *
+	 * The filter counterpart to `tribe_run_on_action()`. Uses `did_filter()`/`doing_filter()`
+	 * rather than `did_action()`/`doing_action()`, since WordPress tracks how many times a
+	 * filter has been applied separately from how many times an action has fired — checking
+	 * a filter's state with the action-specific functions would silently always report "no".
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $filter   The filter hook to check against / defer to.
+	 * @param callable $callback The callback to run now or the next time that filter runs.
+	 * @param int      $priority Priority to use if the callback has to be deferred.
+	 *
+	 * @return void
+	 */
+	function tribe_run_on_filter( $filter, callable $callback, $priority = 10 ) {
+		if ( did_filter( $filter ) || doing_filter( $filter ) ) {
+			$callback();
+
+			return;
+		}
+
+		$wrapper = static function ( $value ) use ( $filter, $callback, &$wrapper ) {
+			remove_filter( $filter, $wrapper );
+			$callback();
+
+			return $value;
+		};
+
+		add_filter( $filter, $wrapper, $priority, 1 );
+	}
+}
