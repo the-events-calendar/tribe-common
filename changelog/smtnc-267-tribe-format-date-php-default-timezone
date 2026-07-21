@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Resolved an issue where `tribe_format_date()` shifted dates and times when PHP's default timezone was changed by third-party code.
