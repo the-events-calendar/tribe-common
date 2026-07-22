@@ -164,12 +164,12 @@ trait Collection_Trait {
 	/**
 	 * Legacy serialization method kept for backward compatibility.
 	 *
-	 * @deprecated TBD Use __serialize() instead.
+	 * @deprecated 6.12.0 Use __serialize() instead.
 	 *
 	 * @return string The serialized representation of the collection.
 	 */
 	public function serialize() {
-		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
+		_deprecated_function( __METHOD__, '6.12.0', '__serialize()' );
 
 		return maybe_serialize( $this->__serialize() );
 	}
@@ -177,14 +177,14 @@ trait Collection_Trait {
 	/**
 	 * Legacy unserialization method kept for backward compatibility.
 	 *
-	 * @deprecated TBD Use __unserialize() instead.
+	 * @deprecated 6.12.0 Use __unserialize() instead.
 	 *
 	 * @param string $serialized The serialized data.
 	 *
 	 * @return void
 	 */
 	public function unserialize( $serialized ) {
-		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
+		_deprecated_function( __METHOD__, '6.12.0', '__unserialize()' );
 
 		$this->__unserialize( maybe_unserialize( $serialized ) );
 	}

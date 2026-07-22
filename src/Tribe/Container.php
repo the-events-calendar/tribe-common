@@ -76,7 +76,7 @@ if ( ! function_exists( 'tribe_singleton' ) ) {
 	 * The class will be built only once (if passing the class name or a callback function), stored
 	 * and the same instance will be returned from that moment on.
 	 *
-	 * @since TBD Made $after_build_methods explicitly nullable.
+	 * @since 6.12.0 Made $after_build_methods explicitly nullable.
 	 *
 	 * @param string                 $slug                The human-readable and catchy name of the class.
 	 * @param string|object|callable $class_name          The full class name or an instance of the class
@@ -143,7 +143,7 @@ if ( ! function_exists( 'tribe_register' ) ) {
 	 *      // the `hook` and `register` methods will be called on the built instance.
 	 *      tribe( 'tec.admin.class' )->doSomething();
 	 *
-	 * @since TBD Made $after_build_methods explicitly nullable.
+	 * @since 6.12.0 Made $after_build_methods explicitly nullable.
 	 *
 	 * @param string                 $slug                The human-readable and catchy name of the class.
 	 * @param string|object|callable $class_name          The full class name or an instance of the class
