@@ -272,15 +272,13 @@ class PUE extends Integration_Controller {
 	 * Short-circuit PUE license validation HTTP requests for Harbor-licensed products.
 	 *
 	 * Legacy PUE code (e.g. Tribe__PUE__Checker) validates license keys by POSTing to
-	 * `/api/plugins/v2/license/validate` on Stellar's licensing servers. Harbor-hosted
-	 * sites use a unified platform license instead of per-plugin keys, so those remote
+	 * `/api/plugins/v2/license/validate` on Stellar's licensing servers. For unified licensed
+	 * sites, the license is managed by Harbor and at the whole site level, so those remote
 	 * calls are unnecessary and may fail or return stale data.
 	 *
-	 * This filter intercepts matching outbound requests via `pre_http_request` and returns
+	 * This filter intercepts those license validation requests via `pre_http_request` and returns
 	 * a synthetic HTTP 200 response shaped like the PUE API, built from Harbor's cached
-	 * license and catalog data. When catalog details are available, the response includes
-	 * product metadata and expiration; otherwise a minimal stub response is returned so
-	 * validation still succeeds for licensed Harbor products.
+	 * license and catalog data.
 	 *
 	 * Only requests to the validate endpoint for products reported as licensed by Harbor
 	 * are intercepted. All other HTTP traffic is left unchanged.
