@@ -316,7 +316,7 @@ class Harbor extends Controller_Contract {
 		return sprintf(
 			/* translators: %1$s: opening anchor tag, %2$s: closing anchor tag. */
 			__( 'It seems to be a unified license key. Please %1$sclick here%2$s to enter it in the LW License Manager.', 'tribe-common' ),
-			'<a target=_blank href="' . esc_url( lw_harbor_get_license_page_url() ) . '">',
+			'<a href="' . esc_url( lw_harbor_get_license_page_url() ) . '" target=_blank >',
 			'</a>'
 		);
 	}

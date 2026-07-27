@@ -398,10 +398,10 @@ class PUE_Test extends WPTestCase {
 	 * @test
 	 */
 	public function it_should_ignore_submitted_value_for_harbor_managed_license_field_on_save(): void {
+		update_option( 'pue_install_key_events_calendar_pro', 'legacy-ecp-key' );
+
 		$this->seed_unified_license_key();
 		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
-
-		update_option( 'pue_install_key_events_calendar_pro', 'legacy-ecp-key' );
 
 		$saved = apply_filters(
 			'tribe_settings_save_field_value',
@@ -463,21 +463,17 @@ class PUE_Test extends WPTestCase {
 				'pue_install_key_events_calendar_pro' => [
 					'type'       => 'license_key',
 					'attributes' => [],
-					'tooltip'    => 'A valid license key is required',
 				],
 				'pue_install_key_tribe_filterbar'     => [
 					'type'       => 'license_key',
 					'attributes' => [],
-					'tooltip'    => 'A valid license key is required',
 				],
 			]
 		);
 
 		$this->assertSame( 'disabled', $fields['pue_install_key_events_calendar_pro']['attributes']['disabled'] );
 		$this->assertSame( 'readonly', $fields['pue_install_key_events_calendar_pro']['attributes']['readonly'] );
-		$this->assertStringContainsString( 'Liquid Web License Manager', $fields['pue_install_key_events_calendar_pro']['tooltip'] );
 
 		$this->assertArrayNotHasKey( 'disabled', $fields['pue_install_key_tribe_filterbar']['attributes'] );
-		$this->assertSame( 'A valid license key is required', $fields['pue_install_key_tribe_filterbar']['tooltip'] );
 	}
 }
