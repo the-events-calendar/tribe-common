@@ -42,8 +42,8 @@ class PUE extends Integration_Controller {
 		add_filter( 'tec_common_uplink_auth_url', [ $this, 'filter_stellarwp_uplink_tec_authorize_button_url' ], 10, 2 );
 		add_filter( 'pue_get_update_url', [ $this, 'filter_pue_get_update_url' ], 10, 2 );
 		add_filter( 'tribe_puc_pre_validate_key', [ $this, 'filter_tribe_puc_pre_validate_key' ], 10, 3 );
-		add_filter( 'tribe_settings_save_field_value', [ $this, 'filter_tribe_settings_save_field_value' ], 10, 2 );
-		add_filter( 'tribe_license_fields', [ $this, 'filter_tribe_license_fields' ], 30 );
+		add_filter( 'tribe_settings_save_field_value', [ $this, 'prevent_storing_unified_license_key' ], 10, 2 );
+		add_filter( 'tribe_license_fields', [ $this, 'readonly_and_disable_harbor_managed_license_fields' ], 30 );
 	}
 
 	/**
@@ -60,8 +60,8 @@ class PUE extends Integration_Controller {
 		remove_filter( 'tec_common_uplink_auth_url', [ $this, 'filter_stellarwp_uplink_tec_authorize_button_url' ] );
 		remove_filter( 'pue_get_update_url', [ $this, 'filter_pue_get_update_url' ] );
 		remove_filter( 'tribe_puc_pre_validate_key', [ $this, 'filter_tribe_puc_pre_validate_key' ] );
-		remove_filter( 'tribe_settings_save_field_value', [ $this, 'filter_tribe_settings_save_field_value' ] );
-		remove_filter( 'tribe_license_fields', [ $this, 'filter_tribe_license_fields' ], 30 );
+		remove_filter( 'tribe_settings_save_field_value', [ $this, 'prevent_storing_unified_license_key' ] );
+		remove_filter( 'tribe_license_fields', [ $this, 'readonly_and_disable_harbor_managed_license_fields' ], 30 );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class PUE extends Integration_Controller {
 	 *
 	 * @return array
 	 */
-	public function filter_tribe_license_fields( array $fields ): array {
+	public function readonly_and_disable_harbor_managed_license_fields( array $fields ): array {
 		foreach ( $fields as $field_id => &$field ) {
 			if ( ! is_array( $field ) || ! is_string( $field_id ) ) {
 				continue;
@@ -162,7 +162,7 @@ class PUE extends Integration_Controller {
 	 *
 	 * @return mixed
 	 */
-	public function filter_tribe_settings_save_field_value( $value, $field_id ) {
+	public function prevent_storing_unified_license_key( $value, $field_id ) {
 		if ( ! is_string( $field_id ) || ! str_starts_with( $field_id, 'pue_install_key_' ) ) {
 			return $value;
 		}
