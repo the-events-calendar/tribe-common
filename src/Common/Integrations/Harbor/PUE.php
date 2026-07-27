@@ -134,7 +134,11 @@ class PUE extends Integration_Controller {
 		if ( $this->harbor->is_license_field_managed_by_harbor( $slug ) ) {
 			return [
 				'status'  => 1,
-				'message' => __( 'Licensed via Liquid Web License Manager.', 'tribe-common' ),
+				'message' => sprintf(
+					/* translators: URL to the Liquid Web License Manager */
+					__( 'Licensed via <a href="%s" target="_blank">Liquid Web License Manager</a>', 'tribe-common' ),
+					esc_url( lw_harbor_get_license_page_url() ),
+				),
 			];
 		}
 
