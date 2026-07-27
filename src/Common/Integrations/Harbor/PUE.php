@@ -41,6 +41,9 @@ class PUE extends Integration_Controller {
 		add_filter( 'stellarwp/uplink/tec/license_get_key', [ $this, 'filter_stellarwp_uplink_tec_license_get_key' ], 10, 2 );
 		add_filter( 'tec_common_uplink_auth_url', [ $this, 'filter_stellarwp_uplink_tec_authorize_button_url' ], 10, 2 );
 		add_filter( 'pue_get_update_url', [ $this, 'filter_pue_get_update_url' ], 10, 2 );
+		add_filter( 'tribe_puc_pre_validate_key', [ $this, 'filter_tribe_puc_pre_validate_key' ], 10, 3 );
+		add_filter( 'tribe_settings_save_field_value', [ $this, 'filter_tribe_settings_save_field_value' ], 10, 2 );
+		add_filter( 'tribe_license_fields', [ $this, 'filter_tribe_license_fields' ], 30 );
 	}
 
 	/**
@@ -56,6 +59,150 @@ class PUE extends Integration_Controller {
 		remove_filter( 'stellarwp/uplink/tec/license_get_key', [ $this, 'filter_stellarwp_uplink_tec_license_get_key' ] );
 		remove_filter( 'tec_common_uplink_auth_url', [ $this, 'filter_stellarwp_uplink_tec_authorize_button_url' ] );
 		remove_filter( 'pue_get_update_url', [ $this, 'filter_pue_get_update_url' ] );
+		remove_filter( 'tribe_puc_pre_validate_key', [ $this, 'filter_tribe_puc_pre_validate_key' ] );
+		remove_filter( 'tribe_settings_save_field_value', [ $this, 'filter_tribe_settings_save_field_value' ] );
+		remove_filter( 'tribe_license_fields', [ $this, 'filter_tribe_license_fields' ], 30 );
+	}
+
+	/**
+	 * Modify the Harbor-managed legacy fields and make them
+	 * readonly and disabled when the product is licensed via Harbor.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $fields The license fields.
+	 *
+	 * @return array
+	 */
+	public function filter_tribe_license_fields( array $fields ): array {
+		foreach ( $fields as $field_id => &$field ) {
+			if ( ! is_array( $field ) || ! is_string( $field_id ) ) {
+				continue;
+			}
+
+			if ( ! str_starts_with( $field_id, 'pue_install_key_' ) ) {
+				continue;
+			}
+
+			if ( ( $field['type'] ?? '' ) !== 'license_key' ) {
+				continue;
+			}
+
+			$product = str_replace( [ 'pue_install_key_', '_' ], [ '', '-' ], $field_id );
+			if ( ! $this->harbor->is_license_field_managed_by_harbor( $product ) ) {
+				continue;
+			}
+
+			$field['attributes'] = array_merge(
+				$field['attributes'] ?? [],
+				[
+					'disabled' => 'disabled',
+					'readonly' => 'readonly',
+				]
+			);
+		}
+
+		return $fields;
+	}
+
+	/**
+	 * Short-circuit legacy PUE key validation for Harbor unified licenses.
+	 *
+	 * Harbor-managed products already use the unified key, so remote validation is
+	 * skipped. Unified keys pasted into non-managed product fields are rejected with
+	 * a link to the LW License Manager.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|null                $response Early response, or null to continue.
+	 * @param string                    $key      The license key being validated.
+	 * @param \Tribe__PUE__Checker|null $checker  The PUE checker instance.
+	 *
+	 * @return array|null
+	 */
+	public function filter_tribe_puc_pre_validate_key( $response, string $key, $checker ) {
+		if ( null !== $response ) {
+			return $response;
+		}
+
+		if ( ! $checker instanceof \Tribe__PUE__Checker ) {
+			return $response;
+		}
+
+		$slug = $checker->get_slug();
+
+		if ( $this->harbor->is_license_field_managed_by_harbor( $slug ) ) {
+			return [
+				'status'  => 1,
+				'message' => __( 'Licensed via Liquid Web License Manager.', 'tribe-common' ),
+			];
+		}
+
+		if ( $this->harbor->is_unified_license_key( $key ) ) {
+			return [
+				'status'  => 0,
+				'message' => $this->harbor->get_unified_license_key_entry_error_message(),
+			];
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Prevent storing unified license keys in per-product PUE options.
+	 *
+	 * Harbor-managed fields ignore submitted values so the unified key is not written
+	 * into product options. Unified keys pasted into non-managed fields are rejected
+	 * and the previously stored product key is kept.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed  $value    The field value about to be saved.
+	 * @param string $field_id The settings field ID.
+	 *
+	 * @return mixed
+	 */
+	public function filter_tribe_settings_save_field_value( $value, $field_id ) {
+		if ( ! is_string( $field_id ) || ! str_starts_with( $field_id, 'pue_install_key_' ) ) {
+			return $value;
+		}
+
+		$product = str_replace( [ 'pue_install_key_', '_' ], [ '', '-' ], $field_id );
+
+		if ( $this->harbor->is_license_field_managed_by_harbor( $product ) ) {
+			return $this->get_stored_product_license_key( $field_id );
+		}
+
+		if ( is_string( $value ) && $this->harbor->is_unified_license_key( $value ) ) {
+			return $this->get_stored_product_license_key( $field_id );
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Get the stored product license key without Harbor option overlays.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $option_name The option name.
+	 *
+	 * @return string
+	 */
+	private function get_stored_product_license_key( string $option_name ): string {
+		$had_filter = has_filter( 'pre_option', [ $this, 'filter_pre_get_option' ] );
+
+		if ( $had_filter ) {
+			remove_filter( 'pre_option', [ $this, 'filter_pre_get_option' ], 10 );
+		}
+
+		$stored = (string) get_option( $option_name, '' );
+
+		if ( $had_filter ) {
+			add_filter( 'pre_option', [ $this, 'filter_pre_get_option' ], 10, 3 );
+		}
+
+		return $stored;
 	}
 
 	/**
@@ -122,7 +269,21 @@ class PUE extends Integration_Controller {
 	}
 
 	/**
-	 * Filter the pre HTTP request.
+	 * Short-circuit PUE license validation HTTP requests for Harbor-licensed products.
+	 *
+	 * Legacy PUE code (e.g. Tribe__PUE__Checker) validates license keys by POSTing to
+	 * `/api/plugins/v2/license/validate` on Stellar's licensing servers. Harbor-hosted
+	 * sites use a unified platform license instead of per-plugin keys, so those remote
+	 * calls are unnecessary and may fail or return stale data.
+	 *
+	 * This filter intercepts matching outbound requests via `pre_http_request` and returns
+	 * a synthetic HTTP 200 response shaped like the PUE API, built from Harbor's cached
+	 * license and catalog data. When catalog details are available, the response includes
+	 * product metadata and expiration; otherwise a minimal stub response is returned so
+	 * validation still succeeds for licensed Harbor products.
+	 *
+	 * Only requests to the validate endpoint for products reported as licensed by Harbor
+	 * are intercepted. All other HTTP traffic is left unchanged.
 	 *
 	 * @since 6.11.0
 	 *

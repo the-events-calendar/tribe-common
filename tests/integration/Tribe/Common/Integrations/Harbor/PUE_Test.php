@@ -351,4 +351,133 @@ class PUE_Test extends WPTestCase {
 			'non-matching slug leaves URL untouched'        => [ 'events-calendar-pro', 'https://example.com/seating-connect/', false ],
 		];
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_skip_remote_validation_for_harbor_managed_product(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$checker  = new \Tribe__PUE__Checker( 'deprecated', 'events-calendar-pro', [], 'events-calendar-pro/events-calendar-pro.php' );
+		$response = $checker->validate_key( 'any-key-value' );
+
+		$this->assertSame( 1, $response['status'] );
+		$this->assertStringContainsString( 'Liquid Web License Manager', $response['message'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_reject_unified_key_for_non_harbor_managed_product(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$checker  = new \Tribe__PUE__Checker( 'deprecated', 'tribe-filterbar', [], 'the-events-calendar-filterbar/the-events-calendar-filterbar.php' );
+		$response = $checker->validate_key( 'LWSW-PASTED-INTO-WRONG-FIELD' );
+
+		$this->assertSame( 0, $response['status'] );
+		$this->assertStringContainsString( 'unified license key', strtolower( wp_strip_all_tags( $response['message'] ) ) );
+		$this->assertStringContainsString( '<a href="', $response['message'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_pass_through_pre_validate_for_normal_key_on_non_managed_product(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$checker = new \Tribe__PUE__Checker( 'deprecated', 'tribe-filterbar', [], 'the-events-calendar-filterbar/the-events-calendar-filterbar.php' );
+		$result  = apply_filters( 'tribe_puc_pre_validate_key', null, 'legacy-product-key', $checker );
+
+		$this->assertNull( $result );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_ignore_submitted_value_for_harbor_managed_license_field_on_save(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		update_option( 'pue_install_key_events_calendar_pro', 'legacy-ecp-key' );
+
+		$saved = apply_filters(
+			'tribe_settings_save_field_value',
+			'LWSW-SHOULD-NOT-BE-STORED',
+			'pue_install_key_events_calendar_pro'
+		);
+
+		$this->assertSame( 'legacy-ecp-key', $saved );
+
+		delete_option( 'pue_install_key_events_calendar_pro' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_reject_unified_key_on_save_for_non_managed_license_field(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		update_option( 'pue_install_key_tribe_filterbar', 'legacy-filterbar-key' );
+
+		$saved = apply_filters(
+			'tribe_settings_save_field_value',
+			'LWSW-PASTED-INTO-WRONG-FIELD',
+			'pue_install_key_tribe_filterbar'
+		);
+
+		$this->assertSame( 'legacy-filterbar-key', $saved );
+
+		delete_option( 'pue_install_key_tribe_filterbar' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_allow_normal_key_on_save_for_non_managed_license_field(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$saved = apply_filters(
+			'tribe_settings_save_field_value',
+			'new-legacy-filterbar-key',
+			'pue_install_key_tribe_filterbar'
+		);
+
+		$this->assertSame( 'new-legacy-filterbar-key', $saved );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_disable_harbor_managed_legacy_license_fields(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$fields = apply_filters(
+			'tribe_license_fields',
+			[
+				'pue_install_key_events_calendar_pro' => [
+					'type'       => 'license_key',
+					'attributes' => [],
+					'tooltip'    => 'A valid license key is required',
+				],
+				'pue_install_key_tribe_filterbar'     => [
+					'type'       => 'license_key',
+					'attributes' => [],
+					'tooltip'    => 'A valid license key is required',
+				],
+			]
+		);
+
+		$this->assertSame( 'disabled', $fields['pue_install_key_events_calendar_pro']['attributes']['disabled'] );
+		$this->assertSame( 'readonly', $fields['pue_install_key_events_calendar_pro']['attributes']['readonly'] );
+		$this->assertStringContainsString( 'Liquid Web License Manager', $fields['pue_install_key_events_calendar_pro']['tooltip'] );
+
+		$this->assertArrayNotHasKey( 'disabled', $fields['pue_install_key_tribe_filterbar']['attributes'] );
+		$this->assertSame( 'A valid license key is required', $fields['pue_install_key_tribe_filterbar']['tooltip'] );
+	}
 }

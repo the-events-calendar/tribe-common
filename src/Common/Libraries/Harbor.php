@@ -30,11 +30,20 @@ use function lw_harbor_is_feature_available;
  */
 class Harbor extends Controller_Contract {
 	/**
+	 * Prefix for Liquid Web unified license keys.
+	 *
+	 * @since 6.12.0
+	 *
+	 * @var string
+	 */
+	public const UNIFIED_LICENSE_KEY_PREFIX = 'LWSW-';
+
+	/**
 	 * The TEC product slug to Harbor product slug map.
 	 *
 	 * @since 6.11.0
 	 *
-	 * @var array
+	 * @var array<string, string>
 	 */
 	private const TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP = [
 		'the-events-calendar'    => 'the-events-calendar',
@@ -232,7 +241,7 @@ class Harbor extends Controller_Contract {
 		return array_values(
 			array_filter(
 				$licenses,
-				static fn( array $license ): bool => ! empty( $license['key'] ) && ! str_starts_with( $license['key'], 'LWSW-' )
+				fn( array $license ): bool => ! empty( $license['key'] ) && ! $this->is_unified_license_key( $license['key'] )
 			)
 		);
 	}
@@ -263,6 +272,53 @@ class Harbor extends Controller_Contract {
 		}
 
 		return lw_harbor_is_feature_available( $product );
+	}
+
+	/**
+	 * Whether a license key uses the unified Liquid Web format.
+	 *
+	 * @since 6.12.0
+	 *
+	 * @param string $key The license key.
+	 *
+	 * @return bool
+	 */
+	public function is_unified_license_key( string $key ): bool {
+		return str_starts_with( trim( $key ), self::UNIFIED_LICENSE_KEY_PREFIX );
+	}
+
+	/**
+	 * Whether a TEC product license field is managed by Harbor.
+	 *
+	 * When true, the unified license key should be shown read-only and should not
+	 * be validated through legacy PUE per-product fields.
+	 *
+	 * @since 6.12.0
+	 *
+	 * @param string $tec_product_slug The TEC product slug.
+	 *
+	 * @return bool
+	 */
+	public function is_license_field_managed_by_harbor( string $tec_product_slug ): bool {
+		return $this->is_product_licensed(
+			$this->get_harbor_product_slug( $tec_product_slug )
+		);
+	}
+
+	/**
+	 * Error message shown when a unified license key is entered in a per-product field.
+	 *
+	 * @since 6.12.0
+	 *
+	 * @return string
+	 */
+	public function get_unified_license_key_entry_error_message(): string {
+		return sprintf(
+			/* translators: %1$s: opening anchor tag, %2$s: closing anchor tag. */
+			__( 'It seems to be a unified license key. Please %1$sclick here%2$s to enter it in the LW License Manager.', 'tribe-common' ),
+			'<a target=_blank href="' . esc_url( lw_harbor_get_license_page_url() ) . '">',
+			'</a>'
+		);
 	}
 
 	/**
