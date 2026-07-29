@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3af55c29ec587b9a48fe41ecbcf19dbe",
+    "content-hash": "29b2926e462fbcbb52bf2698baba5707",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -895,16 +895,16 @@
         },
         {
             "name": "stellarwp/harbor",
-            "version": "v1.4.0",
+            "version": "dev-SMTNC-1895",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/harbor.git",
-                "reference": "0d21b6e6da4352364610168c053ed0ec9d59253d"
+                "reference": "08d1f6da0b4ed54024886915f1143f6731fa1f20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/harbor/zipball/0d21b6e6da4352364610168c053ed0ec9d59253d",
-                "reference": "0d21b6e6da4352364610168c053ed0ec9d59253d",
+                "url": "https://api.github.com/repos/stellarwp/harbor/zipball/08d1f6da0b4ed54024886915f1143f6731fa1f20",
+                "reference": "08d1f6da0b4ed54024886915f1143f6731fa1f20",
                 "shasum": ""
             },
             "require": {
@@ -959,9 +959,9 @@
             "description": "A library that integrates a WordPress product with the Liquid Web licensing system.",
             "support": {
                 "issues": "https://github.com/stellarwp/harbor/issues",
-                "source": "https://github.com/stellarwp/harbor/tree/v1.4.0"
+                "source": "https://github.com/stellarwp/harbor/tree/SMTNC-1895"
             },
-            "time": "2026-05-21T17:13:36+00:00"
+            "time": "2026-07-29T06:33:31+00:00"
         },
         {
             "name": "stellarwp/installer",
@@ -7816,6 +7816,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "stellarwp/coding-standards": 20,
+        "stellarwp/harbor": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
@@ -7825,5 +7826,5 @@
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
