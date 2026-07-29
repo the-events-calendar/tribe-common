@@ -11,8 +11,6 @@ use TEC\Common\LiquidWeb\Harbor\Harbor as Harbor_Provider;
 use TEC\Common\Integrations\Harbor\EventAggregator;
 use TEC\Common\Integrations\Harbor\PUE;
 use TEC\Common\Integrations\Harbor\PUE_Resolver;
-use TEC\Common\LiquidWeb\Harbor\Licensing\Product_Collection;
-use TEC\Common\LiquidWeb\Harbor\Licensing\Repositories\License_Repository;
 use TEC\Common\StellarWP\Uplink\API\V3\Auth\Contracts\Auth_Url;
 use TEC\Common\Integrations\Uplink\Auth_URL_Decorator;
 use Tribe__Dependency as Dependency;
@@ -22,6 +20,7 @@ use function lw_harbor_has_unified_license_key;
 use function lw_harbor_get_unified_license_key;
 use function lw_harbor_is_feature_enabled;
 use function lw_harbor_is_feature_available;
+use function lw_harbor_is_capability_license_active;
 
 /**
  * Controller for setting up the Harbor library.
@@ -302,7 +301,7 @@ class Harbor extends Controller_Contract {
 	 *
 	 * @since 6.12.0
 	 * @since TBD Check per-site license activation of the product's capability via
-	 *            `is_capability_license_active()` instead of tier entitlement via
+	 *            `lw_harbor_is_capability_license_active()` instead of tier entitlement via
 	 *            `is_product_licensed()`.
 	 *
 	 * @param string $tec_product_slug The TEC product slug.
@@ -314,42 +313,9 @@ class Harbor extends Controller_Contract {
 			return false;
 		}
 
-		return $this->is_capability_license_active(
+		return lw_harbor_is_capability_license_active(
 			$this->get_harbor_product_slug( $tec_product_slug )
 		);
-	}
-
-	/**
-	 * Whether a capability/add-on slug is granted by any activated, valid Harbor license.
-	 *
-	 * The Harbor licensing API returns one Product_Entry per licensed bundle+tier
-	 * (e.g. "the-events-calendar:pro"), not one entry per add-on. Individual add-on
-	 * slugs (e.g. "events-calendar-pro", "event-aggregator") only appear inside
-	 * that entry's `capabilities` list.
-	 *
-	 * A single account can hold entries for multiple sites that's why only entries with
-	 * `activated_here` true are eligible.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $capability_slug The Harbor capability/add-on slug.
-	 *
-	 * @return bool
-	 */
-	private function is_capability_license_active( string $capability_slug ): bool {
-		$products = Config::get_container()->get( License_Repository::class )->get_products();
-
-		if ( ! $products instanceof Product_Collection ) {
-			return false;
-		}
-
-		foreach ( $products as $entry ) {
-			if ( $entry->is_valid() && $entry->get_activated_here() && in_array( $capability_slug, $entry->get_capabilities(), true ) ) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**
