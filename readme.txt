@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [6.12.2] 2026-08-05 =
+
+* Tweak - Improved the unified licensing page experience.
+* Tweak - Switched changelog tooling from jetpack-changelogger to @stellarwp/changelogger.
+
 = [6.12.1] 2026-07-22 =
 
 * Fix - Resolved an issue where `tribe_format_date()` shifted dates and times when PHP's default timezone was changed by third-party code.
