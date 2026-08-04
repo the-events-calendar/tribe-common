@@ -13,7 +13,6 @@ namespace TEC\Common\Tests\Admin\Conditional_Content;
 
 use Codeception\TestCase\WPTestCase;
 use TEC\Common\Admin\Conditional_Content\Black_Friday;
-use TEC\Common\Admin\Conditional_Content\Stellar_Sale;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Plugins_API;
 
@@ -34,21 +33,12 @@ class Promotional_Content_Test extends WPTestCase {
 	protected $black_friday;
 
 	/**
-	 * @var Stellar_Sale
-	 */
-	protected $stellar_sale;
-
-	/**
 	 * Set up test environment.
 	 *
 	 * @before
 	 */
 	public function set_up(): void {
 		$this->black_friday = tribe( Black_Friday::class );
-		$this->stellar_sale = tribe( Stellar_Sale::class );
-
-		// Clear any dismissed notices - delete all instances.
-		$user_id = get_current_user_id();
 	}
 
 	/**
@@ -65,7 +55,6 @@ class Promotional_Content_Test extends WPTestCase {
 
 		remove_all_filters( 'tec_should_hide_upsell' );
 		remove_all_filters( 'tec_admin_conditional_content_black-friday_should_display' );
-		remove_all_filters( 'tec_admin_conditional_content_stellar-sale_should_display' );
 	}
 
 	/**

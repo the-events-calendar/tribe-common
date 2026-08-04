@@ -18,6 +18,7 @@ use TEC\Common\Admin\Settings_Sidebar_Section;
  * Conditional Content Controller.
  *
  * @since 6.3.0
+ * @since TBD Removed the Stellar Sale promotional content.
  */
 class Controller extends Provider_Contract {
 
@@ -34,7 +35,6 @@ class Controller extends Provider_Contract {
 		}
 
 		$this->container->singleton( Black_Friday::class, Black_Friday::class, [ 'hook' ] );
-		$this->container->singleton( Stellar_Sale::class, Stellar_Sale::class, [ 'hook' ] );
 
 		$this->hooks();
 	}
@@ -61,7 +61,6 @@ class Controller extends Provider_Contract {
 	public function plugins_loaded(): void {
 		// Those need to be initialized here in order for their hooks to be registered.
 		tribe( Black_Friday::class );
-		tribe( Stellar_Sale::class );
 
 		$plugin = Common::instance();
 
@@ -89,7 +88,6 @@ class Controller extends Provider_Contract {
 			return;
 		}
 
-		tribe( Stellar_Sale::class )->render_header_notice();
 		tribe( Black_Friday::class )->render_header_notice();
 	}
 
@@ -141,7 +139,6 @@ class Controller extends Provider_Contract {
 	 */
 	protected function get_promotional_classes(): array {
 		return [
-			Stellar_Sale::class,
 			Black_Friday::class,
 		];
 	}
@@ -154,7 +151,6 @@ class Controller extends Provider_Contract {
 	 * @return void
 	 */
 	public function render_help_hub_sidebar(): void {
-		tribe( Stellar_Sale::class )->render_sidebar_content();
 		tribe( Black_Friday::class )->render_sidebar_content();
 	}
 }

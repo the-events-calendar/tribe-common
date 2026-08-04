@@ -1,0 +1,4 @@
+significance: patch
+type: deprecated
+entry: 'Removed class: `TEC\Common\Admin\Conditional_Content\Stellar_Sale`'
+timestamp: 2026-08-04T16:08:45.000Z

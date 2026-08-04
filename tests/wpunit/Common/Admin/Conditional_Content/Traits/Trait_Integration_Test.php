@@ -87,7 +87,7 @@ class Trait_Integration_Test extends WPTestCase {
 				return $this->slug . '-' . date_i18n( 'Y' );
 			}
 
-			// Time adjustments (like in Black_Friday/Stellar_Sale).
+			// Time adjustments (like in Black_Friday).
 			protected function get_start_time(): ?Date_I18n {
 				$date = $this->get_start_time_from_trait();
 				if ( null === $date ) {
@@ -104,7 +104,7 @@ class Trait_Integration_Test extends WPTestCase {
 				return $date->setTime( 4, 0 );
 			}
 
-			// Compose all trait checks like Black_Friday/Stellar_Sale.
+			// Compose all trait checks like Black_Friday.
 			public function should_display(): bool {
 				// Check user capability.
 				if ( ! $this->check_capability() ) {

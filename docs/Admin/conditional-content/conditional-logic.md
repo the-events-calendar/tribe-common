@@ -131,13 +131,13 @@ class Black_Friday extends Promotional_Content_Abstract {
 Use `Has_Targeted_Creative_Upsell` when you want to show specific ads based on context and missing plugins:
 
 ```php
-class Stellar_Sale extends Promotional_Content_Abstract {
+class Summer_Sale extends Promotional_Content_Abstract {
     use Has_Datetime_Conditions;
     use Is_Dismissible;
     use Requires_Capability;
     use Has_Targeted_Creative_Upsell;
 
-    protected string $slug = 'stellar-sale';
+    protected string $slug = 'summer-sale';
 
     protected function get_suite_creative_map(): array {
         return [
@@ -501,4 +501,4 @@ class My_Promo extends Promotional_Content_Abstract {
 For questions or issues, refer to:
 
 - [Tests](../../../../tests/wpunit/Common/Admin/Conditional_Content/) for usage examples
-- Existing implementations: `Black_Friday.php`, `Stellar_Sale.php`
+- Existing implementations: `Black_Friday.php`
