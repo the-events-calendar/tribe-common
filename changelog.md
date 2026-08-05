@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.12.2] 2026-08-06
+### [6.12.2] 2026-08-05
 
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 * Tweak - Improved the unified licensing page experience.
