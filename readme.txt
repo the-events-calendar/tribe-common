@@ -1,7 +1,8 @@
 == Changelog ==
 
-= [6.12.2] 2026-08-05 =
+= [6.12.2] 2026-08-06 =
 
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 * Tweak - Improved the unified licensing page experience.
 * Tweak - Switched changelog tooling from jetpack-changelogger to @stellarwp/changelogger.
 
