@@ -79,6 +79,94 @@ class Harbor_Test extends WPTestCase {
 	}
 
 	/**
+	 * When Harbor never fully boots (no premium plugin), unified keys must still
+	 * be rejected from free-plugin PUE fields instead of hitting remote validation.
+	 *
+	 * @test
+	 */
+	public function it_should_reject_unified_key_via_pre_validate_when_harbor_is_not_loaded(): void {
+		global $wp_actions;
+
+		$previous_loaded = $wp_actions['lw_harbor/loaded'] ?? null;
+		unset( $wp_actions['lw_harbor/loaded'] );
+
+		$checker = new \Tribe__PUE__Checker(
+			'deprecated',
+			'the-events-calendar',
+			[],
+			'the-events-calendar/the-events-calendar.php'
+		);
+
+		$result = apply_filters( 'tec_common_pue_pre_validate_key', null, 'LWSW-PASTED-WITHOUT-PREMIUM', $checker );
+
+		if ( null !== $previous_loaded ) {
+			$wp_actions['lw_harbor/loaded'] = $previous_loaded;
+		}
+
+		$this->assertIsArray( $result );
+		$this->assertSame( 0, $result['status'] );
+		$this->assertStringContainsString( 'unified license key', strtolower( $result['message'] ) );
+		$this->assertStringContainsString( 'The Events Calendar Pro', $result['message'] );
+		$this->assertStringContainsString( 'Event Tickets Pro', $result['message'] );
+		$this->assertStringContainsString( 'Unified License Manager', $result['message'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_pass_through_legacy_key_via_pre_validate_when_harbor_is_not_loaded(): void {
+		global $wp_actions;
+
+		$previous_loaded = $wp_actions['lw_harbor/loaded'] ?? null;
+		unset( $wp_actions['lw_harbor/loaded'] );
+
+		$checker = new \Tribe__PUE__Checker(
+			'deprecated',
+			'the-events-calendar',
+			[],
+			'the-events-calendar/the-events-calendar.php'
+		);
+
+		$result = tribe( Harbor::class )->filter_tec_common_pue_pre_validate_key( null, 'legacy-product-key', $checker );
+
+		if ( null !== $previous_loaded ) {
+			$wp_actions['lw_harbor/loaded'] = $previous_loaded;
+		}
+
+		$this->assertNull( $result );
+	}
+
+	/**
+	 * Once Harbor is loaded, the PUE integration owns unified-key messaging;
+	 * this callback must not short-circuit.
+	 *
+	 * @test
+	 */
+	public function it_should_pass_through_unified_key_via_pre_validate_when_harbor_is_loaded(): void {
+		global $wp_actions;
+
+		$previous_loaded = $wp_actions['lw_harbor/loaded'] ?? null;
+		$wp_actions['lw_harbor/loaded'] = 1;
+
+		$checker = new \Tribe__PUE__Checker(
+			'deprecated',
+			'the-events-calendar',
+			[],
+			'the-events-calendar/the-events-calendar.php'
+		);
+
+		$result = tribe( Harbor::class )->filter_tec_common_pue_pre_validate_key( null, 'LWSW-SHOULD-PASS-THROUGH', $checker );
+
+		if ( null !== $previous_loaded ) {
+			$wp_actions['lw_harbor/loaded'] = $previous_loaded;
+		} else {
+			unset( $wp_actions['lw_harbor/loaded'] );
+		}
+
+		$this->assertNull( $result );
+	}
+
+	/**
 	 * @test
 	 */
 	public function it_should_report_license_field_managed_when_product_is_harbor_licensed(): void {
