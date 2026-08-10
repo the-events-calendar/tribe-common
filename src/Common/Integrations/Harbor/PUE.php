@@ -120,7 +120,7 @@ class PUE extends Integration_Controller {
 	 *
 	 * @return array|null
 	 */
-	public function filter_tribe_puc_pre_validate_key( $response, string $key, $checker ) {
+	public function filter_tribe_puc_pre_validate_key( ?array $response, string $key, $checker ): ?array {
 		if ( null !== $response ) {
 			return $response;
 		}
@@ -237,7 +237,7 @@ class PUE extends Integration_Controller {
 	 *
 	 * @return ?string
 	 */
-	public function filter_stellarwp_uplink_tec_license_get_key( ?string $license, Uplink_Resource $uplink_resource ) {
+	public function filter_stellarwp_uplink_tec_license_get_key( ?string $license, Uplink_Resource $uplink_resource ): ?string {
 		$harbor_slug = $this->harbor->get_harbor_product_slug( $uplink_resource->get_slug() );
 		if ( ! $this->harbor->is_product_licensed( $harbor_slug ) ) {
 			return $license;
@@ -289,9 +289,9 @@ class PUE extends Integration_Controller {
 	 *
 	 * @since 6.11.0
 	 *
-	 * @param false|array|WP_Error $response    The response.
-	 * @param array                $parsed_args The parsed arguments.
-	 * @param string               $url         The URL.
+	 * @param false|array|\WP_Error $response    The response.
+	 * @param array                 $parsed_args The parsed arguments.
+	 * @param string                $url         The URL.
 	 *
 	 * @return false|array
 	 */

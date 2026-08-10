@@ -33,7 +33,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Prefix for Liquid Web unified license keys.
 	 *
-	 * @since 6.12.0
+	 * @since TBD
 	 *
 	 * @var string
 	 */
@@ -278,7 +278,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Whether a license key uses the unified Liquid Web format.
 	 *
-	 * @since 6.12.0
+	 * @since TBD
 	 *
 	 * @param string $key The license key.
 	 *
@@ -299,10 +299,7 @@ class Harbor extends Controller_Contract {
 	 * to a product without having activated it here, in which case a legacy per-product
 	 * key should still be accepted.
 	 *
-	 * @since 6.12.0
-	 * @since TBD Check per-site license activation of the product's capability via
-	 *            `lw_harbor_is_capability_license_active()` instead of tier entitlement via
-	 *            `is_product_licensed()`.
+	 * @since TBD
 	 *
 	 * @param string $tec_product_slug The TEC product slug.
 	 *
@@ -321,7 +318,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Error message shown when a unified license key is entered in a per-product field.
 	 *
-	 * @since 6.12.0
+	 * @since TBD
 	 *
 	 * @return string
 	 */
@@ -329,7 +326,7 @@ class Harbor extends Controller_Contract {
 		return sprintf(
 			/* translators: %1$s: opening anchor tag, %2$s: closing anchor tag. */
 			__( 'It seems to be a unified license key. Please %1$sclick here%2$s to enter it in the LW License Manager.', 'tribe-common' ),
-			'<a href="' . esc_url( lw_harbor_get_license_page_url() ) . '" target=_blank >',
+			'<a href="' . esc_url( lw_harbor_get_license_page_url() ) . '" target=_blank>',
 			'</a>'
 		);
 	}
