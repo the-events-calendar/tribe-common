@@ -389,7 +389,7 @@ class PUE_Test extends WPTestCase {
 		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
 
 		$checker = new \Tribe__PUE__Checker( 'deprecated', 'tribe-filterbar', [], 'the-events-calendar-filterbar/the-events-calendar-filterbar.php' );
-		$result  = apply_filters( 'tribe_puc_pre_validate_key', null, 'legacy-product-key', $checker );
+		$result  = apply_filters( 'tec_common_pue_pre_validate_key', null, 'legacy-product-key', $checker );
 
 		$this->assertNull( $result );
 	}

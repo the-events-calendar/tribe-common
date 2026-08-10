@@ -1250,7 +1250,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			 * @param string              $key      The license key being validated.
 			 * @param Tribe__PUE__Checker $checker  The PUE checker instance.
 			 */
-			$pre_validate = apply_filters( 'tribe_puc_pre_validate_key', null, $key, $this );
+			$pre_validate = apply_filters( 'tec_common_pue_pre_validate_key', null, $key, $this );
 			if ( is_array( $pre_validate ) ) {
 				return $pre_validate;
 			}
