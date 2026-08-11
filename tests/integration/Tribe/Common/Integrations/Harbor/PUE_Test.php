@@ -455,58 +455,51 @@ class PUE_Test extends WPTestCase {
 
 	/**
 	 * @test
+	 * @dataProvider save_license_field_value_provider
 	 */
-	public function it_should_ignore_submitted_value_for_harbor_managed_license_field_on_save(): void {
-		update_option( 'pue_install_key_events_calendar_pro', 'legacy-ecp-key' );
+	public function it_should_handle_license_field_value_on_save(
+		string $field_id,
+		string $submitted_value,
+		?string $stored_value,
+		string $expected_saved
+	): void {
+		if ( null !== $stored_value ) {
+			update_option( $field_id, $stored_value );
+		}
 
 		$this->seed_unified_license_key();
 		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
 
-		$saved = apply_filters(
-			'tribe_settings_save_field_value',
-			'LWSW-SHOULD-NOT-BE-STORED',
-			'pue_install_key_events_calendar_pro'
-		);
+		$saved = apply_filters( 'tribe_settings_save_field_value', $submitted_value, $field_id );
 
-		$this->assertSame( 'legacy-ecp-key', $saved );
+		$this->assertSame( $expected_saved, $saved );
 
-		delete_option( 'pue_install_key_events_calendar_pro' );
+		if ( null !== $stored_value ) {
+			delete_option( $field_id );
+		}
 	}
 
-	/**
-	 * @test
-	 */
-	public function it_should_reject_unified_key_on_save_for_non_managed_license_field(): void {
-		$this->seed_unified_license_key();
-		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
-
-		update_option( 'pue_install_key_tribe_filterbar', 'legacy-filterbar-key' );
-
-		$saved = apply_filters(
-			'tribe_settings_save_field_value',
-			'LWSW-PASTED-INTO-WRONG-FIELD',
-			'pue_install_key_tribe_filterbar'
-		);
-
-		$this->assertSame( 'legacy-filterbar-key', $saved );
-
-		delete_option( 'pue_install_key_tribe_filterbar' );
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_allow_normal_key_on_save_for_non_managed_license_field(): void {
-		$this->seed_unified_license_key();
-		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
-
-		$saved = apply_filters(
-			'tribe_settings_save_field_value',
-			'new-legacy-filterbar-key',
-			'pue_install_key_tribe_filterbar'
-		);
-
-		$this->assertSame( 'new-legacy-filterbar-key', $saved );
+	public function save_license_field_value_provider(): array {
+		return [
+			'harbor-managed field ignores submitted value'       => [
+				'pue_install_key_events_calendar_pro',
+				'LWSW-SHOULD-NOT-BE-STORED',
+				'legacy-ecp-key',
+				'legacy-ecp-key',
+			],
+			'unified key on non-managed field keeps stored value' => [
+				'pue_install_key_tribe_filterbar',
+				'LWSW-PASTED-INTO-WRONG-FIELD',
+				'legacy-filterbar-key',
+				'legacy-filterbar-key',
+			],
+			'normal key on non-managed field is stored'            => [
+				'pue_install_key_tribe_filterbar',
+				'new-legacy-filterbar-key',
+				null,
+				'new-legacy-filterbar-key',
+			],
+		];
 	}
 
 	/**
