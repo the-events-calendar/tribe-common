@@ -210,7 +210,7 @@ class Harbor_Test extends WPTestCase {
 
 		$this->assertStringContainsString( 'unified license key', strtolower( $message ) );
 		$this->assertStringContainsString( '<a href="', $message );
-		$this->assertStringContainsString( 'LW License Manager', $message );
+		$this->assertStringContainsString( 'Unified License Manager', $message );
 	}
 
 	/**

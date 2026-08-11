@@ -6,6 +6,7 @@ use Codeception\TestCase\WPTestCase;
 use TEC\Common\Libraries\Harbor;
 use TEC\Common\StellarWP\Uplink\Resources\Plugin as Uplink_Plugin;
 use Tribe\Tests\Traits\With_Harbor_State;
+use Tribe\Tests\Traits\With_Uopz;
 
 /**
  * Exercises the four PUE filter hooks that the Harbor consolidation introduces
@@ -20,6 +21,7 @@ use Tribe\Tests\Traits\With_Harbor_State;
  */
 class PUE_Test extends WPTestCase {
 	use With_Harbor_State;
+	use With_Uopz;
 
 	/**
 	 * The priority airplane-mode (a wp-browser test harness plugin) registers its
@@ -356,14 +358,27 @@ class PUE_Test extends WPTestCase {
 	 * @test
 	 */
 	public function it_should_skip_remote_validation_for_harbor_managed_product(): void {
+		$remote_call_count = 0;
+		// validate_key() → request_info() uses wp_remote_post for remote PUE checks.
+		$this->set_fn_return(
+			'wp_remote_post',
+			static function () use ( &$remote_call_count ) {
+				++$remote_call_count;
+
+				return new \WP_Error( 'unexpected_remote_validation', 'Remote validation should not be performed.' );
+			},
+			true
+		);
+
 		$this->seed_unified_license_key();
 		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
 
 		$checker  = new \Tribe__PUE__Checker( 'deprecated', 'events-calendar-pro', [], 'events-calendar-pro/events-calendar-pro.php' );
 		$response = $checker->validate_key( 'any-key-value' );
 
+		$this->assertSame( 0, $remote_call_count, 'Remote validation should not be performed for Harbor-managed products.' );
 		$this->assertSame( 1, $response['status'] );
-		$this->assertStringContainsString( 'Liquid Web License Manager', $response['message'] );
+		$this->assertStringContainsString( 'Unified License Manager', $response['message'] );
 	}
 
 	/**
@@ -383,15 +398,59 @@ class PUE_Test extends WPTestCase {
 
 	/**
 	 * @test
+	 * @dataProvider pre_validate_key_provider
 	 */
-	public function it_should_pass_through_pre_validate_for_normal_key_on_non_managed_product(): void {
+	public function it_should_handle_pre_validate_key_filter(
+		string $slug,
+		string $plugin_file,
+		string $key,
+		?int $expected_status,
+		?string $expected_message_fragment
+	): void {
 		$this->seed_unified_license_key();
 		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
 
-		$checker = new \Tribe__PUE__Checker( 'deprecated', 'tribe-filterbar', [], 'the-events-calendar-filterbar/the-events-calendar-filterbar.php' );
-		$result  = apply_filters( 'tec_common_pue_pre_validate_key', null, 'legacy-product-key', $checker );
+		$checker = new \Tribe__PUE__Checker( 'deprecated', $slug, [], $plugin_file );
+		$result  = apply_filters( 'tec_common_pue_pre_validate_key', null, $key, $checker );
 
-		$this->assertNull( $result );
+		if ( null === $expected_status ) {
+			$this->assertNull( $result );
+
+			return;
+		}
+
+		$this->assertIsArray( $result );
+		$this->assertSame( $expected_status, $result['status'] );
+		$this->assertStringContainsString(
+			$expected_message_fragment,
+			strtolower( wp_strip_all_tags( $result['message'] ) )
+		);
+	}
+
+	public function pre_validate_key_provider(): array {
+		return [
+			'legacy key on non-managed product passes through' => [
+				'tribe-filterbar',
+				'the-events-calendar-filterbar/the-events-calendar-filterbar.php',
+				'legacy-product-key',
+				null,
+				null,
+			],
+			'harbor-managed product short-circuits as valid'   => [
+				'events-calendar-pro',
+				'events-calendar-pro/events-calendar-pro.php',
+				'any-key-value',
+				1,
+				'unified license manager',
+			],
+			'unified key on non-managed product is rejected'  => [
+				'tribe-filterbar',
+				'the-events-calendar-filterbar/the-events-calendar-filterbar.php',
+				'LWSW-PASTED-INTO-WRONG-FIELD',
+				0,
+				'unified license key',
+			],
+		];
 	}
 
 	/**
