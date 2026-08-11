@@ -152,6 +152,7 @@ class Harbor extends Controller_Contract {
 			return $response;
 		}
 
+		// Bail out if harbor is loaded.
 		if ( did_action( 'lw_harbor/loaded' ) ) {
 			return $response;
 		}
