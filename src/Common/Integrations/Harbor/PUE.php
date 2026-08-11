@@ -136,7 +136,7 @@ class PUE extends Integration_Controller {
 				'status'  => 1,
 				'message' => sprintf(
 					/* translators: URL to the Liquid Web License Manager */
-					__( 'Licensed via <a href="%s" target="_blank">Liquid Web License Manager</a>', 'tribe-common' ),
+					__( 'Licensed via <a href="%s" target="_blank">Unified License Manager</a>', 'tribe-common' ),
 					esc_url( lw_harbor_get_license_page_url() ),
 				),
 			];

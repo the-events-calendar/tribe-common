@@ -20,7 +20,6 @@ use function lw_harbor_has_unified_license_key;
 use function lw_harbor_get_unified_license_key;
 use function lw_harbor_is_feature_enabled;
 use function lw_harbor_is_feature_available;
-use function lw_harbor_is_capability_license_active;
 
 /**
  * Controller for setting up the Harbor library.
@@ -355,7 +354,7 @@ class Harbor extends Controller_Contract {
 			return false;
 		}
 
-		return lw_harbor_is_capability_license_active(
+		return lw_harbor_is_feature_enabled(
 			$this->get_harbor_product_slug( $tec_product_slug )
 		);
 	}
