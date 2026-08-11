@@ -91,7 +91,7 @@ class Harbor extends Controller_Contract {
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
 		add_filter( 'lw_harbor/premium_plugin_exists', [ $this, 'register_premium_plugin_exists' ] );
 		// Runs even when Harbor does not fully load (no premium plugin), so unified keys
-		// pasted into free-plugin PUE fields still get a clear activation message.
+		// pasted into free-plugin PUE fields still get a clear guidance message.
 		add_filter( 'tec_common_pue_pre_validate_key', [ $this, 'filter_tec_common_pue_pre_validate_key' ], 10, 3 );
 
 		Harbor_Provider::init();
