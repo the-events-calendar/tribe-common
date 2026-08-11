@@ -39,6 +39,15 @@ class Harbor extends Controller_Contract {
 	private const UNIFIED_LICENSE_KEY_PREFIX = 'LWSW-';
 
 	/**
+	 * The URL of the Liquid Web portal.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private const PORTAL_URL = 'https://software.liquidweb.com';
+
+	/**
 	 * The TEC product slug to Harbor product slug map.
 	 *
 	 * @since 6.11.0
@@ -168,7 +177,7 @@ class Harbor extends Controller_Contract {
 					'This is a unified license key. To activate it, install The Events Calendar Pro or Event Tickets Pro, then add your license in the Unified License Manager. You can download the plugin from <a href="%s" target="_blank">your account</a>.',
 					'tribe-common'
 				),
-				"https://software.liquidweb.com/"
+				esc_url( self::PORTAL_URL )
 			),
 		];
 	}
