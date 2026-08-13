@@ -165,7 +165,7 @@ class Harbor extends Controller_Contract {
 	 * Hook: `tec_common_pue_pre_validate_key` (before Tribe__PUE__Checker hits the remote API).
 	 *
 	 * Without a premium plugin, Harbor never fires `lw_harbor/loaded` and
-	 * Integrations\Harbor\PUE is not registered — so this callback is the only
+	 * Integrations\Harbor\PUE is not registered — so this callback only
 	 * prevents a unified key from being sent through legacy PUE validation.
 	 *
 	 * @since TBD
