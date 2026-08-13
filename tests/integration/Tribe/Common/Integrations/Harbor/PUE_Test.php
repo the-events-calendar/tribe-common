@@ -695,4 +695,34 @@ class PUE_Test extends WPTestCase {
 			],
 		];
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_disable_only_uplink_license_text_inputs(): void {
+		// Test empty HTML.
+		$this->assertSame( '', $this->call_disable_uplink_license_input( '' ) );
+
+		// Test tooltip HTML. Should not be modified.
+		$tooltip = '<p class="tooltip description">A valid license key is required for support and updates</p>';
+		$this->assertSame( $tooltip, $this->call_disable_uplink_license_input( $tooltip ) );
+
+		// Test license input HTML. The input in the HTML should be disabled and readonly.
+		$license_input = '<input type="text" name="pue_install_key_tec_seating" value="LWSW-KEY" class="regular-text stellarwp-uplink__settings-field" />';
+		$filtered      = $this->call_disable_uplink_license_input( $license_input );
+
+		$this->assertStringContainsString( 'readonly="readonly"', $filtered );
+		$this->assertStringContainsString( 'disabled="disabled"', $filtered );
+		$this->assertStringContainsString( 'stellarwp-uplink__settings-field', $filtered );
+	}
+
+	/**
+	 * Invoke the private HTML helper without going through Harbor field management.
+	 */
+	private function call_disable_uplink_license_input( string $html ): string {
+		$method = new \ReflectionMethod( PUE::class, 'disable_uplink_license_input' );
+		$method->setAccessible( true );
+
+		return $method->invoke( new PUE( tribe(), tribe( Harbor::class ) ), $html );
+	}
 }
