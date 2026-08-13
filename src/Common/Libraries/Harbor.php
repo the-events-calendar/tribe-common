@@ -28,6 +28,22 @@ use function lw_harbor_is_feature_available;
 /**
  * Controller for setting up the Harbor library.
  *
+ * Unified license keys (LWSW-) are handled on two independent validation pipelines.
+ * This controller is always registered, even when Harbor does not fully load
+ * (no premium plugin). When Harbor is loaded, Integrations\Harbor\PUE takes over
+ * the PUE pipeline; this class still owns the Uplink pipeline.
+ *
+ * 1. PUE - Tribe__PUE__Checker::validate_key()
+ *    Products such as Events Calendar Pro, Filter Bar, Promoter, Community.
+ *    AJAX action: pue-validate-key_{slug}.
+ *    Filter: tec_common_pue_pre_validate_key (before the remote request).
+ *    This class only handles the Harbor-not-loaded case.
+ *
+ * 2. Uplink - StellarWP Uplink Client::validate_license()
+ *    Products: Seating, Event Tickets Plus.
+ *    AJAX action: pue-validate-key-uplink-tec.
+ *    Filter: stellarwp/uplink/tec/client_validate_license (after the remote request).
+ *
  * @since 6.11.0
  *
  * @package TEC\Common\Libraries\Harbor
@@ -94,10 +110,14 @@ class Harbor extends Controller_Contract {
 
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
 		add_filter( 'lw_harbor/premium_plugin_exists', [ $this, 'register_premium_plugin_exists' ] );
-		// Runs even when Harbor does not fully load (no premium plugin), so unified keys
-		// pasted into free-plugin PUE / Uplink fields still get a clear guidance message.
+
+		// PUE pipeline: Tribe__PUE__Checker. Runs even when Harbor does not fully load
+		// so a unified key pasted into a free-plugin PUE field still gets a guidance message.
+		// When Harbor is loaded this callback bails; Integrations\Harbor\PUE owns the filter then.
 		add_filter( 'tec_common_pue_pre_validate_key', [ $this, 'filter_tec_common_pue_pre_validate_key' ], 10, 3 );
-		// Seating / Event Tickets Plus validate through Uplink, not Tribe__PUE__Checker.
+
+		// Uplink pipeline: Client::validate_license() for Seating / Event Tickets Plus.
+		// Those products never enter Tribe__PUE__Checker. This class always owns this filter.
 		add_filter( 'stellarwp/uplink/tec/client_validate_license', [ $this, 'filter_stellarwp_uplink_tec_client_validate_license' ], 10, 2 );
 
 		Harbor_Provider::init();
@@ -140,11 +160,13 @@ class Harbor extends Controller_Contract {
 	}
 
 	/**
-	 * Reject unified license keys when Harbor is not loaded.
+	 * PUE pipeline: reject unified license keys when Harbor is not loaded.
 	 *
-	 * Without a premium plugin, Harbor never fires `lw_harbor/loaded` and the PUE
-	 * Harbor integration is not registered — so this callback is the only guard that
-	 * stops a unified key from being sent through legacy PUE validation.
+	 * Hook: `tec_common_pue_pre_validate_key` (before Tribe__PUE__Checker hits the remote API).
+	 *
+	 * Without a premium plugin, Harbor never fires `lw_harbor/loaded` and
+	 * Integrations\Harbor\PUE is not registered — so this callback is the only
+	 * prevents a unified key from being sent through legacy PUE validation.
 	 *
 	 * @since TBD
 	 *
@@ -175,11 +197,12 @@ class Harbor extends Controller_Contract {
 	}
 
 	/**
-	 * Handle unified license keys validated through StellarWP Uplink.
+	 * Uplink pipeline: handle unified license keys validated through StellarWP Uplink.
+	 *
+	 * Hook: `stellarwp/uplink/tec/client_validate_license` (after Client::validate_license()).
 	 *
 	 * Seating and Event Tickets Plus use `pue-validate-key-uplink-tec` and never
-	 * enter Tribe__PUE__Checker::validate_key(). This is Uplink's dedicated
-	 * validation result filter (`Client::validate_license()`).
+	 * enter Tribe__PUE__Checker::validate_key().
 	 *
 	 * Only the Licenses UI AJAX is rewritten. Uplink also uses this method for
 	 * plugin update checks, which must keep the catalog/Herald payload.
@@ -231,7 +254,10 @@ class Harbor extends Controller_Contract {
 	}
 
 	/**
-	 * Whether the current request is Uplink's license-field AJAX validation.
+	 * Uplink pipeline: whether the current request is license-field AJAX validation.
+	 *
+	 * Distinguishes Licenses UI (`pue-validate-key-uplink-*`) from plugin update checks,
+	 * which share Client::validate_license() and must not be rewritten.
 	 *
 	 * @since TBD
 	 *
@@ -244,7 +270,7 @@ class Harbor extends Controller_Contract {
 	}
 
 	/**
-	 * Build a synthetic Uplink validation response.
+	 * Uplink pipeline: build a synthetic validation response for the Licenses UI.
 	 *
 	 * Uses the real Uplink resource when it is registered so a valid result is
 	 * not persisted as a "new" per-product key. Falls back to a stub resource
@@ -285,7 +311,7 @@ class Harbor extends Controller_Contract {
 	}
 
 	/**
-	 * Get the Uplink resource used to render a synthetic validation message.
+	 * Uplink pipeline: get the resource used to render a synthetic validation message.
 	 *
 	 * @since TBD
 	 *
