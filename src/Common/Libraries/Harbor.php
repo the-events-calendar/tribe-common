@@ -11,11 +11,15 @@ use TEC\Common\LiquidWeb\Harbor\Harbor as Harbor_Provider;
 use TEC\Common\Integrations\Harbor\EventAggregator;
 use TEC\Common\Integrations\Harbor\PUE;
 use TEC\Common\Integrations\Harbor\PUE_Resolver;
+use TEC\Common\StellarWP\Uplink\API\Validation_Response;
 use TEC\Common\StellarWP\Uplink\API\V3\Auth\Contracts\Auth_Url;
+use TEC\Common\StellarWP\Uplink\Resources\Plugin as Uplink_Plugin;
+use TEC\Common\StellarWP\Uplink\Resources\Resource as Uplink_Resource;
 use TEC\Common\Integrations\Uplink\Auth_URL_Decorator;
 use Tribe__Dependency as Dependency;
 use Tribe__Main as Common;
 use function TEC\Common\StellarWP\Uplink\get_plugins;
+use function TEC\Common\StellarWP\Uplink\get_resource;
 use function lw_harbor_has_unified_license_key;
 use function lw_harbor_get_unified_license_key;
 use function lw_harbor_is_feature_enabled;
@@ -91,8 +95,10 @@ class Harbor extends Controller_Contract {
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
 		add_filter( 'lw_harbor/premium_plugin_exists', [ $this, 'register_premium_plugin_exists' ] );
 		// Runs even when Harbor does not fully load (no premium plugin), so unified keys
-		// pasted into free-plugin PUE fields still get a clear guidance message.
+		// pasted into free-plugin PUE / Uplink fields still get a clear guidance message.
 		add_filter( 'tec_common_pue_pre_validate_key', [ $this, 'filter_tec_common_pue_pre_validate_key' ], 10, 3 );
+		// Seating / Event Tickets Plus validate through Uplink, not Tribe__PUE__Checker.
+		add_filter( 'stellarwp/uplink/tec/client_validate_license', [ $this, 'filter_stellarwp_uplink_tec_client_validate_license' ], 10, 2 );
 
 		Harbor_Provider::init();
 
@@ -118,6 +124,7 @@ class Harbor extends Controller_Contract {
 		remove_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
 		remove_filter( 'lw_harbor/premium_plugin_exists', [ $this, 'register_premium_plugin_exists' ] );
 		remove_filter( 'tec_common_pue_pre_validate_key', [ $this, 'filter_tec_common_pue_pre_validate_key' ] );
+		remove_filter( 'stellarwp/uplink/tec/client_validate_license', [ $this, 'filter_stellarwp_uplink_tec_client_validate_license' ] );
 		remove_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
 	}
 
@@ -163,15 +170,167 @@ class Harbor extends Controller_Contract {
 
 		return [
 			'status'  => 0,
-			'message' => sprintf(
-				/* translators: %s: My account page link. */
-				__(
-					'This is a unified license key. To activate it, install The Events Calendar Pro or Event Tickets Pro, then add your license in the Unified License Manager. You can download the plugin from <a href="%s" target="_blank">your account</a>.',
-					'tribe-common'
-				),
-				esc_url( $this->get_portal_url() )
-			),
+			'message' => $this->get_unified_license_key_requires_premium_message(),
 		];
+	}
+
+	/**
+	 * Handle unified license keys validated through StellarWP Uplink.
+	 *
+	 * Seating and Event Tickets Plus use `pue-validate-key-uplink-tec` and never
+	 * enter Tribe__PUE__Checker::validate_key(). This is Uplink's dedicated
+	 * validation result filter (`Client::validate_license()`).
+	 *
+	 * Only the Licenses UI AJAX is rewritten. Uplink also uses this method for
+	 * plugin update checks, which must keep the catalog/Herald payload.
+	 *
+	 * @since TBD
+	 *
+	 * @param Validation_Response $results License validation results.
+	 * @param array               $args    License validation arguments.
+	 *
+	 * @return Validation_Response
+	 */
+	public function filter_stellarwp_uplink_tec_client_validate_license( $results, array $args ) {
+		if ( ! $results instanceof Validation_Response ) {
+			return $results;
+		}
+
+		// Uplink also calls validate_license() during plugin update checks.
+		// Only rewrite the Licenses UI AJAX so catalog/Herald update payloads stay intact.
+		if ( ! $this->is_uplink_license_field_validation_request() ) {
+			return $results;
+		}
+
+		$plugin = $args['plugin'] ?? '';
+		if ( ! is_string( $plugin ) || '' === $plugin ) {
+			return $results;
+		}
+
+		$key = $args['key'] ?? '';
+		$key = is_string( $key ) ? $key : '';
+
+		if ( $this->is_license_field_managed_by_harbor( $plugin ) ) {
+			return $this->make_uplink_validation_response(
+				$key,
+				$plugin,
+				true,
+				$this->get_harbor_managed_license_message()
+			);
+		}
+
+		if ( ! $this->is_unified_license_key( $key ) ) {
+			return $results;
+		}
+
+		$message = did_action( 'lw_harbor/loaded' )
+			? $this->get_unified_license_key_entry_error_message()
+			: $this->get_unified_license_key_requires_premium_message();
+
+		return $this->make_uplink_validation_response( $key, $plugin, false, $message );
+	}
+
+	/**
+	 * Whether the current request is Uplink's license-field AJAX validation.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	private function is_uplink_license_field_validation_request(): bool {
+		$action = isset( $_REQUEST['action'] ) ? sanitize_key( wp_unslash( $_REQUEST['action'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		return str_starts_with( $action, 'pue-validate-key-uplink-' );
+	}
+
+	/**
+	 * Build a synthetic Uplink validation response.
+	 *
+	 * Uses the real Uplink resource when it is registered so a valid result is
+	 * not persisted as a "new" per-product key. Falls back to a stub resource
+	 * for message rendering when the collection is unavailable.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key      License key being validated.
+	 * @param string $plugin   Uplink plugin slug.
+	 * @param bool   $is_valid Whether the synthetic result is valid.
+	 * @param string $message  Message shown in the license field (may include HTML).
+	 *
+	 * @return Validation_Response
+	 */
+	private function make_uplink_validation_response( string $key, string $plugin, bool $is_valid, string $message ): Validation_Response {
+		$resource = $this->get_uplink_resource_for_validation( $plugin );
+
+		if ( $is_valid ) {
+			$stored_key = $resource->get_license_key();
+			if ( is_string( $stored_key ) && '' !== $stored_key ) {
+				$key = $stored_key;
+			}
+		}
+
+		$payload = [
+			'plugin' => $plugin,
+			'slug'   => $plugin,
+		];
+
+		if ( $is_valid ) {
+			$payload['api_message'] = $message;
+		} else {
+			$payload['api_invalid']                = 1;
+			$payload['api_inline_invalid_message'] = $message;
+		}
+
+		return new Validation_Response( $key, 'local', (object) $payload, $resource );
+	}
+
+	/**
+	 * Get the Uplink resource used to render a synthetic validation message.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $plugin Uplink plugin slug.
+	 *
+	 * @return Uplink_Resource
+	 */
+	private function get_uplink_resource_for_validation( string $plugin ): Uplink_Resource {
+		try {
+			if ( function_exists( '\TEC\Common\StellarWP\Uplink\get_resource' ) ) {
+				$resource = get_resource( $plugin );
+				if ( $resource instanceof Uplink_Resource ) {
+					return $resource;
+				}
+			}
+		} catch ( \Throwable $exception ) {
+			// Uplink collection is not ready; a stub is enough for message rendering.
+			unset( $exception );
+		}
+
+		return new Uplink_Plugin(
+			$plugin,
+			$plugin,
+			'0.0.0',
+			$plugin . '.php',
+			\stdClass::class
+		);
+	}
+
+	/**
+	 * Guidance shown when a unified key is entered but Harbor cannot load yet.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_unified_license_key_requires_premium_message(): string {
+		return sprintf(
+			/* translators: %s: My account page link. */
+			__(
+				'This is a unified license key. To activate it, install The Events Calendar Pro or Event Tickets Plus, then add your license in the Unified License Manager. You can download the plugin from <a href="%s" target="_blank">your account</a>.',
+				'tribe-common'
+			),
+			esc_url( $this->get_portal_url() )
+		);
 	}
 
 	/**
@@ -373,6 +532,21 @@ class Harbor extends Controller_Contract {
 			__( 'This is a unified license key. Please %1$sclick here%2$s to enter it in the Unified License Manager.', 'tribe-common' ),
 			'<a href="' . esc_url( lw_harbor_get_license_page_url() ) . '" target=_blank>',
 			'</a>'
+		);
+	}
+
+	/**
+	 * Success message shown on Harbor-managed per-product license fields.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_harbor_managed_license_message(): string {
+		return sprintf(
+			/* translators: URL to the Liquid Web License Manager */
+			__( 'Licensed via <a href="%s" target="_blank">Unified License Manager</a>', 'tribe-common' ),
+			esc_url( lw_harbor_get_license_page_url() )
 		);
 	}
 

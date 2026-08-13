@@ -55,6 +55,28 @@ class PUE_Test extends WPTestCase {
 	}
 
 	/**
+	 * Simulate Uplink's license-field AJAX so Harbor rewrites the validation result.
+	 *
+	 * @param callable $callback Callback to run with the AJAX action set.
+	 *
+	 * @return mixed
+	 */
+	private function with_uplink_license_ajax_request( callable $callback ) {
+		$previous           = $_REQUEST['action'] ?? null;
+		$_REQUEST['action'] = 'pue-validate-key-uplink-tec';
+
+		try {
+			return $callback();
+		} finally {
+			if ( null === $previous ) {
+				unset( $_REQUEST['action'] );
+			} else {
+				$_REQUEST['action'] = $previous;
+			}
+		}
+	}
+
+	/**
 	 * @test
 	 */
 	public function it_should_return_unified_key_for_licensed_plugin_option(): void {
@@ -234,6 +256,96 @@ class PUE_Test extends WPTestCase {
 		);
 
 		$this->assertFalse( $response );
+	}
+
+	/**
+	 * Uplink products (Seating, Event Tickets Plus) never enter Tribe__PUE__Checker.
+	 * Harbor.php owns this filter and mirrors PUE: reject unmanaged unified keys,
+	 * treat Harbor-managed fields as already licensed via Unified License Manager.
+	 *
+	 * @test
+	 * @dataProvider uplink_unified_key_handling_provider
+	 */
+	public function it_should_handle_unified_key_on_uplink_client_validate_license(
+		string $plugin_slug,
+		array $licensed_features,
+		string $expectation
+	): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( $licensed_features );
+
+		$resource = new Uplink_Plugin(
+			$plugin_slug,
+			$plugin_slug,
+			'1.0.0',
+			$plugin_slug . '/' . $plugin_slug . '.php',
+			\stdClass::class
+		);
+
+		$results = new \TEC\Common\StellarWP\Uplink\API\Validation_Response(
+			'LWSW-PASTED-INTO-UPLINK-FIELD',
+			'local',
+			(object) [ 'api_message' => 'would-have-been-remote' ],
+			$resource
+		);
+
+		$filtered = $this->with_uplink_license_ajax_request(
+			static function () use ( $results, $plugin_slug ) {
+				return apply_filters(
+					'stellarwp/uplink/tec/client_validate_license',
+					$results,
+					[
+						'plugin' => $plugin_slug,
+						'key'    => 'LWSW-PASTED-INTO-UPLINK-FIELD',
+					]
+				);
+			}
+		);
+
+		if ( 'passthrough' === $expectation ) {
+			$this->assertSame( $results, $filtered );
+
+			return;
+		}
+
+		$this->assertNotSame( $results, $filtered );
+		$message = strtolower( wp_strip_all_tags( $filtered->get_message()->get() ) );
+
+		if ( 'valid' === $expectation ) {
+			$this->assertTrue( $filtered->is_valid() );
+			$this->assertStringContainsString( 'unified license manager', $message );
+
+			return;
+		}
+
+		$this->assertFalse( $filtered->is_valid() );
+		$this->assertSame( 'invalid', $filtered->get_result() );
+		$this->assertStringContainsString( 'unified license key', $message );
+	}
+
+	public function uplink_unified_key_handling_provider(): array {
+		return [
+			'seating when not harbor-managed is rejected'          => [
+				'tec-seating',
+				[ 'events-calendar-pro' ],
+				'reject',
+			],
+			'event tickets plus when not harbor-managed is rejected' => [
+				'event-tickets-plus',
+				[ 'events-calendar-pro' ],
+				'reject',
+			],
+			'seating when harbor-managed is valid via ULM'         => [
+				'tec-seating',
+				[ 'seating' ],
+				'valid',
+			],
+			'event tickets plus when harbor-managed is valid via ULM' => [
+				'event-tickets-plus',
+				[ 'event-tickets-plus' ],
+				'valid',
+			],
+		];
 	}
 
 	/**
@@ -527,5 +639,60 @@ class PUE_Test extends WPTestCase {
 		$this->assertSame( 'readonly', $fields['pue_install_key_events_calendar_pro']['attributes']['readonly'] );
 
 		$this->assertArrayNotHasKey( 'disabled', $fields['pue_install_key_tribe_filterbar']['attributes'] );
+	}
+
+	/**
+	 * Uplink fields (Seating, Event Tickets Plus) are HTML, not PUE license_key
+	 * fields. Harbor-managed ones must still be locked against editing.
+	 *
+	 * @test
+	 * @dataProvider uplink_license_field_html_provider
+	 */
+	public function it_should_disable_harbor_managed_uplink_license_fields(
+		string $slug,
+		array $licensed_features,
+		bool $expect_disabled
+	): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( $licensed_features );
+
+		$html = '<input type="text" name="pue_install_key_example" value="LWSW-KEY" class="regular-text stellarwp-uplink__settings-field" />';
+
+		$filtered = apply_filters( 'stellarwp/uplink/tec/license_field_html', $html, $slug );
+
+		if ( $expect_disabled ) {
+			$this->assertStringContainsString( 'readonly="readonly"', $filtered );
+			$this->assertStringContainsString( 'disabled="disabled"', $filtered );
+			$this->assertStringContainsString( 'stellarwp-uplink__settings-field', $filtered );
+
+			return;
+		}
+
+		$this->assertSame( $html, $filtered );
+	}
+
+	public function uplink_license_field_html_provider(): array {
+		return [
+			'seating when harbor-managed is disabled'              => [
+				'tec-seating',
+				[ 'seating' ],
+				true,
+			],
+			'event tickets plus when harbor-managed is disabled'   => [
+				'event-tickets-plus',
+				[ 'event-tickets-plus' ],
+				true,
+			],
+			'seating when not harbor-managed stays editable'       => [
+				'tec-seating',
+				[ 'events-calendar-pro' ],
+				false,
+			],
+			'event tickets plus when not harbor-managed stays editable' => [
+				'event-tickets-plus',
+				[ 'events-calendar-pro' ],
+				false,
+			],
+		];
 	}
 }
