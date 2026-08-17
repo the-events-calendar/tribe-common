@@ -26,6 +26,24 @@ function tec_common_tests_fake_transactions_disable() {
 	uopz_unset_return( DB::class, 'commit' );
 }
 
+/**
+ * Clears the flag TEC sets on activation to greet a new install with its Guided Setup wizard.
+ *
+ * WPLoader activates TEC when it installs WordPress, so `Tribe__Events__Main::activate()` leaves
+ * `_tribe_events_activation_redirect` set for the whole run. TEC consumes it from
+ * `tec_admin_headers_about_to_be_sent`, which Common fires from `current_screen` at `PHP_INT_MAX`,
+ * and answers with `wp_safe_redirect()` + `tribe_exit()`. The first test to call
+ * `set_current_screen()` on an admin screen as an admin-capable user therefore hits a real `exit()`
+ * that takes the runner down mid-suite, abandoning every remaining test.
+ *
+ * @since TBD
+ *
+ * @return void
+ */
+function tec_common_tests_clear_activation_redirects() {
+	delete_transient( '_tribe_events_activation_redirect' );
+}
+
 if (
 	in_array( 'eva_integration', $GLOBALS['argv'] )
 	|| in_array( 'restv1', $GLOBALS['argv'] )
