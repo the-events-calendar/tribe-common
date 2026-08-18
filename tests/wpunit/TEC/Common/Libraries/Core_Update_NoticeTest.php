@@ -3,13 +3,12 @@
 namespace TEC\Common\Libraries;
 
 use Codeception\TestCase\WPTestCase;
-use TEC\Common\StellarWP\CoreUpdateNotice\Config;
 use TEC\Common\StellarWP\CoreUpdateNotice\CoreUpdateNotice;
 
 /**
- * Covers this plugin's integration with stellarwp/core-update-notice: that the container is handed
- * over, that the copy passed from the controller reaches the output, and that the shared dismissal
- * flag is honoured.
+ * Covers this plugin's integration with stellarwp/core-update-notice: that the copy passed from the
+ * controller reaches the output, that the screen gate is wired to the admin helper, and that the
+ * shared version-keyed dismissal is honoured.
  */
 class Core_Update_NoticeTest extends WPTestCase {
 	/**
@@ -18,16 +17,25 @@ class Core_Update_NoticeTest extends WPTestCase {
 	public function reset_update_state(): void {
 		delete_site_transient( 'update_core' );
 		delete_option( CoreUpdateNotice::DISMISSED_OPTION );
-		unset( $GLOBALS[ CoreUpdateNotice::RENDER_GUARD ] );
+		unset( $GLOBALS['current_screen'] );
 	}
 
 	/**
 	 * @test
 	 */
-	public function should_hand_the_tec_container_to_the_library(): void {
-		tribe( Core_Update_Notice::class )->do_register();
+	public function should_gate_rendering_on_tec_screens(): void {
+		$this->given_a_tec_admin_screen();
 
-		$this->assertSame( tribe(), Config::getContainer() );
+		$this->assertTrue( tribe( Core_Update_Notice::class )->is_plugin_page() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_not_gate_rendering_open_outside_tec_screens(): void {
+		set_current_screen( 'dashboard' );
+
+		$this->assertFalse( tribe( Core_Update_Notice::class )->is_plugin_page() );
 	}
 
 	/**
@@ -69,28 +77,47 @@ class Core_Update_NoticeTest extends WPTestCase {
 	 *
 	 * @test
 	 */
-	public function should_honour_the_shared_dismissal_flag(): void {
+	public function should_honour_the_shared_dismissal_for_the_offered_version(): void {
 		$this->given_core_update_response( 'upgrade', '9.9.9' );
 		$this->given_current_user_is( 'administrator' );
 
-		update_option( CoreUpdateNotice::DISMISSED_OPTION, true, false );
+		update_option( CoreUpdateNotice::DISMISSED_OPTION, [ '9.9.9' => true ], false );
 
 		$this->assertSame( '', $this->render_notice() );
 	}
 
 	/**
+	 * Dismissals are keyed on the offered version so one release cannot silence the next.
+	 *
 	 * @test
 	 */
-	public function should_render_only_once_per_request_across_plugins(): void {
-		$this->given_core_update_response( 'upgrade', '9.9.9' );
+	public function should_render_again_once_a_newer_release_is_offered(): void {
 		$this->given_current_user_is( 'administrator' );
 
-		$this->assertNotSame( '', $this->render_notice() );
-		$this->assertSame( '', $this->render_notice(), 'A second copy of the notice should be suppressed.' );
+		update_option( CoreUpdateNotice::DISMISSED_OPTION, [ '9.9.9' => true ], false );
+		$this->given_core_update_response( 'upgrade', '10.0.0' );
+
+		$this->assertStringContainsString( 'Keep your site protected.', $this->render_notice() );
+	}
+
+	/**
+	 * Exercises the controller's own call into the library, which is the line that breaks if the
+	 * package changes its registration signature.
+	 *
+	 * @test
+	 */
+	public function should_register_the_notice_hooks_through_the_library(): void {
+		tribe( Core_Update_Notice::class )->register_notice();
+
+		$this->assertNotFalse( has_filter( CoreUpdateNotice::DISPLAY_WINNER_FILTER ), 'The display winner filter should be registered.' );
+		$this->assertNotFalse( has_action( 'admin_notices' ), 'The notice should hook admin_notices.' );
 	}
 
 	/**
 	 * Captures one `admin_notices` pass of the configured notice.
+	 *
+	 * The library only renders the winner of its display filter, which `Register::notice()` wires
+	 * up before `admin_init`; that has already fired here, so the filter is attached directly.
 	 *
 	 * @return string The rendered markup, empty when the notice declined to render.
 	 */
@@ -103,10 +130,15 @@ class Core_Update_NoticeTest extends WPTestCase {
 			]
 		);
 
+		add_filter( CoreUpdateNotice::DISPLAY_WINNER_FILTER, [ $notice, 'selectWinner' ] );
+
 		ob_start();
 		$notice->render();
+		$html = ob_get_clean() ?: '';
 
-		return ob_get_clean() ?: '';
+		remove_filter( CoreUpdateNotice::DISPLAY_WINNER_FILTER, [ $notice, 'selectWinner' ] );
+
+		return $html;
 	}
 
 	/**
@@ -128,6 +160,13 @@ class Core_Update_NoticeTest extends WPTestCase {
 				],
 			]
 		);
+	}
+
+	/**
+	 * Puts the request on a TEC admin screen, which is also what makes `is_admin()` true.
+	 */
+	protected function given_a_tec_admin_screen(): void {
+		set_current_screen( 'tribe_events_page_tec-events-settings' );
 	}
 
 	/**
