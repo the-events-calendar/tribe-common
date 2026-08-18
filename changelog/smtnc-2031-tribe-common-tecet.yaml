@@ -1,0 +1,5 @@
+significance: minor
+type: feature
+entry: Added an admin notice prompting administrators to update WordPress when a
+  core update is available.
+timestamp: 2026-08-17T21:51:45.648Z
