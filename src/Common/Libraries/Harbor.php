@@ -214,11 +214,7 @@ class Harbor extends Controller_Contract {
 	 *
 	 * @return Validation_Response
 	 */
-	public function filter_stellarwp_uplink_tec_client_validate_license( $results, array $args ) {
-		if ( ! $results instanceof Validation_Response ) {
-			return $results;
-		}
-
+	public function filter_stellarwp_uplink_tec_client_validate_license( Validation_Response $results, array $args ): Validation_Response {
 		// Uplink also calls validate_license() during plugin update checks.
 		// Only rewrite the Licenses UI AJAX so catalog/Herald update payloads stay intact.
 		if ( ! $this->is_uplink_license_field_validation_request() ) {
