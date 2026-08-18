@@ -17,6 +17,9 @@ class Custom_List_Table_Test extends WPTestCase {
 		self::$back_up = $wp_actions;
 
 		$wp_actions = [];
+
+		// Prevent TEC's activation redirect from terminating the test run.
+		add_filter( 'tribe_exit', static fn() => '__return_true' );
 	}
 
 	/**
@@ -24,6 +27,8 @@ class Custom_List_Table_Test extends WPTestCase {
 	 */
 	public function clean() {
 		global $wp_actions;
+
+		remove_all_filters( 'tribe_exit' );
 
 		$wp_actions = self::$back_up;
 	}
