@@ -25,7 +25,7 @@ use TEC\Common\StellarWP\CoreUpdateNotice\Register;
  */
 class Core_Update_Notice extends Controller_Contract {
 	/**
-	 * Registers the controller.
+	 * Register the controller.
 	 *
 	 * @since TBD
 	 *
@@ -39,7 +39,7 @@ class Core_Update_Notice extends Controller_Contract {
 	}
 
 	/**
-	 * Unregisters the controller.
+	 * Unregister the controller.
 	 *
 	 * @since TBD
 	 *
@@ -50,7 +50,7 @@ class Core_Update_Notice extends Controller_Contract {
 	}
 
 	/**
-	 * Registers the shared WordPress core update notice.
+	 * Register the shared WordPress core update notice.
 	 *
 	 * The copy is passed in rather than left to the library's English defaults so that it is
 	 * extracted into this plugin's text domain.

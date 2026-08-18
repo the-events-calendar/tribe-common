@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "369ea9c111c1eb3029f86ee3112ce4f8",
+    "content-hash": "9b5cbfaebff94e1f6d139bcf7d1d9c5e",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -842,13 +842,13 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:stellarwp/core-update-notice.git",
-                "reference": "3ea14c9c104b395c4a4fb7a392d8eb2dafffa89a"
+                "url": "https://github.com/stellarwp/core-update-notice.git",
+                "reference": "c3c243e3fc3e5318b7209314c875f15f10339dfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/core-update-notice/zipball/3ea14c9c104b395c4a4fb7a392d8eb2dafffa89a",
-                "reference": "3ea14c9c104b395c4a4fb7a392d8eb2dafffa89a",
+                "url": "https://api.github.com/repos/stellarwp/core-update-notice/zipball/c3c243e3fc3e5318b7209314c875f15f10339dfd",
+                "reference": "c3c243e3fc3e5318b7209314c875f15f10339dfd",
                 "shasum": ""
             },
             "require": {
@@ -858,10 +858,10 @@
             "require-dev": {
                 "brain/monkey": "^2.6",
                 "phpstan/extension-installer": "^1.4",
-                "phpstan/phpstan": "^1.12",
+                "phpstan/phpstan": "^2.2",
                 "phpunit/phpunit": "^9.5",
                 "squizlabs/php_codesniffer": "^3.9",
-                "szepeviktor/phpstan-wordpress": "^1.3"
+                "szepeviktor/phpstan-wordpress": "^2.0"
             },
             "default-branch": true,
             "type": "library",
@@ -870,30 +870,7 @@
                     "StellarWP\\CoreUpdateNotice\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "StellarWP\\CoreUpdateNotice\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "phpunit"
-                ],
-                "phpstan": [
-                    "phpstan analyse --memory-limit=512M"
-                ],
-                "phpcs": [
-                    "phpcs"
-                ],
-                "phpcbf": [
-                    "phpcbf"
-                ],
-                "check": [
-                    "@phpcs",
-                    "@phpstan",
-                    "@test"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -905,10 +882,10 @@
             ],
             "description": "A WordPress admin notice prompting site administrators to update WordPress, with a dismissal flag shared across the plugins that display it.",
             "support": {
-                "source": "https://github.com/stellarwp/core-update-notice/tree/main",
-                "issues": "https://github.com/stellarwp/core-update-notice/issues"
+                "issues": "https://github.com/stellarwp/core-update-notice/issues",
+                "source": "https://github.com/stellarwp/core-update-notice/tree/main"
             },
-            "time": "2026-08-18T01:32:12+00:00"
+            "time": "2026-08-18T06:42:06+00:00"
         },
         {
             "name": "stellarwp/db",

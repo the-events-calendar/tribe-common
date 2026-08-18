@@ -21,12 +21,6 @@
       "phpstan/extension-installer": true
     }
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@github.com:stellarwp/core-update-notice.git"
-    }
-  ],
   "require": {
     "firebase/php-jwt": "~6.3.0",
     "lucatume/di52": "^3.3.7",
