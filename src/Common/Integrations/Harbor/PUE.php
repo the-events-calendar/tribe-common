@@ -19,6 +19,7 @@ use TEC\Common\LiquidWeb\Harbor\Portal\Results\Product_Catalog;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Product_Collection;
 use TEC\Common\StellarWP\Uplink\Resources\Resource as Uplink_Resource;
 use TEC\Common\LiquidWeb\Harbor\Config;
+use WP_HTML_Tag_Processor;
 
 /**
  * The PUE Harbor integration.
@@ -138,11 +139,11 @@ class PUE extends Integration_Controller {
 	 * @return string
 	 */
 	private function disable_uplink_license_input( string $html ): string {
-		if ( '' === $html || ! str_contains( $html, 'stellarwp-uplink__settings-field' ) ) {
+		if ( ! str_contains( $html, 'stellarwp-uplink__settings-field' ) ) {
 			return $html;
 		}
 
-		$processor = new \WP_HTML_Tag_Processor( $html );
+		$processor = new WP_HTML_Tag_Processor( $html );
 
 		while ( $processor->next_tag( 'input' ) ) {
 			if ( ! $processor->has_class( 'stellarwp-uplink__settings-field' ) ) {

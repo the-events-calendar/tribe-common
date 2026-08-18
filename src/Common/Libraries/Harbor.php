@@ -264,7 +264,7 @@ class Harbor extends Controller_Contract {
 	 * @return bool
 	 */
 	private function is_uplink_license_field_validation_request(): bool {
-		$action = isset( $_REQUEST['action'] ) ? sanitize_key( wp_unslash( $_REQUEST['action'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$action = (string) tec_get_request_var( 'action', '' );
 
 		return str_starts_with( $action, 'pue-validate-key-uplink-' );
 	}
@@ -321,12 +321,7 @@ class Harbor extends Controller_Contract {
 	 */
 	private function get_uplink_resource_for_validation( string $plugin ): Uplink_Resource {
 		try {
-			if ( function_exists( '\TEC\Common\StellarWP\Uplink\get_resource' ) ) {
-				$resource = get_resource( $plugin );
-				if ( $resource instanceof Uplink_Resource ) {
-					return $resource;
-				}
-			}
+			return get_resource( $plugin );
 		} catch ( \Throwable $exception ) {
 			// Uplink collection is not ready; a stub is enough for message rendering.
 			unset( $exception );
