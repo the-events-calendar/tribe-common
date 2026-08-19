@@ -6,6 +6,7 @@ use Codeception\TestCase\WPTestCase;
 use TEC\Common\Libraries\Harbor;
 use TEC\Common\StellarWP\Uplink\Resources\Plugin as Uplink_Plugin;
 use Tribe\Tests\Traits\With_Harbor_State;
+use Tribe\Tests\Traits\With_Uopz;
 
 /**
  * Exercises the four PUE filter hooks that the Harbor consolidation introduces
@@ -20,6 +21,7 @@ use Tribe\Tests\Traits\With_Harbor_State;
  */
 class PUE_Test extends WPTestCase {
 	use With_Harbor_State;
+	use With_Uopz;
 
 	/**
 	 * The priority airplane-mode (a wp-browser test harness plugin) registers its
@@ -350,5 +352,180 @@ class PUE_Test extends WPTestCase {
 			'matching slug but wrong path leaves URL untouched' => [ 'tec-seating', 'https://example.com/seating-connect/wrong-path', false ],
 			'non-matching slug leaves URL untouched'        => [ 'events-calendar-pro', 'https://example.com/seating-connect/', false ],
 		];
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_skip_remote_validation_for_harbor_managed_product(): void {
+		$remote_call_count = 0;
+		// validate_key() → request_info() uses wp_remote_post for remote PUE checks.
+		$this->set_fn_return(
+			'wp_remote_post',
+			static function () use ( &$remote_call_count ) {
+				++$remote_call_count;
+
+				return new \WP_Error( 'unexpected_remote_validation', 'Remote validation should not be performed.' );
+			},
+			true
+		);
+
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$checker  = new \Tribe__PUE__Checker( 'deprecated', 'events-calendar-pro', [], 'events-calendar-pro/events-calendar-pro.php' );
+		$response = $checker->validate_key( 'any-key-value' );
+
+		$this->assertSame( 0, $remote_call_count, 'Remote validation should not be performed for Harbor-managed products.' );
+		$this->assertSame( 1, $response['status'] );
+		$this->assertStringContainsString( 'Unified License Manager', $response['message'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_reject_unified_key_for_non_harbor_managed_product(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$checker  = new \Tribe__PUE__Checker( 'deprecated', 'tribe-filterbar', [], 'the-events-calendar-filterbar/the-events-calendar-filterbar.php' );
+		$response = $checker->validate_key( 'LWSW-PASTED-INTO-WRONG-FIELD' );
+
+		$this->assertSame( 0, $response['status'] );
+		$this->assertStringContainsString( 'unified license key', strtolower( wp_strip_all_tags( $response['message'] ) ) );
+		$this->assertStringContainsString( '<a href="', $response['message'] );
+	}
+
+	/**
+	 * @test
+	 * @dataProvider pre_validate_key_provider
+	 */
+	public function it_should_handle_pre_validate_key_filter(
+		string $slug,
+		string $plugin_file,
+		string $key,
+		?int $expected_status,
+		?string $expected_message_fragment
+	): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$checker = new \Tribe__PUE__Checker( 'deprecated', $slug, [], $plugin_file );
+		$result  = apply_filters( 'tec_common_pue_pre_validate_key', null, $key, $checker );
+
+		if ( null === $expected_status ) {
+			$this->assertNull( $result );
+
+			return;
+		}
+
+		$this->assertIsArray( $result );
+		$this->assertSame( $expected_status, $result['status'] );
+		$this->assertStringContainsString(
+			$expected_message_fragment,
+			strtolower( wp_strip_all_tags( $result['message'] ) )
+		);
+	}
+
+	public function pre_validate_key_provider(): array {
+		return [
+			'legacy key on non-managed product passes through' => [
+				'tribe-filterbar',
+				'the-events-calendar-filterbar/the-events-calendar-filterbar.php',
+				'legacy-product-key',
+				null,
+				null,
+			],
+			'harbor-managed product short-circuits as valid'   => [
+				'events-calendar-pro',
+				'events-calendar-pro/events-calendar-pro.php',
+				'any-key-value',
+				1,
+				'unified license manager',
+			],
+			'unified key on non-managed product is rejected'  => [
+				'tribe-filterbar',
+				'the-events-calendar-filterbar/the-events-calendar-filterbar.php',
+				'LWSW-PASTED-INTO-WRONG-FIELD',
+				0,
+				'unified license key',
+			],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider save_license_field_value_provider
+	 */
+	public function it_should_handle_license_field_value_on_save(
+		string $field_id,
+		string $submitted_value,
+		?string $stored_value,
+		string $expected_saved
+	): void {
+		if ( null !== $stored_value ) {
+			update_option( $field_id, $stored_value );
+		}
+
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$saved = apply_filters( 'tribe_settings_save_field_value', $submitted_value, $field_id );
+
+		$this->assertSame( $expected_saved, $saved );
+
+		if ( null !== $stored_value ) {
+			delete_option( $field_id );
+		}
+	}
+
+	public function save_license_field_value_provider(): array {
+		return [
+			'harbor-managed field ignores submitted value'       => [
+				'pue_install_key_events_calendar_pro',
+				'LWSW-SHOULD-NOT-BE-STORED',
+				'legacy-ecp-key',
+				'legacy-ecp-key',
+			],
+			'unified key on non-managed field keeps stored value' => [
+				'pue_install_key_tribe_filterbar',
+				'LWSW-PASTED-INTO-WRONG-FIELD',
+				'legacy-filterbar-key',
+				'legacy-filterbar-key',
+			],
+			'normal key on non-managed field is stored'            => [
+				'pue_install_key_tribe_filterbar',
+				'new-legacy-filterbar-key',
+				null,
+				'new-legacy-filterbar-key',
+			],
+		];
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_disable_harbor_managed_legacy_license_fields(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$fields = apply_filters(
+			'tribe_license_fields',
+			[
+				'pue_install_key_events_calendar_pro' => [
+					'type'       => 'license_key',
+					'attributes' => [],
+				],
+				'pue_install_key_tribe_filterbar'     => [
+					'type'       => 'license_key',
+					'attributes' => [],
+				],
+			]
+		);
+
+		$this->assertSame( 'disabled', $fields['pue_install_key_events_calendar_pro']['attributes']['disabled'] );
+		$this->assertSame( 'readonly', $fields['pue_install_key_events_calendar_pro']['attributes']['readonly'] );
+
+		$this->assertArrayNotHasKey( 'disabled', $fields['pue_install_key_tribe_filterbar']['attributes'] );
 	}
 }

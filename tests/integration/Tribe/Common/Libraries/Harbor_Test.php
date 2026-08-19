@@ -62,6 +62,159 @@ class Harbor_Test extends WPTestCase {
 
 	/**
 	 * @test
+	 * @dataProvider unified_license_key_provider
+	 */
+	public function it_should_detect_unified_license_keys( string $key, bool $expected ): void {
+		$this->assertSame( $expected, tribe( Harbor::class )->is_unified_license_key( $key ) );
+	}
+
+	public function unified_license_key_provider(): array {
+		return [
+			'prefixed key'              => [ 'LWSW-CUSTOMER-AAAA-BBBB', true ],
+			'prefixed key with spaces'  => [ '  LWSW-CUSTOMER-AAAA-BBBB  ', true ],
+			'legacy product key'        => [ 'abcd-1234-efgh-5678', false ],
+			'empty string'              => [ '', false ],
+			'prefix only substring'     => [ 'my-LWSW-not-a-key', false ],
+		];
+	}
+
+	/**
+	 * When Harbor never fully boots (no premium plugin), unified keys must still
+	 * be rejected from free-plugin PUE fields instead of hitting remote validation.
+	 *
+	 * @test
+	 */
+	public function it_should_reject_unified_key_via_pre_validate_when_harbor_is_not_loaded(): void {
+		global $wp_actions;
+
+		$previous_loaded = $wp_actions['lw_harbor/loaded'] ?? null;
+		unset( $wp_actions['lw_harbor/loaded'] );
+
+		$checker = new \Tribe__PUE__Checker(
+			'deprecated',
+			'the-events-calendar',
+			[],
+			'the-events-calendar/the-events-calendar.php'
+		);
+
+		$result = apply_filters( 'tec_common_pue_pre_validate_key', null, 'LWSW-PASTED-WITHOUT-PREMIUM', $checker );
+
+		if ( null !== $previous_loaded ) {
+			$wp_actions['lw_harbor/loaded'] = $previous_loaded;
+		}
+
+		$this->assertIsArray( $result );
+		$this->assertSame( 0, $result['status'] );
+		$this->assertStringContainsString( 'unified license key', strtolower( $result['message'] ) );
+		$this->assertStringContainsString( 'The Events Calendar Pro', $result['message'] );
+		$this->assertStringContainsString( 'Event Tickets Pro', $result['message'] );
+		$this->assertStringContainsString( 'Unified License Manager', $result['message'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_pass_through_legacy_key_via_pre_validate_when_harbor_is_not_loaded(): void {
+		global $wp_actions;
+
+		$previous_loaded = $wp_actions['lw_harbor/loaded'] ?? null;
+		unset( $wp_actions['lw_harbor/loaded'] );
+
+		$checker = new \Tribe__PUE__Checker(
+			'deprecated',
+			'the-events-calendar',
+			[],
+			'the-events-calendar/the-events-calendar.php'
+		);
+
+		$result = tribe( Harbor::class )->filter_tec_common_pue_pre_validate_key( null, 'legacy-product-key', $checker );
+
+		if ( null !== $previous_loaded ) {
+			$wp_actions['lw_harbor/loaded'] = $previous_loaded;
+		}
+
+		$this->assertNull( $result );
+	}
+
+	/**
+	 * Once Harbor is loaded, the PUE integration owns unified-key messaging;
+	 * this callback must not short-circuit.
+	 *
+	 * @test
+	 */
+	public function it_should_pass_through_unified_key_via_pre_validate_when_harbor_is_loaded(): void {
+		global $wp_actions;
+
+		$previous_loaded = $wp_actions['lw_harbor/loaded'] ?? null;
+		$wp_actions['lw_harbor/loaded'] = 1;
+
+		$checker = new \Tribe__PUE__Checker(
+			'deprecated',
+			'the-events-calendar',
+			[],
+			'the-events-calendar/the-events-calendar.php'
+		);
+
+		$result = tribe( Harbor::class )->filter_tec_common_pue_pre_validate_key( null, 'LWSW-SHOULD-PASS-THROUGH', $checker );
+
+		if ( null !== $previous_loaded ) {
+			$wp_actions['lw_harbor/loaded'] = $previous_loaded;
+		} else {
+			unset( $wp_actions['lw_harbor/loaded'] );
+		}
+
+		$this->assertNull( $result );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_report_license_field_managed_when_product_is_harbor_licensed(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$this->assertTrue(
+			tribe( Harbor::class )->is_license_field_managed_by_harbor( 'events-calendar-pro' )
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_translate_tec_slug_when_checking_license_field_management(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-promoter' ] );
+
+		$this->assertTrue(
+			tribe( Harbor::class )->is_license_field_managed_by_harbor( 'promoter' )
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_report_license_field_not_managed_when_product_is_unlicensed(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$this->assertFalse(
+			tribe( Harbor::class )->is_license_field_managed_by_harbor( 'tribe-filterbar' )
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_include_license_manager_link_in_unified_key_entry_error_message(): void {
+		$message = tribe( Harbor::class )->get_unified_license_key_entry_error_message();
+
+		$this->assertStringContainsString( 'unified license key', strtolower( $message ) );
+		$this->assertStringContainsString( '<a href="', $message );
+		$this->assertStringContainsString( 'Unified License Manager', $message );
+	}
+
+	/**
+	 * @test
 	 */
 	public function it_should_report_product_licensed_when_in_unified_catalog(): void {
 		$this->seed_unified_license_key();

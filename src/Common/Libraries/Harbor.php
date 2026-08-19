@@ -30,11 +30,20 @@ use function lw_harbor_is_feature_available;
  */
 class Harbor extends Controller_Contract {
 	/**
+	 * Prefix for Liquid Web unified license keys.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private const UNIFIED_LICENSE_KEY_PREFIX = 'LWSW-';
+
+	/**
 	 * The TEC product slug to Harbor product slug map.
 	 *
 	 * @since 6.11.0
 	 *
-	 * @var array
+	 * @var array<string, string>
 	 */
 	private const TEC_PRODUCT_SLUG_TO_HARBOR_PRODUCT_SLUG_MAP = [
 		'the-events-calendar'    => 'the-events-calendar',
@@ -81,6 +90,9 @@ class Harbor extends Controller_Contract {
 
 		add_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
 		add_filter( 'lw_harbor/premium_plugin_exists', [ $this, 'register_premium_plugin_exists' ] );
+		// Runs even when Harbor does not fully load (no premium plugin), so unified keys
+		// pasted into free-plugin PUE fields still get a clear guidance message.
+		add_filter( 'tec_common_pue_pre_validate_key', [ $this, 'filter_tec_common_pue_pre_validate_key' ], 10, 3 );
 
 		Harbor_Provider::init();
 
@@ -105,6 +117,7 @@ class Harbor extends Controller_Contract {
 	public function unregister(): void {
 		remove_filter( 'lw-harbor/legacy_licenses', [ $this,'register_legacy_licenses' ] );
 		remove_filter( 'lw_harbor/premium_plugin_exists', [ $this, 'register_premium_plugin_exists' ] );
+		remove_filter( 'tec_common_pue_pre_validate_key', [ $this, 'filter_tec_common_pue_pre_validate_key' ] );
 		remove_action( 'init', [ $this, 'decorate_uplinks_auth_url' ] );
 	}
 
@@ -117,6 +130,48 @@ class Harbor extends Controller_Contract {
 	 */
 	public function decorate_uplinks_auth_url(): void {
 		$this->container->bind( Auth_Url::class, Auth_URL_Decorator::class );
+	}
+
+	/**
+	 * Reject unified license keys when Harbor is not loaded.
+	 *
+	 * Without a premium plugin, Harbor never fires `lw_harbor/loaded` and the PUE
+	 * Harbor integration is not registered — so this callback is the only guard that
+	 * stops a unified key from being sent through legacy PUE validation.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|null                $response Early response, or null to continue.
+	 * @param string                    $key      The license key being validated.
+	 * @param \Tribe__PUE__Checker|null $checker  The PUE checker instance.
+	 *
+	 * @return array|null
+	 */
+	public function filter_tec_common_pue_pre_validate_key( ?array $response, string $key, $checker ): ?array {
+		if ( null !== $response ) {
+			return $response;
+		}
+
+		// Bail out if harbor is loaded.
+		if ( did_action( 'lw_harbor/loaded' ) ) {
+			return $response;
+		}
+
+		if ( ! $this->is_unified_license_key( $key ) ) {
+			return $response;
+		}
+
+		return [
+			'status'  => 0,
+			'message' => sprintf(
+				/* translators: %s: My account page link. */
+				__(
+					'This is a unified license key. To activate it, install The Events Calendar Pro or Event Tickets Pro, then add your license in the Unified License Manager. You can download the plugin from <a href="%s" target="_blank">your account</a>.',
+					'tribe-common'
+				),
+				esc_url( $this->get_portal_url() )
+			),
+		];
 	}
 
 	/**
@@ -232,7 +287,7 @@ class Harbor extends Controller_Contract {
 		return array_values(
 			array_filter(
 				$licenses,
-				static fn( array $license ): bool => ! empty( $license['key'] ) && ! str_starts_with( $license['key'], 'LWSW-' )
+				fn( array $license ): bool => ! empty( $license['key'] ) && ! $this->is_unified_license_key( $license['key'] )
 			)
 		);
 	}
@@ -263,6 +318,62 @@ class Harbor extends Controller_Contract {
 		}
 
 		return lw_harbor_is_feature_available( $product );
+	}
+
+	/**
+	 * Whether a license key uses the unified Liquid Web format.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key The license key.
+	 *
+	 * @return bool
+	 */
+	public function is_unified_license_key( string $key ): bool {
+		return str_starts_with( trim( $key ), self::UNIFIED_LICENSE_KEY_PREFIX );
+	}
+
+	/**
+	 * Whether a TEC product license field is managed by Harbor.
+	 *
+	 * When true, the unified license key should be shown read-only and should not
+	 * be validated through legacy PUE per-product fields.
+	 *
+	 * Checks that the product's license is actually active/valid for this site, not
+	 * merely that the customer's tier entitles them to it — a customer can be entitled
+	 * to a product without having activated it here, in which case a legacy per-product
+	 * key should still be accepted.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $tec_product_slug The TEC product slug.
+	 *
+	 * @return bool
+	 */
+	public function is_license_field_managed_by_harbor( string $tec_product_slug ): bool {
+		if ( ! lw_harbor_has_unified_license_key() ) {
+			return false;
+		}
+
+		return lw_harbor_is_feature_enabled(
+			$this->get_harbor_product_slug( $tec_product_slug )
+		);
+	}
+
+	/**
+	 * Error message shown when a unified license key is entered in a per-product field.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_unified_license_key_entry_error_message(): string {
+		return sprintf(
+			/* translators: %1$s: opening anchor tag, %2$s: closing anchor tag. */
+			__( 'This is a unified license key. Please %1$sclick here%2$s to enter it in the Unified License Manager.', 'tribe-common' ),
+			'<a href="' . esc_url( lw_harbor_get_license_page_url() ) . '" target=_blank>',
+			'</a>'
+		);
 	}
 
 	/**
