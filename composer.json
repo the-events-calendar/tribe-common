@@ -31,7 +31,7 @@
     "stellarwp/assets": "^1.5",
     "stellarwp/container-contract": "^1.0.4",
     "stellarwp/db": "^1.0.3",
-    "stellarwp/harbor": "^1.4",
+    "stellarwp/harbor": "^1.6.0",
     "stellarwp/installer": "^1.1.0",
     "stellarwp/telemetry": "^2.3.4",
     "stellarwp/uplink": "2.2.2",
@@ -60,7 +60,6 @@
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "wp-cli/checksum-command": "2.0.0",
     "wp-coding-standards/wpcs": "^3.0.0",
-    "automattic/jetpack-changelogger": "^4.2",
     "codeception/module-rest": "^2.0",
     "php-stubs/wordpress-stubs": "^6.7",
     "szepeviktor/phpstan-wordpress": "^1.1"
@@ -160,7 +159,7 @@
       "exclude_from_copy": {
         "packages": [],
         "file_patterns": [
-          "#trustedlogin\/client\/src\/assets\/trustedlogin.css#"
+          "#trustedlogin/client/src/assets/trustedlogin.css#"
         ]
       },
       "exclude_from_prefix": {
@@ -168,35 +167,13 @@
           "woocommerce/action-scheduler"
         ],
         "file_patterns": [
-          "#stellarwp\/harbor\/src\/Harbor\/global-functions.php#",
-          "#psr\/http-message\/*#"
+          "#stellarwp/harbor/src/Harbor/global-functions.php#",
+          "#psr/http-message/*#"
         ]
       },
       "delete_vendor_files": true,
       "include_modified_date": false,
       "include_author": false
-    },
-    "changelogger": {
-      "changelog": "changelog.md",
-      "types": {
-        "version": "Version",
-        "feat": "Feature",
-        "fix": "Fix",
-        "tweak": "Tweak",
-        "performance": "Performance",
-        "security": "Security",
-        "accessibility": "Accessibility",
-        "compatibility": "Compatibility",
-        "deprecated": "Deprecated",
-        "language": "Language"
-      },
-      "formatter": {
-        "filename": "bin/class-tec-changelog-formatter.php"
-      },
-      "versioning": {
-        "filename": "bin/ModifiedSemverVersioning.php"
-      },
-      "changes-dir": "changelog"
     },
     "patches": {
       "fakerphp/faker": {

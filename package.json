@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "6.12.1",
+  "version": "6.12.3",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -36,7 +36,7 @@
     "start": "wp-scripts start",
     "dev": "WP_DEVTOOL=eval-source-map wp-scripts start",
     "test": "jest",
-    "changelog": "./vendor/bin/changelogger add",
+    "changelog": "npx @stellarwp/changelogger add",
     "spectral": "spectral lint"
   },
   "dependencies": {
@@ -84,6 +84,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
+    "@stellarwp/changelogger": "^0.10.0",
     "@stellarwp/tyson": "*",
     "@stoplight/spectral-cli": "^6.15.0",
     "@wordpress/date": "^5.23.0",
@@ -104,5 +105,29 @@
     "babel-plugin-lodash": {
       "@babel/types": "~7.20.0"
     }
+  },
+  "changelogger": {
+    "changelogFile": "changelog.md",
+    "changesDir": "changelog",
+    "ordering": [
+      "type",
+      "content"
+    ],
+    "types": {
+      "version": "6.12.3",
+      "performance": "Performance",
+      "accessibility": "Accessibility"
+    },
+    "versioning": "./bin/tec-changelog-versioning.js",
+    "files": [
+      {
+        "path": "changelog.md",
+        "strategy": "stellarwp-changelog"
+      },
+      {
+        "path": "readme.txt",
+        "strategy": "stellarwp-readme"
+      }
+    ]
   }
 }
