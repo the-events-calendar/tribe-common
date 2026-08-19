@@ -55,6 +55,65 @@ class PUE_Test extends WPTestCase {
 	}
 
 	/**
+	 * Simulate Uplink's license-field AJAX so Harbor rewrites the validation result.
+	 *
+	 * @param callable $callback Callback to run with the AJAX action set.
+	 *
+	 * @return mixed
+	 */
+	private function with_uplink_license_ajax_request( callable $callback ) {
+		$previous           = $_REQUEST['action'] ?? null;
+		$_REQUEST['action'] = 'pue-validate-key-uplink-tec';
+
+		try {
+			return $callback();
+		} finally {
+			if ( null === $previous ) {
+				unset( $_REQUEST['action'] );
+			} else {
+				$_REQUEST['action'] = $previous;
+			}
+		}
+	}
+
+	/**
+	 * Run Uplink license-field AJAX validation for a pasted unified key.
+	 *
+	 * @param string $plugin_slug Uplink plugin slug.
+	 *
+	 * @return \TEC\Common\StellarWP\Uplink\API\Validation_Response
+	 */
+	private function filter_uplink_unified_key_on_license_ajax( string $plugin_slug ) {
+		$resource = new Uplink_Plugin(
+			$plugin_slug,
+			$plugin_slug,
+			'1.0.0',
+			$plugin_slug . '/' . $plugin_slug . '.php',
+			\stdClass::class
+		);
+
+		$results = new \TEC\Common\StellarWP\Uplink\API\Validation_Response(
+			'LWSW-PASTED-INTO-UPLINK-FIELD',
+			'local',
+			(object) [ 'api_message' => 'would-have-been-remote' ],
+			$resource
+		);
+
+		return $this->with_uplink_license_ajax_request(
+			static function () use ( $results, $plugin_slug ) {
+				return apply_filters(
+					'stellarwp/uplink/tec/client_validate_license',
+					$results,
+					[
+						'plugin' => $plugin_slug,
+						'key'    => 'LWSW-PASTED-INTO-UPLINK-FIELD',
+					]
+				);
+			}
+		);
+	}
+
+	/**
 	 * @test
 	 */
 	public function it_should_return_unified_key_for_licensed_plugin_option(): void {
@@ -234,6 +293,57 @@ class PUE_Test extends WPTestCase {
 		);
 
 		$this->assertFalse( $response );
+	}
+
+	/**
+	 * An LWSW- key on a Uplink field Harbor is not managing must not keep the remote result.
+	 *
+	 * @test
+	 * @dataProvider uplink_plugin_slug_provider
+	 */
+	public function it_should_reject_unified_key_on_uplink_when_product_is_not_harbor_managed( string $plugin_slug ): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$filtered = $this->filter_uplink_unified_key_on_license_ajax( $plugin_slug );
+
+		$this->assertFalse( $filtered->is_valid() );
+		$this->assertSame( 'invalid', $filtered->get_result() );
+		$this->assertStringContainsString(
+			'unified license key',
+			strtolower( wp_strip_all_tags( $filtered->get_message()->get() ) )
+		);
+	}
+
+	/**
+	 * Harbor-managed Uplink fields must show as licensed via Unified License Manager.
+	 *
+	 * @test
+	 * @dataProvider uplink_plugin_slug_provider
+	 */
+	public function it_should_mark_uplink_valid_when_product_is_harbor_managed( string $plugin_slug ): void {
+		$harbor_features = [
+			'tec-seating'        => 'seating',
+			'event-tickets-plus' => 'event-tickets-plus',
+		];
+
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ $harbor_features[ $plugin_slug ] ] );
+
+		$filtered = $this->filter_uplink_unified_key_on_license_ajax( $plugin_slug );
+
+		$this->assertTrue( $filtered->is_valid() );
+		$this->assertStringContainsString(
+			'unified license manager',
+			strtolower( wp_strip_all_tags( $filtered->get_message()->get() ) )
+		);
+	}
+
+	public function uplink_plugin_slug_provider(): array {
+		return [
+			'seating'            => [ 'tec-seating' ],
+			'event tickets plus' => [ 'event-tickets-plus' ],
+		];
 	}
 
 	/**
@@ -527,5 +637,90 @@ class PUE_Test extends WPTestCase {
 		$this->assertSame( 'readonly', $fields['pue_install_key_events_calendar_pro']['attributes']['readonly'] );
 
 		$this->assertArrayNotHasKey( 'disabled', $fields['pue_install_key_tribe_filterbar']['attributes'] );
+	}
+
+	/**
+	 * Uplink fields (Seating, Event Tickets Plus) are HTML, not PUE license_key
+	 * fields. Harbor-managed ones must still be locked against editing.
+	 *
+	 * @test
+	 * @dataProvider uplink_license_field_html_provider
+	 */
+	public function it_should_disable_harbor_managed_uplink_license_fields(
+		string $slug,
+		array $licensed_features,
+		bool $expect_disabled
+	): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( $licensed_features );
+
+		$html = '<input type="text" name="pue_install_key_example" value="LWSW-KEY" class="regular-text stellarwp-uplink__settings-field" />';
+
+		$filtered = apply_filters( 'stellarwp/uplink/tec/license_field_html', $html, $slug );
+
+		if ( $expect_disabled ) {
+			$this->assertStringContainsString( 'readonly="readonly"', $filtered );
+			$this->assertStringContainsString( 'disabled="disabled"', $filtered );
+			$this->assertStringContainsString( 'stellarwp-uplink__settings-field', $filtered );
+
+			return;
+		}
+
+		$this->assertSame( $html, $filtered );
+	}
+
+	public function uplink_license_field_html_provider(): array {
+		return [
+			'seating when harbor-managed is disabled'              => [
+				'tec-seating',
+				[ 'seating' ],
+				true,
+			],
+			'event tickets plus when harbor-managed is disabled'   => [
+				'event-tickets-plus',
+				[ 'event-tickets-plus' ],
+				true,
+			],
+			'seating when not harbor-managed stays editable'       => [
+				'tec-seating',
+				[ 'events-calendar-pro' ],
+				false,
+			],
+			'event tickets plus when not harbor-managed stays editable' => [
+				'event-tickets-plus',
+				[ 'events-calendar-pro' ],
+				false,
+			],
+		];
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_disable_only_uplink_license_text_inputs(): void {
+		// Test empty HTML.
+		$this->assertSame( '', $this->call_disable_uplink_license_input( '' ) );
+
+		// Test tooltip HTML. Should not be modified.
+		$tooltip = '<p class="tooltip description">A valid license key is required for support and updates</p>';
+		$this->assertSame( $tooltip, $this->call_disable_uplink_license_input( $tooltip ) );
+
+		// Test license input HTML. The input in the HTML should be disabled and readonly.
+		$license_input = '<input type="text" name="pue_install_key_tec_seating" value="LWSW-KEY" class="regular-text stellarwp-uplink__settings-field" />';
+		$filtered      = $this->call_disable_uplink_license_input( $license_input );
+
+		$this->assertStringContainsString( 'readonly="readonly"', $filtered );
+		$this->assertStringContainsString( 'disabled="disabled"', $filtered );
+		$this->assertStringContainsString( 'stellarwp-uplink__settings-field', $filtered );
+	}
+
+	/**
+	 * Invoke the private HTML helper without going through Harbor field management.
+	 */
+	private function call_disable_uplink_license_input( string $html ): string {
+		$method = new \ReflectionMethod( PUE::class, 'disable_uplink_license_input' );
+		$method->setAccessible( true );
+
+		return $method->invoke( new PUE( tribe(), tribe( Harbor::class ) ), $html );
 	}
 }
