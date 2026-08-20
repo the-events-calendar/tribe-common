@@ -33,14 +33,16 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 	function tribe_format_date( $date, $display_time = true, $date_format = '' ) {
 
 		if ( ! Tribe__Date_Utils::is_timestamp( $date ) ) {
-			$date = strtotime( $date );
+			// Fall back to strtotime() for unparsable input.
+			$date_object = Tribe__Date_Utils::build_date_object( $date, 'UTC', false );
+			$date        = false === $date_object ? strtotime( $date ) : $date_object->getTimestamp();
 		}
 
 		if ( $date_format ) {
 			$format = $date_format;
 		} else {
-			$date_year = date( 'Y', $date );
-			$cur_year  = date( 'Y', current_time( 'timestamp' ) );
+			$date_year = gmdate( 'Y', $date );
+			$cur_year  = ( new DateTimeImmutable( 'now', wp_timezone() ) )->format( 'Y' );
 
 			// only show the year in the date if it's not in the current year
 			$with_year = $date_year == $cur_year ? false : true;

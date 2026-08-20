@@ -1,5 +1,16 @@
 # Changelog
 
+### [6.12.2] 2026-08-05
+
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+* Tweak - Improved the unified licensing page experience.
+* Tweak - Switched changelog tooling from jetpack-changelogger to @stellarwp/changelogger.
+
+### [6.12.1] 2026-07-22
+
+* Fix - Resolved an issue where `tribe_format_date()` shifted dates and times when PHP's default timezone was changed by third-party code.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.12.0] 2026-07-08
 
 * Compatibility - Improved PHP compatibility for versions 7.4 and up to 8.4.
