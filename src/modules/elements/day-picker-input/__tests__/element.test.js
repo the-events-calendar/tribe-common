@@ -187,6 +187,54 @@ describe( 'DayPickerInput element', () => {
 		expect( endMonthEl.children[0] ).toContain( '2026-08-15' );
 	} );
 
+	it( 'navigates to the next month when clicking the next-month button', () => {
+		const component = renderer.create(
+			<DayPickerInput
+				value=""
+				format="LL"
+				formatDate={ jest.fn() }
+				parseDate={ jest.fn() }
+				dayPickerProps={ { month: july1 } }
+				onDayChange={ jest.fn() }
+			/>,
+		);
+
+		// Open the calendar.
+		const input = component.root.findByType( 'input' );
+		renderer.act( () => {
+			input.props.onClick();
+		} );
+
+		const getMonthText = () => {
+			const dayPicker = component.root.findAll(
+				( node ) => node.props?.['data-testid'] === 'day-picker'
+			)[0];
+			const monthEl = dayPicker.findAll(
+				( node ) => node.props.className === 'DayPicker-month'
+			)[0];
+
+			return monthEl.children[0];
+		};
+
+		// Calendar opens on the initial month (July).
+		expect( getMonthText() ).toContain( '2026-07-01' );
+
+		// Click the next-month navigation button.
+		const dayPicker = component.root.findAll(
+			( node ) => node.props?.['data-testid'] === 'day-picker'
+		)[0];
+		const nextBtn = dayPicker.findAll(
+			( node ) => node.props.className === 'DayPicker-nav-next'
+		)[0];
+
+		renderer.act( () => {
+			nextBtn.props.onClick();
+		} );
+
+		// The calendar must advance to August.
+		expect( getMonthText() ).toContain( '2026-08-01' );
+	} );
+
 	it( 'uses dayPickerProps.month when no date is selected', () => {
 		const component = renderer.create(
 			<DayPickerInput
@@ -340,7 +388,9 @@ describe( 'DayPickerInput element', () => {
 			( node ) => node.props?.['data-testid'] === 'day-picker'
 		)[0];
 
-		const selectBtn = dayPicker.findByType( 'button' );
+		const selectBtn = dayPicker.findAll(
+			( node ) => node.props.className === 'DayPicker-select'
+		)[0];
 		renderer.act( () => {
 			selectBtn.props.onClick();
 		} );
@@ -480,7 +530,9 @@ describe( 'DayPickerInput element', () => {
 			( node ) => node.props?.['data-testid'] === 'day-picker'
 		)[0];
 
-		const selectBtn = dayPicker.findByType( 'button' );
+		const selectBtn = dayPicker.findAll(
+			( node ) => node.props.className === 'DayPicker-select'
+		)[0];
 		renderer.act( () => {
 			selectBtn.props.onClick();
 		} );

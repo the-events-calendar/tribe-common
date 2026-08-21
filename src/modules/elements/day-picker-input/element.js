@@ -205,7 +205,7 @@ const DayPickerInput = ( props ) => {
 							} }
 							disabled={ dayPickerProps?.disabledDays }
 							modifiers={ dayPickerProps?.modifiers }
-							month={ selectedDate || dayPickerProps?.month || new Date() }
+							defaultMonth={ selectedDate || dayPickerProps?.month || new Date() }
 							startMonth={ dayPickerProps?.fromMonth }
 							endMonth={ dayPickerProps?.toMonth }
 							isSelected={ true }
