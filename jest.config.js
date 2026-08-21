@@ -11,5 +11,11 @@ module.exports = {
 		'\\.(css|pcss)$': 'identity-obj-proxy',
 		'\\.(svg)$': '<rootDir>/__mocks__/icons.js',
 	},
+	transform: {
+		'^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+	},
+	transformIgnorePatterns: [
+		'/node_modules/(?!(react-day-picker|@wordpress)/)',
+	],
 	testEnvironment: 'jest-environment-jsdom-global',
 };
