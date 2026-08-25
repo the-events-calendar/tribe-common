@@ -162,6 +162,14 @@ class Element_Classes {
 			$this->parse_callable( $arguments );
 		} elseif ( is_array( $arguments ) ) {
 			// ['foo', 'bar', ...] || ['foo' => TRUE, 'bar' => FALSE, ...]
+			if ( is_callable( $arguments ) ) {
+				_doing_it_wrong(
+					__METHOD__,
+					'Only Closure instances are invoked; this array callable will be treated as data instead of being called.',
+					'TBD'
+				);
+			}
+
 			$this->parse_array( $arguments );
 		} elseif ( is_object( $arguments ) ) {
 			// stdClass
@@ -213,6 +221,12 @@ class Element_Classes {
 			} elseif ( is_string( $key ) ) {
 				if ( $value instanceof Closure ) {
 					$value = $value( $this->results );
+				} elseif ( is_callable( $value ) ) {
+					_doing_it_wrong(
+						__METHOD__,
+						'Only Closure instances are invoked; this callable value will be treated as data instead of being called.',
+						'TBD'
+					);
 				}
 
 				$this->parse_string( $key, tribe_is_truthy( $value ) );
