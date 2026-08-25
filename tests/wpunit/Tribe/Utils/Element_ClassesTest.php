@@ -7,6 +7,11 @@ class Example_Object {
 	 */
 	protected $string_value;
 
+	/**
+	 * @var bool
+	 */
+	public static $invoked = false;
+
 	public function __construct( $value ) {
 		$this->string_value = $value;
 	}
@@ -15,12 +20,10 @@ class Example_Object {
 		return $this->string_value;
 	}
 
-	public static function get_classes() {
-		return 'static-callable';
-	}
+	public static function flag() {
+		self::$invoked = true;
 
-	public function get_classes_dynamic() {
-		return 'dynamic-callable';
+		return 'flagged';
 	}
 }
 
@@ -112,24 +115,6 @@ class Element_ClassesTest extends \Codeception\TestCase\WPTestCase {
 				[
 					'test-string',
 					'my-other-15-string',
-				],
-			],
-
-			'static-callable' => [
-				// Value
-				[ Example_Object::class, 'get_classes' ],
-				// Expected
-				[
-					'static-callable',
-				],
-			],
-
-			'dynamic-callable' => [
-				// Value
-				[ new Example_Object( '' ), 'get_classes_dynamic' ],
-				// Expected
-				[
-					'dynamic-callable',
 				],
 			],
 
@@ -290,5 +275,53 @@ class Element_ClassesTest extends \Codeception\TestCase\WPTestCase {
 		$expected = ' class="test-class-one test-class-two test-class-three test-class-four" ';
 
 		$this->assertEquals( $expected, $actual );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_not_invoke_a_string_callable_map_value() {
+		Example_Object::$invoked = false;
+
+		$el_classes = new Element_Classes( [ 'test-class' => Example_Object::class . '::flag' ] );
+		$el_classes->get_classes();
+
+		$this->assertFalse( Example_Object::$invoked );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_not_invoke_an_array_callable() {
+		Example_Object::$invoked = false;
+
+		$el_classes = new Element_Classes( [ [ Example_Object::class, 'flag' ] ] );
+		$el_classes->get_classes();
+
+		$this->assertFalse( Example_Object::$invoked );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_evaluate_closure_conditionals() {
+		$el_classes = new Element_Classes(
+			[
+				'visible-class' => static function () {
+					return true;
+				},
+				'hidden-class'  => static function () {
+					return false;
+				},
+			]
+		);
+
+		$this->assertEquals( [ 'visible-class' ], $el_classes->get_classes() );
 	}
 }

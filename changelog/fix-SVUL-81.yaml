@@ -1,0 +1,4 @@
+significance: patch
+type: security
+entry: Harden parsing of HTML class attribute values
+timestamp: 2026-08-25T04:16:27.232Z
