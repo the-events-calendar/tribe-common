@@ -140,7 +140,7 @@ class Element_Classes {
 	 * Parse arguments or argument for this instance, and store values on results.
 	 *
 	 * @since 4.9.13
-	 * @since TBD Only closures are invoked; other values are treated as data.
+	 * @since 6.12.2.1 Only closures are invoked; other values are treated as data.
 	 *
 	 * @param mixed  $arguments      Any possible set of arguments that this class supports.
 	 * @param boolean $default_value What is the default value for a given class.
@@ -166,7 +166,7 @@ class Element_Classes {
 				_doing_it_wrong(
 					__METHOD__,
 					'Only Closure instances are invoked; this array callable will be treated as data instead of being called.',
-					'TBD'
+					'6.12.2.1'
 				);
 			}
 
@@ -204,7 +204,7 @@ class Element_Classes {
 	 * Parse an array into an array of acceptable values for the instance.
 	 *
 	 * @since 4.9.13
-	 * @since TBD Only closures are invoked; other values are treated as data.
+	 * @since 6.12.2.1 Only closures are invoked; other values are treated as data.
 	 *
 	 * @param array  $values  Array of values to be parsed.
 	 *
@@ -225,7 +225,7 @@ class Element_Classes {
 					_doing_it_wrong(
 						__METHOD__,
 						'Only Closure instances are invoked; this callable value will be treated as data instead of being called.',
-						'TBD'
+						'6.12.2.1'
 					);
 				}
 
