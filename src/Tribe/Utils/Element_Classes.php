@@ -1,6 +1,8 @@
 <?php
 namespace Tribe\Utils;
 
+use Closure;
+
 /**
  * Class Element_Classes to handle HTML class attribute for elements.
  *
@@ -138,6 +140,7 @@ class Element_Classes {
 	 * Parse arguments or argument for this instance, and store values on results.
 	 *
 	 * @since 4.9.13
+	 * @since 6.12.2.1 Only closures are invoked; other values are treated as data.
 	 *
 	 * @param mixed  $arguments      Any possible set of arguments that this class supports.
 	 * @param boolean $default_value What is the default value for a given class.
@@ -154,11 +157,19 @@ class Element_Classes {
 		} elseif ( is_string( $arguments ) ) {
 			// 'foo bar'
 			$this->parse_string( $arguments );
-		} elseif ( $arguments instanceof \Closure || is_callable( $arguments ) ) {
+		} elseif ( $arguments instanceof Closure ) {
 			// function() {}
 			$this->parse_callable( $arguments );
 		} elseif ( is_array( $arguments ) ) {
 			// ['foo', 'bar', ...] || ['foo' => TRUE, 'bar' => FALSE, ...]
+			if ( is_callable( $arguments ) ) {
+				_doing_it_wrong(
+					__METHOD__,
+					'Only Closure instances are invoked; this array callable will be treated as data instead of being called.',
+					'6.12.2.1'
+				);
+			}
+
 			$this->parse_array( $arguments );
 		} elseif ( is_object( $arguments ) ) {
 			// stdClass
@@ -193,6 +204,7 @@ class Element_Classes {
 	 * Parse an array into an array of acceptable values for the instance.
 	 *
 	 * @since 4.9.13
+	 * @since 6.12.2.1 Only closures are invoked; other values are treated as data.
 	 *
 	 * @param array  $values  Array of values to be parsed.
 	 *
@@ -207,8 +219,14 @@ class Element_Classes {
 					$this->parse( $value );
 				}
 			} elseif ( is_string( $key ) ) {
-				if ( $value instanceof \Closure || is_callable( $value ) ) {
+				if ( $value instanceof Closure ) {
 					$value = $value( $this->results );
+				} elseif ( is_callable( $value ) ) {
+					_doing_it_wrong(
+						__METHOD__,
+						'Only Closure instances are invoked; this callable value will be treated as data instead of being called.',
+						'6.12.2.1'
+					);
 				}
 
 				$this->parse_string( $key, tribe_is_truthy( $value ) );
