@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.12.2.1] 2026-08-26
+
+* Security - Harden parsing of HTML class attribute values.
+
 ### [6.12.2] 2026-08-05
 
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
