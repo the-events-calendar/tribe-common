@@ -57,7 +57,6 @@ body.tribe_events_page_tribe-app-shop {
 	}
 
 	.tribe-header {
-		height: 120px;
 		margin: 36px auto 0 auto;
 		position: relative;
 		text-align: center;
@@ -65,7 +64,6 @@ body.tribe_events_page_tribe-app-shop {
 
 		@media screen and (min-width: 710px) {
 			border-bottom: 1px solid rgba(225, 225, 228, 0.5);
-			height: 147px;
 			margin-top: 44px;
 
 			.logo-word-mark {
@@ -107,64 +105,6 @@ body.tribe_events_page_tribe-app-shop {
 			@media screen and (min-width: 710px) {
 				height: 65px;
 				margin-bottom: 42px;
-			}
-		}
-
-		ul {
-
-			/* for now we are hiding this nav on small screen sizes */
-			border-bottom: 1px solid #e1e1e4;
-			display: block;
-			margin: 0 auto;
-			overflow: scroll;
-			padding: 0 14px;
-			text-align: left;
-			white-space: nowrap;
-
-			@media screen and (min-width: 710px) {
-				border-bottom: none;
-				display: block;
-				overflow: auto;
-			}
-
-			li {
-				cursor: pointer;
-				display: inline-block;
-				font-size: 16px;
-				font-weight: 500;
-				line-height: 20px;
-				margin: 0 18px 0 6px;
-				padding: 0 0 10px 0;
-				position: relative;
-				text-align: center;
-
-				@media screen and (min-width: 710px) {
-					padding: 0 0 20px 0;
-				}
-
-				@media screen and (min-width: 1217px) {
-					margin: 0 12px;
-				}
-
-				&:hover {
-					color: #161b7d;
-				}
-
-				&.selected {
-					color: #334aff;
-				}
-
-				&.selected::after {
-					background: #334aff;
-					border-radius: 100px;
-					bottom: 0;
-					content: "";
-					display: block;
-					height: 3px;
-					left: 0;
-					position: absolute;
-					right: 0;
-				}
 			}
 		}
 	}
@@ -291,169 +231,8 @@ body.tribe_events_page_tribe-app-shop {
 				}
 			}
 		}
-
-		.tribe-bundle {
-			padding: 28px 32px 36px 32px;
-			width: calc(100% - 40px);
-
-			.details {
-				display: inline-block;
-				width: 100%;
-
-				@media screen and (min-width: 1217px) {
-					width: 502px;
-				}
-
-				.headline {
-
-					img {
-						height: 60px;
-						margin-right: 12px;
-						width: 60px;
-					}
-
-					a {
-						display: table-cell;
-						font-size: 17px;
-						font-weight: 700;
-						line-height: 21px;
-
-						@media screen and (min-width: 710px) {
-							font-size: 20px;
-							line-height: 24px;
-						}
-					}
-
-					h3 {
-						display: table;
-						height: 60px;
-					}
-				}
-
-				p {
-					font-size: 14px;
-					line-height: 22px;
-					margin: 0;
-					padding-top: 4px;
-
-					@media screen and (min-width: 710px) {
-						font-size: 16px;
-						line-height: 26px;
-					}
-				}
-			}
-
-			.cta {
-				margin-top: 0;
-
-				@media screen and (min-width: 1217px) {
-					margin-top: 0;
-				}
-
-				&.wide {
-					display: none;
-					margin: 24px 0 0 0;
-
-					@media screen and (min-width: 1217px) {
-						display: table;
-					}
-
-					.button {
-						display: inline-block;
-					}
-
-					.discount {
-						display: table-cell;
-						height: 20px;
-						padding-left: 16px;
-						text-align: left;
-						vertical-align: middle;
-					}
-				}
-
-				&.narrow {
-
-					@media screen and (min-width: 1217px) {
-						display: none;
-					}
-				}
-
-				.button {
-					display: block;
-					margin: auto;
-				}
-
-				.discount {
-					color: #007363;
-					display: block;
-					font-size: 14px;
-					font-weight: 700;
-					letter-spacing: 1px;
-					line-height: 58px;
-					margin-left: 11px;
-					text-align: center;
-					width: 100%;
-				}
-			}
-
-			.includes {
-				display: inline-block;
-				padding: 0 0 28px 0;
-				vertical-align: top;
-
-				@media screen and (min-width: 1217px) {
-
-					/* design called for 65px, but Ultimate Bundle didn't fit… */
-					padding: 10px 0 0 50px;
-				}
-
-				h4 {
-					font-size: 12px;
-					font-weight: 700;
-					letter-spacing: 1px;
-					line-height: 15px;
-					margin: 24px 0 8px 0;
-					text-transform: uppercase;
-
-					@media screen and (min-width: 1217px) {
-						margin: 16px 0 19px 0;
-					}
-				}
-
-				ul {
-					display: inline-block;
-					margin: 0;
-					vertical-align: top;
-
-					&.second {
-						margin-left: 30px;
-					}
-				}
-
-				li {
-					color: #0f1031;
-					font-size: 14px;
-					font-weight: 500;
-					height: 40px;
-					margin-bottom: 8px;
-
-					img {
-						float: left;
-						height: 40px;
-						margin-right: 16px;
-						width: 40px;
-					}
-
-					span {
-						float: left;
-						line-height: 40px;
-					}
-				}
-			}
-		}
-
+		.tribe-addon {
 		.tribe-addon,
-		.tribe-bundle {
 			background-color: #fff;
 			border: 1px solid #e1e1e4;
 			border-radius: 16px;
@@ -548,21 +327,4 @@ body.tribe_events_page_tribe-app-shop {
 			}
 		}
 	}
-
-	#tribe-extensions {
-
-		p {
-			color: #0f1031;
-			font-size: 15px;
-			font-weight: 400;
-			line-height: 24px;
-			padding-bottom: 16px;
-		}
-	}
 }
-
-#tribe-bundles,
-#tribe-extensions {
-	display: none;
-}
-
