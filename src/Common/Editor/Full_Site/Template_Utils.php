@@ -277,6 +277,10 @@ class Template_Utils {
 	 * The row is renamed rather than trashed: a site running with `EMPTY_TRASH_DAYS` at 0 deletes on
 	 * trash, which would destroy the only copy of a layout this bug has stranded on a duplicate.
 	 *
+	 * The ID is part of the new slug because core returns from `wp_unique_post_slug()` before the
+	 * `wp_template` dedupe filter for draft statuses, so several renamed drafts would otherwise land
+	 * on one slug and recreate the ambiguity being cleaned up here.
+	 *
 	 * @since TBD
 	 *
 	 * @param WP_Post $post      The duplicate to rename.
@@ -288,7 +292,7 @@ class Template_Utils {
 		wp_update_post(
 			[
 				'ID'        => $post->ID,
-				'post_name' => $post_name . '-duplicate',
+				'post_name' => $post_name . '-duplicate-' . $post->ID,
 			]
 		);
 	}

@@ -200,6 +200,29 @@ class Template_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Core returns early from `wp_unique_post_slug()` for draft statuses, before the `wp_template`
+	 * dedupe filter runs, so nothing else keeps the renamed losers apart.
+	 *
+	 * @test
+	 */
+	public function should_give_each_renamed_draft_claimant_a_distinct_slug() {
+		$winner  = $this->given_a_claimant( 'draft-claimants', 'draft', '2020-01-01 00:00:00' );
+		$loser_a = $this->given_a_claimant( 'draft-claimants', 'draft', '2021-01-01 00:00:00' );
+		$loser_b = $this->given_a_claimant( 'draft-claimants', 'draft', '2022-01-01 00:00:00' );
+
+		Template_Utils::find_block_template_by_post( 'draft-claimants' );
+
+		$names = [
+			get_post( $winner )->post_name,
+			get_post( $loser_a )->post_name,
+			get_post( $loser_b )->post_name,
+		];
+
+		$this->assertEquals( 'draft-claimants', $names[0] );
+		$this->assertCount( 3, array_unique( $names ) );
+	}
+
+	/**
 	 * @test
 	 */
 	public function should_throw_exception_missing_params_on_create_block_template_post() {
