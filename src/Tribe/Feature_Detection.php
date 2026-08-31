@@ -54,7 +54,7 @@ class Tribe__Feature_Detection {
 	 * @return bool Whether async, AJAX-based, background processing is supported or not.
 	 */
 	public function supports_async_process( $force = false ) {
-		static $cached_supports_async_process = null;
+		$cache_var_name = __METHOD__;
 
 		/**
 		 * Filters whether async, AJAX-based, processing is supported or not.
@@ -77,6 +77,7 @@ class Tribe__Feature_Detection {
 		 * The loopback check is costly; memoize its result so repeated calls within
 		 * the same request do not re-run it. A `$force` request re-runs the check.
 		 */
+		$cached_supports_async_process = tribe_get_var( $cache_var_name, null );
 		if ( ! $force && null !== $cached_supports_async_process ) {
 			return $cached_supports_async_process;
 		}
@@ -137,6 +138,7 @@ class Tribe__Feature_Detection {
 		}
 
 		$cached_supports_async_process = tribe_is_truthy( $supports_async_process );
+		tribe_set_var( $cache_var_name, $cached_supports_async_process );
 
 		return $cached_supports_async_process;
 	}

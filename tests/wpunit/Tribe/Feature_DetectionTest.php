@@ -12,6 +12,7 @@ class Feature_DetectionTest extends \Codeception\TestCase\WPTestCase {
 
 		delete_option( 'tribe_feature_support_check_lock' );
 		tec_timed_option()->delete( Tester::TRANSIENT_NAME );
+		tribe_unset_var( 'Tribe__Feature_Detection::supports_async_process' );
 	}
 
 	public function tearDown() {
@@ -19,6 +20,7 @@ class Feature_DetectionTest extends \Codeception\TestCase\WPTestCase {
 
 		delete_option( 'tribe_feature_support_check_lock' );
 		tec_timed_option()->delete( Tester::TRANSIENT_NAME );
+		tribe_unset_var( 'Tribe__Feature_Detection::supports_async_process' );
 
 		parent::tearDown();
 	}
