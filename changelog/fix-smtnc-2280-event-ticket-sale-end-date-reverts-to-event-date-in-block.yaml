@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Resolved an issue where the date picker input kept showing a stale date
+  when its value was updated asynchronously after the initial render.
+timestamp: 2026-08-28T06:08:17.120Z

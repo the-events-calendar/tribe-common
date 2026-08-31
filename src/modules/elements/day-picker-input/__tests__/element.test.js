@@ -24,4 +24,33 @@ describe( 'DayPickerInput element', () => {
 		);
 		expect( component.toJSON() ).toMatchSnapshot();
 	} );
+
+	it( 'Should re-sync the input value when the value prop changes', () => {
+		const firstValue = 'September 7, 2019';
+		const secondValue = 'October 10, 2019';
+
+		const component = renderer.create(
+			<DayPickerInput
+				value={ firstValue }
+				format={ 'LL' }
+				formatDate={ jest.fn() }
+				parseDate={ jest.fn() }
+				onDayChange={ jest.fn() }
+			/>,
+		);
+
+		expect( component.toJSON().props.value ).toBe( firstValue );
+
+		component.update(
+			<DayPickerInput
+				value={ secondValue }
+				format={ 'LL' }
+				formatDate={ jest.fn() }
+				parseDate={ jest.fn() }
+				onDayChange={ jest.fn() }
+			/>,
+		);
+
+		expect( component.toJSON().props.value ).toBe( secondValue );
+	} );
 } );
