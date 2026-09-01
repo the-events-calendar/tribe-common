@@ -239,9 +239,7 @@ class Template_Utils {
 	/**
 	 * Orders the posts claiming a template slug so the canonical one comes first.
 	 *
-	 * Published rows outrank the rest, then the oldest row wins: when this bug has been reseeding
-	 * templates the newest row is the plugin's default markup and the oldest one still holds the
-	 * customization.
+	 * Published rows outrank the rest, then the oldest row wins.
 	 *
 	 * @since TBD
 	 *
