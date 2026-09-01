@@ -219,7 +219,7 @@ class Template_UtilsTest extends \Codeception\TestCase\WPTestCase {
 		];
 
 		$this->assertEquals( 'draft-claimants', $names[0] );
-		$this->assertCount( 3, array_unique( $names ) );
+		$this->assertCount( count( $names ), array_unique( $names ) );
 	}
 
 	/**

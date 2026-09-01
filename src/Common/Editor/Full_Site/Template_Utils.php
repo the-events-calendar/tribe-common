@@ -245,9 +245,9 @@ class Template_Utils {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<WP_Post> $posts The posts claiming the slug.
+	 * @param array<int, WP_Post> $posts The posts claiming the slug.
 	 *
-	 * @return array<WP_Post> The posts, canonical one first.
+	 * @return array<int, WP_Post> The posts, canonical one first.
 	 */
 	private static function sort_block_template_claimants( array $posts ): array {
 		usort(
