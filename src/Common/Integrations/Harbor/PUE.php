@@ -19,6 +19,7 @@ use TEC\Common\LiquidWeb\Harbor\Portal\Results\Product_Catalog;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Product_Collection;
 use TEC\Common\StellarWP\Uplink\Resources\Resource as Uplink_Resource;
 use TEC\Common\LiquidWeb\Harbor\Config;
+use WP_HTML_Tag_Processor;
 
 /**
  * The PUE Harbor integration.
@@ -44,6 +45,7 @@ class PUE extends Integration_Controller {
 		add_filter( 'tec_common_pue_pre_validate_key', [ $this, 'filter_tec_common_pue_pre_validate_key' ], 10, 3 );
 		add_filter( 'tribe_settings_save_field_value', [ $this, 'prevent_storing_unified_license_key' ], 10, 2 );
 		add_filter( 'tribe_license_fields', [ $this, 'readonly_and_disable_harbor_managed_license_fields' ], 30 );
+		add_filter( 'stellarwp/uplink/tec/license_field_html', [ $this, 'filter_stellarwp_uplink_tec_license_field_html' ], 10, 2 );
 	}
 
 	/**
@@ -62,6 +64,7 @@ class PUE extends Integration_Controller {
 		remove_filter( 'tec_common_pue_pre_validate_key', [ $this, 'filter_tec_common_pue_pre_validate_key' ] );
 		remove_filter( 'tribe_settings_save_field_value', [ $this, 'prevent_storing_unified_license_key' ] );
 		remove_filter( 'tribe_license_fields', [ $this, 'readonly_and_disable_harbor_managed_license_fields' ], 30 );
+		remove_filter( 'stellarwp/uplink/tec/license_field_html', [ $this, 'filter_stellarwp_uplink_tec_license_field_html' ] );
 	}
 
 	/**
@@ -106,6 +109,55 @@ class PUE extends Integration_Controller {
 	}
 
 	/**
+	 * Disable Harbor-managed Uplink license inputs (Seating, Event Tickets Plus).
+	 *
+	 * Those fields are rendered as HTML, not as PUE `license_key` fields, so the
+	 * tribe_license_fields attribute lock above cannot reach the text input.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $html Field HTML.
+	 * @param string $slug Plugin slug.
+	 *
+	 * @return string
+	 */
+	public function filter_stellarwp_uplink_tec_license_field_html( string $html, string $slug ): string {
+		if ( ! $this->harbor->is_license_field_managed_by_harbor( $slug ) ) {
+			return $html;
+		}
+
+		return $this->disable_uplink_license_input( $html );
+	}
+
+	/**
+	 * Add readonly and disabled attributes to the Uplink license text input.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $html Field HTML.
+	 *
+	 * @return string
+	 */
+	private function disable_uplink_license_input( string $html ): string {
+		if ( ! str_contains( $html, 'stellarwp-uplink__settings-field' ) ) {
+			return $html;
+		}
+
+		$processor = new WP_HTML_Tag_Processor( $html );
+
+		while ( $processor->next_tag( 'input' ) ) {
+			if ( ! $processor->has_class( 'stellarwp-uplink__settings-field' ) ) {
+				continue;
+			}
+
+			$processor->set_attribute( 'readonly', 'readonly' );
+			$processor->set_attribute( 'disabled', 'disabled' );
+		}
+
+		return $processor->get_updated_html();
+	}
+
+	/**
 	 * Short-circuit legacy PUE key validation for Harbor unified licenses.
 	 *
 	 * Harbor-managed products already use the unified key, so remote validation is
@@ -134,11 +186,7 @@ class PUE extends Integration_Controller {
 		if ( $this->harbor->is_license_field_managed_by_harbor( $slug ) ) {
 			return [
 				'status'  => 1,
-				'message' => sprintf(
-					/* translators: URL to the Liquid Web License Manager */
-					__( 'Licensed via <a href="%s" target="_blank">Unified License Manager</a>', 'tribe-common' ),
-					esc_url( lw_harbor_get_license_page_url() ),
-				),
+				'message' => $this->harbor->get_harbor_managed_license_message(),
 			];
 		}
 

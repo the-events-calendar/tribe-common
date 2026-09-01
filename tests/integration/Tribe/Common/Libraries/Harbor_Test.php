@@ -24,6 +24,28 @@ class Harbor_Test extends WPTestCase {
 	}
 
 	/**
+	 * Simulate Uplink's license-field AJAX so Harbor rewrites the validation result.
+	 *
+	 * @param callable $callback Callback to run with the AJAX action set.
+	 *
+	 * @return mixed
+	 */
+	private function with_uplink_license_ajax_request( callable $callback ) {
+		$previous           = $_REQUEST['action'] ?? null;
+		$_REQUEST['action'] = 'pue-validate-key-uplink-tec';
+
+		try {
+			return $callback();
+		} finally {
+			if ( null === $previous ) {
+				unset( $_REQUEST['action'] );
+			} else {
+				$_REQUEST['action'] = $previous;
+			}
+		}
+	}
+
+	/**
 	 * @test
 	 * @dataProvider tec_to_harbor_slug_provider
 	 */
@@ -107,7 +129,7 @@ class Harbor_Test extends WPTestCase {
 		$this->assertSame( 0, $result['status'] );
 		$this->assertStringContainsString( 'unified license key', strtolower( $result['message'] ) );
 		$this->assertStringContainsString( 'The Events Calendar Pro', $result['message'] );
-		$this->assertStringContainsString( 'Event Tickets Pro', $result['message'] );
+		$this->assertStringContainsString( 'Event Tickets Plus', $result['message'] );
 		$this->assertStringContainsString( 'Unified License Manager', $result['message'] );
 	}
 
@@ -167,6 +189,233 @@ class Harbor_Test extends WPTestCase {
 	}
 
 	/**
+	 * Uplink AJAX never hits tec_common_pue_pre_validate_key; without a premium plugin
+	 * Harbor still must reject unified keys on Uplink's client_validate_license filter.
+	 *
+	 * @test
+	 */
+	public function it_should_reject_unified_key_via_uplink_when_harbor_is_not_loaded(): void {
+		global $wp_actions;
+
+		$previous_loaded = $wp_actions['lw_harbor/loaded'] ?? null;
+		unset( $wp_actions['lw_harbor/loaded'] );
+
+		$resource = new \TEC\Common\StellarWP\Uplink\Resources\Plugin(
+			'tec-seating',
+			'Seating',
+			'1.0.0',
+			'event-tickets/event-tickets.php',
+			\stdClass::class
+		);
+
+		$results = new \TEC\Common\StellarWP\Uplink\API\Validation_Response(
+			'LWSW-PASTED-WITHOUT-PREMIUM',
+			'local',
+			(object) [ 'api_message' => 'remote' ],
+			$resource
+		);
+
+		$filtered = $this->with_uplink_license_ajax_request(
+			static function () use ( $results ) {
+				return tribe( Harbor::class )->filter_stellarwp_uplink_tec_client_validate_license(
+					$results,
+					[
+						'plugin' => 'tec-seating',
+						'key'    => 'LWSW-PASTED-WITHOUT-PREMIUM',
+					]
+				);
+			}
+		);
+
+		if ( null !== $previous_loaded ) {
+			$wp_actions['lw_harbor/loaded'] = $previous_loaded;
+		}
+
+		$this->assertNotSame( $results, $filtered );
+		$this->assertFalse( $filtered->is_valid() );
+		$message = $filtered->get_message()->get();
+		$this->assertStringContainsString( 'unified license key', strtolower( wp_strip_all_tags( $message ) ) );
+		$this->assertStringContainsString( 'The Events Calendar Pro', $message );
+		$this->assertStringContainsString( 'Event Tickets Plus', $message );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_pass_legacy_key_via_uplink_when_harbor_is_not_loaded(): void {
+		global $wp_actions;
+
+		$previous_loaded = $wp_actions['lw_harbor/loaded'] ?? null;
+		unset( $wp_actions['lw_harbor/loaded'] );
+
+		$resource = new \TEC\Common\StellarWP\Uplink\Resources\Plugin(
+			'tec-seating',
+			'Seating',
+			'1.0.0',
+			'event-tickets/event-tickets.php',
+			\stdClass::class
+		);
+
+		$results = new \TEC\Common\StellarWP\Uplink\API\Validation_Response(
+			'legacy-product-key',
+			'local',
+			(object) [ 'api_message' => 'remote' ],
+			$resource
+		);
+
+		$filtered = $this->with_uplink_license_ajax_request(
+			static function () use ( $results ) {
+				return tribe( Harbor::class )->filter_stellarwp_uplink_tec_client_validate_license(
+					$results,
+					[
+						'plugin' => 'tec-seating',
+						'key'    => 'legacy-product-key',
+					]
+				);
+			}
+		);
+
+		if ( null !== $previous_loaded ) {
+			$wp_actions['lw_harbor/loaded'] = $previous_loaded;
+		}
+
+		$this->assertSame( $results, $filtered );
+	}
+
+	/**
+	 * Once Harbor is loaded, unmanaged Uplink fields still reject unified keys
+	 * with a link to the Unified License Manager — not a remote invalid message.
+	 *
+	 * @test
+	 */
+	public function it_should_reject_unified_key_via_uplink_when_harbor_is_loaded_and_product_is_not_managed(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$resource = new \TEC\Common\StellarWP\Uplink\Resources\Plugin(
+			'tec-seating',
+			'Seating',
+			'1.0.0',
+			'event-tickets/event-tickets.php',
+			\stdClass::class
+		);
+
+		$results = new \TEC\Common\StellarWP\Uplink\API\Validation_Response(
+			'LWSW-PASTED-INTO-UPLINK-FIELD',
+			'local',
+			(object) [ 'api_message' => 'would-have-been-remote' ],
+			$resource
+		);
+
+		$filtered = $this->with_uplink_license_ajax_request(
+			static function () use ( $results ) {
+				return tribe( Harbor::class )->filter_stellarwp_uplink_tec_client_validate_license(
+					$results,
+					[
+						'plugin' => 'tec-seating',
+						'key'    => 'LWSW-PASTED-INTO-UPLINK-FIELD',
+					]
+				);
+			}
+		);
+
+		$this->assertNotSame( $results, $filtered );
+		$this->assertFalse( $filtered->is_valid() );
+		$message = $filtered->get_message()->get();
+		$this->assertStringContainsString( 'unified license key', strtolower( wp_strip_all_tags( $message ) ) );
+		$this->assertStringContainsString( 'Unified License Manager', $message );
+		$this->assertStringNotContainsString( 'The Events Calendar Pro', $message );
+	}
+
+	/**
+	 * Harbor-managed Uplink fields must not surface the remote invalid-key message.
+	 *
+	 * @test
+	 */
+	public function it_should_mark_uplink_valid_when_product_is_harbor_managed(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'event-tickets-plus' ] );
+
+		$resource = new \TEC\Common\StellarWP\Uplink\Resources\Plugin(
+			'event-tickets-plus',
+			'Event Tickets Plus',
+			'1.0.0',
+			'event-tickets-plus/event-tickets-plus.php',
+			\stdClass::class
+		);
+
+		$results = new \TEC\Common\StellarWP\Uplink\API\Validation_Response(
+			'LWSW-PASTED-INTO-UPLINK-FIELD',
+			'local',
+			(object) [ 'api_invalid' => 1, 'api_inline_invalid_message' => 'would-have-been-remote' ],
+			$resource
+		);
+
+		$filtered = $this->with_uplink_license_ajax_request(
+			static function () use ( $results ) {
+				return tribe( Harbor::class )->filter_stellarwp_uplink_tec_client_validate_license(
+					$results,
+					[
+						'plugin' => 'event-tickets-plus',
+						'key'    => 'LWSW-PASTED-INTO-UPLINK-FIELD',
+					]
+				);
+			}
+		);
+
+		$this->assertNotSame( $results, $filtered );
+		$this->assertTrue( $filtered->is_valid() );
+		$this->assertStringContainsString(
+			'Unified License Manager',
+			wp_strip_all_tags( $filtered->get_message()->get() )
+		);
+	}
+
+	/**
+	 * Uplink update checks share Client::validate_license(). Rewriting that
+	 * result would drop version/download_url and hide automatic updates.
+	 *
+	 * @test
+	 */
+	public function it_should_not_rewrite_uplink_validation_during_update_checks(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'event-tickets-plus' ] );
+
+		$resource = new \TEC\Common\StellarWP\Uplink\Resources\Plugin(
+			'event-tickets-plus',
+			'Event Tickets Plus',
+			'1.0.0',
+			'event-tickets-plus/event-tickets-plus.php',
+			\stdClass::class
+		);
+
+		$results = new \TEC\Common\StellarWP\Uplink\API\Validation_Response(
+			'LWSW-UPDATE-CHECK',
+			'local',
+			(object) [
+				'version'      => '6.0.0',
+				'download_url' => 'https://herald.example/event-tickets-plus.zip',
+			],
+			$resource
+		);
+
+		$filtered = tribe( Harbor::class )->filter_stellarwp_uplink_tec_client_validate_license(
+			$results,
+			[
+				'plugin' => 'event-tickets-plus',
+				'key'    => 'LWSW-UPDATE-CHECK',
+			]
+		);
+
+		$this->assertSame( $results, $filtered );
+		$this->assertSame( '6.0.0', $filtered->get_raw_response()->version );
+		$this->assertSame(
+			'https://herald.example/event-tickets-plus.zip',
+			$filtered->get_raw_response()->download_url
+		);
+	}
+
+	/**
 	 * @test
 	 */
 	public function it_should_report_license_field_managed_when_product_is_harbor_licensed(): void {
@@ -209,6 +458,16 @@ class Harbor_Test extends WPTestCase {
 		$message = tribe( Harbor::class )->get_unified_license_key_entry_error_message();
 
 		$this->assertStringContainsString( 'unified license key', strtolower( $message ) );
+		$this->assertStringContainsString( '<a href="', $message );
+		$this->assertStringContainsString( 'Unified License Manager', $message );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_include_license_manager_link_in_harbor_managed_license_message(): void {
+		$message = tribe( Harbor::class )->get_harbor_managed_license_message();
+
 		$this->assertStringContainsString( '<a href="', $message );
 		$this->assertStringContainsString( 'Unified License Manager', $message );
 	}
