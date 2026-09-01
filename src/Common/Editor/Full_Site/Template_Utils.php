@@ -3,6 +3,7 @@
 namespace TEC\Common\Editor\Full_Site;
 
 use InvalidArgumentException;
+use TEC\Common\StellarWP\DB\DB;
 use WP_Block_Template;
 use WP_Post;
 use WP_Query;
@@ -273,11 +274,12 @@ class Template_Utils {
 	 * Moves a duplicate template off the slug it is contesting.
 	 *
 	 * The row is renamed rather than trashed: a site running with `EMPTY_TRASH_DAYS` at 0 deletes on
-	 * trash, which would destroy the only copy of a layout this bug has stranded on a duplicate.
+	 * trash, and the duplicate can be holding the only copy of a layout. The ID keeps each renamed row
+	 * distinct.
 	 *
-	 * The ID is part of the new slug because core returns from `wp_unique_post_slug()` before the
-	 * `wp_template` dedupe filter for draft statuses, so several renamed drafts would otherwise land
-	 * on one slug and recreate the ambiguity being cleaned up here.
+	 * Only the slug column is written. `wp_update_post()` re-saves the whole row, and this can run
+	 * while a resolution is served to a visitor, so `post_content` would go through kses and lose the
+	 * markup inside any `core/html` block.
 	 *
 	 * @since TBD
 	 *
@@ -287,11 +289,12 @@ class Template_Utils {
 	 * @return void
 	 */
 	private static function rename_duplicate_block_template( WP_Post $post, string $post_name ): void {
-		wp_update_post(
-			[
-				'ID'        => $post->ID,
-				'post_name' => $post_name . '-duplicate-' . $post->ID,
-			]
+		DB::update(
+			DB::prefix( 'posts' ),
+			[ 'post_name' => $post_name . '-duplicate-' . $post->ID ],
+			[ 'ID' => $post->ID ]
 		);
+
+		clean_post_cache( $post->ID );
 	}
 }

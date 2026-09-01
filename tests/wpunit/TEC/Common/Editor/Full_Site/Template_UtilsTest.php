@@ -105,8 +105,8 @@ class Template_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * The `wp_theme` taxonomy inherits the `edit_posts` capability for `assign_terms`, so a front-end
-	 * resolution by a visitor used to store a termless row that no lookup could ever find again.
+	 * The `wp_theme` taxonomy inherits the `edit_posts` capability for `assign_terms`, so `tax_input`
+	 * is dropped for a visitor, and a termless row is one no lookup can find again.
 	 *
 	 * @test
 	 */
@@ -223,6 +223,30 @@ class Template_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * The rename runs while a resolution is being served, so the current user can be a visitor with no
+	 * `unfiltered_html`: re-saving the row through the post pipeline would put its markup through kses.
+	 *
+	 * @test
+	 */
+	public function should_leave_the_renamed_claimant_markup_untouched() {
+		$content = "<!-- wp:html -->\n<script>console.log( 'kept' );</script>\n<!-- /wp:html -->";
+		$author  = static::factory()->user->create( [ 'role' => 'administrator' ] );
+
+		wp_set_current_user( $author );
+
+		$winner = $this->given_a_claimant( 'markup-claimants', 'publish', '2020-01-01 00:00:00' );
+		$loser  = $this->given_a_claimant( 'markup-claimants', 'publish', '2021-01-01 00:00:00', $content );
+
+		wp_set_current_user( 0 );
+
+		Template_Utils::find_block_template_by_post( 'markup-claimants' );
+
+		$this->assertEquals( 'markup-claimants', get_post( $winner )->post_name );
+		$this->assertStringStartsWith( 'markup-claimants-duplicate', get_post( $loser )->post_name );
+		$this->assertEquals( $content, get_post( $loser )->post_content );
+	}
+
+	/**
 	 * @test
 	 */
 	public function should_throw_exception_missing_params_on_create_block_template_post() {
@@ -237,19 +261,20 @@ class Template_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	 * The term is attached directly rather than through `tax_input` so the fixture does not depend on
 	 * the behaviour under test.
 	 *
-	 * @param string $slug   The `post_name` the row claims.
-	 * @param string $status The `post_status` to store the row with.
-	 * @param string $date   The `post_date` to store the row with, in site time.
+	 * @param string $slug    The `post_name` the row claims.
+	 * @param string $status  The `post_status` to store the row with.
+	 * @param string $date    The `post_date` to store the row with, in site time.
+	 * @param string $content The `post_content` to store the row with.
 	 *
 	 * @return int The stored post ID.
 	 */
-	private function given_a_claimant( string $slug, string $status, string $date ): int {
+	private function given_a_claimant( string $slug, string $status, string $date, string $content = 'Lorem ipsum...' ): int {
 		$id = wp_insert_post(
 			[
 				'post_name'     => $slug,
 				'post_type'     => 'wp_template',
 				'post_status'   => $status,
-				'post_content'  => 'Lorem ipsum...',
+				'post_content'  => $content,
 				'post_date'     => $date,
 				'post_date_gmt' => get_gmt_from_date( $date ),
 			]
