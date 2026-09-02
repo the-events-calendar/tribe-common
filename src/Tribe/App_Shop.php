@@ -129,6 +129,10 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 
 		/**
 		 * Renders the Shop App page
+		 *
+		 * @since TBD Removed the bundles and extensions data passed to the template.
+		 *
+		 * @return void
 		 */
 		public function do_menu_page() {
 			$main = Tribe__Main::instance();
