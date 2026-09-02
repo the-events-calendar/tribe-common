@@ -278,6 +278,7 @@ abstract class Base {
 	 * object properties will be "scalarized".
 	 *
 	 * @since 5.0.3
+	 * @since TBD Do not write again over an entry that is already cached.
 	 *
 	 * @param string $cache_slug The cache slug of the post type model.
 	 * @param string $filter     The filter to cache the model for.
@@ -289,6 +290,15 @@ abstract class Base {
 		$cache = new Cache();
 
 		return function () use ( $cache, $cache_key, $filter ) {
+			if ( false !== $this->get_cached_properties( $filter ) ) {
+				/*
+				 * The entry is already cached: `get_properties` would hand back the objects restored from
+				 * that entry and serializing those a second time is lossy, since restored objects only
+				 * carry their values, not the callbacks used to build them.
+				 */
+				return;
+			}
+
 			$properties = $this->get_properties( $filter );
 			$pre_serialized_properties = [];
 
@@ -355,6 +365,8 @@ abstract class Base {
 
 	/**
 	 * Commits the model properties to cache immediately.
+	 *
+	 * If the properties are already cached for the filter, this is a no-op.
 	 *
 	 * @since 5.0.3
 	 *
