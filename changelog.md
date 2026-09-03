@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.12.3] 2026-09-03
+
+* Language - 3 new strings added, 15 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.12.2.1] 2026-08-26
 
 * Security - Harden parsing of HTML class attribute values.
