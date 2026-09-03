@@ -54,7 +54,7 @@
 			},
 			{
 				"file": "package.json",
-				"regex": "(\"version\": ?\")([^\"]+)"
+				"regex": "(\"version\": ?\")([0-9][^\"]*)"
 			}
 		],
 		"views": [

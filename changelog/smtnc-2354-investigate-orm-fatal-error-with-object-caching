@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Stopped post type models from re-serializing properties that were restored from an already warm object cache, and made lazy collections resolve to an empty array instead of throwing a fatal error when they have no callback left to call.
