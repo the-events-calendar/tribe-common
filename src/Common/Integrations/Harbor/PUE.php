@@ -71,7 +71,7 @@ class PUE extends Integration_Controller {
 	 * Modify the Harbor-managed legacy fields and make them
 	 * readonly and disabled when the product is licensed via Harbor.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param array $fields The license fields.
 	 *
@@ -114,7 +114,7 @@ class PUE extends Integration_Controller {
 	 * Those fields are rendered as HTML, not as PUE `license_key` fields, so the
 	 * tribe_license_fields attribute lock above cannot reach the text input.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param string $html Field HTML.
 	 * @param string $slug Plugin slug.
@@ -132,7 +132,7 @@ class PUE extends Integration_Controller {
 	/**
 	 * Add readonly and disabled attributes to the Uplink license text input.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param string $html Field HTML.
 	 *
@@ -164,7 +164,7 @@ class PUE extends Integration_Controller {
 	 * skipped. Unified keys pasted into non-managed product fields are rejected with
 	 * a link to the LW License Manager.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param array|null                $response Early response, or null to continue.
 	 * @param string                    $key      The license key being validated.
@@ -207,7 +207,7 @@ class PUE extends Integration_Controller {
 	 * into product options. Unified keys pasted into non-managed fields are rejected
 	 * and the previously stored product key is kept.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param mixed  $value    The field value about to be saved.
 	 * @param string $field_id The settings field ID.
@@ -235,7 +235,7 @@ class PUE extends Integration_Controller {
 	/**
 	 * Get the stored product license key without Harbor option overlays.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param string $option_name The option name.
 	 *

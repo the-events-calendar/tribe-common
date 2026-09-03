@@ -81,7 +81,7 @@ class Lazy_Collection implements Collection_Interface {
 	 * rather than blowing up on an invalid callback.
 	 *
 	 * @since 4.9.14
-	 * @since TBD Do not call the callback if it's not callable.
+	 * @since 6.12.3 Do not call the callback if it's not callable.
 	 */
 	protected function resolve() {
 		if ( null !== $this->items ) {

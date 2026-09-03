@@ -278,7 +278,7 @@ abstract class Base {
 	 * object properties will be "scalarized".
 	 *
 	 * @since 5.0.3
-	 * @since TBD Do not write again over an entry that is already cached.
+	 * @since 6.12.3 Do not write again over an entry that is already cached.
 	 *
 	 * @param string $cache_slug The cache slug of the post type model.
 	 * @param string $filter     The filter to cache the model for.

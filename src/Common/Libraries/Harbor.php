@@ -52,7 +52,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Prefix for Liquid Web unified license keys.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @var string
 	 */
@@ -168,7 +168,7 @@ class Harbor extends Controller_Contract {
 	 * Integrations\Harbor\PUE is not registered — so this callback only
 	 * prevents a unified key from being sent through legacy PUE validation.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param array|null                $response Early response, or null to continue.
 	 * @param string                    $key      The license key being validated.
@@ -207,7 +207,7 @@ class Harbor extends Controller_Contract {
 	 * Only the Licenses UI AJAX is rewritten. Uplink also uses this method for
 	 * plugin update checks, which must keep the catalog/Herald payload.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param Validation_Response $results License validation results.
 	 * @param array               $args    License validation arguments.
@@ -255,7 +255,7 @@ class Harbor extends Controller_Contract {
 	 * Distinguishes Licenses UI (`pue-validate-key-uplink-*`) from plugin update checks,
 	 * which share Client::validate_license() and must not be rewritten.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @return bool
 	 */
@@ -272,7 +272,7 @@ class Harbor extends Controller_Contract {
 	 * not persisted as a "new" per-product key. Falls back to a stub resource
 	 * for message rendering when the collection is unavailable.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param string $key      License key being validated.
 	 * @param string $plugin   Uplink plugin slug.
@@ -309,7 +309,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Uplink pipeline: get the resource used to render a synthetic validation message.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param string $plugin Uplink plugin slug.
 	 *
@@ -335,7 +335,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Guidance shown when a unified key is entered but Harbor cannot load yet.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @return string
 	 */
@@ -499,7 +499,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Whether a license key uses the unified Liquid Web format.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param string $key The license key.
 	 *
@@ -520,7 +520,7 @@ class Harbor extends Controller_Contract {
 	 * to a product without having activated it here, in which case a legacy per-product
 	 * key should still be accepted.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @param string $tec_product_slug The TEC product slug.
 	 *
@@ -539,7 +539,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Error message shown when a unified license key is entered in a per-product field.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @return string
 	 */
@@ -555,7 +555,7 @@ class Harbor extends Controller_Contract {
 	/**
 	 * Success message shown on Harbor-managed per-product license fields.
 	 *
-	 * @since TBD
+	 * @since 6.12.3
 	 *
 	 * @return string
 	 */
