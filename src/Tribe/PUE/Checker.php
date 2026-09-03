@@ -1244,7 +1244,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			 * Returning a non-null array short-circuits remote validation and is used as
 			 * the AJAX/validation response. Return null to continue normal validation.
 			 *
-			 * @since TBD
+			 * @since 6.12.3
 			 *
 			 * @param array|null          $response Early response, or null to continue.
 			 * @param string              $key      The license key being validated.
