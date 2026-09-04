@@ -7,6 +7,11 @@ class Example_Object {
 	 */
 	protected $string_value;
 
+	/**
+	 * @var bool
+	 */
+	public static $invoked = false;
+
 	public function __construct( $value ) {
 		$this->string_value = $value;
 	}
@@ -15,12 +20,10 @@ class Example_Object {
 		return $this->string_value;
 	}
 
-	public static function get_classes() {
-		return 'static-callable';
-	}
+	public static function flag() {
+		self::$invoked = true;
 
-	public function get_classes_dynamic() {
-		return 'dynamic-callable';
+		return 'flagged';
 	}
 }
 
@@ -112,24 +115,6 @@ class Element_ClassesTest extends \Codeception\TestCase\WPTestCase {
 				[
 					'test-string',
 					'my-other-15-string',
-				],
-			],
-
-			'static-callable' => [
-				// Value
-				[ Example_Object::class, 'get_classes' ],
-				// Expected
-				[
-					'static-callable',
-				],
-			],
-
-			'dynamic-callable' => [
-				// Value
-				[ new Example_Object( '' ), 'get_classes_dynamic' ],
-				// Expected
-				[
-					'dynamic-callable',
 				],
 			],
 
@@ -290,5 +275,193 @@ class Element_ClassesTest extends \Codeception\TestCase\WPTestCase {
 		$expected = ' class="test-class-one test-class-two test-class-three test-class-four" ';
 
 		$this->assertEquals( $expected, $actual );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_not_invoke_a_string_callable_map_value() {
+		$this->setExpectedIncorrectUsage( 'Tribe\Utils\Element_Classes::parse_array' );
+
+		Example_Object::$invoked = false;
+
+		$el_classes = new Element_Classes( [ 'test-class' => Example_Object::class . '::flag' ] );
+		$el_classes->get_classes();
+
+		$this->assertFalse( Example_Object::$invoked );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_not_invoke_an_array_callable() {
+		$this->setExpectedIncorrectUsage( 'Tribe\Utils\Element_Classes::parse' );
+
+		Example_Object::$invoked = false;
+
+		$el_classes = new Element_Classes( [ [ Example_Object::class, 'flag' ] ] );
+		$el_classes->get_classes();
+
+		$this->assertFalse( Example_Object::$invoked );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_evaluate_closure_conditionals() {
+		$el_classes = new Element_Classes(
+			[
+				'visible-class' => static function () {
+					return true;
+				},
+				'hidden-class'  => static function () {
+					return false;
+				},
+			]
+		);
+
+		$this->assertEquals( [ 'visible-class' ], $el_classes->get_classes() );
+	}
+
+	/**
+	 * Runs a callback while capturing whether `_doing_it_wrong()` fires during it.
+	 *
+	 * @param callable $callback
+	 *
+	 * @return bool
+	 */
+	protected function fires_doing_it_wrong( callable $callback ) {
+		$fired = false;
+		$catch = static function () use ( &$fired ) {
+			$fired = true;
+		};
+
+		add_action( 'doing_it_wrong_run', $catch );
+		add_filter( 'doing_it_wrong_trigger_error', '__return_false' );
+
+		$callback();
+
+		remove_action( 'doing_it_wrong_run', $catch );
+		remove_filter( 'doing_it_wrong_trigger_error', '__return_false' );
+
+		return $fired;
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_warn_when_a_string_callable_map_value_is_used() {
+		$this->setExpectedIncorrectUsage( 'Tribe\Utils\Element_Classes::parse_array' );
+
+		$fired = $this->fires_doing_it_wrong( function () {
+			$el_classes = new Element_Classes( [ 'test-class' => Example_Object::class . '::flag' ] );
+			$el_classes->get_classes();
+		} );
+
+		$this->assertTrue( $fired );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_warn_when_a_bare_function_name_map_value_is_used() {
+		$this->setExpectedIncorrectUsage( 'Tribe\Utils\Element_Classes::parse_array' );
+
+		$fired = $this->fires_doing_it_wrong( function () {
+			$el_classes = new Element_Classes( [ 'test-class' => '__return_true' ] );
+			$el_classes->get_classes();
+		} );
+
+		$this->assertTrue( $fired );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_warn_when_an_array_callable_is_used() {
+		$this->setExpectedIncorrectUsage( 'Tribe\Utils\Element_Classes::parse' );
+
+		$fired = $this->fires_doing_it_wrong( function () {
+			$el_classes = new Element_Classes( [ [ Example_Object::class, 'flag' ] ] );
+			$el_classes->get_classes();
+		} );
+
+		$this->assertTrue( $fired );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_warn_once_per_callable_value_when_multiple_are_present() {
+		$this->setExpectedIncorrectUsage( 'Tribe\Utils\Element_Classes::parse_array' );
+
+		$fired_count = 0;
+		$count       = static function () use ( &$fired_count ) {
+			$fired_count++;
+		};
+
+		add_action( 'doing_it_wrong_run', $count );
+		add_filter( 'doing_it_wrong_trigger_error', '__return_false' );
+
+		$el_classes = new Element_Classes(
+			[
+				'first'  => '__return_true',
+				'second' => '__return_false',
+			]
+		);
+		$el_classes->get_classes();
+
+		remove_action( 'doing_it_wrong_run', $count );
+		remove_filter( 'doing_it_wrong_trigger_error', '__return_false' );
+
+		$this->assertEquals( 2, $fired_count );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_not_warn_for_plain_string_and_bool_values() {
+		$fired = $this->fires_doing_it_wrong( function () {
+			$el_classes = new Element_Classes( [ 'test-class' => true, 'other-class' ] );
+			$el_classes->get_classes();
+		} );
+
+		$this->assertFalse( $fired );
+	}
+
+	/**
+	 * @test
+	 *
+	 * @group utils
+	 */
+	public function it_should_not_warn_for_closure_map_values() {
+		$fired = $this->fires_doing_it_wrong( function () {
+			$el_classes = new Element_Classes(
+				[
+					'test-class' => static function () {
+						return true;
+					},
+				]
+			);
+			$el_classes->get_classes();
+		} );
+
+		$this->assertFalse( $fired );
 	}
 }
