@@ -19,5 +19,17 @@ else
 	exit 1
 fi
 
+# Both `changelogger validate` and `changelogger write` skip anything that is not a *.yaml file, so a
+# leftover jetpack-changelogger entry passes every check and is then dropped from the release without a
+# word. Scan the whole directory, not just this PR's additions, so a stale file cannot survive merges.
+STRAY_FILES=$(find changelog -maxdepth 1 -type f ! -name '*.yaml' ! -name '.gitkeep' | sort)
+
+if [[ -n "$STRAY_FILES" ]]; then
+	echo "::error::Unsupported changelog file(s) found."
+	echo "$STRAY_FILES"
+	echo "Only changelog/*.yaml entries are processed at release. Re-create them by running: npm run changelog"
+	exit 1
+fi
+
 echo "Validating changelog files..."
 npx @stellarwp/changelogger validate
