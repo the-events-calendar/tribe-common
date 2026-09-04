@@ -2,8 +2,16 @@
 
 use Tribe\Utils\Paths;
 use Tribe\Utils\Strings;
+use TEC\Common\StellarWP\Migrations\Contracts\Template_Engine;
 
-class Tribe__Template {
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
+
+/**
+ * Tribe__Template class.
+ *
+ * @package TEC\Common\Tribe
+ */
+class Tribe__Template implements Template_Engine {
 	/**
 	 * The folders into which we will look for the template.
 	 *
