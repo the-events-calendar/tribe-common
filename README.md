@@ -35,8 +35,14 @@ store as `tec-plans`.
 5. Open the PR. The template asks for the change ID, and CI checks the plan exists
    and is still active.
 
-Every `openspec` command takes `--store tec-plans`. There is no default and no
-repo-side link, so omitting it writes the change into whatever repository you
+Commands that read or write plans take `--store tec-plans`: `new change`,
+`status`, `instructions`, `list`, `show`, `validate`, `archive`, `context` and
+`doctor`. The `openspec store` commands manage registrations instead and take
+`--id`, which is why the setup block above uses that.
+
+A machine that has run the skills repo's `install.sh` has OpenSpec's
+`defaultStore` set to `tec-plans` and resolves without the flag. Pass it anyway:
+a machine without that setting writes the change into whatever repository you
 happen to be standing in.
 
 ### Where the rest is written down
@@ -48,7 +54,7 @@ archiving it once (after the last repository merges, not per repo). Install it w
 
 The below will work only once the `stellarwp/skills-se` becomes public.
 
-```
+```text
 /plugin marketplace add stellarwp/skills-se
 /plugin install nexcess-se
 ```
@@ -84,7 +90,10 @@ cd ~/repos
 # Your tribe-common working copy must live at the-events-calendar/common. TEC tracks common as
 # a submodule, so the simplest option is to work directly in the-events-calendar/common. To test
 # a checkout kept elsewhere, mirror CI:
-#   rm -rf the-events-calendar/common && cp -r tribe-common the-events-calendar/common
+#   This DELETES the-events-calendar/common, including anything uncommitted or
+#   untracked in it. Commit or stash there first, and check it is clean:
+#     git -C the-events-calendar/common status --porcelain   # expect no output
+#   Then: rm -rf the-events-calendar/common && cp -r tribe-common the-events-calendar/common
 
 # Common dependencies (dev included)
 ./slic/slic use the-events-calendar/common
@@ -130,11 +139,11 @@ CI skips the whole test job when a PR changes no PHP files.
 
 ### How this differs from CI
 
-- CI pins WordPress with `slic wp core update --force --version=6.8` (the minimum supported);
+- CI pins WordPress with `./slic/slic wp core update --force --version=6.8` (the minimum supported);
   locally, use whatever slic ships unless chasing a version-specific failure.
 - CI picks the TEC branch by smart-checkout fallback (same-name branch → PR base → default).
   Locally, check out whichever TEC branch your change needs.
 - After `rest_tec_v1_integration`, CI also runs `npm ci` (Node 18.17.0 from `.nvmrc`) and
   `npm run spectral -- http://localhost:8888/wp-json/tec/v1/docs/`. Reproducible locally after
-  `slic wp plugin activate the-events-calendar` and
-  `slic wp rewrite structure '/%postname%/' --hard`, but not needed for normal PHP work.
+  `./slic/slic wp plugin activate the-events-calendar` and
+  `./slic/slic wp rewrite structure '/%postname%/' --hard`, but not needed for normal PHP work.
