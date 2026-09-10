@@ -3,6 +3,7 @@
 namespace TEC\Common\Editor\Full_Site;
 
 use InvalidArgumentException;
+use TEC\Common\StellarWP\DB\DB;
 use WP_Block_Template;
 use WP_Post;
 use WP_Query;
@@ -106,8 +107,8 @@ class Template_Utils {
 		$wp_query_args  = [
 			'post_name__in'  => [ $post_name ],
 			'post_type'      => 'wp_template',
-			'post_status'    => [ 'auto-draft', 'draft', 'publish', 'trash' ],
-			'posts_per_page' => 1,
+			'post_status'    => [ 'auto-draft', 'draft', 'publish' ],
+			'posts_per_page' => -1,
 			'no_found_rows'  => true,
 			'tax_query'      => [
 				[
@@ -125,7 +126,17 @@ class Template_Utils {
 			return null;
 		}
 
-		$post = $posts[0] ?? null;
+		$posts = self::sort_block_template_claimants( $posts );
+		$post  = array_shift( $posts );
+
+		/*
+		 * More than one row claiming the slug is what makes the Site Editor save ambiguous: core's own
+		 * unique-slug guard then renames the row being saved, so the edit lands on a slug nothing
+		 * resolves. Move the losers aside so a single row owns the slug from here on.
+		 */
+		foreach ( $posts as $duplicate ) {
+			self::rename_duplicate_block_template( $duplicate, $post_name );
+		}
 
 		// Validate our query result.
 		if ( ! $post instanceof WP_Post ) {
@@ -175,6 +186,18 @@ class Template_Utils {
 			return null;
 		}
 
+		/*
+		 * `wp_insert_post()` only honours `tax_input` for a user who can `assign_terms`, and `wp_theme`
+		 * declares no capabilities so it inherits `edit_posts`. A resolution served to a visitor would
+		 * otherwise store a termless row that no lookup can ever match, and insert another one on every
+		 * subsequent request.
+		 */
+		if ( is_array( $insert['tax_input'] ) ) {
+			foreach ( $insert['tax_input'] as $taxonomy => $terms ) {
+				wp_set_object_terms( $id, $terms, $taxonomy );
+			}
+		}
+
 		return self::hydrate_block_template_by_post( get_post( $id ) );
 	}
 
@@ -212,5 +235,66 @@ class Template_Utils {
 		$template->modified       = $post->post_modified;
 
 		return $template;
+	}
+
+	/**
+	 * Orders the posts claiming a template slug so the canonical one comes first.
+	 *
+	 * Published rows outrank the rest, then the oldest row wins.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<int, WP_Post> $posts The posts claiming the slug.
+	 *
+	 * @return array<int, WP_Post> The posts, canonical one first.
+	 */
+	private static function sort_block_template_claimants( array $posts ): array {
+		usort(
+			$posts,
+			static function ( WP_Post $a, WP_Post $b ): int {
+				$a_rank = 'publish' === $a->post_status ? 0 : 1;
+				$b_rank = 'publish' === $b->post_status ? 0 : 1;
+
+				if ( $a_rank !== $b_rank ) {
+					return $a_rank <=> $b_rank;
+				}
+
+				if ( $a->post_date_gmt !== $b->post_date_gmt ) {
+					return strcmp( $a->post_date_gmt, $b->post_date_gmt );
+				}
+
+				return $a->ID <=> $b->ID;
+			}
+		);
+
+		return $posts;
+	}
+
+	/**
+	 * Moves a duplicate template off the slug it is contesting.
+	 *
+	 * The row is renamed rather than trashed: a site running with `EMPTY_TRASH_DAYS` at 0 deletes on
+	 * trash, and the duplicate can be holding the only copy of a layout. The ID keeps each renamed row
+	 * distinct.
+	 *
+	 * Only the slug column is written. `wp_update_post()` re-saves the whole row, and this can run
+	 * while a resolution is served to a visitor, so `post_content` would go through kses and lose the
+	 * markup inside any `core/html` block.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post      The duplicate to rename.
+	 * @param string  $post_name The slug being contested.
+	 *
+	 * @return void
+	 */
+	private static function rename_duplicate_block_template( WP_Post $post, string $post_name ): void {
+		DB::update(
+			DB::prefix( 'posts' ),
+			[ 'post_name' => $post_name . '-duplicate-' . $post->ID ],
+			[ 'ID' => $post->ID ]
+		);
+
+		clean_post_cache( $post->ID );
 	}
 }

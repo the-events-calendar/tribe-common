@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Resolved an issue where saving a Full Site Editing template could store
+  the change on a duplicate template and revert the active template to its
+  default layout.
+timestamp: 2026-08-28T22:43:35.308Z
