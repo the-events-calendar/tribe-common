@@ -3,6 +3,9 @@ name: "Release: Replace TBD Entries"
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   replace-tbd:
     runs-on: ubuntu-latest
@@ -14,7 +17,7 @@ jobs:
           echo "- Current ref: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.ref }}
           token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
