@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# npm/@stellarwp/changelogger variant of check-changelog.sh.
+# Uses @stellarwp/changelogger (npm) instead of jetpack-changelogger (composer).
 
 BASE=${1-origin/main}
 HEAD=${2-HEAD}
@@ -28,6 +28,17 @@ if [[ -n "$STRAY_FILES" ]]; then
 	echo "::error::Unsupported changelog file(s) found."
 	echo "$STRAY_FILES"
 	echo "Only changelog/*.yaml entries are processed at release. Re-create them by running: npm run changelog"
+	exit 1
+fi
+
+# The release version-bump workflow find-and-replaces on "version", which also matches
+# changelogger's type label further down the same file. Catch a corrupted label here
+# rather than in a shipped changelog.
+TYPE_LABEL=$(jq -r '.changelogger.types.version // empty' package.json 2>/dev/null)
+
+if [[ -n "$TYPE_LABEL" && "$TYPE_LABEL" != "Version" ]]; then
+	echo "::error::changelogger types.version in package.json must be \"Version\", found \"$TYPE_LABEL\"."
+	echo "It was most likely overwritten by the release version bump. Restore the label."
 	exit 1
 fi
 
