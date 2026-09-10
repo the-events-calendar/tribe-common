@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Resolved an issue where async process feature detection could block for 10–33 seconds per request and never persist a negative result on hosts where the loopback request fails.
