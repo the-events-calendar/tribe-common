@@ -205,16 +205,35 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 * Adds properties to the model.
 	 *
 	 * @since 6.9.0
+	 * @since TBD Update the additional properties logic to support aliases defined by the model `get_properties_to_add`
+	 *        method.
 	 *
-	 * @param array   $formatted_post The formatted post.
-	 * @param WP_Post $original_post  The original post.
+	 * @param array<string,mixed> $formatted_post The formatted post.
+	 * @param WP_Post             $original_post  The original post.
 	 *
-	 * @return array The response with the properties added.
+	 * @return array<string,mixed> The response with the properties added.
 	 */
 	protected function add_properties_to_model( array $formatted_post, WP_Post $original_post ): array {
 		$properties_to_add = $this->get_model_class()::get_properties_to_add();
 
-		$data = array_merge( (array) $formatted_post, array_intersect_key( (array) $original_post, $properties_to_add ) );
+		$additional_properties = [];
+		foreach ( (array) $original_post as $key => $value ) {
+			if ( ! isset( $properties_to_add[ $key ] ) ) {
+				continue;
+			}
+
+			$property_value = $properties_to_add[ $key ];
+
+			if ( is_string( $property_value ) ) {
+				// Alias.
+				$additional_properties[ $property_value ] = $value;
+			} elseif ( $property_value === true ) {
+				// Add as is. Strict check to keep the previous logic.
+				$additional_properties[ $key ] = $value;
+			}
+		}
+
+		$data = array_merge( (array) $formatted_post, $additional_properties );
 
 		$data['link'] = $data['permalink'] ?? $data['link'];
 		unset(

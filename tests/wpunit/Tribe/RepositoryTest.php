@@ -174,13 +174,13 @@ class RepositoryTest extends WPTestCase {
 		);
 		$this->assertEquals(
 			[ $book_2_id, $book_3_id ],
-			$this->repository()->where( 'meta_not_in', 'author_name', 'Lewis Carroll' )->get_ids(),
+			$this->repository()->where( 'meta_not_in', 'author_name', 'Lewis Carroll' )->order_by( 'ID', 'asc' )->get_ids(),
 			"meta_not_in should support single values with space"
 		);
 
 		$this->assertEquals(
 			[ $book_2_id, $book_3_id ],
-			$this->repository()->where( 'meta_not_in', 'author_name', [ 'Lewis Carroll' ] )->get_ids(),
+			$this->repository()->where( 'meta_not_in', 'author_name', [ 'Lewis Carroll' ] )->order_by( 'ID', 'asc' )->get_ids(),
 			"meta_not_in should support single values with spaces in array"
 		);
 	}

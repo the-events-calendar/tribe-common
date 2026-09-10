@@ -28,7 +28,7 @@ class Uplink_Controller extends Controller_Contract {
 	 *
 	 * @since 6.3.0
 	 */
-	public function do_register(): void {
+	protected function do_register(): void {
 		$this->add_actions();
 	}
 

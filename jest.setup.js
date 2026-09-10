@@ -3,12 +3,8 @@
  */
 import moment from 'moment-timezone';
 import React from 'react';
-import renderer from 'react-test-renderer';
 import $ from 'jquery';
-import Enzyme, { shallow, render, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
-Enzyme.configure( { adapter: new Adapter() } );
+import renderer from 'react-test-renderer';
 
 global.jQuery = $;
 global.$ = $;
@@ -21,10 +17,32 @@ global.wp = {
 	blockEditor: {},
 	editor: {},
 	hooks: {},
+	i18n: {
+		_x: (input) => input,
+	},
 };
-global.shallow = shallow;
-global.render = render;
-global.mount = mount;
+
 global.renderer = renderer;
+
+/**
+ * Mock DateFormatter — a WordPress global provided by PHP scripts.
+ */
+global.DateFormatter = class DateFormatter {
+	parseDate( value, format ) {
+		if ( ! value ) {
+			return undefined;
+		}
+		const d = new Date( value );
+		return isNaN( d.getTime() ) ? undefined : d;
+	}
+
+	formatDate( date, format ) {
+		if ( ! date ) {
+			return '';
+		}
+		const options = { year: 'numeric', month: 'long', day: 'numeric' };
+		return date.toLocaleDateString( 'en-US', options );
+	}
+};
 
 moment.tz.setDefault( 'UTC' );
