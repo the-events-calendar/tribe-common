@@ -40,7 +40,7 @@ abstract class Tribe__Abstract_Deactivation {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$site = get_current_site();
-		$blog_ids = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE site_id=%d", $site->id ) );
+		$blog_ids = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE site_id=%d", $site->id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Multisite blog lookup on deactivation; one-off.
 		$large = wp_is_large_network();
 		foreach ( $blog_ids as $blog ) {
 			tribe_set_time_limit( 30 );

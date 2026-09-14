@@ -247,11 +247,13 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		$action = $wpdb->esc_like( 'tribe_queue_' . $action ) . '%';
 
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Queue rows are read directly from options by design; values are prepared.
 		$queues = $wpdb->get_col( $wpdb->prepare( "
 			SELECT DISTINCT(option_name)
 			FROM {$wpdb->options}
 			WHERE option_name LIKE %s
 		", $action ) );
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		if ( empty( $queues ) ) {
 			return 0;
@@ -290,11 +292,13 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		$key = $wpdb->esc_like( $key ) . '%';
 
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Queue rows are read directly from options by design; values are prepared.
 		$wpdb->query( $wpdb->prepare( "
 			DELETE
 			FROM {$wpdb->options}
 			WHERE option_name LIKE %s
 		", $key ) );
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		delete_transient( $meta_key );
 	}
@@ -638,6 +642,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		$key = $wpdb->esc_like( $this->identifier . '_batch_' ) . '%';
 
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Queue rows are read directly from options by design; values are prepared.
 		$query = $wpdb->get_row( $wpdb->prepare( "
 			SELECT *
 			FROM {$wpdb->options}
@@ -645,6 +650,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 			ORDER BY option_id ASC
 			LIMIT 1
 		", $key ) );
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		$batch       = new stdClass();
 		$batch->key  = $query->option_name;
@@ -762,11 +768,13 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		$key = $wpdb->esc_like( $this->identifier . '_batch_' ) . '%';
 
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Queue rows are read directly from options by design; values are prepared.
 		$count = $wpdb->get_var( $wpdb->prepare( "
 			SELECT COUNT(*)
 			FROM {$wpdb->options}
 			WHERE option_name LIKE %s
 		", $key ) );
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		return $count <= 0;
 	}

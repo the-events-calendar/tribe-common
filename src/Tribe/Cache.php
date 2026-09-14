@@ -187,19 +187,20 @@ class Tribe__Cache implements ArrayAccess {
 
 		$time = time();
 
-		$sql = "
-			DELETE
+		$sql = $wpdb->prepare(
+			"DELETE
 				a,
 				b
 			FROM
 				{$wpdb->options} a
 				INNER JOIN {$wpdb->options} b
 					ON b.option_name = CONCAT( '_transient_timeout_', SUBSTRING( a.option_name, 12 ) )
-					AND b.option_value < {$time}
+					AND b.option_value < %d
 			WHERE
-				a.option_name LIKE '\_transient\_tribe\_%'
-				AND a.option_name NOT LIKE '\_transient\_timeout\_tribe\_%'
-		";
+				a.option_name LIKE '\_transient\_tribe\_%%'
+				AND a.option_name NOT LIKE '\_transient\_timeout\_tribe\_%%'",
+			$time
+		);
 
 		/**
 		 * Allow third party filtering of the SQL used for deleting expired transients.
@@ -215,7 +216,7 @@ class Tribe__Cache implements ArrayAccess {
 			return;
 		}
 
-		$wpdb->query( $sql );
+		$wpdb->query( $sql ); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Prepared above, then passed through the tribe_cache_delete_expired_transients_sql filter; cache maintenance runs once per request.
 
 		// Set the variable to prevent this call from running twice.
 		tribe_set_var( 'has_deleted_expired_transients', true );
@@ -503,7 +504,7 @@ class Tribe__Cache implements ArrayAccess {
 			$these_ids    = array_splice( $buffer, 0, $limit );
 			$interval     = implode( ',', array_map( 'absint', $these_ids ) );
 			$posts_query  = "SELECT * FROM {$wpdb->posts} WHERE ID IN ({$interval}) {$limit_clause}";
-			$post_objects = $wpdb->get_results( $posts_query );
+			$post_objects = $wpdb->get_results( $posts_query ); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared -- Table names, absint() IDs and integer LIMIT/timestamp values only; cache maintenance queries run once per request.
 			if ( is_array( $post_objects ) && ! empty( $post_objects ) ) {
 				foreach ( $post_objects as $post_object ) {
 					$post = new \WP_Post( $post_object );

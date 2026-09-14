@@ -613,8 +613,8 @@ if ( ! function_exists( 'tribe_post_exists' ) ) {
 			$where .= sprintf( $post_types_where_template, $post_types_interval );
 		}
 
-		$prepared = $wpdb->prepare( sprintf( $query_template, $where ), $query_vars );
-		$found    = $wpdb->get_var( $prepared );
+		$prepared = $wpdb->prepare( sprintf( $query_template, $where ), $query_vars ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Query template holds only placeholders and is prepared with the collected values; one-off existence check.
+		$found    = $wpdb->get_var( $prepared ); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Query template holds only placeholders and is prepared with the collected values; one-off existence check.
 
 		return ! empty( $found ) ? (int) $found : false;
 	}
