@@ -5,6 +5,8 @@
  * @since 4.14.2
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $service          = tribe( 'events-aggregator.service' );
 $import_limit     = $service->get_limit( 'import' );
 $import_available = $service->get_limit_remaining();

@@ -5,6 +5,8 @@
  * @since 6.8.0
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Gets the current time in the format Y-m-d H:i:s.u rounded to 4 decimals.
  * This function specifically has no dependencies any other code.

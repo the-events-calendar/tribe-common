@@ -9,6 +9,8 @@
 
 use TEC\Common\Admin\Help_Hub\Hub;
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 
 <div class="tec-settings-form__sidebar tec-help-resources__sidebar">

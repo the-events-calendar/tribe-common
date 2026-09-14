@@ -20,6 +20,8 @@
  * @var URL                 $url             An instance of the URL handler.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 
 <div

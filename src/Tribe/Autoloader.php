@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// The test bootstraps load this file before WordPress; only block direct web requests.
+	'cli' === PHP_SAPI || exit;
+}
+
 	if ( ! class_exists( 'Tribe__Autoloader' ) ) {
 		/**
 		 * Class Tribe__Autoloader

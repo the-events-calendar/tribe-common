@@ -5,6 +5,8 @@
  * @since 4.9.11
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * The code for the `tribe_build_url` function is from https://github.com/jakeasmith/http_build_url
  *

@@ -22,6 +22,8 @@
  * @var array<string,string> $attrs         Associative array of attributes of the switch.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $switch_wrap_classes = [ 'tribe-common-control', 'tribe-common-control--switch' ];
 if ( ! empty( $classes_wrap ) ) {
 	$switch_wrap_classes = array_merge( $switch_wrap_classes, $classes_wrap );

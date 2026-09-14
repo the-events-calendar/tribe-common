@@ -18,6 +18,8 @@
  * @var string $dependency   The dependency attributes for the control wrapper.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div
 	class="tribe-widget-form-control tribe-widget-form-control--radio"

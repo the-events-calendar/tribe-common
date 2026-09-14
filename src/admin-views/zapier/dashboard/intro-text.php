@@ -14,6 +14,8 @@
  * @link    http://evnt.is/1aiy
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal tec-settings-form__header-block--no-border">
 	<?php $this->template( '/components/loader' ); ?>

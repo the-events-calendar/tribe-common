@@ -5,6 +5,8 @@
 
 namespace Tribe\Admin\Conditional_Content;
 
+defined( 'ABSPATH' ) || exit;
+
 _deprecated_file( __FILE__, '6.3.0', '\TEC\Common\Admin\Conditional_Content\Black_Friday', 'This file is deprecated in favor of new Namespace' );
 
 /**

@@ -25,6 +25,8 @@
  * @var array<string,string> $tooltip        An optional associative array containing information to display in a tooltip.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $wrap_classes = [ 'tec-settings-control', 'tec-settings-control__dropdown-wrap' ];
 if ( ! empty( $classes_wrap ) ) {
 	$wrap_classes = array_merge( $wrap_classes, $classes_wrap );

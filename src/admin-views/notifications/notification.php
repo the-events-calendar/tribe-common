@@ -14,6 +14,8 @@
  * @var boolean $read Whether the notification has been read.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="ian-sidebar__notification ian-sidebar__notification--<?php echo esc_attr( $type ); ?>" id="notification_<?php echo esc_attr( $id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'ian_nonce_' . $id ) ); ?>">
 	<?php if ( $dismissible ) : ?>

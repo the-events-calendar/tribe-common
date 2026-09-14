@@ -18,6 +18,8 @@
  * @var Url                 $url       The URLs handler for the integration.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 // Only show for queue endpoints.
 if ( $endpoint['type'] !== 'queue' || ! $endpoint['enabled'] || $endpoint['missing_dependency'] ) {
 	return;

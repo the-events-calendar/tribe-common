@@ -10,6 +10,8 @@
  *                  - label: The tab label
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <nav class="tec-settings__nav-wrapper" aria-label="<?php esc_attr_e( 'Main Help Hub Navigation', 'tribe-common' ); ?>">
 	<ul class="tec-nav" role="tablist">

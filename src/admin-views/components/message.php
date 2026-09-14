@@ -18,6 +18,8 @@
  * @var array<string|string> $add_classes An array of message classes.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 // If not message, do not display.
 if ( empty( $message ) ) {
 	return;

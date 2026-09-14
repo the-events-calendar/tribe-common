@@ -11,6 +11,8 @@
  * @version 4.10.0
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /** @var \Tribe\Dialog\View $dialog_view */
 $dialog_view = tribe( 'dialog.view' );
 // grab allthevars!

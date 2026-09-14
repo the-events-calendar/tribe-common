@@ -6,6 +6,8 @@ use Tribe\Utils\Element_Attributes;
 use Tribe\Utils\Element_Classes;
 use TEC\Common\Template;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Parse input values into a valid array of classes to be used in the templates.
  *

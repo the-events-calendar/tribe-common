@@ -25,6 +25,8 @@
  * @var array<string,string> $attrs         Associative array of attributes of the text input.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $wrap_classes = [ 'tec-settings-control', 'tec-settings-control__text-wrap' ];
 if ( ! empty( $classes_wrap ) ) {
 	$wrap_classes = array_merge( $wrap_classes, $classes_wrap );

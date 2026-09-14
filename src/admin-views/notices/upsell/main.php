@@ -15,6 +15,8 @@
  * @var array<string> $link      Array of link properties, including 'text', 'url', 'rel', 'target' and 'classes'.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $upsell_classes = [ 'tec-admin__upsell' ];
 if ( ! empty( $classes ) ) {
 	$upsell_classes = array_merge( $upsell_classes, $classes );

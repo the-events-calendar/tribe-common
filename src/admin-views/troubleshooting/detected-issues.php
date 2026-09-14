@@ -6,6 +6,9 @@
  */
 
 use Tribe\Admin\Troubleshooting;
+
+defined( 'ABSPATH' ) || exit;
+
 $issues_found = tribe( Troubleshooting::class )->get_issues_found();
 
 if ( tribe( Troubleshooting::class )->is_any_issue_active() ) : // checks is there are any active issues before printing. ?>

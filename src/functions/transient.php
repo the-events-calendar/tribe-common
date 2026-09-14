@@ -5,6 +5,8 @@
  * @since 5.0.6
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! function_exists( 'tec_timed_option' ) ) {
 	/**
 	 * Checks if a file is from one of the specified plugins.

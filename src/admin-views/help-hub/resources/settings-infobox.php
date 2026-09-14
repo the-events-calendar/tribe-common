@@ -9,6 +9,8 @@
  * @var Hub $help_hub The Help Hub class.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="tec-settings-infobox">
 	<img class="tec-settings-infobox-logo" src="<?php echo esc_url( $help_hub->get_icon_url( 'stars_icon' ) ); ?>" alt="AI Chatbot logo">
