@@ -120,7 +120,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 				$hour = ( $isStart ) ? '08' : ( count( $hours ) == 12 ? '05' : '17' );
 			} else {
 				$timestamp = strtotime( $date );
-				$hour      = date( $h, $timestamp );
+				$hour      = Tribe__Date_Utils::build_date_object( $date, 'UTC' )->format( $h );
 				// fix hours if time_format has changed from what is saved
 				if ( preg_match( '(pm|PM)', $timestamp ) && $h == 'H' ) {
 					$hour = $hour + 12;
@@ -158,7 +158,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 			if ( empty( $date ) ) {
 				$minute = '00';
 			} else {
-				$minute = date( 'i', strtotime( $date ) );
+				$minute = Tribe__Date_Utils::build_date_object( $date, 'UTC' )->format( 'i' );
 			}
 
 			$minute = apply_filters( 'tribe_get_minute_options', $minute, $date, $isStart );
@@ -290,7 +290,7 @@ if ( ! class_exists( 'Tribe__View_Helpers' ) ) {
 			if ( empty( $date ) ) {
 				$meridian = ( $isStart ) ? $meridians[0] : $meridians[1];
 			} else {
-				$meridian = date( $a, strtotime( $date ) );
+				$meridian = Tribe__Date_Utils::build_date_object( $date, 'UTC' )->format( $a );
 			}
 
 			$meridian = apply_filters( 'tribe_get_meridian_options', $meridian, $date, $isStart );

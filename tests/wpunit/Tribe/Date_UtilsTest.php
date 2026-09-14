@@ -92,10 +92,9 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @dataProvider etc_natural_direction_expected_timestamps
 	 */
-	public function test_get_weekday_timestamp_returns_right_timestamp_etc_minus_9_in_natural_direction( $expected, $args ) {
+	public function test_get_weekday_timestamp_ignores_the_default_timezone_etc_minus_9_in_natural_direction( $expected, $args ) {
 		date_default_timezone_set( 'Etc/GMT-9' );
-		$nine_hours = 60 * 60 * 9;
-		$this->assertEquals( $expected - $nine_hours,
+		$this->assertEquals( $expected,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
 				'get_weekday_timestamp'
@@ -108,10 +107,9 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @dataProvider etc_natural_direction_expected_timestamps
 	 */
-	public function test_get_weekday_timestamp_returns_right_timestamp_etc_plus_9_in_natural_direction( $expected, $args ) {
+	public function test_get_weekday_timestamp_ignores_the_default_timezone_etc_plus_9_in_natural_direction( $expected, $args ) {
 		date_default_timezone_set( 'Etc/GMT+9' );
-		$nine_hours = 60 * 60 * 9;
-		$this->assertEquals( $expected + $nine_hours,
+		$this->assertEquals( $expected,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
 				'get_weekday_timestamp'
@@ -148,10 +146,9 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @dataProvider etc_reverse_direction_expected_timestamps
 	 */
-	public function test_get_weekday_timestamp_returns_right_timestamp_etc_minus_9_in_reverse_direction( $expected, $args ) {
+	public function test_get_weekday_timestamp_ignores_the_default_timezone_etc_minus_9_in_reverse_direction( $expected, $args ) {
 		date_default_timezone_set( 'Etc/GMT-9' );
-		$nine_hours = 60 * 60 * 9;
-		$this->assertEquals( $expected - $nine_hours,
+		$this->assertEquals( $expected,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
 				'get_weekday_timestamp'
@@ -164,10 +161,9 @@ class Date_UtilsTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @dataProvider etc_reverse_direction_expected_timestamps
 	 */
-	public function test_get_weekday_timestamp_returns_right_timestamp_etc_plus_9_in_reverse_direction( $expected, $args ) {
+	public function test_get_weekday_timestamp_ignores_the_default_timezone_etc_plus_9_in_reverse_direction( $expected, $args ) {
 		date_default_timezone_set( 'Etc/GMT+9' );
-		$nine_hours = 60 * 60 * 9;
-		$this->assertEquals( $expected + $nine_hours,
+		$this->assertEquals( $expected,
 			call_user_func_array( [
 				'Tribe__Date_Utils',
 				'get_weekday_timestamp'

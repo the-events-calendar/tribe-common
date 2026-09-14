@@ -160,7 +160,8 @@ class Tribe__Timezones {
 		$timezone = timezone_name_from_abbr( '', $seconds, 0 );
 
 		if ( false === $timezone ) {
-			$is_dst = (bool) date( 'I' );
+			// Match standard-time abbreviations only: the offset carries no DST information, and WordPress runs PHP in UTC.
+			$is_dst = false;
 
 			foreach ( timezone_abbreviations_list() as $abbr ) {
 				foreach ( $abbr as $city ) {

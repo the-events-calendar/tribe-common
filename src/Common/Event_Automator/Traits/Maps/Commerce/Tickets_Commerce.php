@@ -45,7 +45,7 @@ trait Tickets_Commerce {
 			'id'                 => 'tc-' . $order->ID,
 			'order_id'           => strval( $order->order_id ),
 			'order_number'       => strval( $order->order_id ),
-			'order_date'         => date( 'Y-m-d\TH:i:s\Z', strtotime( $order->purchase_time ) ),
+			'order_date'         => Tribe__Date_Utils::build_date_object( $order->purchase_time, 'UTC' )->format( 'Y-m-d\TH:i:s\Z' ),
 			'status'             => $order->status,
 			'order_total'        => floatval( $order->total ),
 			'order_currency'     => $order->currency,

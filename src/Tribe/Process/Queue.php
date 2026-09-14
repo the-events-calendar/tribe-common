@@ -402,7 +402,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 */
 	protected function generate_key( $length = 64 ) {
 		if ( empty( $this->id_base ) ) {
-			$this->id_base = md5( microtime() . mt_rand() );
+			$this->id_base = md5( microtime() . wp_rand() );
 		}
 
 		$prepend = $this->identifier . '_batch_';

@@ -59,15 +59,15 @@ class Tribe__REST__Post_Repository {
 			];
 		}
 
-		$time = strtotime( $date );
+		$date_object = Tribe__Date_Utils::build_date_object( $date, 'UTC' );
 
 		return [
-			'year'    => date( 'Y', $time ),
-			'month'   => date( 'm', $time ),
-			'day'     => date( 'd', $time ),
-			'hour'    => date( 'H', $time ),
-			'minutes' => date( 'i', $time ),
-			'seconds' => date( 's', $time ),
+			'year'    => $date_object->format( 'Y' ),
+			'month'   => $date_object->format( 'm' ),
+			'day'     => $date_object->format( 'd' ),
+			'hour'    => $date_object->format( 'H' ),
+			'minutes' => $date_object->format( 'i' ),
+			'seconds' => $date_object->format( 's' ),
 		];
 	}
 

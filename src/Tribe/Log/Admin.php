@@ -254,13 +254,13 @@ class Tribe__Log__Admin {
 		$log_name = apply_filters( 'tribe_common_log_download_filename', $log_name );
 
 		header( 'Content-Disposition: attachment; filename="tribe-log-' . $log_name . '"' );
-		$output = fopen( 'php://output', 'w' );
+		$output = fopen( 'php://output', 'w' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- Streams the CSV download to php://output; not a filesystem write.
 
 		foreach ( $this->current_logger()->retrieve() as $log_entry ) {
 			fputcsv( $output, $log_entry, ',', '"', '\\' ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_fputcsv -- Writing to the PHP output stream for a file download, not the filesystem.
 		}
 
-		fclose( $output );
+		fclose( $output ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- Streams the CSV download to php://output; not a filesystem write.
 		exit();
 	}
 
