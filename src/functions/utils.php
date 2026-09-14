@@ -19,7 +19,7 @@ function tec_sanitize_string( $string ) {
 	$string = htmlspecialchars_decode( $string, ENT_QUOTES );
 
 	// Remove any remaining HTML tags
-	$string = strip_tags( $string );
+	$string = strip_tags( $string ); // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags, WordPressVIPMinimum.Functions.StripTags.StripTagsOneParameter -- wp_strip_all_tags() also trims; sanitize_deep must preserve surrounding whitespace.
 
 	return $string;
 }
@@ -102,8 +102,8 @@ if ( ! function_exists( 'tribe_append_path' ) ) {
 	function tribe_append_path( $url, $path ) {
 		$path = trim( $path, '/' );
 
-		$query = @parse_url( $url, PHP_URL_QUERY );
-		$frag  = @parse_url( $url, PHP_URL_FRAGMENT );
+		$query = wp_parse_url( $url, PHP_URL_QUERY );
+		$frag  = wp_parse_url( $url, PHP_URL_FRAGMENT );
 
 		if ( ! ( empty( $query ) && empty( $frag ) ) ) {
 			$url   = str_replace( '?' . $query, '', $url );

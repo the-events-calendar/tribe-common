@@ -254,13 +254,11 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string The date only in DB format.
 		 */
 		public static function date_only( $date, $is_timestamp = false, $format = null ) {
-			$date = $is_timestamp ? $date : strtotime( $date ?? 'now' );
-
 			if ( is_null( $format ) ) {
 				$format = self::DBDATEFORMAT;
 			}
 
-			return date( $format, $date );
+			return static::build_date_object( $date ?? 'now', 'UTC' )->format( $format );
 		}
 
 		/**
@@ -287,8 +285,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string The time only in DB format.
 		 */
 		public static function time_only( $date ) {
-			$date = is_numeric( $date ) ? $date : strtotime( $date );
-			return date( self::DBTIMEFORMAT, $date );
+			return static::build_date_object( $date, 'UTC' )->format( self::DBTIMEFORMAT );
 		}
 
 		/**
@@ -299,8 +296,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string The hour only.
 		 */
 		public static function hour_only( $date ) {
-			$date = is_numeric( $date ) ? $date : strtotime( $date );
-			return date( self::HOURFORMAT, $date );
+			return static::build_date_object( $date, 'UTC' )->format( self::HOURFORMAT );
 		}
 
 		/**
@@ -311,8 +307,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string The minute only.
 		 */
 		public static function minutes_only( $date ) {
-			$date = is_numeric( $date ) ? $date : strtotime( $date );
-			return date( self::MINUTEFORMAT, $date );
+			return static::build_date_object( $date, 'UTC' )->format( self::MINUTEFORMAT );
 		}
 
 		/**
@@ -323,8 +318,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string The meridian only in DB format.
 		 */
 		public static function meridian_only( $date ) {
-			$date = is_numeric( $date ) ? $date : strtotime( $date );
-			return date( self::MERIDIANFORMAT, $date );
+			return static::build_date_object( $date, 'UTC' )->format( self::MERIDIANFORMAT );
 		}
 
 		/**
@@ -362,12 +356,12 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string The last day of the month.
 		 */
 		public static function get_last_day_of_month( $timestamp ) {
-			$curmonth  = date( 'n', $timestamp );
-			$curYear   = date( 'Y', $timestamp );
-			$nextmonth = mktime( 0, 0, 0, $curmonth + 1, 1, $curYear );
-			$lastDay   = strtotime( date( self::DBDATETIMEFORMAT, $nextmonth ) . ' - 1 day' );
+			$curmonth  = gmdate( 'n', $timestamp );
+			$curYear   = gmdate( 'Y', $timestamp );
+			$nextmonth = gmmktime( 0, 0, 0, $curmonth + 1, 1, $curYear );
+			$lastDay   = $nextmonth - DAY_IN_SECONDS;
 
-			return date( 'j', $lastDay );
+			return gmdate( 'j', $lastDay );
 		}
 
 		/**
@@ -378,7 +372,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return bool If the timestamp is a weekday.
 		 */
 		public static function is_weekday( $curdate ) {
-			return in_array( date( 'N', $curdate ), [ 1, 2, 3, 4, 5 ] );
+			return in_array( gmdate( 'N', $curdate ), [ 1, 2, 3, 4, 5 ] );
 		}
 
 		/**
@@ -389,7 +383,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return bool If the timestamp is a weekend.
 		 */
 		public static function is_weekend( $curdate ) {
-			return in_array( date( 'N', $curdate ), [ 6, 7 ] );
+			return in_array( gmdate( 'N', $curdate ), [ 6, 7 ] );
 		}
 
 		/**
@@ -401,10 +395,10 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return int The timestamp of the date that fits the qualifications.
 		 */
 		public static function get_last_day_of_week_in_month( $curdate, $day_of_week ) {
-			$nextdate = mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $curdate ), self::get_last_day_of_month( $curdate ), date( 'Y', $curdate ) );// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
+			$nextdate = gmmktime( gmdate( 'H', $curdate ), gmdate( 'i', $curdate ), gmdate( 's', $curdate ), gmdate( 'n', $curdate ), self::get_last_day_of_month( $curdate ), gmdate( 'Y', $curdate ) );
 
-			while ( date( 'N', $nextdate ) != $day_of_week && $day_of_week != - 1 ) {
-				$nextdate = strtotime( date( self::DBDATETIMEFORMAT, $nextdate ) . ' - 1 day' );
+			while ( gmdate( 'N', $nextdate ) != $day_of_week && $day_of_week != - 1 ) {
+				$nextdate -= DAY_IN_SECONDS;
 			}
 
 			return $nextdate;
@@ -419,12 +413,12 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return int The timestamp of the date that fits the qualifications.
 		 */
 		public static function get_first_day_of_week_in_month( $curdate, $day_of_week ) {
-			$nextdate = mktime( 0, 0, 0, date( 'n', $curdate ), 1, date( 'Y', $curdate ) );
+			$nextdate = gmmktime( 0, 0, 0, gmdate( 'n', $curdate ), 1, gmdate( 'Y', $curdate ) );
 
-			while ( ! ( $day_of_week > 0 && date( 'N', $nextdate ) == $day_of_week ) &&
+			while ( ! ( $day_of_week > 0 && gmdate( 'N', $nextdate ) == $day_of_week ) &&
 					! ( $day_of_week == - 1 && self::is_weekday( $nextdate ) ) &&
 					! ( $day_of_week == - 2 && self::is_weekend( $nextdate ) ) ) {
-				$nextdate = strtotime( date( self::DBDATETIMEFORMAT, $nextdate ) . ' + 1 day' );
+				$nextdate += DAY_IN_SECONDS;
 			}
 
 			return $nextdate;
@@ -439,7 +433,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function number_to_ordinal( $number ) {
 			$output = $number . ( ( ( strlen( $number ) > 1 ) && ( substr( $number, - 2, 1 ) == '1' ) ) ?
-					'th' : date( 'S', mktime( 0, 0, 0, 0, substr( $number, - 1 ), 0 ) ) );
+					'th' : gmdate( 'S', gmmktime( 0, 0, 0, 0, substr( $number, - 1 ), 0 ) ) );
 
 			return apply_filters( 'tribe_events_number_to_ordinal', $output, $number );
 		}
@@ -452,7 +446,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return bool Whether the string is a timestamp.
 		 */
 		public static function is_timestamp( $timestamp ) {
-			if ( is_numeric( $timestamp ) && (int) $timestamp == $timestamp && date( 'U', $timestamp ) == $timestamp ) {
+			if ( is_numeric( $timestamp ) && (int) $timestamp == $timestamp && gmdate( 'U', $timestamp ) == $timestamp ) {
 				return true;
 			}
 
@@ -1105,7 +1099,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			_deprecated_function( __METHOD__, '3.10', 'tribe_event_end_of_day' );
 
 			if ( $isTimestamp ) {
-				$date = date( self::DBDATEFORMAT, $date );
+				$date = gmdate( self::DBDATEFORMAT, $date );
 			}
 
 			return tribe_event_end_of_day( $date, self::DBDATETIMEFORMAT );
@@ -1126,7 +1120,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			_deprecated_function( __METHOD__, '3.10', 'tribe_event_beginning_of_day' );
 
 			if ( $isTimestamp ) {
-				$date = date( self::DBDATEFORMAT, $date );
+				$date = gmdate( self::DBDATEFORMAT, $date );
 			}
 
 			return tribe_event_beginning_of_day( $date, self::DBDATETIMEFORMAT );
@@ -1287,11 +1281,11 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			if ( $week_direction > 0 ) {
 				$startday = 1;
 			} else {
-				$startday = date( 't', mktime( 0, 0, 0, $month, 1, $year ) );
+				$startday = gmdate( 't', gmmktime( 0, 0, 0, $month, 1, $year ) );
 			}
 
-			$start   = mktime( 0, 0, 0, $month, $startday, $year );
-			$weekday = date( 'N', $start );
+			$start   = gmmktime( 0, 0, 0, $month, $startday, $year );
+			$weekday = gmdate( 'N', $start );
 
 			if ( $week_direction * $day_of_week >= $week_direction * $weekday ) {
 				$offset = - $week_direction * 7;
@@ -1301,7 +1295,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 
 			$offset += $week_direction * ( $week_in_month * 7 ) + ( $day_of_week - $weekday );
 
-			return mktime( 0, 0, 0, $month, $startday + $offset, $year );
+			return gmmktime( 0, 0, 0, $month, $startday + $offset, $year );
 		}
 
 		/**

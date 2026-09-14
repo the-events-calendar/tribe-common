@@ -426,7 +426,7 @@ class Tribe__Rewrite {
 		$home_url = home_url();
 
 		// It's not a path we, or WP, could possibly handle.
-		$has_http_scheme = (bool) parse_url( $url, PHP_URL_SCHEME );
+		$has_http_scheme = (bool) wp_parse_url( $url, PHP_URL_SCHEME );
 		if (
 			$home_url === $url
 			|| ( $has_http_scheme && false === strpos( $url, $home_url ) )
@@ -452,7 +452,7 @@ class Tribe__Rewrite {
 		}
 
 		// Passthru vars are additional salts for the cache that would render it useless: parse them here.
-		$query = (string) parse_url( $url, PHP_URL_QUERY );
+		$query = (string) wp_parse_url( $url, PHP_URL_QUERY );
 		wp_parse_str( $query, $query_vars );
 		// Non-scalar value query vars should not be handled, but they should survive the resolution and not be cached.
 		$scalar_query_vars = array_filter( $query_vars, 'is_scalar' );
@@ -527,7 +527,7 @@ class Tribe__Rewrite {
 		$found = false;
 
 		foreach ( $our_rules as $link_template => $index_path ) {
-			wp_parse_str( (string) parse_url( $index_path, PHP_URL_QUERY ), $link_vars );
+			wp_parse_str( (string) wp_parse_url( $index_path, PHP_URL_QUERY ), $link_vars );
 			ksort( $link_vars );
 
 			if ( array_keys( $link_vars ) !== array_keys( $matched_vars ) ) {
@@ -802,7 +802,7 @@ class Tribe__Rewrite {
 						...array_values(
 							array_map(
 								static function ( $rule_string ) {
-									wp_parse_str( parse_url( $rule_string, PHP_URL_QUERY ), $vars );
+									wp_parse_str( wp_parse_url( $rule_string, PHP_URL_QUERY ), $vars );
 
 									return array_keys( $vars );
 								},
@@ -965,9 +965,9 @@ class Tribe__Rewrite {
 		$query_vars           = [];
 		$post_type_query_vars = [];
 		$perma_query_vars     = [];
-		$url_components       = parse_url( $url );
+		$url_components       = wp_parse_url( $url );
 		$url_path             = Arr::get( $url_components, 'path', '/' );
-		$site_path            = parse_url( home_url(), PHP_URL_PATH );
+		$site_path            = wp_parse_url( home_url(), PHP_URL_PATH );
 		if ( ! empty( $site_path ) && '/' !== $site_path ) {
 			// The current site is in a sub-directory: the site path should be dropped from the request path.
 			$url_path = str_replace( $site_path, '', $url_path );

@@ -821,7 +821,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 						sanitize_html_class( trim( $option_id ) )
 					);
 
-					$field .= '<label title="' . esc_attr( strip_tags( $title ) ) . '">';
+					$field .= '<label title="' . esc_attr( wp_strip_all_tags( $title ) ) . '">';
 					$field .= '<input type="radio"';
 					$field .= ' id="tribe-field-' . esc_attr( $field_id ) . '"';
 					$field .= $this->do_field_name();

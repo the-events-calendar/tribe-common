@@ -41,7 +41,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 		if ( $date_format ) {
 			$format = $date_format;
 		} else {
-			$date_year = gmdate( 'Y', $date );
+			$date_year = date( 'Y', $date );
 			$cur_year  = ( new DateTimeImmutable( 'now', wp_timezone() ) )->format( 'Y' );
 
 			// only show the year in the date if it's not in the current year
@@ -101,13 +101,10 @@ if ( ! function_exists( 'tribe_beginning_of_day' ) ) {
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
 		$hours_to_add    = $multiday_cutoff[0];
 		$minutes_to_add  = $multiday_cutoff[1];
-		if ( is_null( $date ) || empty( $date ) ) {
-			$date = date( $format, strtotime( date( 'Y-m-d' ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) );
-		} else {
-			$date      = Tribe__Date_Utils::is_timestamp( $date ) ? $date : strtotime( $date );
-			$timestamp = strtotime( date( 'Y-m-d', $date ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' );
-			$date      = date( $format, $timestamp );
-		}
+		// Work in UTC so the result does not depend on the PHP default timezone.
+		$timestamp = Tribe__Date_Utils::build_date_object( empty( $date ) ? 'now' : $date, 'UTC' )->getTimestamp();
+		$midnight  = (int) floor( $timestamp / DAY_IN_SECONDS ) * DAY_IN_SECONDS;
+		$date      = gmdate( $format, $midnight + $hours_to_add * HOUR_IN_SECONDS + $minutes_to_add * MINUTE_IN_SECONDS );
 
 		/**
 		 * Deprecated filter tribe_event_beginning_of_day in 4.0 in favor of tribe_beginning_of_day. Remove in 5.0
@@ -138,13 +135,10 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
 		$hours_to_add    = $multiday_cutoff[0];
 		$minutes_to_add  = $multiday_cutoff[1];
-		if ( is_null( $date ) || empty( $date ) ) {
-			$date = date( $format, strtotime( 'tomorrow  +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 );
-		} else {
-			$date      = Tribe__Date_Utils::is_timestamp( $date ) ? $date : strtotime( $date );
-			$timestamp = strtotime( date( 'Y-m-d', $date ) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1;
-			$date      = date( $format, $timestamp );
-		}
+		// Work in UTC so the result does not depend on the PHP default timezone.
+		$timestamp = Tribe__Date_Utils::build_date_object( empty( $date ) ? 'now' : $date, 'UTC' )->getTimestamp();
+		$midnight  = (int) floor( $timestamp / DAY_IN_SECONDS ) * DAY_IN_SECONDS;
+		$date      = gmdate( $format, $midnight + DAY_IN_SECONDS + $hours_to_add * HOUR_IN_SECONDS + $minutes_to_add * MINUTE_IN_SECONDS - 1 );
 
 		/**
 		 * Deprecated filter tribe_event_end_of_day in 4.0 in favor of tribe_end_of_day. Remove in 5.0

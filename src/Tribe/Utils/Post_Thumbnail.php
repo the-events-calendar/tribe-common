@@ -204,7 +204,7 @@ class Post_Thumbnail implements \ArrayAccess {
 			$title                   = get_the_title( $thumbnail_id );
 			$thumbnail_data['title'] = ! empty( $title ) ? $title : false;
 
-			$alt                   = trim( strip_tags( get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ) );
+			$alt                   = trim( wp_strip_all_tags( get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ) );
 			$thumbnail_data['alt'] = ! empty( $alt ) ? $alt : false;
 
 			$cache_thumbnail[ $cache_key ] = $thumbnail_data;

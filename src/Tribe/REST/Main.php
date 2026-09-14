@@ -93,7 +93,7 @@ abstract class Tribe__REST__Main {
 
 			if ( is_ssl() ) {
 				// If the current host is the same as the REST URL host, force the REST URL scheme to HTTPS.
-				if ( $_SERVER['SERVER_NAME'] === parse_url( get_home_url( $blog_id ), PHP_URL_HOST ) ) {
+				if ( isset( $_SERVER['SERVER_NAME'] ) && sanitize_text_field( wp_unslash( $_SERVER['SERVER_NAME'] ) ) === wp_parse_url( get_home_url( $blog_id ), PHP_URL_HOST ) ) {
 					$url = set_url_scheme( $url, 'https' );
 				}
 			}
