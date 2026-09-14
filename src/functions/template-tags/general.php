@@ -418,7 +418,7 @@ if ( ! function_exists( 'tribe_is_bot' ) ) {
 	 */
 	function tribe_is_bot() {
 		// get the current user agent
-		$user_agent = strtolower( $_SERVER['HTTP_USER_AGENT'] );
+		$user_agent = strtolower( sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ?? '' ) ) ); // phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__HTTP_USER_AGENT__ -- Existing browser detection helper.
 
 		// check if the user agent is empty since most browsers identify themselves, so possibly a bot
 		if ( empty( $user_agent ) ) {

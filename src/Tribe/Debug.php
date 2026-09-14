@@ -34,9 +34,9 @@ class Tribe__Debug {
 		$format = ucfirst( $format );
 		if ( Tribe__Settings_Manager::instance()->get_option( 'debugEvents' ) ) {
 			$plugin = basename( dirname( Tribe__Main::instance()->plugin_path ) );
-			error_log( "$plugin/common -  $format: $title" );
+			error_log( "$plugin/common -  $format: $title" ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Debug logger writes to the PHP error log by design.
 			if ( $data && $data != '' ) {
-				error_log( "$plugin/common - $format: " . print_r( $data, true ) );
+				error_log( "$plugin/common - $format: " . print_r( $data, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, WordPress.PHP.DevelopmentFunctions.error_log_print_r -- Debug logger writes to the PHP error log by design.
 			}
 		}
 	}

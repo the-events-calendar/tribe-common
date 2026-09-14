@@ -104,7 +104,7 @@ class Tribe__Process__Post_Thumbnail_Setter extends Tribe__Process__Handler {
 	public function sync_handle( ?array $data_source = null ) {
 		do_action( 'tribe_log', 'debug', $this->identifier, [ 'status' => 'handling request' ] );
 
-		$data_source = isset( $data_source ) ? $data_source : $_POST;
+		$data_source ??= $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Called from maybe_handle(); the async path verifies the nonce with check_ajax_referer() first.
 
 		if ( ! isset( $data_source['post_id'], $data_source['post_thumbnail'] ) ) {
 			do_action( 'tribe_log', 'error', $this->identifier, [ 'data' => $data_source, ] );

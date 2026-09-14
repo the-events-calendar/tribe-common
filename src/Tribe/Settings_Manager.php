@@ -281,10 +281,12 @@ class Tribe__Settings_Manager {
 			return;
 		}
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Only detects the settings form submission; Tribe__Settings verifies the nonce before saving.
 		if (
 			isset( $_POST['tribeSaveSettings'] )
 			&& isset( $_POST['current-settings-tab'] )
 		) {
+			// phpcs:enable WordPress.Security.NonceVerification.Missing
 			$options['hideSettingsTabs'] = tribe_get_request_var( 'hideSettingsTabs', [] );
 		}
 

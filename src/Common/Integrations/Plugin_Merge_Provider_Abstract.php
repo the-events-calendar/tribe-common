@@ -500,9 +500,9 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
-		$action = $_GET['action'] ?? null;
+		$action = isset( $_GET['action'] ) ? sanitize_key( wp_unslash( $_GET['action'] ) ) : null;
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
-		$action = $_POST['action'] ?? $action;
+		$action = isset( $_POST['action'] ) ? sanitize_key( wp_unslash( $_POST['action'] ) ) : $action;
 
 		// Are we activating?
 		if ( ! in_array( $action, [ 'activate', 'activate-selected' ] ) ) {
@@ -516,11 +516,11 @@ abstract class Plugin_Merge_Provider_Abstract extends Service_Provider {
 
 		// Which plugin are we activating?
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
-		$targeted_plugins = isset( $_GET['plugin'] ) ? [ basename( $_GET['plugin'] ) ] : null;
+		$targeted_plugins = isset( $_GET['plugin'] ) ? [ basename( wp_unslash( $_GET['plugin'] ) ) ] : null;
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
 		if ( ! $targeted_plugins && isset( $_POST['checked'] ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
-			$targeted_plugins = array_map( 'basename', $_POST['checked'] );
+			$targeted_plugins = array_map( 'basename', wp_unslash( (array) $_POST['checked'] ) );
 		}
 
 		// Something went wrong, bail.

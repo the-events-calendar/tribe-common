@@ -168,7 +168,7 @@ class Help_Hub_Integration {
 
 		// Redirect to the previous page or to Help Hub → Support Access tab in Events context.
 		// @TODO: There has to be a better way, but this will get the job done for now.
-		$redirect_url = $_SERVER['HTTP_REFERER'] ?? admin_url(); // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$redirect_url = isset( $_SERVER['HTTP_REFERER'] ) ? esc_url_raw( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : admin_url(); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Redirect target after TrustedLogin revocation; read only.
 
 		wp_safe_redirect( $redirect_url );
 		tribe_exit();

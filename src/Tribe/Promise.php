@@ -239,7 +239,7 @@ class Tribe__Promise extends Tribe__Process__Queue {
 	 */
 	protected function do_callback( $callback, ?array $callback_args = null ) {
 		try {
-			set_error_handler( [ $this, 'error_handler' ] );
+			set_error_handler( [ $this, 'error_handler' ] ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_set_error_handler -- Captures errors raised while resolving the promise.
 
 			$callback = $this->unpack_callback( $callback );
 

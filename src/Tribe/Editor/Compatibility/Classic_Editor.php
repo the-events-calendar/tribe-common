@@ -183,7 +183,7 @@ class Classic_Editor {
 			return static::$classic_url_param;
 		}
 
-		static::$classic_url_param = isset( $_GET[  static::$classic_param ] ) || isset( $_POST[  static::$classic_param ] );
+		static::$classic_url_param = isset( $_GET[ static::$classic_param ] ) || isset( $_POST[ static::$classic_param ] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended -- Read-only flag that selects the editor; no state change.
 
 		return static::$classic_url_param;
 	}
@@ -201,7 +201,7 @@ class Classic_Editor {
 			return static::$classic_url_override;
 		}
 
-		static::$classic_url_override = isset( $_GET[ static::$classic_override ] ) || isset( $_POST[ static::$classic_override ] );
+		static::$classic_url_override = isset( $_GET[ static::$classic_override ] ) || isset( $_POST[ static::$classic_override ] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended -- Read-only flag that selects the editor; no state change.
 
 		return static::$classic_url_override;
 	}
@@ -370,7 +370,7 @@ class Classic_Editor {
 	 */
 	public static function classic_editor_remembers( $id = null ) {
 		if ( empty( $id ) ) {
-			$id = isset(  $_GET[ 'post' ] ) ? (int) $_GET[ 'post' ] : null;
+			$id = isset( $_GET['post'] ) ? (int) $_GET['post'] : null; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reads the post ID of the edit screen; read only.
 		}
 
 
