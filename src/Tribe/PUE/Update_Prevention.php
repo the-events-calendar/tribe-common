@@ -181,6 +181,7 @@ class Update_Prevention {
 		$link_read_more = '<a href="http://evnt.is/1aev" target="_blank">' . esc_html__( 'Read more', 'tribe-common' ) . '.</a>';
 
 		$message = sprintf(
+			// translators: %1$s: the version, %2$s: the plugin name, %3$s: the incompatible plugin(s), %4$s: the read more link.
 			esc_html__( 'Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s', 'tribe-common' ),
 			esc_html( $plugin_data['Version'] ),
 			esc_html( $plugin_data['Name'] ),

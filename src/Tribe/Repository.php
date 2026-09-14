@@ -2587,7 +2587,8 @@ abstract class Tribe__Repository
 
 			if ( empty( $done ) ) {
 				tribe( 'logger' )->log(
-					__( 'Could not delete post with ID ' . $id, 'tribe-common' ),
+					// translators: %d: the post ID.
+					sprintf( __( 'Could not delete post with ID %d', 'tribe-common' ), $id ),
 					Tribe__Log::WARNING,
 					$this->filter_name
 				);

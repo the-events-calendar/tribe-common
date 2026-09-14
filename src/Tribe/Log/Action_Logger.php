@@ -82,8 +82,7 @@ class Action_Logger implements \Tribe__Log__Logger {
 		return [
 			[
 				'message' => __(
-					'The Action Logger will dispatch any logging message using the "tribe_log" action writing, by ' .
-					'default, to the PHP error log.',
+					'The Action Logger will dispatch any logging message using the "tribe_log" action writing, by default, to the PHP error log.',
 					'tribe-common' )
 			],
 		];
