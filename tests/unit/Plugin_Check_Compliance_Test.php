@@ -92,4 +92,19 @@ class Plugin_Check_Compliance_Test extends \Codeception\Test\Unit {
 		$this->assertSame( [], $offenders, 'Files linking to pre-filtered 5-star reviews: ' . implode( ', ', $offenders ) );
 	}
 
+	/**
+	 * @test
+	 */
+	public function templates_load_no_remote_stylesheets_or_scripts(): void {
+		$offenders = [];
+		$pattern   = '/<link[^>]+stylesheet[^>]+href=["\']https?:\/\/|<link[^>]+href=["\']https?:\/\/[^>]+stylesheet|<script[^>]+src=["\']https?:\/\//i';
+
+		foreach ( array_merge( $this->php_files( 'src/views' ), $this->php_files( 'src/admin-views' ) ) as $file ) {
+			if ( preg_match( $pattern, file_get_contents( $file ) ) ) {
+				$offenders[] = str_replace( $this->root(), '', $file );
+			}
+		}
+
+		$this->assertSame( [], $offenders, 'Templates loading remote assets: ' . implode( ', ', $offenders ) );
+	}
 }
