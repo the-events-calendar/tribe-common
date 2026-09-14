@@ -45,11 +45,13 @@ class Tribe__Credits {
 
 		add_filter( 'tribe_tickets_post_types', [ $this, 'tmp_return_tribe_events' ], 99 );
 
+		// translators: %1$s: opening link tag, %2$s: closing link tag, %3$s: the star rating.
 		$review_text_tec = esc_html__( 'Rate %1$sThe Events Calendar%2$s %3$s', 'tribe-common' );
-		$review_url_tec  = 'https://wordpress.org/support/plugin/the-events-calendar/reviews/?filter=5';
+		$review_url_tec  = 'https://wordpress.org/support/plugin/the-events-calendar/reviews/';
 
+		// translators: %1$s: opening link tag, %2$s: closing link tag, %3$s: the review link.
 		$review_text_et = esc_html__( 'If you like %1$sEvent Tickets%2$s please leave us a %3$s. It takes a minute and it helps a lot.', 'tribe-common' );
-		$review_url_et  = 'https://wordpress.org/support/plugin/event-tickets/reviews/?filter=5';
+		$review_url_et  = 'https://wordpress.org/support/plugin/event-tickets/reviews/';
 
 		// Only display custom text on Tribe Admin Pages.
 		if ( $admin_helpers->is_screen() || $admin_helpers->is_post_type_screen() ) {
