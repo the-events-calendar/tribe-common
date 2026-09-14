@@ -304,7 +304,7 @@ class Tribe__Main {
 		tec_asset(
 			$this,
 			'tec-copy-to-clipboard',
-			'utils/tec-copy-to-clipboard.js',
+			'utils/tec-clipboard-copy.js',
 			'tribe-clipboard',
 			'admin_enqueue_scripts',
 			[
