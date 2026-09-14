@@ -14,6 +14,8 @@
 
 use TEC\Common\Template;
 
+defined( 'ABSPATH' ) || exit;
+
 wp_footer();
 ?>
 	</body>

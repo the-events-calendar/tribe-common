@@ -10,6 +10,8 @@
 
 use TEC\Common\Admin\Help_Hub\Hub;
 
+defined( 'ABSPATH' ) || exit;
+
 $template_map = [
 	'link' => 'help-hub/resources/link_template',
 	'faq'  => 'help-hub/resources/faq_template',

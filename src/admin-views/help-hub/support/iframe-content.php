@@ -9,6 +9,8 @@
 
 use TEC\Common\Admin\Help_Hub\Hub;
 
+defined( 'ABSPATH' ) || exit;
+
 $opted_in = tribe_is_truthy( $help_hub->get_license_and_opt_in_status()['is_opted_in'] ) ? '1' : '0';
 
 ?>

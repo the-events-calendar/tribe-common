@@ -3,6 +3,8 @@
  * View: Community Help Page.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $faqs               = tribe( Tribe__Admin__Help_Page::class )->get_calendar_faqs();
 $extensions         = tribe( Tribe__Admin__Help_Page::class )->get_community_extensions();
 $community_products = tribe( Tribe__Admin__Help_Page::class )->get_community_products();

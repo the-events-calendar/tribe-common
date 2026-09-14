@@ -28,6 +28,8 @@
 
 use Tribe__Utils__Array as Arr;
 
+defined( 'ABSPATH' ) || exit;
+
 $select_classes = array_merge( [ 'tribe-widget-form-control__input', ' widefat' ], Arr::list_to_array( $classes, ' ' ) );
 
 $parent_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-form-control--dropdown' ], Arr::list_to_array( $parent_classes, ' ' ) );

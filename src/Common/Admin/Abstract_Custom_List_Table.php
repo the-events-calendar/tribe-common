@@ -14,6 +14,8 @@ use WP_List_Table;
 use Tribe__Date_Utils as Dates;
 use WP_Post;
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/screen.php';
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';

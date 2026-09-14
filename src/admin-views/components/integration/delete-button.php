@@ -18,6 +18,8 @@
  * @var URL $url         An instance of the URL handler.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $revoke_link  = $url->to_delete_connection_link( $consumer_id );
 $revoke_label = esc_html_x( 'Delete', 'Removes a connection from the list of integration connections.', 'tribe-common' )
 ?>

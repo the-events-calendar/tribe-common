@@ -9,4 +9,6 @@
 
 use TEC\Common\Admin\Help_Hub\Hub;
 
+defined( 'ABSPATH' ) || exit;
+
 $this->template( 'help-hub/shared-sidebar-has-license-no-consent' );

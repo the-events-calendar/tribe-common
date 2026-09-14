@@ -20,6 +20,9 @@
  *                             If not empty, the first is used for the clip path IDs.
  *
  */
+
+defined( 'ABSPATH' ) || exit;
+
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--list' ];
 
 if ( ! empty( $classes ) ) {

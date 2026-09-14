@@ -21,6 +21,8 @@
 
 use Tribe__Utils__Array as Arr;
 
+defined( 'ABSPATH' ) || exit;
+
 $section_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-form-control--section' ], Arr::list_to_array( $classes, ' ' ) );
 
 ?>

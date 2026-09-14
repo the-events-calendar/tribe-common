@@ -8,6 +8,8 @@
  * @var array       $section          The section to display.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( empty( $section['links'] ) || ! is_array( $section['links'] ) ) {
 	return;
 }

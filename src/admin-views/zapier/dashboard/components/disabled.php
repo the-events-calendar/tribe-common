@@ -18,6 +18,8 @@
  * @var string               $screen_reader The screen reader instructions for the text input.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div <?php tec_classes( $classes_wrap ); ?> >
 	<fieldset class="tec-automator-settings-details__read-only-field">

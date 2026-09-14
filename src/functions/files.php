@@ -5,6 +5,8 @@
  * @since 5.0.0
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! function_exists( 'tec_is_file_from_plugins' ) ) {
 	/**
 	 * Checks if a file is from one of the specified plugins.

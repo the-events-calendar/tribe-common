@@ -9,6 +9,8 @@
 
 use TEC\Common\Admin\Help_Hub\Hub;
 
+defined( 'ABSPATH' ) || exit;
+
 // phpcs:ignore PSR12.Files.FileHeader.IncorrectOrder
 /**
  * Filters the Support Hub title text.

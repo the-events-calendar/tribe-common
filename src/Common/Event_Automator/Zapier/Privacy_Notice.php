@@ -9,6 +9,8 @@
 
 namespace TEC\Event_Automator\Zapier;
 
+defined( 'ABSPATH' ) || exit;
+
 _deprecated_file( __FILE__, '1.2.0' );
 
 /**

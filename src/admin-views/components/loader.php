@@ -14,6 +14,8 @@
  * @version 4.14.9
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( empty( $text ) ) {
 	$text = $this->get( 'text' ) ?: __( 'Loading...', 'tribe-common' );
 }

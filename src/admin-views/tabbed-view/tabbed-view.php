@@ -5,6 +5,8 @@
  * @var Tribe__Tabbed_View $view
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /** @var Tribe__Tabbed_View__Tab[] $tribe_tabs */
 $tribe_tabs = $view->get_visibles();
 ?>

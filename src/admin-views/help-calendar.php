@@ -3,6 +3,8 @@
  * View: Help Page for The Events Calendar.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $faqs                    = tribe( Tribe__Admin__Help_Page::class )->get_calendar_faqs();
 $extensions              = tribe( Tribe__Admin__Help_Page::class )->get_calendar_extensions();
 $calendar_products       = tribe( Tribe__Admin__Help_Page::class )->get_calendar_products();

@@ -3,6 +3,8 @@
  * The template that displays the help page.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $main = Tribe__Main::instance();
 
 // Fetch the Help page Instance.
