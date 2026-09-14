@@ -115,6 +115,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must contain numbers and letters only', 'tribe-common' ), $this->label );
 			}
 		}
@@ -129,6 +130,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->value         = tribe_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must contain numbers and letters only', 'tribe-common' ), $this->label );
 			}
 		}
@@ -143,6 +145,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->value         = tribe_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters and dots only', 'tribe-common' ), $this->label );
 			}
 		}
@@ -157,6 +160,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters, dashes and undescores only', 'tribe-common' ), $this->label );
 			}
 		}
@@ -171,6 +175,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 
 			if ( empty( $this->value ) ) {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must not be empty', 'tribe-common' ), $this->label );
 			} else {
 				$this->result->valid = true;
@@ -185,6 +190,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must be a positive number.', 'tribe-common' ), $this->label );
 			}
 		}
@@ -197,6 +203,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must be a positive number or percent.', 'tribe-common' ), $this->label );
 			}
 		}
@@ -209,6 +216,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must be a positive number.', 'tribe-common' ), $this->label );
 			}
 		}
@@ -227,6 +235,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must be a whole number.', 'tribe-common' ), $this->label );
 			}
 		}
@@ -247,6 +256,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->value         = sanitize_title( $this->value );
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must be a valid slug (numbers, letters, dashes, and underscores).', 'tribe-common' ), $this->label );
 			}
 		}
@@ -260,6 +270,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must be a valid URL.', 'tribe-common' ), $this->label );
 			}
 		}
@@ -274,6 +285,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( "%s must have a value that's part of its options.", 'tribe-common' ), $this->label );
 			}
 		}
@@ -286,6 +298,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 			// if we are here it cannot be empty
 			if ( empty( $this->value ) ) {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( "%s must have a value that's part of its options.", 'tribe-common' ), $this->label );
 
 				return;
@@ -299,6 +312,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 					$this->result->valid = true;
 				} else {
 					$this->result->valid = false;
+					// translators: %s: the field label.
 					$this->result->error = sprintf( esc_html__( "%s must have a value that's part of its options.", 'tribe-common' ), $this->label );
 				}
 			}
@@ -319,6 +333,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( "%s must have a value that's part of its options.", 'tribe-common' ), $this->label );
 			}
 		}
@@ -331,6 +346,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		public function cannot_be_the_same_as() {
 			if ( ! isset( $this->additional_args['compare'] ) ) {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( 'Comparison validation failed because no comparison value was provided, for field %s', 'tribe-common' ), $this->field['id'] );
 			} else {
 				if ( $this->value != $this->additional_args['compare'] ) {
@@ -356,6 +372,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must be a number or percentage.', 'tribe-common' ), $this->label );
 			}
 		}
@@ -400,6 +417,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must be a number between 0 and 21.', 'tribe-common' ), $this->label );
 			}
 		}
@@ -414,6 +432,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must consist of letters, numbers, dashes, apostrophes, and spaces only.', 'tribe-common' ), $this->label );
 			}
 		}
@@ -428,6 +447,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must consist of letters, spaces, apostrophes, and dashes.', 'tribe-common' ), $this->label );
 			}
 		}
@@ -440,6 +460,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must consist of 5 numbers.', 'tribe-common' ), $this->label );
 			}
 		}
@@ -452,6 +473,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must be a phone number.', 'tribe-common' ), $this->label );
 			}
 		}
@@ -495,6 +517,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 			$this->result->valid = filter_var( $candidate, FILTER_VALIDATE_EMAIL );
 
 			if ( ! $this->result->valid ) {
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must be an email address.', 'tribe-common' ), $this->label );
 			} else {
 				$this->value = filter_var( trim( $candidate ), FILTER_SANITIZE_EMAIL );
@@ -551,6 +574,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
+				// translators: %s: the field label.
 				$this->result->error = sprintf( esc_html__( '%s must be a valid HTML color code.', 'tribe-common' ), $this->label );
 			}
 		}

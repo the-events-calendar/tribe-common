@@ -480,6 +480,7 @@ class Tribe__PUE__Notices {
 			return;
 		}
 
+		// translators: %1$s: the plugin name(s), %2$s: opening link tag, %3$s: closing link tag.
 		$prompt = sprintf( _n(
 				'There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s',
 				'Updates are available for %1$s but your license keys have expired. %2$sVisit the Events Calendar website to renew your licenses.%3$s',
@@ -521,6 +522,7 @@ class Tribe__PUE__Notices {
 			return;
 		}
 
+		// translators: %1$s: the plugin name(s), %2$s: opening link tag, %3$s: closing link tag.
 		$prompt = sprintf( _n(
 				'You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one.',
 				'You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones.', count( $this->notices[ self::UPGRADE_KEY ] ),
@@ -563,6 +565,7 @@ class Tribe__PUE__Notices {
 	 */
 	protected function find_your_key_text() {
 		return sprintf(
+			// translators: %1$s: opening link tag, %2$s: closing link tag.
 			__( 'You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s.', 'tribe-common' ),
 			'<a href="http://evnt.is/195d" target="_blank">',
 			'</a>'
@@ -617,6 +620,7 @@ class Tribe__PUE__Notices {
 		} elseif ( 1 < $num_plugins ) {
 			$all_but_last = join( ', ', array_slice( $plugin_list, 0, count( $plugin_list ) - 1 ) );
 			$last = current( array_slice( $plugin_list, count( $plugin_list ) - 1, 1 ) );
+			// translators: %1$s: the list of all plugins but the last, %2$s: the last plugin.
 			$html = sprintf( _x( '%1$s and %2$s', 'formatted plugin list', 'tribe-common' ), $all_but_last, $last );
 		}
 
@@ -660,6 +664,7 @@ class Tribe__PUE__Notices {
 		} elseif ( 1 < $num_plugins ) {
 			$all_but_last = join( ', ', array_slice( $plugin_list, 0, count( $plugin_list ) - 1 ) );
 			$last = current( array_slice( $plugin_list, count( $plugin_list ) - 1, 1 ) );
+			// translators: %1$s: the list of all plugins but the last, %2$s: the last plugin.
 			$html = sprintf( _x( '%1$s and %2$s', 'formatted plugin list', 'tribe-common' ), $all_but_last, $last );
 		}
 

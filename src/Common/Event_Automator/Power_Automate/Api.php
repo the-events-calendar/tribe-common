@@ -135,7 +135,6 @@ class Api extends Integration_AJAX {
 			_x(
 				'Are you sure you want to delete this Power Automate connection? This operation cannot be undone. Existing Power Automate connections using this connection will no longer work.',
 				'The message to display to confirm a user would like to delete a Power Automate connection.',
-				'tribe-common',
 				'tribe-common'
 			),
 		);

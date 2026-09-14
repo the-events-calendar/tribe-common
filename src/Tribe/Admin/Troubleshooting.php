@@ -400,7 +400,7 @@ class Troubleshooting {
 				[
 					'issue'      => __( 'My calendar doesn’t look right.', 'tribe-common' ),
 					/* Translators: %s: The link label, i.e. "More info" */
-					'solution'   => __( 'This can happen when other plugins try to improve performance. %s.' ),
+					'solution'   => __( 'This can happen when other plugins try to improve performance. %s.', 'tribe-common' ),
 					'link'       => 'https://theeventscalendar.com/knowledgebase/k/troubleshooting-the-most-common-installation-issues/#layout-issue',
 					'link_label' => __( 'More info', 'tribe-common' ),
 				],
