@@ -31,11 +31,14 @@ class Tribe__Log__Admin {
 	 * an appropriate response.
 	 */
 	public function listen() {
-		$fields = wp_parse_args( $_POST, [
-			'check'      => '',
-			'log-level'  => '',
-			'log-engine' => '',
-		] );
+		$fields = wp_parse_args(
+			$_POST, // phpcs:ignore WordPress.Security.NonceVerification.Missing -- The nonce posted in the check field is verified below.
+			[
+				'check'      => '',
+				'log-level'  => '',
+				'log-engine' => '',
+			]
+		);
 
 		foreach ( $fields as &$single_field ) {
 			$single_field = sanitize_text_field( $single_field );
@@ -234,7 +237,7 @@ class Tribe__Log__Admin {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( @$_GET['check'], 'download_log' ) ) {
+		if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['check'] ?? '' ) ), 'download_log' ) ) {
 			return;
 		}
 
@@ -242,7 +245,7 @@ class Tribe__Log__Admin {
 			return;
 		}
 
-		$log_name = sanitize_file_name( $_GET['log'] );
+		$log_name = sanitize_file_name( wp_unslash( $_GET['log'] ) );
 		$this->current_logger()->use_log( $log_name );
 
 		/**

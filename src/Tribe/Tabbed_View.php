@@ -220,7 +220,8 @@ class Tribe__Tabbed_View {
 		if ( is_null( $slug ) ) {
 			$default = null === $default ? $this->get_default_tab() : $default;
 			// Set the slug
-			$slug = ! empty( $_GET['tab'] ) && $this->exists( $_GET['tab'] ) ? $_GET['tab'] : $default;
+			$requested = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only tab selection; no state change.
+			$slug      = $requested && $this->exists( $requested ) ? $requested : $default;
 		}
 
 		return $slug;
@@ -237,7 +238,8 @@ class Tribe__Tabbed_View {
 			return $this->get( $this->active );
 		}
 
-		$tab = ! empty( $_GET['tab'] ) && $this->exists( $_GET['tab'] ) ? $_GET['tab'] : $this->get_default_tab();
+		$requested = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only tab selection; no state change.
+		$tab       = $requested && $this->exists( $requested ) ? $requested : $this->get_default_tab();
 
 		// Return the active tab or the default one
 		return ! empty( $tab ) ? $this->get( $tab ) : false;

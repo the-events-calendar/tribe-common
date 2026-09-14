@@ -153,7 +153,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			}
 
 			//Server
-			$server = explode( ' ', $_SERVER['SERVER_SOFTWARE'] );
+			$server = explode( ' ', sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ?? '' ) ) );
 			$server = explode( '/', reset( $server ) );
 
 			//PHP Information
@@ -410,7 +410,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 					wp_send_json_success( __( 'Unique System Info Key Generated', 'tribe-common' ) );
 				}
 
-			} elseif ( 'remove' == $_POST['generate_key'] ) {
+			} elseif ( 'remove' == $generate_key ) {
 				$optin_key = get_option( self::$option_key );
 
 				delete_option( self::$option_key );

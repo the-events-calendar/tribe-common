@@ -350,7 +350,7 @@ abstract class Tribe__Extension {
 		} else {
 			// For PHP 5.2 and under we hack around the lack of late static bindings.
 			try {
-				$backtraces = debug_backtrace();
+				$backtraces = debug_backtrace(); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace -- Locates the file of the calling extension.
 
 				// Grab each class from the backtrace.
 				foreach ( $backtraces as $i ) {

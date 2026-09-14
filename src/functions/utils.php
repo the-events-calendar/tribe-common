@@ -228,15 +228,15 @@ if ( ! function_exists( 'tec_get_request_var_raw' ) ) {
 		$requests = [];
 
 		// Prevent a slew of warnings every time we call this.
-		if ( isset( $_REQUEST ) ) {
+		if ( isset( $_REQUEST ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Generic request accessor; nonce verification is the caller's responsibility.
 			$requests[] = (array) $_REQUEST; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		}
 
-		if ( isset( $_GET ) ) {
+		if ( isset( $_GET ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Generic request accessor; nonce verification is the caller's responsibility.
 			$requests[] = (array) $_GET; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		}
 
-		if ( isset( $_POST ) ) {
+		if ( isset( $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Generic request accessor; nonce verification is the caller's responsibility.
 			$requests[] = (array) $_POST; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 		}
 
@@ -1196,7 +1196,7 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 	function tribe_get_request_vars( $refresh = false ) {
 		static $cache;
 
-		if ( ! isset( $_REQUEST ) ) {
+		if ( ! isset( $_REQUEST ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Generic request accessor; nonce verification is the caller's responsibility.
 			return [];
 		}
 
@@ -1205,12 +1205,12 @@ if ( ! function_exists( 'tribe_get_request_vars' ) ) {
 		}
 
 		$cache = array_combine(
-			array_keys( $_REQUEST ),
+			array_keys( $_REQUEST ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Generic request accessor; nonce verification is the caller's responsibility.
 			array_map(
 				static function ( $v ) {
 					return tribe_sanitize_deep( $v );
 				},
-				$_REQUEST
+				$_REQUEST // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Generic request accessor; nonce verification is the caller's responsibility.
 			)
 		);
 

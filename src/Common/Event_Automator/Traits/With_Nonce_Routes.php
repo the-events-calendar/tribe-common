@@ -103,7 +103,7 @@ trait With_Nonce_Routes {
 		if ( isset( $_SERVER[ 'REQUEST_URI' ] ) ) {
 			$_SERVER[ 'REQUEST_URI' ] = remove_query_arg(
 				[ Plugin::$request_slug, ],
-				$_SERVER[ 'REQUEST_URI' ]
+				esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) )
 			);
 		}
 
