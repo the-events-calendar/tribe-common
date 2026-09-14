@@ -1022,6 +1022,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		// Adds every 5 minutes to the existing schedules.
 		$schedules[ $this->identifier . '_cron_interval' ] = [
 			'interval' => MINUTE_IN_SECONDS * $interval,
+			// translators: %d: the interval in minutes.
 			'display'  => sprintf( __( 'Every %d Minutes', 'tribe-common' ), $interval ),
 		];
 

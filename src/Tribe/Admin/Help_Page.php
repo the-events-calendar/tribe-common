@@ -1045,7 +1045,7 @@ class Tribe__Admin__Help_Page {
 				],
 				[
 					'question' => __( 'What do I get with Events Calendar Pro?', 'tribe-common' ),
-					'answer'   => __( 'Events Calendar Pro runs alongside The Events Calendar and enhances...' ),
+					'answer'   => __( 'Events Calendar Pro runs alongside The Events Calendar and enhances...', 'tribe-common' ),
 					'link'     => 'https://evnt.is/1arj',
 				],
 				[

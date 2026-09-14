@@ -492,6 +492,7 @@ class Tribe__Main {
 			'select' => [
 				'rows' => [
 					0 => '',
+					// translators: %d: the number of selected rows.
 					'_' => __( ': Selected %d rows', 'tribe-common' ),
 					1 => __( ': Selected 1 row', 'tribe-common' ),
 				],

@@ -79,6 +79,7 @@ class Tribe__Support__Template_Checker_Report {
 		}
 
 		if ( ! empty( $newly_introduced_or_updated ) ) {
+			// translators: %s: the plugin version.
 			$report .= '<dd><p>' . sprintf( __( 'Templates introduced or updated with this release (%s):', 'tribe-common' ), $template_system[ self::VERSION_INDEX ] ) . '</p><ul>';
 
 			foreach ( $newly_introduced_or_updated as $view_name => $version ) {
@@ -94,6 +95,7 @@ class Tribe__Support__Template_Checker_Report {
 			foreach ( $outdated_or_unknown as $view_name => $version ) {
 				$version_note = empty( $version )
 					? __( 'version data missing from override', 'tribe-common' )
+					// translators: %s: the version number.
 					: sprintf( __( 'based on %s version', 'tribe-common' ), $version );
 
 				$report .= '<li>' . esc_html( $view_name ) . ' (' . $version_note . ') </li>';

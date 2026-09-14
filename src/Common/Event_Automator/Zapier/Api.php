@@ -105,7 +105,6 @@ class Api extends Integration_AJAX {
 			_x(
 				'Are you sure you want to revoke this Zapier connection? This operation cannot be undone. Existing Zapier connections tied will no longer work.',
 				'The message to display to confirm a user would like to revoke a Zapier connection.',
-				'tribe-common',
 				'tribe-common'
 			),
 		);
