@@ -21,6 +21,7 @@
 	let focusedBeforeDialog;
 	const browser = browserTests();
 	let scroll = 0;
+	let lockDepth = 0;
 	const scroller =
 		browser.ie || browser.firefox || ( browser.chrome && ! browser.edge )
 			? document.documentElement
@@ -536,9 +537,20 @@
 	 * @function lock
 	 * @description Lock the body at a particular position and prevent scroll,
 	 * use margin to simulate original scroll position.
+	 *
+	 * @since TBD Counts nested locks so only the outermost one records the scroll position.
 	 */
 
 	function lock() {
+		/*
+		 * `scroll` is shared by every dialog on the page. Re-reading it while the body is
+		 * already locked would capture the locked position (0) and lose the real one, so
+		 * only the outermost lock records it.
+		 */
+		if ( lockDepth++ ) {
+			return;
+		}
+
 		scroll = scroller.scrollTop;
 		document.body.classList.add( 'a11y-dialog__body-locked' );
 		document.body.style.position = 'fixed';
@@ -549,9 +561,16 @@
 	/**
 	 * @function unlock
 	 * @description Unlock the body and return it to its actual scroll position.
+	 *
+	 * @since TBD Holds the lock until the last dialog using it closes.
 	 */
 
 	function unlock() {
+		// Stay locked until the last dialog holding the body closes.
+		if ( ! lockDepth || --lockDepth ) {
+			return;
+		}
+
 		document.body.style.marginTop = '';
 		document.body.style.position = '';
 		document.body.style.width = '';
