@@ -92,7 +92,7 @@ class Migration {
 		}
 
 		global $wpdb;
-		$fs_accounts = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = 'fs_accounts' LIMIT 1" );
+		$fs_accounts = $wpdb->get_var( "SELECT `option_value` FROM $wpdb->options WHERE `option_name` = 'fs_accounts' LIMIT 1" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-off migration read of a third-party option row; no caching needed.
 
 
 		if ( empty( $fs_accounts ) || $fs_accounts instanceof \WP_Error ) {

@@ -25,10 +25,10 @@ class Tribe__Duplicate__Strategy__Same
 		global $wpdb;
 
 		if ( $this->is_a_numeric_post_field( $key ) ) {
-			return $wpdb->prepare( "{$key} = %d", $value );
+			return $wpdb->prepare( "{$key} = %d", $value ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $key and $table_alias are developer-defined field names and aliases; values are prepared.
 		}
 
-		return $wpdb->prepare( "{$key} = %s", $value );
+		return $wpdb->prepare( "{$key} = %s", $value ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $key and $table_alias are developer-defined field names and aliases; values are prepared.
 	}
 
 	/**
@@ -46,6 +46,6 @@ class Tribe__Duplicate__Strategy__Same
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		return $wpdb->prepare( "{$table_alias}.meta_key = %s AND {$table_alias}.meta_value =  %s", $key, $value );
+		return $wpdb->prepare( "{$table_alias}.meta_key = %s AND {$table_alias}.meta_value =  %s", $key, $value ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $key and $table_alias are developer-defined field names and aliases; values are prepared.
 	}
 }

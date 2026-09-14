@@ -360,7 +360,7 @@ class Tribe__Meta__Chunker {
 		global $wpdb;
 		$chunk_meta_key = $this->get_chunk_meta_key( $meta_key );
 		$delete = "DELETE FROM {$wpdb->postmeta} WHERE (meta_key = %s OR meta_key = %s) AND post_id = %d";
-		$wpdb->query( $wpdb->prepare( $delete, $chunk_meta_key, $meta_key, $object_id ) );
+		$wpdb->query( $wpdb->prepare( $delete, $chunk_meta_key, $meta_key, $object_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Chunked meta storage manages its own postmeta rows; values are prepared.
 	}
 
 	/**
@@ -387,7 +387,7 @@ class Tribe__Meta__Chunker {
 			'post_id'  => $object_id,
 			'meta_key' => $this->get_checksum_key( $meta_key ),
 		];
-		$wpdb->delete( $wpdb->postmeta, $data );
+		$wpdb->delete( $wpdb->postmeta, $data ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Chunked meta storage manages its own postmeta rows; values are prepared.
 	}
 
 	/**
@@ -525,21 +525,33 @@ class Tribe__Meta__Chunker {
 		$chunk_meta_key = $this->get_chunk_meta_key( $meta_key );
 		$this->insert_meta( $object_id, $meta_key, $chunks[0] );
 		foreach ( $chunks as $chunk ) {
-			$wpdb->insert( $wpdb->postmeta, [
-				'post_id'    => $object_id,
-				'meta_key'   => $chunk_meta_key,
-				'meta_value' => $chunk,
-			] );
+			$wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Chunked meta storage manages its own postmeta rows; values are prepared.
+				$wpdb->postmeta,
+				[
+					'post_id'    => $object_id,
+					'meta_key'   => $chunk_meta_key,
+					'meta_value' => $chunk, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Chunked meta storage writes meta_value by design.
+				]
+			);
 		}
 
 		$glued = $this->glue_chunks( $this->get_chunks_for( $object_id, $meta_key ) );
 		$checksum_key = $this->get_checksum_key( $meta_key );
-		$wpdb->delete( $wpdb->postmeta, [ 'post_id' => $object_id, 'meta_key' => $checksum_key ] );
-		$wpdb->insert( $wpdb->postmeta, [
-			'post_id'    => $object_id,
-			'meta_key'   => $checksum_key,
-			'meta_value' => md5( $glued ),
-		] );
+		$wpdb->delete( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Chunked meta storage manages its own postmeta rows; values are prepared.
+			$wpdb->postmeta,
+			[
+				'post_id'  => $object_id,
+				'meta_key' => $checksum_key,
+			]
+		);
+		$wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Chunked meta storage manages its own postmeta rows; values are prepared.
+			$wpdb->postmeta,
+			[
+				'post_id'    => $object_id,
+				'meta_key'   => $checksum_key,
+				'meta_value' => md5( $glued ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Chunked meta storage writes meta_value by design.
+			]
+		);
 	}
 
 	/**
@@ -559,7 +571,7 @@ class Tribe__Meta__Chunker {
 			'meta_key'   => $meta_key,
 			'meta_value' => maybe_serialize( $meta_value ),
 		];
-		$wpdb->insert( $wpdb->postmeta, $data );
+		$wpdb->insert( $wpdb->postmeta, $data ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Chunked meta storage manages its own postmeta rows; values are prepared.
 	}
 
 	/**
@@ -608,16 +620,18 @@ class Tribe__Meta__Chunker {
 
 		$chunk_meta_key = $this->get_chunk_meta_key( $meta_key );
 
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Chunked meta storage manages its own postmeta rows; values are prepared.
 		$meta_ids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM {$wpdb->postmeta}
 			WHERE post_id = %d
 			AND meta_key = %s",
 			$object_id, $chunk_meta_key
 		) );
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		$meta_values = [];
 		foreach ( $meta_ids as $meta_id ) {
 			$query = $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_id = %d", $meta_id );
-			$meta_values[] = $wpdb->get_var( $query );
+			$meta_values[] = $wpdb->get_var( $query ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Chunked meta storage manages its own postmeta rows; values are prepared.
 		}
 
 		if ( ! empty( $meta_values ) ) {
@@ -720,7 +734,7 @@ class Tribe__Meta__Chunker {
 		global $wpdb;
 
 		$query = "SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = %s";
-		$checksum = $wpdb->get_var( $wpdb->prepare( $query, $object_id, $this->get_checksum_key( $meta_key ) ) );
+		$checksum = $wpdb->get_var( $wpdb->prepare( $query, $object_id, $this->get_checksum_key( $meta_key ) ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Chunked meta storage manages its own postmeta rows; values are prepared.
 
 		return ! empty( $checksum ) ? $checksum : '';
 	}
@@ -879,7 +893,7 @@ class Tribe__Meta__Chunker {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$query = $wpdb->prepare( "SELECT meta_key, meta_value FROM {$wpdb->postmeta} WHERE post_id = %d", $object_id );
-		$results = $wpdb->get_results( $query, ARRAY_A );
+		$results = $wpdb->get_results( $query, ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Chunked meta storage manages its own postmeta rows; values are prepared.
 
 		return ! empty( $results ) && is_array( $results ) ? $results : [];
 	}

@@ -267,7 +267,7 @@ class Tribe__Image__Uploader {
 		if ( false === self::$attachment_guids_cache ) {
 			/** @var \wpdb $wpdb */
 			global $wpdb;
-			$guids = $wpdb->get_results( "SELECT ID, guid FROM $wpdb->posts where post_type = 'attachment'" );
+			$guids = $wpdb->get_results( "SELECT ID, guid FROM $wpdb->posts where post_type = 'attachment'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Attachment GUID lookup; no WP API for a reverse GUID search.
 
 			if ( $guids ) {
 				$keys                         = wp_list_pluck( $guids, 'guid' );
@@ -283,6 +283,7 @@ class Tribe__Image__Uploader {
 		if ( false === self::$original_urls_cache ) {
 			/** @var \wpdb $wpdb */
 			global $wpdb;
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Attachment GUID lookup; no WP API for a reverse GUID search.
 			$original_urls = $wpdb->get_results( "
 				SELECT p.ID, pm.meta_value FROM $wpdb->posts p
 				JOIN $wpdb->postmeta pm
@@ -290,6 +291,7 @@ class Tribe__Image__Uploader {
 				WHERE p.post_type = 'attachment'
 				AND pm.meta_key = '_tribe_importer_original_url'
 			" );
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 			if ( $original_urls ) {
 				$keys                      = wp_list_pluck( $original_urls, 'meta_value' );

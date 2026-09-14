@@ -20,7 +20,7 @@ class Tribe__Db {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		$max_size = $wpdb->get_results( "SHOW VARIABLES LIKE 'max_allowed_packet';", ARRAY_A );
+		$max_size = $wpdb->get_results( "SHOW VARIABLES LIKE 'max_allowed_packet';", ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Reads a MySQL server variable; no WP API.
 		// default the size to 1MB
 		$max_size = ! empty( $max_size[0]['Value'] ) ? $max_size[0]['Value'] : 1048576;
 

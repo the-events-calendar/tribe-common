@@ -369,9 +369,9 @@ class Tribe__Repository__Query_Filters {
 
 		$like       = $wpdb->esc_like( $entry );
 		$variations = [
-			$wpdb->prepare( "{$wpdb->posts}.{$field} LIKE %s ", "{$like}%" ),
-			$wpdb->prepare( "{$wpdb->posts}.{$field} LIKE %s ", "%{$like}%" ),
-			$wpdb->prepare( "{$wpdb->posts}.{$field} LIKE %s ", "%{$like}" ),
+			$wpdb->prepare( "{$wpdb->posts}.{$field} LIKE %s ", "{$like}%" ), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table and field names come from the repository schema; values are prepared or esc_sql()'d above.
+			$wpdb->prepare( "{$wpdb->posts}.{$field} LIKE %s ", "%{$like}%" ), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table and field names come from the repository schema; values are prepared or esc_sql()'d above.
+			$wpdb->prepare( "{$wpdb->posts}.{$field} LIKE %s ", "%{$like}" ), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table and field names come from the repository schema; values are prepared or esc_sql()'d above.
 		];
 
 		return ' AND (' . implode( ' OR ', $variations ) . ')';
@@ -429,7 +429,7 @@ class Tribe__Repository__Query_Filters {
 				AND p.{$field} {$compare} {$field_values}
 				";
 
-			$matching_ids = $wpdb->get_col( $relation_query );
+			$matching_ids = $wpdb->get_col( $relation_query ); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Table and field names come from the repository schema; values are prepared or esc_sql()'d above.
 
 			if ( empty( $matching_ids ) ) {
 				$query->posts         = [];
@@ -613,7 +613,7 @@ class Tribe__Repository__Query_Filters {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} = {$prepare} ", $this->query_vars[ $field ] );
+		$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field} = {$prepare} ", $this->query_vars[ $field ] ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- Table and field names come from the repository schema; values are prepared or esc_sql()'d above.
 
 		return $where;
 	}

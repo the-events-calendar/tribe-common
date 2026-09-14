@@ -215,7 +215,7 @@ class Tribe__Cache implements ArrayAccess {
 			return;
 		}
 
-		$wpdb->query( $sql );
+		$wpdb->query( $sql ); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Table names, absint() IDs and integer LIMIT/timestamp values only; cache maintenance queries run once per request.
 
 		// Set the variable to prevent this call from running twice.
 		tribe_set_var( 'has_deleted_expired_transients', true );
@@ -503,7 +503,7 @@ class Tribe__Cache implements ArrayAccess {
 			$these_ids    = array_splice( $buffer, 0, $limit );
 			$interval     = implode( ',', array_map( 'absint', $these_ids ) );
 			$posts_query  = "SELECT * FROM {$wpdb->posts} WHERE ID IN ({$interval}) {$limit_clause}";
-			$post_objects = $wpdb->get_results( $posts_query );
+			$post_objects = $wpdb->get_results( $posts_query ); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared -- Table names, absint() IDs and integer LIMIT/timestamp values only; cache maintenance queries run once per request.
 			if ( is_array( $post_objects ) && ! empty( $post_objects ) ) {
 				foreach ( $post_objects as $post_object ) {
 					$post = new \WP_Post( $post_object );

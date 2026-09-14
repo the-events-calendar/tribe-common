@@ -371,7 +371,7 @@ class Tribe__PUE__Notices {
 					AND option_value=''
 			";
 
-		$empty_keys = $wpdb->get_results( $sql, ARRAY_N );
+		$empty_keys = $wpdb->get_results( $sql, ARRAY_N ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Table name interpolation; no user input.
 
 		$formatted_empty_keys = [];
 		foreach ( $empty_keys as $empty_key ) {

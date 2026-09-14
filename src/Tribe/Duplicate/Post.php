@@ -159,7 +159,7 @@ class Tribe__Duplicate__Post {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		foreach ( $prepared as $query ) {
-			$this_id = $wpdb->get_var( $query );
+			$this_id = $wpdb->get_var( $query ); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Queries are prepared in prepare_queries(); duplicate lookup has no WP API.
 
 			if ( self::AND_OPERATOR === $this->where_operator ) {
 				if ( empty( $this_id ) ) {
@@ -212,7 +212,7 @@ class Tribe__Duplicate__Post {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		foreach ( $prepared as $query ) {
-			$this_ids = $wpdb->get_results( $query );
+			$this_ids = $wpdb->get_results( $query ); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Queries are prepared in prepare_queries(); duplicate lookup has no WP API.
 			$this_ids = ! empty( $this_ids )
 				? array_map( 'intval', wp_list_pluck( $this_ids, 'ID' ) )
 				: false;

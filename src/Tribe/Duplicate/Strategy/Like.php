@@ -26,7 +26,7 @@ class Tribe__Duplicate__Strategy__Like
 		global $wpdb;
 
 		if ( $this->is_a_numeric_post_field( $key ) ) {
-			return $wpdb->prepare( "{$key} = %d", $value );
+			return $wpdb->prepare( "{$key} = %d", $value ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $key and $table_alias are developer-defined field names and aliases; values are prepared.
 		}
 
 		$frags = $this->get_where_frags( $value );
@@ -34,7 +34,7 @@ class Tribe__Duplicate__Strategy__Like
 		$where_frags = [];
 		foreach ( $frags as $frag ) {
 			$formatted_frag = '%' . $wpdb->esc_like( strtolower( trim( $frag ) ) ) . '%';
-			$where_frags[]  = $wpdb->prepare( "{$key} LIKE %s", $formatted_frag );
+			$where_frags[]  = $wpdb->prepare( "{$key} LIKE %s", $formatted_frag ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $key and $table_alias are developer-defined field names and aliases; values are prepared.
 		}
 
 		return sprintf( '(%s)', implode( ' AND ', $where_frags ) );
@@ -73,11 +73,11 @@ class Tribe__Duplicate__Strategy__Like
 
 		$frags = $this->get_where_frags( $value );
 
-		$where_frags = [ $wpdb->prepare( "{$table_alias}.meta_key = %s", $key ) ];
+		$where_frags = [ $wpdb->prepare( "{$table_alias}.meta_key = %s", $key ) ]; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $key and $table_alias are developer-defined field names and aliases; values are prepared.
 		foreach ( $frags as $frag ) {
 			$formatted_frag = '%' . $wpdb->esc_like( strtolower( trim( $frag ) ) ) . '%';
 			$query          = "{$table_alias}.meta_value LIKE %s";
-			$where_frags[]  = $wpdb->prepare( $query, $formatted_frag );
+			$where_frags[]  = $wpdb->prepare( $query, $formatted_frag ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $key and $table_alias are developer-defined field names and aliases; values are prepared.
 		}
 
 		return sprintf( '(%s)', implode( " \n\tAND ", $where_frags ) );

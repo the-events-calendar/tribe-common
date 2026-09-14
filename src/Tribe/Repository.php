@@ -2324,7 +2324,7 @@ abstract class Tribe__Repository
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		return $wpdb->prepare( $format, $value );
+		return $wpdb->prepare( $format, $value ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $format is validated as a wpdb prepare format before this call.
 	}
 
 	/**
@@ -3454,7 +3454,7 @@ abstract class Tribe__Repository
 			foreach ( $values as $compare_value ) {
 				if ( ! is_array( $compare_value ) || count( $compare_value ) === 1 ) {
 					$value_clauses[] = $wpdb->prepare(
-						"({$field} {$compare} {$value_format})",
+						"({$field} {$compare} {$value_format})", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- Field, comparison and format come from the repository schema, not from input; values are prepared.
 						$compare_value
 					);
 				} else {
@@ -3463,7 +3463,7 @@ abstract class Tribe__Repository
 						array_fill( 0, count( $compare_value ), $value_format )
 					);
 					$value_clauses[] = $wpdb->prepare(
-						"({$field} {$compare} ({$value_format}))",
+						"({$field} {$compare} ({$value_format}))", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- Field, comparison and format come from the repository schema, not from input; values are prepared.
 						$compare_value
 					);
 				}
@@ -3501,7 +3501,7 @@ abstract class Tribe__Repository
 
 		$compare_target = count( $values ) > 1
 			? '(' . $this->filter_query->create_interval_of_strings( $values ) . ')'
-			: $wpdb->prepare( $format, reset( $values ) );
+			: $wpdb->prepare( $format, reset( $values ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Intervals are prepared with create_interval_of_strings(); values are prepared.
 
 		$taxonomies_interval = $this->filter_query->create_interval_of_strings( $taxonomies );
 
@@ -3510,7 +3510,7 @@ abstract class Tribe__Repository
 			WHERE tt.taxonomy IN ({$taxonomies_interval}) AND
 			( t.slug {$compare} {$compare_target} {$relation} t.name {$compare} {$compare_target} )";
 
-		return $wpdb->get_col( $wpdb->remove_placeholder_escape( $query ) );
+		return $wpdb->get_col( $wpdb->remove_placeholder_escape( $query ) ); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Intervals are prepared with create_interval_of_strings(); term lookup by comparison has no WP API.
 	}
 
 	/**
@@ -3692,7 +3692,7 @@ abstract class Tribe__Repository
 
 			$custom_fields = array_map( static function ( $custom_field ) use ( $wpdb, $meta_alias ) {
 				return $wpdb->prepare(
-					"{$meta_alias}.meta_key = %s AND {$meta_alias}.meta_value",
+					"{$meta_alias}.meta_key = %s AND {$meta_alias}.meta_value", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Alias interpolation; values are prepared.
 					$custom_field
 				);
 			}, $custom_fields );
@@ -3898,7 +3898,7 @@ abstract class Tribe__Repository
 				: $batch_size;
 			$sql    = sprintf( $sql_template, $limit, $offset );
 
-			$results = $wpdb->get_col( $sql );
+			$results = $wpdb->get_col( $sql ); // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Template with integer LIMIT/OFFSET placeholders; batches IDs for the repository.
 
 			$fetched += count( $results );
 		} while ( $results );

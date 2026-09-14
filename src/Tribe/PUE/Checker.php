@@ -1018,7 +1018,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 
 				$stats['network']['multisite']         = 1;
 				$stats['network']['network_activated'] = (int) $this->is_plugin_active_for_network();
-				$stats['network']['active_sites']      = (int) $wpdb->get_var( $sql_count );
+				$stats['network']['active_sites']      = (int) $wpdb->get_var( $sql_count ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- Table name interpolation; aggregate stats with no WP API.
 			}
 
 			self::$stats = $stats;
@@ -1077,7 +1077,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$stats['site_timezone'] = sanitize_text_field( $timezone );
 
 			$stats['totals'] = [
-				'all_post_types'   => (int) $wpdb->get_var( "SELECT COUNT(*) FROM `{$wpdb->posts}`" ),
+				'all_post_types'   => (int) $wpdb->get_var( "SELECT COUNT(*) FROM `{$wpdb->posts}`" ), // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name interpolation; aggregate stats with no WP API.
 				'events'           => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_events' ) ),
 				'venues'           => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_venue' ) ),
 				'organizers'       => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM `{$wpdb->posts}` WHERE post_type = %s", 'tribe_organizer' ) ),
