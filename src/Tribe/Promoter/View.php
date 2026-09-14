@@ -70,7 +70,11 @@ class Tribe__Promoter__View extends Tribe__Template {
 		$authorized = false;
 		$auth_error = false;
 
-		if ( $is_admin && ! empty( $_POST['promoter_authenticate'] ) ) {
+		if (
+			$is_admin
+			&& ! empty( $_POST['promoter_authenticate'] )
+			&& wp_verify_nonce( sanitize_key( wp_unslash( $_POST['promoter_nonce'] ?? '' ) ), 'promoter_authenticate' )
+		) {
 			/** @var Tribe__Promoter__Auth $promoter_auth */
 			$promoter_auth = tribe( 'promoter.auth' );
 			$authorized    = $promoter_auth->authorize_with_connector();
@@ -78,7 +82,8 @@ class Tribe__Promoter__View extends Tribe__Template {
 		}
 
 		if ( $authorized ) {
-			wp_redirect( esc_url_raw( $this->authorized_redirect_url() ) );
+			wp_redirect( esc_url_raw( $this->authorized_redirect_url() ) ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Redirects to the Promoter service after authorization; an external host by design.
+			tribe_exit();
 		} else {
 			$this->template( 'auth', [
 				'authorized'   => $authorized,

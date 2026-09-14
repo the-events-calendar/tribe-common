@@ -13,13 +13,67 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
+$request_uri = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ?? '' ) );
 ?>
-<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
-<link rel="stylesheet" href="https://use.typekit.net/pha0nnp.css">
-<link id="app" href="https://promoter.theeventscalendar.com/css/app.css" rel="stylesheet">
 <style>
+	body {
+		margin: 0;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+		color: #23282d;
+		background: #f7f7f7;
+	}
+
+	.site-wrap {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+
+	.page--auth {
+		flex: 1;
+		padding: 48px 24px;
+	}
+
+	.row--reduced {
+		max-width: 640px;
+		margin: 0 auto;
+	}
+
+	.headline__large {
+		font-size: 28px;
+		line-height: 1.3;
+		margin: 0 0 16px;
+	}
+
 	.page--auth p {
 		margin: 16px 0 30px;
+		line-height: 1.6;
+	}
+
+	.btn--blue {
+		padding: 12px 24px;
+		border: 0;
+		border-radius: 4px;
+		background: #334aff;
+		color: #fff;
+		font-size: 16px;
+		cursor: pointer;
+	}
+
+	.site-footer {
+		padding: 24px;
+		border-top: 1px solid #ddd;
+		font-size: 13px;
+		text-align: center;
+	}
+
+	.a11y-visual-hide {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect( 1px, 1px, 1px, 1px );
 	}
 </style>
 
@@ -27,7 +81,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<main id="page-content" class="page page--push page--auth">
 		<div class="row row--reduced">
 			<div class="promoter-logo">
-				<span class="a11y-visual-hide"><?php esc_html_e( 'Promoter', 'tribe-common' ); ?>/span>
+				<span class="a11y-visual-hide"><?php esc_html_e( 'Promoter', 'tribe-common' ); ?></span>
 			</div>
 
 			<?php if ( ! $authorized ) : ?>
@@ -38,14 +92,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php if ( ! $logged_in ) : ?>
 				<p>
-					<a href="<?php echo esc_url( wp_login_url( $_SERVER['REQUEST_URI'] ) ); ?>">
+					<a href="<?php echo esc_url( wp_login_url( $request_uri ) ); ?>">
 						<?php esc_html_e( 'Please log in to continue', 'tribe-common' ); ?>  &raquo;
 					</a>
 				</p>
 			<?php elseif ( ! $admin ) : ?>
 				<p>
 					<?php esc_html_e( 'You do not have access to authenticate this site.', 'tribe-common' ); ?>
-					<a href="<?php echo esc_url( wp_logout_url( $_SERVER['REQUEST_URI'] ) ); ?>">
+					<a href="<?php echo esc_url( wp_logout_url( $request_uri ) ); ?>">
 						<?php esc_html_e( 'Please log out and log back in as an admin account', 'tribe-common' ); ?> &raquo;
 					</a>
 				</p>
@@ -62,6 +116,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<input type="hidden" value="<?php echo esc_attr( $promoter_key ); ?>" name="promoter_key"/>
 					<input type="hidden" value="<?php echo esc_attr( $license_key ); ?>" name="license_key"/>
 					<input type="hidden" value="1" name="promoter_authenticate"/>
+					<?php wp_nonce_field( 'promoter_authenticate', 'promoter_nonce' ); ?>
 					<button class="btn btn--blue" type="submit"><?php esc_html_e( 'Authorize Promoter', 'tribe-common' ); ?></button>
 				</form>
 			<?php endif; ?>
