@@ -87,4 +87,20 @@ class AjaxDropdownTest extends \Codeception\TestCase\WPTestCase {
 			],
 		];
 	}
+
+	/**
+	 * @test
+	 */
+	public function should_search_terms_of_the_requested_taxonomy() {
+		$name = 'Category ' . uniqid();
+		$term = static::factory()->term->create( [ 'taxonomy' => 'category', 'name' => $name ] );
+		static::factory()->term->create( [ 'taxonomy' => 'post_tag', 'name' => $name ] );
+
+		$dropdown = new Tribe__Ajax__Dropdown();
+		$data     = $dropdown->search_terms( $name, 1, [ 'taxonomy' => 'category' ], 'terms' );
+		$ids      = wp_list_pluck( $data['results'], 'id' );
+
+		$this->assertSame( [ $term ], array_values( $ids ) );
+		$this->assertSame( $name, $data['results'][0]->text );
+	}
 }

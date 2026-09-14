@@ -48,7 +48,7 @@ class Tribe__Editor__Configuration implements Tribe__Editor__Configuration_Inter
 			],
 			'post'   => [
 				'type'   => $post_type,
-				'labels' => $post_type_object ? get_post_type_labels( $post_type_object ) : [],
+				'labels' => $post_type_object ? $post_type_object->labels : [],
 			],
 			'blocks' => [],
 		];
