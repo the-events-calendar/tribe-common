@@ -269,7 +269,7 @@ class Tribe__Admin__Notices {
 		// Bail if we already rendered
 		if ( $this->is_rendered( $slug ) ) {
 			if ( $this->is_rendered_html( $slug, $content ) && ! $return ) {
-				echo $content;
+				echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Notice content is HTML supplied by the notice author.
 			}
 
 			return false;
@@ -315,7 +315,7 @@ class Tribe__Admin__Notices {
 		tribe_asset_enqueue_group( 'tec-admin-notices' );
 
 		if ( ! $return ) {
-			echo $html;
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Notice wrapper built from escaped parts above.
 		}
 
 		return $html;

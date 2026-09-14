@@ -422,7 +422,7 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		echo $this->get_styles_scripts();
+		echo $this->get_styles_scripts(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- CSS output wrapped in style tags; HTML escaping would break selectors.
 	}
 
 	/**
@@ -538,7 +538,7 @@ final class Tribe__Customizer {
 					printf(
 						"<style id='%s-inline-css' class='tec-customizer-inline-style' type='text/css'>\n%s\n</style>\n",
 						esc_attr( $sheet ),
-						$inline_style
+						$inline_style // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- CSS output; HTML escaping would break selectors.
 					);
 				} else {
 					wp_add_inline_style( $sheet, $inline_style );

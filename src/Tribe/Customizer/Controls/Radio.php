@@ -57,7 +57,7 @@ class Radio extends Control {
 				<input
 					id="<?php echo esc_attr( $input_id . '-radio-' . $value ); ?>"
 					type="radio"
-					<?php echo $describedby_attr; ?>
+					<?php echo $describedby_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Attribute built with esc_attr() above. ?>
 					value="<?php echo esc_attr( $value ); ?>"
 					name="<?php echo esc_attr( $name ); ?>"
 					<?php $this->link(); ?>

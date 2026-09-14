@@ -1423,7 +1423,7 @@ class Tribe__Settings {
 
 		if ( count( $errors ) ) {
 			$message = ( isset( $this->major_error ) && $this->major_error )
-				? esc_html__( 'None of your settings were saved. Please try again.' )
+				? esc_html__( 'None of your settings were saved. Please try again.', 'tribe-common' )
 				: esc_html( _n( 'The above setting was not saved. Other settings were successfully saved.', 'The above settings were not saved. Other settings were successfully saved.', $count, 'tribe-common' ) );
 		}
 

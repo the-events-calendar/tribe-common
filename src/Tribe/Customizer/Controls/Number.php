@@ -64,7 +64,7 @@ class Number extends Control {
 			<input
 				id="<?php echo esc_attr( $input_id ); ?>"
 				type="<?php echo esc_attr( $this->type ); ?>"
-				<?php echo $describedby_attr; ?>
+				<?php echo $describedby_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Attribute built with esc_attr() above. ?>
 				<?php $this->input_attrs(); ?>
 				<?php if ( ! isset( $this->input_attrs['value'] ) ) : ?>
 					value="<?php echo esc_attr( $this->value() ); ?>"

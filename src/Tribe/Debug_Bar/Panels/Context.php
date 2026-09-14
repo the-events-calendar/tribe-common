@@ -94,6 +94,6 @@ class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
 
 		$html .= '</div>';
 
-		echo $html;
+		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Debug panel HTML built from escaped parts above.
 	}
 }

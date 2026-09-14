@@ -68,7 +68,7 @@ class Toggle extends Control {
 					id="<?php echo esc_attr( $input_id . '-toggle' ); ?>"
 					type="checkbox"
 					class="tec-switch-input tribe-common-a11y-visual-hide"
-					<?php echo $describedby_attr; ?>
+					<?php echo $describedby_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Attribute built with esc_attr() above. ?>
 					name="<?php echo esc_attr( '_customize-toggle-' . $this->id ); ?>"
 					<?php $this->input_attrs(); ?>
 					<?php $this->link(); ?>

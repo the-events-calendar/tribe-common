@@ -176,7 +176,7 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		$url = apply_filters( 'tribe_events_resource_url', $url, $resource );
 
 		if ( $echo ) {
-			echo $url;
+			echo esc_url( $url );
 		}
 
 		return $url;
@@ -385,7 +385,7 @@ if ( ! function_exists( 'tribe_the_notices' ) ) {
 		 */
 		$the_notices = apply_filters( 'tribe_the_notices', $html, $notices );
 		if ( $echo ) {
-			echo $the_notices;
+			echo $the_notices; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Notices HTML is built from escaped parts and filtered for extension.
 		} else {
 			return $the_notices;
 		}

@@ -138,12 +138,12 @@ class Tribe__Admin__Notice__Plugin_Download {
 
 		printf(
 			'<div class="error tribe-notice tribe-dependency-error" data-plugin="%1$s">'
-			. $notice_html_content // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped
-			. ( (bool) $has_pue_notices ? $pue_notice_html : '' )
+			. $notice_html_content // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped, WordPress.Security.EscapeOutput.OutputNotEscaped
+			. ( (bool) $has_pue_notices ? $pue_notice_html : '' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
 			. '</div>',
 			esc_attr( sanitize_title( $plugin_data['Name'] ) ),
-			$plugin_names_clean_text, // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped
-			$req_plugin_names_clean_text // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped
+			$plugin_names_clean_text, // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped, WordPress.Security.EscapeOutput.OutputNotEscaped
+			$req_plugin_names_clean_text // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped, WordPress.Security.EscapeOutput.OutputNotEscaped
 		);
 	}
 

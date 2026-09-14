@@ -118,7 +118,7 @@ class View extends \Tribe__Template {
 		$template = $this->template( $template_name, $args, false );
 
 		if ( ! empty( $template ) ) {
-			 echo $template;
+			echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Template output, escaped in the template files.
 		}
 
 		$html = ob_get_clean();

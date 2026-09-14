@@ -68,7 +68,7 @@ class Range_Slider extends Control {
 				id="<?php echo esc_attr( $input_id . '-range-slider' ); ?>"
 				type="range"
 				class="tec-range-slider"
-				<?php echo $describedby_attr; ?>
+				<?php echo $describedby_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Attribute built with esc_attr() above. ?>
 				name="<?php echo esc_attr( '_customize-range-slider-' . $this->id ); ?>"
 				<?php $this->input_attrs(); ?>
 				<?php $this->link(); ?>

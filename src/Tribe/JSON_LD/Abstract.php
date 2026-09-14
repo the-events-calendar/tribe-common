@@ -213,7 +213,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		 * @param string The HTML for the JSON LD markup
 		 */
 		$html = apply_filters( 'tribe_json_ld_markup', $html );
-		echo $html;
+		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- JSON-LD script tag with wp_json_encode() output.
 	}
 
 	/**

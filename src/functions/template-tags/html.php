@@ -102,7 +102,7 @@ function tribe_get_attributes() {
  */
 function tribe_attributes() {
 	$element_attributes = new Element_Attributes( func_get_args() );
-	echo $element_attributes->get_attributes();
+	echo $element_attributes->get_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Attributes are escaped in Element_Attributes::get_attributes().
 }
 
 /**
@@ -126,7 +126,7 @@ function tribe_required( $required, $echo = true ) {
 		if ( ! $echo ) {
 			return $required_string;
 		} else {
-			echo $required_string;
+			echo $required_string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Static attribute string.
 		}
 	}
 }
@@ -150,7 +150,7 @@ function tribe_required_label( $required, $echo = true ) {
 		if ( ! $echo ) {
 			return $required_string;
 		} else {
-			echo $required_string;
+			echo $required_string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Static attribute string.
 		}
 	}
 }
@@ -174,7 +174,7 @@ function tribe_disabled( $disabled, $echo = true ) {
 		if ( ! $echo ) {
 			return $disabled_string;
 		} else {
-			echo $disabled_string;
+			echo $disabled_string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Static attribute string.
 		}
 	}
 }
