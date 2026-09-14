@@ -584,12 +584,12 @@ class Tribe__Template {
 		$folders['child-theme'] = [
 			'id'       => 'child-theme',
 			'priority' => 10,
-			'path'     => $this->get_template_public_path( STYLESHEETPATH, $namespace ),
+			'path'     => $this->get_template_public_path( get_stylesheet_directory(), $namespace ),
 		];
 		$folders['parent-theme'] = [
 			'id'       => 'parent-theme',
 			'priority' => 15,
-			'path'     => $this->get_template_public_path( TEMPLATEPATH, $namespace ),
+			'path'     => $this->get_template_public_path( get_template_directory(), $namespace ),
 		];
 
 		/**

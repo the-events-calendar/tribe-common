@@ -36,9 +36,9 @@ class Tribe__Assets_Pipeline {
 
 		if ( 'underscore' === $handle ) {
 			$path = Tribe__Main::instance()->plugin_url;
-			$tag  = "<script src='{$path}build/js/underscore-before.js'></script>\n"
+			$tag  = "<script src='{$path}build/js/underscore-before.js'></script>\n" // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- Wraps the enqueued script tag inside the script_loader_tag filter.
 				. $tag
-				. "<script src='{$path}build/js/underscore-after.js'></script>\n";
+				. "<script src='{$path}build/js/underscore-after.js'></script>\n"; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- Wraps the enqueued script tag inside the script_loader_tag filter.
 		}
 
 		return $tag;
@@ -65,7 +65,7 @@ class Tribe__Assets_Pipeline {
 		}
 
 		$path = Tribe__Main::instance()->plugin_url;
-		$tag .= "<script src='{$path}build/js/select2-after.js'></script>\n";
+		$tag .= "<script src='{$path}build/js/select2-after.js'></script>\n"; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- Wraps the enqueued script tag inside the script_loader_tag filter.
 
 		return $tag;
 	}

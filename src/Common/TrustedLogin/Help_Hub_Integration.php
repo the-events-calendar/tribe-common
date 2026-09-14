@@ -123,11 +123,9 @@ class Help_Hub_Integration {
 		$redirect_url = $this->get_help_hub_redirect_url();
 
 		// Inline JS logic only, no data injected directly.
-		$inline_js = <<<JS
-		if (typeof tl_obj !== 'undefined' && typeof tecTrustedLoginVars !== 'undefined') {
-			tl_obj.query_string = tecTrustedLoginVars.redirectUrl;
-		}
-		JS;
+		$inline_js = "if (typeof tl_obj !== 'undefined' && typeof tecTrustedLoginVars !== 'undefined') {"
+			. ' tl_obj.query_string = tecTrustedLoginVars.redirectUrl;'
+			. ' }';
 
 		// Safely pass data to JavaScript.
 		wp_localize_script(

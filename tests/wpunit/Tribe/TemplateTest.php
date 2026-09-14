@@ -591,4 +591,18 @@ class TemplateTest extends \Codeception\TestCase\WPTestCase {
 			$html
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function should_look_up_theme_templates_in_the_active_theme_directories() {
+		$template = new Template();
+		$method   = new \ReflectionMethod( $template, 'get_template_theme_path_list' );
+		$method->setAccessible( true );
+
+		$folders = $method->invoke( $template, 'events' );
+
+		$this->assertStringStartsWith( get_stylesheet_directory(), $folders['child-theme']['path'] );
+		$this->assertStringStartsWith( get_template_directory(), $folders['parent-theme']['path'] );
+	}
 }

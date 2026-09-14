@@ -55,12 +55,7 @@ class Tribe__Ajax__Dropdown { // phpcs:ignore-next-line  PEAR.NamingConventions.
 			}
 		}
 
-		// On versions older than 4.5 taxonomy goes as a Param.
-		if ( version_compare( $GLOBALS['wp_version'], '4.5', '<' ) ) {
-			$terms = get_terms( $args['taxonomy'], $args );
-		} else {
-			$terms = get_terms( $args );
-		}
+		$terms = get_terms( $args );
 
 		$results = [];
 
