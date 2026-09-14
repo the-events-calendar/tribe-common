@@ -54,10 +54,11 @@ class DB_Lock {
 	public static function prune_stale_db_locks() {
 		global $wpdb;
 		$prefix        = static::$db_lock_option_prefix;
-		$affected_rows = $wpdb->query(
-			"DELETE FROM {$wpdb->options}
-				WHERE option_name LIKE '{$prefix}%'
-				AND option_value < ( UNIX_TIMESTAMP() - 86400 )"
+		$affected_rows = $wpdb->query( // phpcs:ignore PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name and the class' own option prefix; DB locks bypass the object cache by design.
+			$wpdb->prepare(
+				"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s AND option_value < ( UNIX_TIMESTAMP() - 86400 )",
+				$wpdb->esc_like( $prefix ) . '%'
+			)
 		);
 
 		if ( false === $affected_rows ) {
@@ -152,7 +153,7 @@ class DB_Lock {
 
 		global $wpdb;
 
-		$free = $wpdb->get_var(
+		$free = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name and the class' own option prefix; DB locks bypass the object cache by design.
 			$wpdb->prepare( 'SELECT IS_FREE_LOCK( SHA1( %s ) )', $lock_key )
 		);
 
@@ -160,7 +161,7 @@ class DB_Lock {
 			return false;
 		}
 
-		$acquired = $wpdb->get_var(
+		$acquired = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name and the class' own option prefix; DB locks bypass the object cache by design.
 			$wpdb->prepare( 'SELECT GET_LOCK( SHA1( %s ),%d )', $lock_key, $timeout )
 
 		);
@@ -282,7 +283,7 @@ class DB_Lock {
 	protected function release_db_lock_w_mysql_functions( $lock_key ) {
 		global $wpdb;
 
-		$released = $wpdb->query(
+		$released = $wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name and the class' own option prefix; DB locks bypass the object cache by design.
 			$wpdb->prepare( "SELECT RELEASE_LOCK( SHA1( %s ) )", $lock_key )
 		);
 

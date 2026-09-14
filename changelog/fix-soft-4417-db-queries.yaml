@@ -1,0 +1,4 @@
+significance: patch
+type: fixed
+entry: "Direct database queries use identifier placeholders and prepared values where Plugin Check flagged interpolation. [SOFT-4417]"
+timestamp: 2026-09-14T09:21:31.000Z

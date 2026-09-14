@@ -25,10 +25,10 @@ class Tribe__Duplicate__Strategy__Same
 		global $wpdb;
 
 		if ( $this->is_a_numeric_post_field( $key ) ) {
-			return $wpdb->prepare( "{$key} = %d", $value );
+			return $wpdb->prepare( '%i = %d', $key, $value );
 		}
 
-		return $wpdb->prepare( "{$key} = %s", $value );
+		return $wpdb->prepare( '%i = %s', $key, $value );
 	}
 
 	/**
@@ -46,6 +46,6 @@ class Tribe__Duplicate__Strategy__Same
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		return $wpdb->prepare( "{$table_alias}.meta_key = %s AND {$table_alias}.meta_value =  %s", $key, $value );
+		return $wpdb->prepare( '%i.meta_key = %s AND %i.meta_value = %s', $table_alias, $key, $table_alias, $value );
 	}
 }

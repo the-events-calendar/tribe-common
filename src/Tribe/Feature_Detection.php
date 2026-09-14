@@ -188,7 +188,7 @@ class Tribe__Feature_Detection {
 		}
 
 		global $wpdb;
-		$mysql_max_packet_size = $wpdb->get_var( "SHOW VARIABLES LIKE 'max_allowed_packet'", 1 );
+		$mysql_max_packet_size = $wpdb->get_var( "SHOW VARIABLES LIKE 'max_allowed_packet'", 1 ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Reads a MySQL server variable; no WP API.
 		// At min set it to 2 MBs.
 		$mysql_max_packet_size = absint( max( absint( $mysql_max_packet_size ), 2097152 ) );
 
