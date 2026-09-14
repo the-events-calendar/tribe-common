@@ -1,0 +1,4 @@
+Significance: patch
+Type: security
+
+Strengthen permission checks in the REST API. Props to Jashid Sany for reporting. [SVUL-109]
