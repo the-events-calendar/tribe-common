@@ -77,5 +77,19 @@ class Plugin_Check_Compliance_Test extends \Codeception\Test\Unit {
 		$this->assertSame( [], $missing, 'PHP files without an ABSPATH guard: ' . implode( ', ', $missing ) );
 	}
 
+	/**
+	 * @test
+	 */
+	public function review_links_are_not_pre_filtered(): void {
+		$offenders = [];
+
+		foreach ( $this->php_files( 'src' ) as $file ) {
+			if ( false !== strpos( file_get_contents( $file ), 'reviews/?filter=5' ) ) {
+				$offenders[] = str_replace( $this->root(), '', $file );
+			}
+		}
+
+		$this->assertSame( [], $offenders, 'Files linking to pre-filtered 5-star reviews: ' . implode( ', ', $offenders ) );
+	}
 
 }
