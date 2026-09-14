@@ -172,7 +172,7 @@ abstract class Abstract_Endpoints_Manager {
 
 			$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
-			wp_die( $error_message );
+			wp_die( esc_html( $error_message ) );
 		}
 
 		$endpoint = $this->get_endpoint( $endpoint_id, 'queue' );
@@ -181,7 +181,7 @@ abstract class Abstract_Endpoints_Manager {
 
 			$this->template_modifications->print_settings_message_template( $message );
 
-			wp_die( $message );
+			wp_die( esc_html( $message ) );
 		}
 
 		$success = $this->clear_endpoint( $endpoint );
@@ -192,14 +192,14 @@ abstract class Abstract_Endpoints_Manager {
 			$this->template_modifications->print_settings_message_template( $message );
 			$this->template_modifications->print_endpoint_row( $endpoint_details, $this );
 
-			wp_die( $message );
+			wp_die( esc_html( $message ) );
 		}
 
 		$error_message = _x( 'Endpoint was not cleared.', 'was not cleared failure message.', 'tribe-common' );
 
 		$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
-		wp_die( $error_message );
+		wp_die( esc_html( $error_message ) );
 	}
 
 	/**
@@ -223,7 +223,7 @@ abstract class Abstract_Endpoints_Manager {
 
 			$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
-			wp_die( $error_message );
+			wp_die( esc_html( $error_message ) );
 		}
 
 		$endpoint = $this->get_endpoint( $endpoint_id );
@@ -232,7 +232,7 @@ abstract class Abstract_Endpoints_Manager {
 
 			$this->template_modifications->print_settings_message_template( $message );
 
-			wp_die( $message );
+			wp_die( esc_html( $message ) );
 		}
 
 		$success = $this->disable_endpoint( $endpoint );
@@ -243,14 +243,14 @@ abstract class Abstract_Endpoints_Manager {
 			$this->template_modifications->print_settings_message_template( $message );
 			$this->template_modifications->print_endpoint_row( $endpoint_details, $this );
 
-			wp_die( $message );
+			wp_die( esc_html( $message ) );
 		}
 
 		$error_message = _x( 'Endpoint was not disabled', 'endpoint could not be enabled it error message.', 'tribe-common' );
 
 		$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
-		wp_die( $error_message );
+		wp_die( esc_html( $error_message ) );
 	}
 
 	/**
@@ -274,7 +274,7 @@ abstract class Abstract_Endpoints_Manager {
 
 			$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
-			wp_die( $error_message );
+			wp_die( esc_html( $error_message ) );
 		}
 
 		$endpoint = $this->get_endpoint( $endpoint_id );
@@ -283,7 +283,7 @@ abstract class Abstract_Endpoints_Manager {
 
 			$this->template_modifications->print_settings_message_template( $message );
 
-			wp_die( $message );
+			wp_die( esc_html( $message ) );
 		}
 
 		$success = $this->enable_endpoint( $endpoint );
@@ -294,14 +294,14 @@ abstract class Abstract_Endpoints_Manager {
 			$this->template_modifications->print_settings_message_template( $message );
 			$this->template_modifications->print_endpoint_row( $endpoint_details, $this );
 
-			wp_die( $message );
+			wp_die( esc_html( $message ) );
 		}
 
 		$error_message = _x( 'Endpoint was not enabled', 'endpoint could not be enabled it error message.', 'tribe-common' );
 
 		$this->template_modifications->print_settings_message_template( $error_message, 'error' );
 
-		wp_die( $error_message );
+		wp_die( esc_html( $error_message ) );
 	}
 
 	/**

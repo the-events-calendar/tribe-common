@@ -93,11 +93,13 @@ trait Cache_User {
 
 			if ( ! property_exists( $this, $key . '_cache' ) ) {
 				throw new \BadMethodCallException(
-					sprintf(
-						'The %s class should explicitly define a "%s" property to use the %s trait.',
-						$this_class,
-						$key . '_cache',
-						__TRAIT__
+					esc_html(
+						sprintf(
+							'The %s class should explicitly define a "%s" property to use the %s trait.',
+							$this_class,
+							$key . '_cache',
+							__TRAIT__
+						)
 					)
 				);
 			}
