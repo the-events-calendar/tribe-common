@@ -164,7 +164,7 @@ class Tribe__Image__Uploader {
 
 		// Remove the temporary file as is no longer required at this point.
 		if ( ! $is_local && file_exists( $file ) ) {
-			@unlink( $file );
+			wp_delete_file( $file );
 		}
 
 		if ( is_wp_error( $attachment_id ) ) {

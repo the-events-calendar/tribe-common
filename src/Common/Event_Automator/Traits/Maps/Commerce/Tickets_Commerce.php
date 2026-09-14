@@ -45,7 +45,7 @@ trait Tickets_Commerce {
 			'id'                 => 'tc-' . $order->ID,
 			'order_id'           => strval( $order->order_id ),
 			'order_number'       => strval( $order->order_id ),
-			'order_date'         => date( 'Y-m-d\TH:i:s\Z', strtotime( $order->purchase_time ) ),
+			'order_date'         => date( 'Y-m-d\TH:i:s\Z', strtotime( $order->purchase_time ) ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 			'status'             => $order->status,
 			'order_total'        => floatval( $order->total ),
 			'order_currency'     => $order->currency,

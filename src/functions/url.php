@@ -69,8 +69,13 @@ if ( ! function_exists( 'tribe_build_url' ) ) {
 	 * @return string The URL built from its parts.
 	 */
 	function tribe_build_url( $url, $parts = [], $flags = HTTP_URL_REPLACE, &$new_url = [] ) {
-		is_array( $url ) || $url = parse_url( $url );
-		is_array( $parts ) || $parts = parse_url( $parts );
+		if ( ! is_array( $url ) ) {
+			$url = parse_url( $url ); // phpcs:ignore WordPress.WP.AlternativeFunctions.parse_url_parse_url -- Pure PHP helper that also runs without WordPress loaded.
+		}
+
+		if ( ! is_array( $parts ) ) {
+			$parts = parse_url( $parts ); // phpcs:ignore WordPress.WP.AlternativeFunctions.parse_url_parse_url -- Pure PHP helper that also runs without WordPress loaded.
+		}
 
 		( isset( $url['query'] ) && is_string( $url['query'] ) ) || $url['query'] = null;
 		( isset( $parts['query'] ) && is_string( $parts['query'] ) ) || $parts['query'] = null;

@@ -843,7 +843,7 @@ if ( ! function_exists( 'tribe_set_time_limit' ) ) {
 			return false;
 		}
 
-		return @set_time_limit( $limit );
+		return @set_time_limit( $limit ); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged, WordPress.PHP.NoSilencedErrors.Discouraged -- Long-running import and migration tasks need the limit lifted.
 	}
 }
 

@@ -41,7 +41,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 		if ( $date_format ) {
 			$format = $date_format;
 		} else {
-			$date_year = gmdate( 'Y', $date );
+			$date_year = date( 'Y', $date ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 			$cur_year  = ( new DateTimeImmutable( 'now', wp_timezone() ) )->format( 'Y' );
 
 			// only show the year in the date if it's not in the current year
@@ -102,11 +102,11 @@ if ( ! function_exists( 'tribe_beginning_of_day' ) ) {
 		$hours_to_add    = $multiday_cutoff[0];
 		$minutes_to_add  = $multiday_cutoff[1];
 		if ( is_null( $date ) || empty( $date ) ) {
-			$date = date( $format, strtotime( date( 'Y-m-d' ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) );
+			$date = date( $format, strtotime( date( 'Y-m-d' ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		} else {
 			$date      = Tribe__Date_Utils::is_timestamp( $date ) ? $date : strtotime( $date );
-			$timestamp = strtotime( date( 'Y-m-d', $date ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' );
-			$date      = date( $format, $timestamp );
+			$timestamp = strtotime( date( 'Y-m-d', $date ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
+			$date      = date( $format, $timestamp ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		}
 
 		/**
@@ -139,11 +139,11 @@ if ( ! function_exists( 'tribe_end_of_day' ) ) {
 		$hours_to_add    = $multiday_cutoff[0];
 		$minutes_to_add  = $multiday_cutoff[1];
 		if ( is_null( $date ) || empty( $date ) ) {
-			$date = date( $format, strtotime( 'tomorrow  +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 );
+			$date = date( $format, strtotime( 'tomorrow  +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		} else {
 			$date      = Tribe__Date_Utils::is_timestamp( $date ) ? $date : strtotime( $date );
-			$timestamp = strtotime( date( 'Y-m-d', $date ) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1;
-			$date      = date( $format, $timestamp );
+			$timestamp = strtotime( date( 'Y-m-d', $date ) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1; // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
+			$date      = date( $format, $timestamp ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		}
 
 		/**

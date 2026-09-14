@@ -79,7 +79,7 @@ class Tribe__PUE__Package_Handler {
 			return false;
 		}
 
-		$query_vars = parse_url( $package, PHP_URL_QUERY );
+		$query_vars = wp_parse_url( $package, PHP_URL_QUERY );
 
 		if ( empty( $query_vars ) ) {
 			return false;

@@ -45,7 +45,7 @@ trait WooCommerce {
 			'id'                   => 'woo-' . $order->get_id(),
 			'order_id'             => strval( $order->get_id() ),
 			'order_number'         => $order->get_order_number(),
-			'order_date'           => date( 'Y-m-d\TH:i:s\Z', strtotime( get_post( $order->get_id() )->post_date ) ),
+			'order_date'           => date( 'Y-m-d\TH:i:s\Z', strtotime( get_post( $order->get_id() )->post_date ) ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 			'status'               => $order->get_status(),
 			'shipping_total'       => $order->get_shipping_total(),
 			'shipping_tax_total'   => wc_format_decimal( $order->get_shipping_tax(), 2 ),

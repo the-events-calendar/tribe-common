@@ -160,7 +160,7 @@ class Tribe__Timezones {
 		$timezone = timezone_name_from_abbr( '', $seconds, 0 );
 
 		if ( false === $timezone ) {
-			$is_dst = (bool) date( 'I' );
+			$is_dst = (bool) date( 'I' ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 
 			foreach ( timezone_abbreviations_list() as $abbr ) {
 				foreach ( $abbr as $city ) {

@@ -61,16 +61,16 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 		$this->close_handle();
 
 		if ( ! file_exists( $this->log_file ) && $this->is_available() ) {
-			touch( $this->log_file );
+			touch( $this->log_file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_touch, WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_touch -- Log files are streamed with native file functions; WP_Filesystem does not support append streams.
 		}
 
 		// Bail if we're attempting to write but don't have permission.
-		if ( 'r' !== $this->context && ! is_writable( $this->log_file ) ) {
+		if ( 'r' !== $this->context && ! is_writable( $this->log_file ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable, WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_is_writable -- Log files are streamed with native file functions; WP_Filesystem does not support append streams.
 			return;
 		}
 
 		if ( is_readable( $this->log_file ) ) {
-			$this->handle = fopen( $this->log_file, $this->context );
+			$this->handle = fopen( $this->log_file, $this->context ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- Log files are streamed with native file functions; WP_Filesystem does not support append streams.
 		}
 	}
 
@@ -80,7 +80,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	protected function close_handle() {
 		// is_resource() only returns true for open resources
 		if ( is_resource( $this->handle ) ) {
-			fclose( $this->handle );
+			fclose( $this->handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- Log files are streamed with native file functions; WP_Filesystem does not support append streams.
 		}
 	}
 
@@ -134,7 +134,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	 * @return bool
 	 */
 	public function is_available() {
-		return is_writable( $this->log_dir ) && is_readable( $this->log_dir );
+		return is_writable( $this->log_dir ) && is_readable( $this->log_dir ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable, WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_is_writable -- Log files are streamed with native file functions; WP_Filesystem does not support append streams.
 	}
 
 	/**
@@ -307,7 +307,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 
 		foreach ( $this->list_available_logs() as $available_log ) {
 			if ( $available_log <= $cutoff ) {
-				unlink( $this->get_log_file_name( $available_log ) );
+				wp_delete_file( $this->get_log_file_name( $available_log ) );
 			}
 		}
 	}

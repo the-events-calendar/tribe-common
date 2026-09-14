@@ -46,7 +46,7 @@ trait EDD {
 			'id'                   => 'edd-' . $order->__get( 'id' ),
 			'order_id'             => strval( $order->get_number() ),
 			'order_number'         => $order->get_number(),
-			'order_date'           => date( 'Y-m-d\TH:i:s\Z', strtotime( $order->__get( 'date_created' ) ) ),
+			'order_date'           => date( 'Y-m-d\TH:i:s\Z', strtotime( $order->__get( 'date_created' ) ) ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 			'status'               => $order->status,
 			'tax_total'            => floatval( $order->__get( 'tax' ) ),
 			'discount_total'       => floatval( $order->__get( 'discount' ) ),

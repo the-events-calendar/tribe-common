@@ -260,7 +260,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 				$format = self::DBDATEFORMAT;
 			}
 
-			return date( $format, $date );
+			return date( $format, $date ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		}
 
 		/**
@@ -288,7 +288,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function time_only( $date ) {
 			$date = is_numeric( $date ) ? $date : strtotime( $date );
-			return date( self::DBTIMEFORMAT, $date );
+			return date( self::DBTIMEFORMAT, $date ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		}
 
 		/**
@@ -300,7 +300,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function hour_only( $date ) {
 			$date = is_numeric( $date ) ? $date : strtotime( $date );
-			return date( self::HOURFORMAT, $date );
+			return date( self::HOURFORMAT, $date ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		}
 
 		/**
@@ -312,7 +312,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function minutes_only( $date ) {
 			$date = is_numeric( $date ) ? $date : strtotime( $date );
-			return date( self::MINUTEFORMAT, $date );
+			return date( self::MINUTEFORMAT, $date ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		}
 
 		/**
@@ -324,7 +324,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function meridian_only( $date ) {
 			$date = is_numeric( $date ) ? $date : strtotime( $date );
-			return date( self::MERIDIANFORMAT, $date );
+			return date( self::MERIDIANFORMAT, $date ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		}
 
 		/**
@@ -362,12 +362,12 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return string The last day of the month.
 		 */
 		public static function get_last_day_of_month( $timestamp ) {
-			$curmonth  = date( 'n', $timestamp );
-			$curYear   = date( 'Y', $timestamp );
+			$curmonth  = date( 'n', $timestamp ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
+			$curYear   = date( 'Y', $timestamp ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 			$nextmonth = mktime( 0, 0, 0, $curmonth + 1, 1, $curYear );
-			$lastDay   = strtotime( date( self::DBDATETIMEFORMAT, $nextmonth ) . ' - 1 day' );
+			$lastDay   = strtotime( date( self::DBDATETIMEFORMAT, $nextmonth ) . ' - 1 day' ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 
-			return date( 'j', $lastDay );
+			return date( 'j', $lastDay ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		}
 
 		/**
@@ -378,7 +378,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return bool If the timestamp is a weekday.
 		 */
 		public static function is_weekday( $curdate ) {
-			return in_array( date( 'N', $curdate ), [ 1, 2, 3, 4, 5 ] );
+			return in_array( date( 'N', $curdate ), [ 1, 2, 3, 4, 5 ] ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		}
 
 		/**
@@ -389,7 +389,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return bool If the timestamp is a weekend.
 		 */
 		public static function is_weekend( $curdate ) {
-			return in_array( date( 'N', $curdate ), [ 6, 7 ] );
+			return in_array( date( 'N', $curdate ), [ 6, 7 ] ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		}
 
 		/**
@@ -403,8 +403,8 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		public static function get_last_day_of_week_in_month( $curdate, $day_of_week ) {
 			$nextdate = mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $curdate ), self::get_last_day_of_month( $curdate ), date( 'Y', $curdate ) );// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 
-			while ( date( 'N', $nextdate ) != $day_of_week && $day_of_week != - 1 ) {
-				$nextdate = strtotime( date( self::DBDATETIMEFORMAT, $nextdate ) . ' - 1 day' );
+			while ( date( 'N', $nextdate ) != $day_of_week && $day_of_week != - 1 ) { // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
+				$nextdate = strtotime( date( self::DBDATETIMEFORMAT, $nextdate ) . ' - 1 day' ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 			}
 
 			return $nextdate;
@@ -419,12 +419,12 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return int The timestamp of the date that fits the qualifications.
 		 */
 		public static function get_first_day_of_week_in_month( $curdate, $day_of_week ) {
-			$nextdate = mktime( 0, 0, 0, date( 'n', $curdate ), 1, date( 'Y', $curdate ) );
+			$nextdate = mktime( 0, 0, 0, date( 'n', $curdate ), 1, date( 'Y', $curdate ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 
-			while ( ! ( $day_of_week > 0 && date( 'N', $nextdate ) == $day_of_week ) &&
+			while ( ! ( $day_of_week > 0 && date( 'N', $nextdate ) == $day_of_week ) && // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 					! ( $day_of_week == - 1 && self::is_weekday( $nextdate ) ) &&
 					! ( $day_of_week == - 2 && self::is_weekend( $nextdate ) ) ) {
-				$nextdate = strtotime( date( self::DBDATETIMEFORMAT, $nextdate ) . ' + 1 day' );
+				$nextdate = strtotime( date( self::DBDATETIMEFORMAT, $nextdate ) . ' + 1 day' ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 			}
 
 			return $nextdate;
@@ -439,7 +439,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 */
 		public static function number_to_ordinal( $number ) {
 			$output = $number . ( ( ( strlen( $number ) > 1 ) && ( substr( $number, - 2, 1 ) == '1' ) ) ?
-					'th' : date( 'S', mktime( 0, 0, 0, 0, substr( $number, - 1 ), 0 ) ) );
+					'th' : date( 'S', mktime( 0, 0, 0, 0, substr( $number, - 1 ), 0 ) ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 
 			return apply_filters( 'tribe_events_number_to_ordinal', $output, $number );
 		}
@@ -452,7 +452,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 		 * @return bool Whether the string is a timestamp.
 		 */
 		public static function is_timestamp( $timestamp ) {
-			if ( is_numeric( $timestamp ) && (int) $timestamp == $timestamp && date( 'U', $timestamp ) == $timestamp ) {
+			if ( is_numeric( $timestamp ) && (int) $timestamp == $timestamp && date( 'U', $timestamp ) == $timestamp ) { // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 				return true;
 			}
 
@@ -1105,7 +1105,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			_deprecated_function( __METHOD__, '3.10', 'tribe_event_end_of_day' );
 
 			if ( $isTimestamp ) {
-				$date = date( self::DBDATEFORMAT, $date );
+				$date = date( self::DBDATEFORMAT, $date ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 			}
 
 			return tribe_event_end_of_day( $date, self::DBDATETIMEFORMAT );
@@ -1126,7 +1126,7 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			_deprecated_function( __METHOD__, '3.10', 'tribe_event_beginning_of_day' );
 
 			if ( $isTimestamp ) {
-				$date = date( self::DBDATEFORMAT, $date );
+				$date = date( self::DBDATEFORMAT, $date ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 			}
 
 			return tribe_event_beginning_of_day( $date, self::DBDATETIMEFORMAT );
@@ -1287,11 +1287,11 @@ if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
 			if ( $week_direction > 0 ) {
 				$startday = 1;
 			} else {
-				$startday = date( 't', mktime( 0, 0, 0, $month, 1, $year ) );
+				$startday = date( 't', mktime( 0, 0, 0, $month, 1, $year ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 			}
 
 			$start   = mktime( 0, 0, 0, $month, $startday, $year );
-			$weekday = date( 'N', $start );
+			$weekday = date( 'N', $start ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 
 			if ( $week_direction * $day_of_week >= $week_direction * $weekday ) {
 				$offset = - $week_direction * 7;

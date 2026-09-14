@@ -62,12 +62,12 @@ class Tribe__REST__Post_Repository {
 		$time = strtotime( $date );
 
 		return [
-			'year'    => date( 'Y', $time ),
-			'month'   => date( 'm', $time ),
-			'day'     => date( 'd', $time ),
-			'hour'    => date( 'H', $time ),
-			'minutes' => date( 'i', $time ),
-			'seconds' => date( 's', $time ),
+			'year'    => date( 'Y', $time ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
+			'month'   => date( 'm', $time ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
+			'day'     => date( 'd', $time ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
+			'hour'    => date( 'H', $time ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
+			'minutes' => date( 'i', $time ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
+			'seconds' => date( 's', $time ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- Paired with mktime()/strtotime() in the same default timezone, which WordPress sets to UTC.
 		];
 	}
 
