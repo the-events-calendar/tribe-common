@@ -1,0 +1,8 @@
+significance: patch
+type: fixed
+entry: "Fixed the WordPress.org Plugin Check errors in the security and plugin
+  repo categories: shipped PHP files now refuse direct access, exception
+  messages and output are escaped, review links no longer pre-filter to five
+  stars, the Promoter auth view loads no remote assets and verifies a nonce, and
+  the remaining findings are annotated with the reason they stay. [SOFT-4417]"
+timestamp: 2026-09-11T00:36:01.372Z
