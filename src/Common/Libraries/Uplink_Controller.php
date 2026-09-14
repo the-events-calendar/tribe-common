@@ -163,7 +163,7 @@ class Uplink_Controller extends Controller_Contract {
 				continue;
 			}
 
-			$license_key = sanitize_text_field( $_POST[ 'pue_install_key_' . $legacy_slug ] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$license_key = sanitize_text_field( wp_unslash( $_POST[ 'pue_install_key_' . $legacy_slug ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 			// If the license key has a value, it will be validated and stored by uplink.
 			// We only want to give our users the option to remove a license key if they want to.

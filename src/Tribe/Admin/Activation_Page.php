@@ -53,7 +53,7 @@ class Tribe__Admin__Activation_Page {
 	 * @return bool
 	 */
 	public function is_welcome_page() {
-		return isset( $_GET[ $this->welcome_slug ] );
+		return isset( $_GET[ $this->welcome_slug ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only flag that selects the page to show; no state change.
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Tribe__Admin__Activation_Page {
 	 * @return bool
 	 */
 	public function is_update_page() {
-		return isset( $_GET[ $this->update_slug ] );
+		return isset( $_GET[ $this->update_slug ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only flag that selects the page to show; no state change.
 	}
 
 	/**
@@ -102,8 +102,8 @@ class Tribe__Admin__Activation_Page {
 	public function update_complete_actions( $actions, $plugin ) {
 		$plugins = [];
 
-		if ( ! empty( $_GET['plugins'] ) ) {
-			$plugins = explode( ',', esc_attr( $_GET['plugins'] ) );
+		if ( ! empty( $_GET['plugins'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only flag that selects the page to show; no state change.
+			$plugins = explode( ',', sanitize_text_field( wp_unslash( $_GET['plugins'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only flag that selects the page to show; no state change.
 		}
 
 		if ( ! in_array( $this->args['plugin_path'], $plugins ) ) {
@@ -130,7 +130,7 @@ class Tribe__Admin__Activation_Page {
 	 * currently disabled).
 	 */
 	public function maybe_redirect() {
-		if ( ! empty( $_POST ) ) {
+		if ( ! empty( $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Only checks whether the request is a POST to skip the welcome redirect.
 			return; // Don't interrupt anything the user's trying to do.
 		}
 
@@ -142,11 +142,11 @@ class Tribe__Admin__Activation_Page {
 			return; // Probably the plugin update/install iframe.
 		}
 
-		if ( isset( $_GET[ $this->welcome_slug ] ) || isset( $_GET[ $this->update_slug ] ) ) {
+		if ( isset( $_GET[ $this->welcome_slug ] ) || isset( $_GET[ $this->update_slug ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only flag that selects the page to show; no state change.
 			return; // No infinite redirects.
 		}
 
-		if ( isset( $_GET['tribe-skip-welcome'] ) ) {
+		if ( isset( $_GET['tribe-skip-welcome'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only flag that selects the page to show; no state change.
 			return; // A way to skip these checks and.
 		}
 
@@ -300,9 +300,9 @@ class Tribe__Admin__Activation_Page {
 	 * Dynamically registers the splash page when required.
 	 */
 	public function register_page() {
-		if ( isset( $_GET[ $this->welcome_slug ] ) ) {
+		if ( isset( $_GET[ $this->welcome_slug ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only flag that selects the page to show; no state change.
 			$this->current_context = 'welcome';
-		} elseif ( isset( $_GET[ $this->update_slug ] ) ) {
+		} elseif ( isset( $_GET[ $this->update_slug ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only flag that selects the page to show; no state change.
 			$this->current_context = 'update';
 		} else {
 			return;

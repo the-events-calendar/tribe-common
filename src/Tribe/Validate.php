@@ -76,7 +76,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 			// call validation callback if a validation callback function is set
 			if ( isset( $this->field['validation_callback'] ) ) {
 				if ( is_callable( $this->field['validation_callback'] ) || function_exists( $this->field['validation_callback'] ) ) {
-					if ( ( ! isset( $_POST[ $field_id ] ) || ! $_POST[ $field_id ] || $_POST[ $field_id ] == '' ) && isset( $this->field['can_be_empty'] ) && $this->field['can_be_empty'] ) {
+					if ( ( ! isset( $_POST[ $field_id ] ) || ! $_POST[ $field_id ] || $_POST[ $field_id ] == '' ) && isset( $this->field['can_be_empty'] ) && $this->field['can_be_empty'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Only tests the posted field for emptiness; the callback validates the value and the settings save verifies the nonce.
 						$this->result->valid = true;
 					} else {
 						$this->result->valid = call_user_func( $this->field['validation_callback'], $value );
@@ -93,7 +93,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 					// make sure there's a field validation type set for this validation and that such method exists
 					$this->type  = $this->field['validation_type'];
 					$this->label = isset( $this->field['label'] ) ? $this->field['label'] : $this->field['id'];
-					if ( ( ! isset( $_POST[ $field_id ] ) || ! $_POST[ $field_id ] || $_POST[ $field_id ] == '' ) && isset( $this->field['can_be_empty'] ) && $this->field['can_be_empty'] ) {
+					if ( ( ! isset( $_POST[ $field_id ] ) || ! $_POST[ $field_id ] || $_POST[ $field_id ] == '' ) && isset( $this->field['can_be_empty'] ) && $this->field['can_be_empty'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Only tests the posted field for emptiness; the callback validates the value and the settings save verifies the nonce.
 						$this->result->valid = true;
 					} else {
 						call_user_func( [ $this, $this->type ] ); // run the validation

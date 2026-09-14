@@ -154,7 +154,7 @@ class Tribe__Promoter__Connector {
 	protected function get_token_from_request() {
 		// Used in favor of tribe_get_request_var as at this point tribe_get_request_var is not defined.
 		return \Tribe__Utils__Array::get_in_any(
-			[ $_GET, $_POST, $_REQUEST ],
+			[ $_GET, $_POST, $_REQUEST ], // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Token lookup; the token is verified against the Promoter service.
 			'tribe_promoter_auth_token'
 		);
 	}
@@ -178,7 +178,7 @@ class Tribe__Promoter__Connector {
 				continue;
 			}
 
-			list( $token ) = sscanf( $_SERVER[ $header ], 'Bearer %s' );
+			list( $token ) = sscanf( sanitize_text_field( wp_unslash( $_SERVER[ $header ] ) ), 'Bearer %s' );
 
 			if ( $token ) {
 				return sanitize_text_field( $token );

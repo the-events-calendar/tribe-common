@@ -751,7 +751,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				if ( ! empty( $url ) && isset( $url['host'] ) ) {
 					$domain = $url['host'];
 				} elseif ( isset( $_SERVER['SERVER_NAME'] ) ) {
-					$domain = $_SERVER['SERVER_NAME'];
+					$domain = sanitize_text_field( wp_unslash( $_SERVER['SERVER_NAME'] ) );
 				}
 
 				if ( is_multisite() ) {
@@ -1378,8 +1378,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Echo JSON results for key validation
 		 */
 		public function ajax_validate_key(): void {
-			$key   = isset( $_POST['key'] ) ? wp_unslash( $_POST['key'] ) : null;
-			$nonce = isset( $_POST['_wpnonce'] ) ? wp_unslash( $_POST['_wpnonce'] ) : null;
+			$key   = isset( $_POST['key'] ) ? sanitize_text_field( wp_unslash( $_POST['key'] ) ) : null;
+			$nonce = isset( $_POST['_wpnonce'] ) ? sanitize_key( wp_unslash( $_POST['_wpnonce'] ) ) : null;
 
 			if (
 				empty( $nonce )
@@ -1766,11 +1766,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// and transforms the result accordingly.
 			$query_args = $this->get_validate_query();
 
+			// phpcs:disable WordPress.Security.NonceVerification.Missing -- Reads the key posted by the settings form, whose nonce the settings save verifies.
 			if ( ! empty( $_POST['key'] ) ) {
-				$query_args['key'] = sanitize_text_field( $_POST['key'] );
+				$query_args['key'] = sanitize_text_field( wp_unslash( $_POST['key'] ) );
 			} elseif ( ! empty( $_POST[ $this->pue_install_key ] ) ) {
-				$query_args['key'] = sanitize_text_field( $_POST[ $this->pue_install_key ] );
+				$query_args['key'] = sanitize_text_field( wp_unslash( $_POST[ $this->pue_install_key ] ) );
 			}
+			// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 			$this->plugin_info = $plugin_info = $this->license_key_status( $query_args );
 
@@ -2162,7 +2164,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 */
 		protected function get_site_domain(): string {
 			if ( isset( $_SERVER['SERVER_NAME'] ) ) {
-				return $_SERVER['SERVER_NAME'];
+				return sanitize_text_field( wp_unslash( $_SERVER['SERVER_NAME'] ) );
 			}
 			$site_url = wp_parse_url( get_option( 'siteurl' ) );
 			if ( ! $site_url || ! isset( $site_url['host'] ) ) {

@@ -894,13 +894,13 @@ class Tribe__Context {
 	 * @param mixed  $value       The value to set on the request var.
 	 */
 	protected function write_request_var( $request_var, $value ) {
-		if ( isset( $_REQUEST ) ) {
+		if ( isset( $_REQUEST ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Writes the value to the request superglobals to seed the context; nothing is read.
 			$_REQUEST[ $request_var ] = $value;
 		}
-		if ( isset( $_GET ) ) {
+		if ( isset( $_GET ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Writes the value to the request superglobals to seed the context; nothing is read.
 			$_GET[ $request_var ] = $value;
 		}
-		if ( isset( $_POST ) ) {
+		if ( isset( $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Writes the value to the request superglobals to seed the context; nothing is read.
 			$_POST[ $request_var ] = $value;
 		}
 	}

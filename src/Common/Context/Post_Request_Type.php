@@ -110,16 +110,16 @@ class Post_Request_Type {
 		if ( ! empty( $post_or_type ) ) {
 			$lookup = [];
 			// Prevent a slew of warnings every time we call this.
-			if ( isset( $_REQUEST ) ) {
-				$lookup[] = (array) $_REQUEST;
+			if ( isset( $_REQUEST ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Generic request lookup; nonce verification is the caller's responsibility.
+				$lookup[] = (array) $_REQUEST; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Generic request lookup; nonce verification is the caller's responsibility.
 			}
 
-			if ( isset( $_GET ) ) {
-				$lookup[] = (array) $_GET;
+			if ( isset( $_GET ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Generic request lookup; nonce verification is the caller's responsibility.
+				$lookup[] = (array) $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Generic request lookup; nonce verification is the caller's responsibility.
 			}
 
-			if ( isset( $_POST ) ) {
-				$lookup[] = (array) $_POST;
+			if ( isset( $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Generic request lookup; nonce verification is the caller's responsibility.
+				$lookup[] = (array) $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- Generic request lookup; nonce verification is the caller's responsibility.
 			}
 
 			if ( empty( $lookup ) ) {
