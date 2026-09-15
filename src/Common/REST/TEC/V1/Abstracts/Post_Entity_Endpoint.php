@@ -168,10 +168,10 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	private function scale_back_status( array $params, string $operation ): array {
 		$request = $this->get_request();
 		// Not `get_param()`: the route args carry the schema default, so it cannot tell an omitted status from a sent one.
-		$explicit  = array_merge( $request->get_query_params(), $request->get_body_params(), (array) $request->get_json_params() );
+		$explicit  = array_merge( $request->get_query_params(), $request->get_body_params(), $request->get_json_params() ?? [] );
 		$requested = $explicit['status'] ?? null;
 
-		if ( empty( $requested ) && 'update' === $operation ) {
+		if ( ! $requested && 'update' === $operation ) {
 			unset( $params['status'] );
 
 			return $params;
@@ -181,7 +181,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 			return $params;
 		}
 
-		if ( empty( $requested ) ) {
+		if ( ! $requested ) {
 			$params['status'] = 'draft';
 
 			return $params;

@@ -376,6 +376,11 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		return array_intersect_key( $data, array_flip( $good_keys ) );
 	}
 
+	/**
+	 * Provides a user role, the status the request sends, and the status the entity should end up with.
+	 *
+	 * @return Generator<string, array{string, ?string, string}>
+	 */
 	public function status_scale_back_provider(): Generator {
 		yield 'contributor, explicit publish' => [ 'contributor', 'publish', 'pending' ];
 		yield 'contributor, explicit future' => [ 'contributor', 'future', 'pending' ];
