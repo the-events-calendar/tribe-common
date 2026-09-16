@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useState, useRef, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import classNames from 'classnames';
 import 'react-day-picker/src/style.css';
 import { DayPicker } from 'react-day-picker';
@@ -79,6 +79,14 @@ const DayPickerInput = ( props ) => {
 	);
 
 	const [ selectedDate, setSelectedDate ] = useState( value ? getSelectedDateInitialState( value ) : new Date() );
+
+	// Keep the selected date in sync when the store updates the value (e.g. after
+	// the ticket fetch completes); otherwise the input shows a stale date.
+	useEffect( () => {
+		if ( value ) {
+			setSelectedDate( getSelectedDateInitialState( value ) );
+		}
+	}, [ value, getSelectedDateInitialState ] );
 
 	/**
 	 * Formats the datepicker Date object to the datepicker format.
