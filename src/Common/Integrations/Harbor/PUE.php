@@ -336,15 +336,22 @@ class PUE extends Integration_Controller {
 	 * are intercepted. All other HTTP traffic is left unchanged.
 	 *
 	 * @since 6.11.0
+	 * @since TBD Made the parameters non-strict. `WP_Http::request()` forwards whatever it was
+	 *            handed, so a caller doing `wp_remote_get( null )` reaches this callback with a
+	 *            null URL and a declared `string` would fatal before we could pass the request on.
 	 *
 	 * @param false|array|\WP_Error $response    The response.
-	 * @param array                 $parsed_args The parsed arguments.
-	 * @param string                $url         The URL.
+	 * @param mixed                 $parsed_args The parsed arguments.
+	 * @param mixed                 $url         The URL.
 	 *
 	 * @return false|array
 	 */
-	public function filter_pre_http_request( $response, array $parsed_args, string $url ) {
+	public function filter_pre_http_request( $response, $parsed_args, $url ) {
 		if ( false !== $response ) {
+			return $response;
+		}
+
+		if ( ! is_string( $url ) || ! is_array( $parsed_args ) ) {
 			return $response;
 		}
 
@@ -375,10 +382,12 @@ class PUE extends Integration_Controller {
 			return $response;
 		}
 
-		if ( is_string( $parsed_args['body'] ) ) {
-			$body = json_decode( $parsed_args['body'], true );
+		$request_body = $parsed_args['body'] ?? null;
+
+		if ( is_string( $request_body ) ) {
+			$body = json_decode( $request_body, true );
 		} else {
-			$body = $parsed_args['body'];
+			$body = $request_body;
 		}
 
 		if ( empty( $body['plugin'] ) || ! is_string( $body['plugin'] ) ) {

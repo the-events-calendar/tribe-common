@@ -296,6 +296,42 @@ class PUE_Test extends WPTestCase {
 	}
 
 	/**
+	 * `pre_http_request` hands the callback whatever WP_Http::request() received, and that is
+	 * not always a string. SG Optimizer's purge queue calls wp_remote_get( null, ... ) while
+	 * saving an auto-draft, so a `string $url` declaration here fatals the whole request.
+	 *
+	 * @see https://linear.app/nexcess/issue/SMTNC-2761
+	 *
+	 * @test
+	 * @dataProvider unexpected_http_request_argument_provider
+	 *
+	 * @param mixed $parsed_args The parsed args the filter delivers.
+	 * @param mixed $url         The URL the filter delivers.
+	 */
+	public function it_should_not_fatal_when_core_passes_an_unexpected_type_to_pre_http_request( $parsed_args, $url ): void {
+		$this->detach_airplane_mode();
+
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$response = apply_filters( 'pre_http_request', false, $parsed_args, $url );
+
+		// Nothing to short-circuit: the request must be handed back untouched.
+		$this->assertFalse( $response );
+	}
+
+	/**
+	 * @return array<string,array{0:mixed,1:mixed}>
+	 */
+	public function unexpected_http_request_argument_provider(): array {
+		return [
+			'null url'         => [ [ 'body' => '' ], null ],
+			'array url'        => [ [ 'body' => '' ], [] ],
+			'null parsed args' => [ null, 'https://licensing.stellarwp.com/api/plugins/v2/license/validate' ],
+		];
+	}
+
+	/**
 	 * An LWSW- key on a Uplink field Harbor is not managing must not keep the remote result.
 	 *
 	 * @test
