@@ -1,5 +1,11 @@
 == Changelog ==
 
+= [6.12.3] 2026-09-03 =
+
+* Fix - Added a warning when a Unified license key is entered into the standalone license key field.
+* Fix - Stopped post type models from re-serializing properties that were restored from an already warm object cache, and made lazy collections resolve to an empty array instead of throwing a fatal error when they have no callback left to call.
+* Language - 3 new strings added, 15 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.12.2.1] 2026-08-26 =
 
 * Security - Harden parsing of HTML class attribute values.

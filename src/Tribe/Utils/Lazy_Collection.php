@@ -76,14 +76,19 @@ class Lazy_Collection implements Collection_Interface {
 	/**
 	 * Fills the array elements from the callback if required.
 	 *
+	 * A collection restored from cache carries its items, not its callback: if the items could not be
+	 * restored there is nothing left to fetch them with, so the collection resolves to an empty array
+	 * rather than blowing up on an invalid callback.
+	 *
 	 * @since 4.9.14
+	 * @since 6.12.3 Do not call the callback if it's not callable.
 	 */
 	protected function resolve() {
 		if ( null !== $this->items ) {
 			return;
 		}
 
-		$items       = call_user_func( $this->callback );
+		$items       = is_callable( $this->callback ) ? call_user_func( $this->callback ) : [];
 		$this->items = (array) $items;
 		$this->resolved();
 	}

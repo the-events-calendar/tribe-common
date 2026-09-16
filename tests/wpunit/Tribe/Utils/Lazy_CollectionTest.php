@@ -117,6 +117,33 @@ class Lazy_CollectionTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should resolve to an empty array when the callback is not callable
+	 *
+	 * A collection restored from a stale or malformed cache entry has neither items nor a callback:
+	 * reading it should come up empty, not fatal.
+	 *
+	 * @test
+	 */
+	public function should_resolve_to_an_empty_array_when_the_callback_is_not_callable() {
+		$collection = new Lazy_Collection( '__return_empty_array' );
+
+		$callback = new \ReflectionProperty( Lazy_Collection::class, 'callback' );
+		$callback->setAccessible( true );
+		$callback->setValue( $collection, null );
+
+		$this->assertEquals( [], $collection->all() );
+		$this->assertEquals( 0, $collection->count() );
+		$this->assertFalse( $collection->first() );
+
+		$got = [];
+		foreach ( $collection as $item ) {
+			$got[] = $item;
+		}
+
+		$this->assertEquals( [], $got );
+	}
+
+	/**
 	 * It should allow accessing the collection methods as properties
 	 *
 	 * @test

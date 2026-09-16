@@ -1238,6 +1238,23 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return [];
 			}
 
+			/**
+			 * Filter early license key validation before remote PUE checks.
+			 *
+			 * Returning a non-null array short-circuits remote validation and is used as
+			 * the AJAX/validation response. Return null to continue normal validation.
+			 *
+			 * @since 6.12.3
+			 *
+			 * @param array|null          $response Early response, or null to continue.
+			 * @param string              $key      The license key being validated.
+			 * @param Tribe__PUE__Checker $checker  The PUE checker instance.
+			 */
+			$pre_validate = apply_filters( 'tec_common_pue_pre_validate_key', null, $key, $this );
+			if ( is_array( $pre_validate ) ) {
+				return $pre_validate;
+			}
+
 			$uplink_resource = $this->get_uplink_resource( $this->get_slug() );
 
 			if ( $uplink_resource ) {

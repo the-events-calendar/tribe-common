@@ -3,9 +3,12 @@
 namespace TEC\Common\Admin;
 
 use Codeception\TestCase\WPTestCase;
+use Tribe\Tests\Traits\With_Uopz;
 use RuntimeException;
 
 class Custom_List_Table_Test extends WPTestCase {
+	use With_Uopz;
+
 	private static $back_up;
 
 	/**
