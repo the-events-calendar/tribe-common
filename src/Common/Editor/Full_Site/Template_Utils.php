@@ -242,7 +242,7 @@ class Template_Utils {
 	 *
 	 * Published rows outrank the rest, then the oldest row wins.
 	 *
-	 * @since TBD
+	 * @since 6.12.4
 	 *
 	 * @param array<int, WP_Post> $posts The posts claiming the slug.
 	 *
@@ -281,7 +281,7 @@ class Template_Utils {
 	 * while a resolution is served to a visitor, so `post_content` would go through kses and lose the
 	 * markup inside any `core/html` block.
 	 *
-	 * @since TBD
+	 * @since 6.12.4
 	 *
 	 * @param WP_Post $post      The duplicate to rename.
 	 * @param string  $post_name The slug being contested.

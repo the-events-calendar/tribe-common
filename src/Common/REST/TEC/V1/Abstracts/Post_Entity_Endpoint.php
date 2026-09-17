@@ -135,7 +135,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 * Scales the requested status back to one the current user is allowed to set before
 	 * the entity is created or updated.
 	 *
-	 * @since TBD
+	 * @since 6.12.4
 	 *
 	 * @param array  $params    The parameters to filter.
 	 * @param string $operation The operation to filter the parameters for.
@@ -158,7 +158,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 * capability get `pending` in place of `publish`, `future` or `private`, and `draft` when
 	 * they sent no status at all. On update an omitted status leaves the existing one untouched.
 	 *
-	 * @since TBD
+	 * @since 6.12.4
 	 *
 	 * @param array  $params    The parameters of the request.
 	 * @param string $operation Either `create` or `update`.
