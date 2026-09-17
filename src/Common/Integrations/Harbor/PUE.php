@@ -336,6 +336,7 @@ class PUE extends Integration_Controller {
 	 * are intercepted. All other HTTP traffic is left unchanged.
 	 *
 	 * @since 6.11.0
+	 * @since TBD Made the parameters non-strict; `WP_Http::request()` forwards whatever it was handed.
 	 *
 	 * @param false|array|\WP_Error $response    The response.
 	 * @param array                 $parsed_args The parsed arguments.
@@ -343,8 +344,12 @@ class PUE extends Integration_Controller {
 	 *
 	 * @return false|array
 	 */
-	public function filter_pre_http_request( $response, array $parsed_args, string $url ) {
+	public function filter_pre_http_request( $response, $parsed_args, $url ) {
 		if ( false !== $response ) {
+			return $response;
+		}
+
+		if ( ! is_string( $url ) || ! is_array( $parsed_args ) ) {
 			return $response;
 		}
 
@@ -375,13 +380,15 @@ class PUE extends Integration_Controller {
 			return $response;
 		}
 
-		if ( is_string( $parsed_args['body'] ) ) {
-			$body = json_decode( $parsed_args['body'], true );
+		$request_body = $parsed_args['body'] ?? null;
+
+		if ( is_string( $request_body ) ) {
+			$body = json_decode( $request_body, true );
 		} else {
-			$body = $parsed_args['body'];
+			$body = $request_body;
 		}
 
-		if ( empty( $body['plugin'] ) || ! is_string( $body['plugin'] ) ) {
+		if ( ! is_array( $body ) || empty( $body['plugin'] ) || ! is_string( $body['plugin'] ) ) {
 			return $response;
 		}
 
