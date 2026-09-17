@@ -124,7 +124,7 @@ class Tribe__Editor__Utils {
 	 * Return the content without Tribe or TEC block delimiters.
 	 *
 	 * @since 4.8.5
-	 * @since TBD Also excludes TEC blocks and preserves content between block delimiters.
+	 * @since 6.12.4 Also excludes TEC blocks and preserves content between block delimiters.
 	 *
 	 * @param string $content The event content.
 	 *

@@ -336,7 +336,7 @@ class PUE extends Integration_Controller {
 	 * are intercepted. All other HTTP traffic is left unchanged.
 	 *
 	 * @since 6.11.0
-	 * @since TBD Made the parameters non-strict; `WP_Http::request()` forwards whatever it was handed.
+	 * @since 6.12.4 Made the parameters non-strict; `WP_Http::request()` forwards whatever it was handed.
 	 *
 	 * @param false|array|\WP_Error $response    The response.
 	 * @param array                 $parsed_args The parsed arguments.
