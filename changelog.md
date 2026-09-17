@@ -1,5 +1,15 @@
 # Changelog
 
+### [6.12.4] 2026-09-17
+
+* Fix - Excluded TEC block delimiters from exported content while preserving surrounding text and markup.
+* Fix - Resolved an issue where saving a Full Site Editing template could store the change on a duplicate template and revert the active template to its default layout.
+* Fix - Resolved an issue where the date picker input kept showing a stale date when its value was updated asynchronously after the initial render.
+* Fix - Stopped the Harbor PUE and Debug Bar filter callbacks from fataling when the filter delivers an unexpected type, such as the null URL a wp_remote_get( null ) call produces.
+* Language - 0 new strings added, 10 updated, 1 fuzzied, and 33 obsoleted.
+* Security - Strengthened permission checks in the REST API. Props to Jashid Sany for reporting.
+* Tweak - Removed the Bundles and Extensions tabs from Events > Event Add-Ons, leaving only the All Solutions content.
+
 ### [6.12.3] 2026-09-03
 
 * Fix - Added a warning when a Unified license key is entered into the standalone license key field.
