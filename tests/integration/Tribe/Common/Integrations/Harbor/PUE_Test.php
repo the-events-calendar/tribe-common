@@ -328,6 +328,7 @@ class PUE_Test extends WPTestCase {
 			'null url'         => [ [ 'body' => '' ], null ],
 			'array url'        => [ [ 'body' => '' ], [] ],
 			'null parsed args' => [ null, 'https://licensing.stellarwp.com/api/plugins/v2/license/validate' ],
+			'no body'          => [ [], 'https://licensing.stellarwp.com/api/plugins/v2/license/validate' ],
 		];
 	}
 
