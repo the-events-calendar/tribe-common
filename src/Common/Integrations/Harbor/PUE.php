@@ -388,7 +388,7 @@ class PUE extends Integration_Controller {
 			$body = $request_body;
 		}
 
-		if ( empty( $body['plugin'] ) || ! is_string( $body['plugin'] ) ) {
+		if ( ! is_array( $body ) || empty( $body['plugin'] ) || ! is_string( $body['plugin'] ) ) {
 			return $response;
 		}
 
