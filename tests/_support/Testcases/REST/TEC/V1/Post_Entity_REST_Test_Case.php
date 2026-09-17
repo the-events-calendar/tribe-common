@@ -399,7 +399,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		}
 
 		$example = $this->get_example_create_data();
-		unset( $example['id'], $example['author'], $example['status'], $example['tribe_events_cat'], $example['tags'], $example['organizers'], $example['venues'], $example['venue'], $example['event'] );
+		unset( $example['id'], $example['author'], $example['status'], $example['tribe_events_cat'], $example['tags'], $example['organizers'], $example['venues'], $example['venue'] );
 
 		if ( null !== $status ) {
 			$example['status'] = $status;
@@ -424,12 +424,21 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		}
 
 		$example = $this->get_example_create_data();
-		unset( $example['id'], $example['author'], $example['tribe_events_cat'], $example['tags'], $example['organizers'], $example['venues'], $example['venue'], $example['event'] );
+		unset( $example['id'], $example['author'], $example['tribe_events_cat'], $example['tags'], $example['organizers'], $example['venues'], $example['venue'] );
 		$example['status'] = 'draft';
 
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => $role ] ) );
 
 		$entity_id = $this->endpoint->get_orm()->set_args( $example )->create()->ID;
+
+		// A repository may force a status on create - Tickets Commerce publishes every ticket - so
+		// set the status the fixture needs rather than assuming `set_args()` was honored.
+		wp_update_post(
+			[
+				'ID'          => $entity_id,
+				'post_status' => 'draft',
+			]
+		);
 		$this->assertSame( 'draft', get_post_status( $entity_id ) );
 
 		$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ), 'PUT', 200, null === $status ? [ 'title' => 'Updated title' ] : [ 'status' => $status ] );
