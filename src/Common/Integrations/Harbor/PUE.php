@@ -336,13 +336,11 @@ class PUE extends Integration_Controller {
 	 * are intercepted. All other HTTP traffic is left unchanged.
 	 *
 	 * @since 6.11.0
-	 * @since TBD Made the parameters non-strict. `WP_Http::request()` forwards whatever it was
-	 *            handed, so a caller doing `wp_remote_get( null )` reaches this callback with a
-	 *            null URL and a declared `string` would fatal before we could pass the request on.
+	 * @since TBD Made the parameters non-strict; `WP_Http::request()` forwards whatever it was handed.
 	 *
 	 * @param false|array|\WP_Error $response    The response.
-	 * @param mixed                 $parsed_args The parsed arguments.
-	 * @param mixed                 $url         The URL.
+	 * @param array                 $parsed_args The parsed arguments.
+	 * @param string                $url         The URL.
 	 *
 	 * @return false|array
 	 */
