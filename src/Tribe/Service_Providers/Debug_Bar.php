@@ -29,7 +29,7 @@ class Tribe__Service_Providers__Debug_Bar extends Service_Provider {
 	 * @return array A modified list of Debug Bar panels.
 	 */
 	public function add_panels( $panels ) {
-		$panels = (array) $panels;
+		$panels = is_array( $panels ) ? $panels : [];
 
 		/**
 		 * Filters the list of The Events Calendar debug bar panels that will be added to the

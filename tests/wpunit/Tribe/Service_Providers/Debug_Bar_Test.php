@@ -30,18 +30,30 @@ class Debug_Bar_Test extends WPTestCase {
 		eval( 'class Debug_Bar_Panel { public function __construct( $title = "" ) {} }' ); // phpcs:ignore Squiz.PHP.Eval.Discouraged
 	}
 
+	public function not_an_array_provider(): array {
+		return [
+			'null'   => [ null ],
+			'false'  => [ false ],
+			'string' => [ 'junk' ],
+		];
+	}
+
 	/**
+	 * Debug Bar calls prerender() on every entry, so a scalar cast into the list is a fatal
+	 * later instead of now.
+	 *
 	 * @test
+	 * @dataProvider not_an_array_provider
 	 */
-	public function should_not_fatal_when_the_panel_list_is_not_an_array(): void {
+	public function should_not_fatal_when_the_panel_list_is_not_an_array( $value ): void {
 		$provider = new Tribe__Service_Providers__Debug_Bar( tribe() );
 
 		try {
-			$panels = $provider->add_panels( null );
+			$panels = $provider->add_panels( $value );
 		} catch ( TypeError $e ) {
 			$this->fail( 'add_panels() rejected a value debug_bar_panels can deliver: ' . $e->getMessage() );
 		}
 
-		$this->assertIsArray( $panels );
+		$this->assertContainsOnlyInstancesOf( 'Debug_Bar_Panel', $panels );
 	}
 }
