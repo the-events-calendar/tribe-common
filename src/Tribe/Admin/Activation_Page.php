@@ -111,7 +111,7 @@ class Tribe__Admin__Activation_Page {
 		}
 
 		if ( isset( $actions['plugins_page'] ) ) {
-			$actions['plugins_page'] = '<a href="' . esc_url( self_admin_url( 'plugins.php?tribe-skip-welcome' ) ) . '" title="' . esc_attr__( 'Go to plugins page', 'tribe-common' ) . '" target="_parent">' . esc_html__( 'Return to Plugins page' ) . '</a>';
+			$actions['plugins_page'] = '<a href="' . esc_url( self_admin_url( 'plugins.php?tribe-skip-welcome' ) ) . '" title="' . esc_attr__( 'Go to plugins page', 'tribe-common' ) . '" target="_parent">' . esc_html__( 'Return to Plugins page', 'tribe-common' ) . '</a>';
 
 			if ( ! current_user_can( 'activate_plugins' ) ) {
 				unset( $actions['plugins_page'] );
@@ -119,7 +119,7 @@ class Tribe__Admin__Activation_Page {
 		}
 
 		if ( isset( $actions['updates_page'] ) ) {
-			$actions['updates_page'] = '<a href="' . esc_url( self_admin_url( 'update-core.php?tribe-skip-welcome' ) ) . '" title="' . esc_attr__( 'Go to WordPress Updates page', 'tribe-common' ) . '" target="_parent">' . esc_html__( 'Return to WordPress Updates' ) . '</a>';
+			$actions['updates_page'] = '<a href="' . esc_url( self_admin_url( 'update-core.php?tribe-skip-welcome' ) ) . '" title="' . esc_attr__( 'Go to WordPress Updates page', 'tribe-common' ) . '" target="_parent">' . esc_html__( 'Return to WordPress Updates', 'tribe-common' ) . '</a>';
 		}
 
 		return $actions;
@@ -348,16 +348,20 @@ class Tribe__Admin__Activation_Page {
 
 		do_action( 'tribe_settings_top' );
 
-		$context = isset( $_GET[ $this->welcome_slug ] ) ? 'welcome': 'update';
-		$title   = esc_html( $this->args[ $context . '_page_title'] );
-		$html    = $this->get_view( $this->args[ $context . '_page_template'] );
+		$context  = isset( $_GET[ $this->welcome_slug ] ) ? 'welcome' : 'update'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only flag that selects the page to show; no state change.
+		$template = $this->args[ $context . '_page_template' ];
 
-		echo "
-			<div class='tribe_settings tribe_{$context}_page wrap'>
-				<h1> {$title} </h1>
-				{$html}
-			</div>
-		";
+		printf(
+			'<div class="tribe_settings tribe_%1$s_page wrap"><h1> %2$s </h1>',
+			esc_attr( $context ),
+			esc_html( $this->args[ $context . '_page_title' ] )
+		);
+
+		if ( file_exists( $template ) ) {
+			include $template;
+		}
+
+		echo '</div>';
 
 		do_action( 'tribe_settings_bottom' );
 		$this->log_display_of_message_page();

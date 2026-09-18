@@ -176,7 +176,7 @@ class Element_Attributes {
 				$this->parse( $value );
 			} elseif ( is_string( $key ) ) {
 				if ( ! is_bool( $value ) && ! is_string( $value ) ) {
-					throw new \UnexpectedValueException( 'Value for key ' . $key . ' must be of type boolean or string' );
+					throw new \UnexpectedValueException( esc_html( 'Value for key ' . $key . ' must be of type boolean or string' ) );
 				}
 
 				$this->results[ $key ] = $value;

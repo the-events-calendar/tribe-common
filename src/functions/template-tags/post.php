@@ -68,7 +68,7 @@ function tribe_get_the_content( $more_link_text = null, $strip_teaser = false, $
  * @return void
  */
 function tribe_the_content( $more_link_text = null, $strip_teaser = false, $post_id = null ) {
-	echo tribe_get_the_content( $more_link_text, $strip_teaser, $post_id );
+	echo tribe_get_the_content( $more_link_text, $strip_teaser, $post_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Mirrors the_content(): the content runs through the the_content filters like core.
 }
 
 /**
