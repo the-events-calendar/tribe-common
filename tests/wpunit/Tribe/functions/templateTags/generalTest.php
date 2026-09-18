@@ -70,12 +70,23 @@ class generalTest extends \Codeception\TestCase\WPTestCase {
 
 		$output = tribe_asset_print_group( 'test-group', false );
 
-		$expected_tmpl = <<< TAG
-<script type="text/javascript" src="{{ common_url }}/js/test-script-1.js?ver=1.0.0" id="tribe-test-js-js"></script>
-<link rel='stylesheet' id='tribe-test-css-css' href='{{ common_url }}/css/test-style-1.css?ver=1.0.0' type='text/css' media='all' />
+		/*
+		 * Compare attributes, not markup: the `type` attributes and the attribute order of the tags
+		 * WordPress prints differ between the WordPress versions the suite runs on.
+		 */
+		$common_url = home_url( '/wp-content/plugins/the-events-calendar/common/src/resources' );
+		$dom        = new \DOMDocument();
+		$dom->loadHTML( $output );
+		$script = $dom->getElementsByTagName( 'script' )->item( 0 );
+		$link   = $dom->getElementsByTagName( 'link' )->item( 0 );
 
-TAG;
-		$expected      = str_replace( '{{ common_url }}', home_url( '/wp-content/plugins/the-events-calendar/common/src/resources' ), $expected_tmpl );
-		$this->assertEquals( $expected, $output );
+		$this->assertNotNull( $script );
+		$this->assertNotNull( $link );
+		$this->assertSame( $common_url . '/js/test-script-1.js?ver=1.0.0', $script->getAttribute( 'src' ) );
+		$this->assertSame( 'tribe-test-js-js', $script->getAttribute( 'id' ) );
+		$this->assertSame( $common_url . '/css/test-style-1.css?ver=1.0.0', $link->getAttribute( 'href' ) );
+		$this->assertSame( 'tribe-test-css-css', $link->getAttribute( 'id' ) );
+		$this->assertSame( 'stylesheet', $link->getAttribute( 'rel' ) );
+		$this->assertLessThan( strpos( $output, '<link' ), strpos( $output, '<script' ) );
 	}
 }

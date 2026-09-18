@@ -25,7 +25,13 @@ PHP;
 		$I->haveMuPlugin( 'common_actions_logger', $common_actions_logger_code );
 		$I->loginAsAdmin();
 		$I->amOnPluginsPage();
-		$I->activatePlugin( 'the-events-calendar' );
+		/*
+		 * Not `$I->activatePlugin()`: WordPress 7.1 moved the plugin row checkbox from a `th` to a `td`
+		 * and wp-browser 3.x only looks for it in the `th`.
+		 */
+		$I->checkOption( '//*[@data-slug="the-events-calendar"]//input[@type="checkbox"]' );
+		$I->selectOption( 'action', 'activate-selected' );
+		$I->click( '#doaction' );
 		// In case we get redirected to welcome page on activation.
 		$I->amOnPluginsPage();
 		$I->seePluginActivated( 'the-events-calendar' );
