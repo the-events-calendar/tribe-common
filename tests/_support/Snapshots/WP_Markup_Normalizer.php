@@ -50,6 +50,14 @@ class WP_Markup_Normalizer {
 			'/<th scope="row" class="check-column">(.*?)<\/th>/s'             => '<td class="check-column">$1</td>',
 			// 7.1 moves the list table primary column from a `td` to a labelled `th`.
 			'/<th scope="row" class="([^"]*column-primary[^"]*)"(?: aria-label="[^"]*")?>(.*?)<\/th>/s' => '<td class="$1">$2</td>',
+			// 7.1 `WP_List_Table` prints the primary column as a `th` with `scope` and an optional label.
+			'/<th class="([^"]*column-primary[^"]*)"((?: [\w-]+="[^"]*")*) scope="row"(?: aria-label="[^"]*")?>(.*?)<\/th>/s' => '<td class="$1"$2>$3</td>',
+			// The "0 items" pagination block differs between versions and carries nothing worth comparing.
+			'/\s*<div class="tablenav-pages no-pages">(?:(?!<\/div>).)*<\/div>/s'  => '',
+			// 7.1 prints a hidden bulk actions block when the table has no items.
+			'/\s*<div class="alignleft actions bulkactions hidden">(?:(?!<\/div>).)*<\/div>/s' => '',
+			// 7.1 drops the bottom table nav when the table has no items, so no pagination is left in it.
+			'/\s*<div class="tablenav bottom">(?:(?!tablenav-pages).)*?<br class="clear" \/>\s*<\/div>/s' => '',
 			// 7.1 drops the bulk actions block from the bottom table nav.
 			'/<div class="alignleft actions bulkactions">(?:(?!<\/div>).)*id="doaction2"(?:(?!<\/div>).)*<\/div>\s*/s' => '',
 		];
