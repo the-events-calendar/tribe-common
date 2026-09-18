@@ -48,10 +48,6 @@ class WP_Markup_Normalizer {
 			'/ button-compact\b/'                                             => '',
 			// 7.1 moves the list table check column from a `th` to a `td`.
 			'/<th scope="row" class="check-column">(.*?)<\/th>/s'             => '<td class="check-column">$1</td>',
-			// 7.1 moves the list table primary column from a `td` to a labelled `th`.
-			'/<th scope="row" class="([^"]*column-primary[^"]*)"(?: aria-label="[^"]*")?>(.*?)<\/th>/s' => '<td class="$1">$2</td>',
-			// 7.1 `WP_List_Table` prints the primary column as a `th` with `scope` and an optional label.
-			'/<th class="([^"]*column-primary[^"]*)"((?: [\w-]+="[^"]*")*) scope="row"(?: aria-label="[^"]*")?>(.*?)<\/th>/s' => '<td class="$1"$2>$3</td>',
 			// The "0 items" pagination block differs between versions and carries nothing worth comparing.
 			'/\s*<div class="tablenav-pages no-pages">(?:(?!<\/div>).)*<\/div>/s'  => '',
 			// 7.1 prints a hidden bulk actions block when the table has no items.
@@ -62,7 +58,25 @@ class WP_Markup_Normalizer {
 			'/<div class="alignleft actions bulkactions">(?:(?!<\/div>).)*id="doaction2"(?:(?!<\/div>).)*<\/div>\s*/s' => '',
 		];
 
-		return preg_replace( array_keys( $rules ), array_values( $rules ), $html );
+		$html = preg_replace( array_keys( $rules ), array_values( $rules ), $html );
+
+		/*
+		 * 7.1 `WP_List_Table` prints the primary column as a `th` with `scope="row"` and an optional
+		 * `aria-label`; the attribute order varies by table, so the cell is matched on its class alone.
+		 */
+		return preg_replace_callback(
+			'/<th((?: [\w-]+="[^"]*")+)>(.*?)<\/th>/s',
+			static function ( array $match ): string {
+				if ( false === strpos( $match[1], 'column-primary' ) ) {
+					return $match[0];
+				}
+
+				$attributes = preg_replace( '/ (?:scope|aria-label)="[^"]*"/', '', $match[1] );
+
+				return "<td{$attributes}>{$match[2]}</td>";
+			},
+			$html
+		);
 	}
 
 	/**

@@ -53,6 +53,10 @@ class WP_Markup_NormalizerTest extends Unit {
 				"<tr><td class='name column-name has-row-actions column-primary' data-colname=\"Name\"><strong>Name</strong></td></tr>",
 				"<tr><th class='name column-name has-row-actions column-primary' data-colname=\"Name\" scope=\"row\"><strong>Name</strong></th></tr>",
 			],
+			'posts table primary column' => [
+				"<tr><td class='title column-title has-row-actions column-primary page-title' data-colname=\"Title\"><strong>Post</strong></td></tr>",
+				'<tr><th scope="row" class="title column-title has-row-actions column-primary page-title" data-colname="Title" aria-label="Post"><strong>Post</strong></th></tr>',
+			],
 			'empty list table'     => [
 				"<div class=\"tablenav top\"><div class='tablenav-pages no-pages'><span class=\"displaying-num\">0 items</span><span class='pagination-links'><a class='next-page button' href='#'>Next</a></span></div><br class=\"clear\" /></div><table></table><div class=\"tablenav bottom\"><div class=\"alignleft actions\"></div><br class=\"clear\" /></div>",
 				'<div class="tablenav top"><div class="alignleft actions bulkactions hidden"></div><div class="tablenav-pages no-pages"><span class="displaying-num">0 items</span></div><br class="clear" /></div><table></table>',
