@@ -10,9 +10,9 @@ namespace TEC\Common\Admin\Help_Hub;
 
 use Codeception\TestCase\WPTestCase;
 use TEC\Common\Tests\Help_Hub\Mock_Resource_Data;
-use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use TEC\Common\Configuration\Configuration;
 use Tribe\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_WP_Version_Tolerant_Snapshots;
 use Tribe__Template;
 
 /**
@@ -22,7 +22,7 @@ use Tribe__Template;
  * @package TEC\Common\Admin\Help_Hub
  */
 class Template_Test extends WPTestCase {
-	use SnapshotAssertions;
+	use With_WP_Version_Tolerant_Snapshots;
 	use With_Uopz;
 
 	/**
