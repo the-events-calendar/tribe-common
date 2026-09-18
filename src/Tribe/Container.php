@@ -1,4 +1,7 @@
 <?php
+
+defined( 'ABSPATH' ) || exit;
+
 // phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed -- The container class and its procedural helper functions are intentionally bundled together.
 
 use TEC\Common\Contracts\Container;

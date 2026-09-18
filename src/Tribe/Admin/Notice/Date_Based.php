@@ -10,6 +10,8 @@ namespace Tribe\Admin\Notice;
 
 use Tribe__Date_Utils as Dates;
 
+defined( 'ABSPATH' ) || exit;
+
 _deprecated_file( __FILE__, '6.9.8', '\TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with Has_Datetime_Conditions trait' );
 
 /**

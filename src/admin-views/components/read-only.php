@@ -21,6 +21,8 @@
  * @var string               $value         The value of the text field.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div <?php tec_classes( $classes_wrap ); ?> >
 	<fieldset class="tec-automator-settings-details__read-only-field">

@@ -13,6 +13,8 @@
  *                  - template: The template file to render
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div id="tec-help-hub-tab-containers" class="tec-tab-parent-container">
 	<?php foreach ( $tabs as $index => $hub_tab ) : ?>

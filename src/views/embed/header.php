@@ -14,6 +14,8 @@
 
 use TEC\Common\Template;
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>

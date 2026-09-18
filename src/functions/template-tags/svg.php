@@ -9,6 +9,8 @@
 
 use TEC\Common\SVG\SVG;
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! function_exists( 'tec_svg' ) ) {
 	/**
 	 * Get the SVG code for a given icon.

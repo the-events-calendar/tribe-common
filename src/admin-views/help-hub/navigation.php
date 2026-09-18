@@ -10,6 +10,8 @@
  *                  - label: The tab label
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <dialog id="tec-settings-nav-modal" class="tec-settings-form__modal" aria-labelledby="tec-settings-nav-modal-title" aria-modal="true" role="dialog">
 	<div class="tec-modal__content">

@@ -18,6 +18,8 @@
  * @var Url                 $url       The URLs handler for the integration.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $this->template( 'zapier/dashboard/endpoints/list-header', [] );
 
 

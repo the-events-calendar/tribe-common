@@ -19,6 +19,8 @@
  * @var array<string|mixed> $users       An array of WordPress users to create an integration connection for.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $this->template( 'power-automate/api/list/list-header', [] );
 
 if ( empty( $connections ) ) {

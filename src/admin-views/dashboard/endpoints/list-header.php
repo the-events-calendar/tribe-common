@@ -14,6 +14,8 @@
  * @link    http://evnt.is/1aiy
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="tec-automator-settings-details__container tec-settings-connection-endpoint-dashboard-details__container tec-settings-connection-endpoint-dashboard-details__container-header tec-automator-grid tec-automator-endpoint-dashboard-grid tec-automator-grid-header">
 	<div class="tec-automator-grid-item tec-automator-settings-details__row tec-settings-connection-endpoint-dashboard-details__name-wrap">

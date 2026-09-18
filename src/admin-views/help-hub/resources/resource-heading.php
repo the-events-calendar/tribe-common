@@ -12,6 +12,8 @@
  * @var Help_Hub_Data_Interface $help_hub The Help Hub data instance.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">
 	<h2 class="tec-settings-form__section-header">

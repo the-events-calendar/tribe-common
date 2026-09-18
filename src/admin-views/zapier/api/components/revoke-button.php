@@ -19,6 +19,8 @@
  * @var URL                 $url         An instance of the URL handler.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $revoke_link  = $url->to_delete_connection_link( $consumer_id );
 $revoke_label = _x( 'Revoke', 'Removes a zapier page from the list of Zapier live pages.', 'tribe-common' )
 ?>

@@ -5,6 +5,8 @@
  * classes.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $aliases = [
 	[ 'TEC\Common\lucatume\DI52\Container', 'tad_DI52_Container' ],
 	[ 'TEC\Common\lucatume\DI52\ServiceProvider', 'tad_DI52_ServiceProvider' ]

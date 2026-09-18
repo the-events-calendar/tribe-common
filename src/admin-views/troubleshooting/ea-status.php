@@ -8,6 +8,8 @@
  * @version 4.15.2
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! class_exists( 'Tribe__Events__Aggregator' ) ) {
 	return;
 }

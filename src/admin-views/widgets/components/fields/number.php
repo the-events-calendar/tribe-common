@@ -20,6 +20,8 @@
  * @var string $step       Value for the step attribute.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div
 	class="tribe-widget-form-control tribe-widget-form-control--text"
