@@ -121,17 +121,18 @@ class Tribe__Editor__Utils {
 	}
 
 	/**
-	 * Return the content without the tribe blocks.
+	 * Return the content without Tribe or TEC block delimiters.
 	 *
 	 * @since 4.8.5
+	 * @since 6.12.4 Also excludes TEC blocks and preserves content between block delimiters.
 	 *
 	 * @param string $content The event content.
 	 *
-	 * @return string The content without the tribe blocks.
+	 * @return string The content without Tribe or TEC block delimiters.
 	 */
 	public function exclude_tribe_blocks( $content = '' ) {
 
-		$match_blocks_exp = '/\<\!\-\- \/?wp\:tribe.*\/?-->/i';
+		$match_blocks_exp = '/\<\!\-\- \/?wp\:(?:tribe|tec)\/.*?\/?-->/i';
 
 		if ( ! preg_match( $match_blocks_exp, $content ) ) {
 			return $content;

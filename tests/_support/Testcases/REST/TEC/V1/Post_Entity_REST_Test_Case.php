@@ -15,6 +15,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use stdClass;
 use ReflectionClass;
 use Closure;
+use Generator;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 use Tribe__Repository as Base_Repo;
@@ -373,6 +374,81 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		];
 
 		return array_intersect_key( $data, array_flip( $good_keys ) );
+	}
+
+	/**
+	 * Provides a user role, the status the request sends, and the status the entity should end up with.
+	 *
+	 * @return Generator<string, array{string, ?string, string}>
+	 */
+	public function status_scale_back_provider(): Generator {
+		yield 'contributor, explicit publish' => [ 'contributor', 'publish', 'pending' ];
+		yield 'contributor, explicit future' => [ 'contributor', 'future', 'pending' ];
+		yield 'contributor, explicit private' => [ 'contributor', 'private', 'pending' ];
+		yield 'contributor, omitted status' => [ 'contributor', null, 'draft' ];
+		yield 'author, explicit publish' => [ 'author', 'publish', 'publish' ];
+		yield 'author, omitted status' => [ 'author', null, 'publish' ];
+	}
+
+	/**
+	 * @dataProvider status_scale_back_provider
+	 */
+	public function test_create_scales_back_status_to_user_capabilities( string $role, ?string $status, string $expected_status ) {
+		if ( ! $this->is_creatable() ) {
+			return;
+		}
+
+		$example = $this->get_example_create_data();
+		unset( $example['id'], $example['author'], $example['status'], $example['tribe_events_cat'], $example['tags'], $example['organizers'], $example['venues'], $example['venue'] );
+
+		if ( null !== $status ) {
+			$example['status'] = $status;
+		}
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => $role ] ) );
+
+		$response = $this->assert_endpoint( $this->endpoint->get_base_path(), 'POST', 201, $example );
+
+		$this->assertSame( $expected_status, get_post_status( $response['id'] ) );
+		$this->assertSame( $expected_status, $response['status'] );
+
+		wp_delete_post( $response['id'], true );
+	}
+
+	/**
+	 * @dataProvider status_scale_back_provider
+	 */
+	public function test_update_scales_back_status_to_user_capabilities( string $role, ?string $status, string $expected_status ) {
+		if ( ! $this->is_updatable() ) {
+			return;
+		}
+
+		$example = $this->get_example_create_data();
+		unset( $example['id'], $example['author'], $example['tribe_events_cat'], $example['tags'], $example['organizers'], $example['venues'], $example['venue'] );
+		$example['status'] = 'draft';
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => $role ] ) );
+
+		$entity_id = $this->endpoint->get_orm()->set_args( $example )->create()->ID;
+
+		// A repository may force a status on create - Tickets Commerce publishes every ticket - so
+		// set the status the fixture needs rather than assuming `set_args()` was honored.
+		wp_update_post(
+			[
+				'ID'          => $entity_id,
+				'post_status' => 'draft',
+			]
+		);
+		$this->assertSame( 'draft', get_post_status( $entity_id ) );
+
+		$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ), 'PUT', 200, null === $status ? [ 'title' => 'Updated title' ] : [ 'status' => $status ] );
+
+		wp_cache_flush();
+
+		// An omitted status on update must leave the existing one untouched.
+		$this->assertSame( null === $status ? 'draft' : $expected_status, get_post_status( $entity_id ) );
+
+		wp_delete_post( $entity_id, true );
 	}
 
 	/**
