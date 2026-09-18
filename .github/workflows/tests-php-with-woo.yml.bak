@@ -2,7 +2,7 @@ name: 'EVA Codeception + Woo Tests'
 on: [ pull_request ]
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     outputs:
       run_tests: ${{ steps.php_check.outputs.php_files_changed }}
     steps:
@@ -29,7 +29,7 @@ jobs:
       fail-fast: false
       matrix:
         suite: [ eva_integration, restv1_et ]
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       # ------------------------------------------------------------------------------
       # Checkout the repo
