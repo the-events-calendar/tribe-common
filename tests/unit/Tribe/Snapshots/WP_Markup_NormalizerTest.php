@@ -75,6 +75,13 @@ class WP_Markup_NormalizerTest extends Unit {
 		$this->assertSame( WP_Markup_Normalizer::normalize( $wp_68 ), WP_Markup_Normalizer::normalize( $wp_71 ) );
 	}
 
+	public function test_it_collapses_the_blank_line_a_removed_block_leaves(): void {
+		$with_block    = "<div class=\"tablenav top\">\n\t<div class=\"tablenav-pages no-pages\"><span>1 item</span></div>\n\t<br class=\"clear\" />\n</div>";
+		$without_block = "<div class=\"tablenav top\">\n\t<br class=\"clear\" />\n</div>";
+
+		$this->assertSame( WP_Markup_Normalizer::normalize( $without_block ), WP_Markup_Normalizer::normalize( $with_block ) );
+	}
+
 	public function test_it_leaves_unrelated_markup_alone(): void {
 		$html = '<p class="x" data-y="1">Hello &amp; bye</p>';
 

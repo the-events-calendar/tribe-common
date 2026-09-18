@@ -64,7 +64,7 @@ class WP_Markup_Normalizer {
 		 * 7.1 `WP_List_Table` prints the primary column as a `th` with `scope="row"` and an optional
 		 * `aria-label`; the attribute order varies by table, so the cell is matched on its class alone.
 		 */
-		return preg_replace_callback(
+		$html = preg_replace_callback(
 			'/<th((?: [\w-]+="[^"]*")+)>(.*?)<\/th>/s',
 			static function ( array $match ): string {
 				if ( false === strpos( $match[1], 'column-primary' ) ) {
@@ -77,6 +77,9 @@ class WP_Markup_Normalizer {
 			},
 			$html
 		);
+
+		// Removing a block leaves a blank line on some versions and not on others.
+		return preg_replace( '/\n[ \t]*\n/', "\n", $html );
 	}
 
 	/**
