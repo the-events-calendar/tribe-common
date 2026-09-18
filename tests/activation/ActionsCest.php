@@ -4,6 +4,12 @@ class ActionsCest {
 
 
 	public function _before( ActivationTester $I ) {
+		/*
+		 * The dump carries the `db_version` of whatever WordPress it was taken from; on any other
+		 * version admin requests redirect to the database upgrade screen instead of the plugins page.
+		 */
+		require $_ENV['WP_ROOT_FOLDER'] . '/wp-includes/version.php';
+		$I->haveOptionInDatabase( 'db_version', $wp_db_version );
 	}
 
 	/**
