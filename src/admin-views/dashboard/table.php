@@ -19,6 +19,8 @@
  * @var Url                 $url       The URLs handler for the integration.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <fieldset id="tec-field-integration_token" class="tec-automator-endpoint-dashboard tribe-field tribe-field-text tribe-size-medium">
 	<legend class="tribe-field-label"><?php echo esc_html_x( 'Endpoint Dashboard', 'The legend for the integration endpoint dashboard.', 'tribe-common' ); ?></legend>

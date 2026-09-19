@@ -9,6 +9,9 @@
  *
  * @since 4.9.11
  */
+
+defined( 'ABSPATH' ) || exit;
+
 return [
 	'post_id' => [
 		'read' => [

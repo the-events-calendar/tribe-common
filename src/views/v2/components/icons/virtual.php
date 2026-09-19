@@ -18,6 +18,8 @@
  * @var array<string> $classes Additional classes to add to the svg icon.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--virtual' ];
 
 if ( ! empty( $classes ) ) {

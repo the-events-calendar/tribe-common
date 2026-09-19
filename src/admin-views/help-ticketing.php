@@ -3,6 +3,8 @@
  * Help page for ticketing products.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $faqs                     = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_faqs();
 $extensions               = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_extensions();
 $ticketing_products       = tribe( Tribe__Admin__Help_Page::class )->get_ticketing_products();

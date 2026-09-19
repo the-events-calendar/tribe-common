@@ -1,4 +1,7 @@
 <?php
+
+defined( 'ABSPATH' ) || exit;
+
 _deprecated_file( __FILE__, '4.3', 'Tribe__Admin__Notices' );
 
 class Tribe__Admin__Notice__Archive_Slug_Conflict {

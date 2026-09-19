@@ -1,4 +1,10 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// The test bootstraps load this file before WordPress; only block direct web requests.
+	'cli' === PHP_SAPI || exit;
+}
+
 $common = __DIR__ . '/src';
 
 require_once $common . '/Tribe/Autoloader.php';

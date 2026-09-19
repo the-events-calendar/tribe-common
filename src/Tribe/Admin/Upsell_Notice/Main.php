@@ -11,6 +11,8 @@
 
 namespace Tribe\Admin\Upsell_Notice;
 
+defined( 'ABSPATH' ) || exit;
+
 _deprecated_file( __FILE__, '6.9.8', '\TEC\Common\Admin\Conditional_Content\Promotional_Content_Abstract with appropriate traits' );
 
 /**

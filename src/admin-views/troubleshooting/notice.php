@@ -5,6 +5,8 @@
  * @since 4.14.2
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $url = class_exists( 'Tribe__Events__Main' )
 ? admin_url( 'edit.php?post_type=tribe_events&page=tec-events-help' )
 : admin_url( 'admin.php?page=tec-tickets-help' );

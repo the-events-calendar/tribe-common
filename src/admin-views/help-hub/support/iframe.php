@@ -9,6 +9,8 @@
 
 use TEC\Common\Admin\Help_Hub\Hub;
 
+defined( 'ABSPATH' ) || exit;
+
 // Define the query arguments to pass to the iframe URL.
 $query_args = [
 	'help_hub'         => Hub::IFRAME_PAGE_SLUG,

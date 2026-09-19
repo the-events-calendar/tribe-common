@@ -8,6 +8,8 @@
  * @var array       $section          The current section.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 // Ensure we have valid input data and at least one FAQ.
 if ( empty( $section['faq'] ) || ! is_array( $section['faq'] ) ) {
 	return;

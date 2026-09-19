@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Gets the post content. Basically a wrapper around `get_the_content` that will prevent warnings on PHP 7.3
  * and be compatible with WP 5.3

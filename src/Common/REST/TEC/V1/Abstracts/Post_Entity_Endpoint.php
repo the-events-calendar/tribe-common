@@ -130,6 +130,71 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	}
 
 	/**
+	 * Filters the parameters for the request.
+	 *
+	 * Scales the requested status back to one the current user is allowed to set before
+	 * the entity is created or updated.
+	 *
+	 * @since 6.12.4
+	 *
+	 * @param array  $params    The parameters to filter.
+	 * @param string $operation The operation to filter the parameters for.
+	 *
+	 * @return array The filtered parameters.
+	 */
+	protected function filter_params( array $params, string $operation ): array {
+		if ( in_array( $operation, [ 'create', 'update' ], true ) ) {
+			$params = $this->scale_back_status( $params, $operation );
+		}
+
+		return parent::filter_params( $params, $operation );
+	}
+
+	/**
+	 * Falls back on a status the current user is allowed to set.
+	 *
+	 * The request body schema defaults an omitted status to `publish`, so the raw request
+	 * decides whether a status was actually sent. Users without the post type's `publish_posts`
+	 * capability get `pending` in place of `publish`, `future` or `private`, and `draft` when
+	 * they sent no status at all. On update an omitted status leaves the existing one untouched.
+	 *
+	 * @since 6.12.4
+	 *
+	 * @param array  $params    The parameters of the request.
+	 * @param string $operation Either `create` or `update`.
+	 *
+	 * @return array The parameters with the status scaled back.
+	 */
+	private function scale_back_status( array $params, string $operation ): array {
+		$request = $this->get_request();
+		// Not `get_param()`: the route args carry the schema default, so it cannot tell an omitted status from a sent one.
+		$explicit  = array_merge( $request->get_query_params(), $request->get_body_params(), $request->get_json_params() ?? [] );
+		$requested = $explicit['status'] ?? null;
+
+		if ( ! $requested && 'update' === $operation ) {
+			unset( $params['status'] );
+
+			return $params;
+		}
+
+		if ( current_user_can( $this->get_post_type_object()->cap->publish_posts ) ) {
+			return $params;
+		}
+
+		if ( ! $requested ) {
+			$params['status'] = 'draft';
+
+			return $params;
+		}
+
+		if ( in_array( $requested, [ 'publish', 'future', 'private' ], true ) ) {
+			$params['status'] = 'pending';
+		}
+
+		return $params;
+	}
+
+	/**
 	 * Returns the arguments for the delete request.
 	 *
 	 * @since 6.9.0
