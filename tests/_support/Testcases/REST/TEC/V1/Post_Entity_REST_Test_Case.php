@@ -407,7 +407,18 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => $role ] ) );
 
-		$response = $this->assert_endpoint( $this->endpoint->get_base_path(), 'POST', 201, $example );
+		$user_can_create = current_user_can( get_post_type_object( $this->endpoint->get_post_type() )->cap->create_posts );
+
+		$response = $this->assert_endpoint(
+			$this->endpoint->get_base_path(),
+			'POST',
+			$user_can_create ? 201 : ( is_user_logged_in() ? 403 : 401 ),
+			$example
+		);
+
+		if ( ! $user_can_create ) {
+			return;
+		}
 
 		$this->assertSame( $expected_status, get_post_status( $response['id'] ) );
 		$this->assertSame( $expected_status, $response['status'] );
@@ -441,12 +452,20 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		);
 		$this->assertSame( 'draft', get_post_status( $entity_id ) );
 
-		$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ), 'PUT', 200, null === $status ? [ 'title' => 'Updated title' ] : [ 'status' => $status ] );
+		/*
+		 * Resolved after the status is forced: editing the published ticket the repository created
+		 * needs `edit_published_posts`, which the acting role may not hold.
+		 */
+		$user_can_update = current_user_can( get_post_type_object( $this->endpoint->get_post_type() )->cap->edit_post, $entity_id );
+
+		$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ), 'PUT', $user_can_update ? 200 : ( is_user_logged_in() ? 403 : 401 ), null === $status ? [ 'title' => 'Updated title' ] : [ 'status' => $status ] );
 
 		wp_cache_flush();
 
-		// An omitted status on update must leave the existing one untouched.
-		$this->assertSame( null === $status ? 'draft' : $expected_status, get_post_status( $entity_id ) );
+		if ( $user_can_update ) {
+			// An omitted status on update must leave the existing one untouched.
+			$this->assertSame( null === $status ? 'draft' : $expected_status, get_post_status( $entity_id ) );
+		}
 
 		wp_delete_post( $entity_id, true );
 	}
