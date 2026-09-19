@@ -1,0 +1,4 @@
+significance: patch
+type: fixed
+entry: "Shipped template and procedural PHP files now exit when accessed directly, as WordPress.org Plugin Check requires. [SOFT-4417]"
+timestamp: 2026-09-14T09:21:31.000Z

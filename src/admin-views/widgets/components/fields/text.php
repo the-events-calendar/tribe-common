@@ -20,6 +20,8 @@
 
 use Tribe__Utils__Array as Arr;
 
+defined( 'ABSPATH' ) || exit;
+
 $text_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-form-control--text' ], Arr::list_to_array( $classes, ' ' ) );
 
 ?>

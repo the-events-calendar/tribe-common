@@ -19,6 +19,8 @@
  * @var Url                 $url      The URLs handler for the integration.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( empty( $endpoint['dependents'] ) ) {
 	return;
 }

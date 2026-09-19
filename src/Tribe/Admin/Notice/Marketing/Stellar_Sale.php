@@ -5,6 +5,8 @@
 
 namespace Tribe\Admin\Notice\Marketing;
 
+defined( 'ABSPATH' ) || exit;
+
 _deprecated_file( __FILE__, '6.3.0', 'No Replacement' );
 
 /**

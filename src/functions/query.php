@@ -5,6 +5,8 @@
  * @since 4.9.5
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! function_exists( 'tribe_filter_meta_query' ) ) {
 	/**
 	 * Removes meta query entries based on key and value.

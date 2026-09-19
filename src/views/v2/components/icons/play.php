@@ -18,6 +18,8 @@
  *
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $svg_classes = [ 'tribe-common-c-svgicon', 'tribe-common-c-svgicon--play' ];
 
 if ( ! empty( $classes ) ) {

@@ -22,6 +22,8 @@
  * @var boolean              $copy_button   Whether to display the copy button.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div <?php tec_classes( $classes_wrap ); ?> >
 	<fieldset class="tec-automator-settings-details__read-only-field">

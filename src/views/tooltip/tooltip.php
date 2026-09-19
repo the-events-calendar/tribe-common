@@ -11,6 +11,8 @@
  * @version 4.9.8
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="tribe-tooltip <?php echo sanitize_html_class( $wrap_classes ); ?>" aria-expanded="false">
 	<span class="dashicons dashicons-<?php echo sanitize_html_class( $icon ); ?> <?php echo sanitize_html_class( $classes ); ?>"></span>

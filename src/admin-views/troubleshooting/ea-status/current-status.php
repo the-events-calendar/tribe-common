@@ -8,6 +8,8 @@
  * @param \Tribe__Main         $main         An instance of the main class of Tribe Common.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $icon     = 'success';
 $notes    = '&nbsp;';
 $message  = esc_html_x( 'Imports Enabled in Settings', '', 'tribe-common' );

@@ -19,6 +19,8 @@
  * @var string              $message A message to display above the API Key list on loading.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $keys = $api->get_list_of_api_keys( true );
 ?>
 <fieldset id="tec-field-zapier_token" class="tec-automator-api-fields tribe-field tribe-field-text tribe-size-medium">

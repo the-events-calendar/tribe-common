@@ -371,7 +371,7 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 			return $response->get_data();
 		}
 
-		$this->assertFalse( $response->is_error(), 'Response should not be an error for path: ' . $path );
+		$this->assertFalse( $response->is_error(), 'Response should not be an error for path: ' . $path . ' ' . wp_json_encode( $response->get_data() ) );
 		$this->assertEquals( $expected_code, $response->get_status() );
 
 		return $response->get_data();

@@ -1,4 +1,7 @@
 <?php
+
+defined( 'ABSPATH' ) || exit;
+
 if ( ! function_exists( 'tec_is_full_site_editor' ) ) {
 	/**
 	 * Check if the current theme is a block theme.

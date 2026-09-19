@@ -6,7 +6,7 @@ on:
       - 'src/modules/**.js'
 jobs:
   jest:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4

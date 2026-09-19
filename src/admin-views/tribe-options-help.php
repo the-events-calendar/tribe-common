@@ -3,6 +3,8 @@
  * Help page for the plugin.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 // Fetch the Help page Instance.
 $help = tribe( Tribe__Admin__Help_Page::class );
 

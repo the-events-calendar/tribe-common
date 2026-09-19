@@ -18,6 +18,8 @@
 
 use Tribe\Widget\Widget_Abstract;
 
+defined( 'ABSPATH' ) || exit;
+
 $default_classes = [
 	'tribe-widget-fields',
 ];

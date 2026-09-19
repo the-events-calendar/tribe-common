@@ -17,6 +17,8 @@
  * @var string               $message  The message to add to the tooltip.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $wrap_classes = [ 'tribe-tooltip', 'event-helper-text' ];
 if ( ! empty( $classes_wrap ) ) {
 	$wrap_classes = array_merge( $wrap_classes, $classes_wrap );

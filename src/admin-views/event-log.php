@@ -7,6 +7,8 @@
  * @var string $download_url
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div id="tribe-log-controls">
 

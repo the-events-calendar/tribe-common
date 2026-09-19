@@ -27,6 +27,8 @@
  * @package TEC\Common\TrustedLogin
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 
 <div class="tl-{{ns}}-auth tl-{{ns}}-{{has_access_class}}">

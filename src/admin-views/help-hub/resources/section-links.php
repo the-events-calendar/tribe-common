@@ -7,6 +7,8 @@
  * @var array $section The section data containing links to render.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( empty( $section['links'] ) ) {
 	return;
 }

@@ -4,6 +4,8 @@
  *             See TEC\Events\Admin\Help_Hub\TEC_Hub_Resource_Data for the new implementation.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 _deprecated_file(
 	esc_html( basename( __FILE__ ) ),
 	'6.8.0',

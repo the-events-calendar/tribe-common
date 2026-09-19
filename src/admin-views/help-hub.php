@@ -12,6 +12,8 @@
  * @var array       $resource_sections An array of data to display in the Resource section.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="tribe_settings wrap tec-events-admin-settings">
 	<?php
