@@ -1,0 +1,4 @@
+significance: patch
+type: security
+entry: Hardened author handling in the TEC REST API when creating and updating posts.
+timestamp: 2026-09-21T19:50:57.707Z
