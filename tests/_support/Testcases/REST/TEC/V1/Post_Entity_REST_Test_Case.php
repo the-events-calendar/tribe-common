@@ -417,7 +417,7 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		);
 
 		if ( ! $user_can_create ) {
-			return;
+			$this->markTestSkipped( 'Role cannot create this post type; nothing to scale back.' );
 		}
 
 		$this->assertSame( $expected_status, get_post_status( $response['id'] ) );
