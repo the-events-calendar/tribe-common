@@ -689,9 +689,10 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		$event_cat_term_1 = self::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat', 'name' => 'Category 1' ] );
 		$event_cat_term_2 = self::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat', 'name' => 'Category 2' ] );
 		$event_cat_term_3 = self::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat', 'name' => 'Category 3' ] );
-		$event_tag_term_1 = self::factory()->term->create( [ 'taxonomy' => 'post_tag' ] );
-		$event_tag_term_2 = self::factory()->term->create( [ 'taxonomy' => 'post_tag' ] );
-		$event_tag_term_3 = self::factory()->term->create( [ 'taxonomy' => 'post_tag' ] );
+		// Named explicitly: tags are read back ordered by name, and factory names ("Term 9", "Term 10") do not sort by ID.
+		$event_tag_term_1 = self::factory()->term->create( [ 'taxonomy' => 'post_tag', 'name' => 'Tag 1' ] );
+		$event_tag_term_2 = self::factory()->term->create( [ 'taxonomy' => 'post_tag', 'name' => 'Tag 2' ] );
+		$event_tag_term_3 = self::factory()->term->create( [ 'taxonomy' => 'post_tag', 'name' => 'Tag 3' ] );
 
 		$event_1 = self::factory()->post->create( [ 'post_title' => 'Event 1' ] );
 		$event_2 = self::factory()->post->create( [ 'post_title' => 'Event 2' ] );
