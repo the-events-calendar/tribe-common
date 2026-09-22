@@ -1,0 +1,5 @@
+significance: patch
+type: security
+entry: Hardened the validation of the sort parameters used when ordering query
+  results.
+timestamp: 2026-09-18T15:11:38.696Z

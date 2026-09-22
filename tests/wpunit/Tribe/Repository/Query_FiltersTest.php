@@ -3,6 +3,7 @@
 namespace Tribe\Repository;
 
 use Tribe__Repository__Query_Filters as Query_Filters;
+use WP_Query;
 
 class Query_FiltersTest extends \Codeception\TestCase\WPTestCase {
 	/**
@@ -137,5 +138,34 @@ class Query_FiltersTest extends \Codeception\TestCase\WPTestCase {
 		$filtered = $filters->filter_posts_orderby( $orderby_sql, $query );
 
 		$this->assertEquals( $expected, $filtered );
+	}
+
+	public function order_direction_set() {
+		yield 'lowercase asc' => [ 'asc', 'ASC' ];
+		yield 'uppercase ASC' => [ 'ASC', 'ASC' ];
+		yield 'lowercase desc' => [ 'desc', 'DESC' ];
+		yield 'uppercase DESC' => [ 'DESC', 'DESC' ];
+		yield 'injected direction' => [ 'DESC, (SELECT 1)', 'DESC' ];
+		yield 'unknown token' => [ 'RANDOM()', 'DESC' ];
+		yield 'empty direction' => [ '', 'DESC' ];
+	}
+
+	/**
+	 * It should only ever emit ASC or DESC as the order direction
+	 *
+	 * @test
+	 * @dataProvider order_direction_set
+	 */
+	public function should_only_emit_asc_or_desc_as_direction( $direction, $expected_direction ) {
+		$query   = new WP_Query();
+		$filters = new Query_Filters();
+		$filters->set_query( $query );
+		$filters->orderby( [ 'alias' => $direction ], 'test' );
+
+		$filtered = $filters->filter_posts_orderby( 'wp_posts.ID ASC', $query );
+
+		$this->assertEquals( "alias {$expected_direction}, wp_posts.ID ASC", $filtered );
+		$this->assertEquals( [ 'orderby' => [ [ 'alias', $expected_direction ] ] ], $filters->get_filters_by_id( 'test' ) );
+		$this->assertStringNotContainsString( 'SELECT 1', $filtered );
 	}
 }
