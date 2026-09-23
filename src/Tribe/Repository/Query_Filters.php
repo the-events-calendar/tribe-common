@@ -693,7 +693,7 @@ class Tribe__Repository__Query_Filters {
 	 * @since 4.9.5
 	 * @since 4.9.14 Added the `$id` and `$override` parameters.
 	 * @since 4.9.21 Added the `$order` and `$after` parameters.
-	 * @since TBD    Directions other than `ASC` or `DESC` are replaced with `DESC`.
+	 * @since 6.12.4.1    Directions other than `ASC` or `DESC` are replaced with `DESC`.
 	 *
 	 * @param string|array $orderby       The order by criteria; this argument can be specified in array form to specify
 	 *                                    multiple order by clauses and orders associated to each,

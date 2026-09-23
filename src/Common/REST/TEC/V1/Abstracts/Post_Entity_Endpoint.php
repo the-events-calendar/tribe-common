@@ -136,7 +136,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 * requested author back to the current user, before the entity is created or updated.
 	 *
 	 * @since 6.12.4
-	 * @since TBD Also scales back the requested author.
+	 * @since 6.12.4.1 Also scales back the requested author.
 	 *
 	 * @param array  $params    The parameters to filter.
 	 * @param string $operation The operation to filter the parameters for.
@@ -203,7 +203,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 * to another user, on create or update. An explicit `author` is discarded in favor of the
 	 * current user; an omitted one is left untouched, so update does not overwrite an existing one.
 	 *
-	 * @since TBD
+	 * @since 6.12.4.1
 	 *
 	 * @param array $params The parameters of the request.
 	 *
