@@ -35,7 +35,7 @@ class Tribe__Error {
 	 * @return void
 	 */
 	private function __construct() {
-		$this->register( 'unknown', esc_html__( 'An Unknown error occurred' ) );
+		$this->register( 'unknown', esc_html__( 'An Unknown error occurred', 'tribe-common' ) );
 	}
 
 	/**

@@ -103,10 +103,12 @@ class Heading extends Base_Entity {
 
 		if ( $level < 1 || $level > $this->max_level ) {
 			throw new InvalidArgumentException(
-				sprintf(
-					/* translators: %d: The maximum heading level. */
-					esc_html__( 'Heading level must be between 1 and %d', 'tribe-common' ),
-					$this->max_level
+				esc_html(
+					sprintf(
+						/* translators: %d: The maximum heading level. */
+						esc_html__( 'Heading level must be between 1 and %d', 'tribe-common' ),
+						$this->max_level
+					)
 				)
 			);
 		}

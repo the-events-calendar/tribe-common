@@ -78,4 +78,26 @@ TAG;
 		$expected      = str_replace( '{{ common_url }}', home_url( '/wp-content/plugins/the-events-calendar/common/src/resources' ), $expected_tmpl );
 		$this->assertEquals( $expected, $output );
 	}
+
+	/**
+	 * @test
+	 */
+	public function tribe_the_notices_should_only_output_allowed_html() {
+		\Tribe__Notices::set_notice( 'test-notice', 'Safe <strong>notice</strong><script>alert(1)</script><em onclick="steal()">extra</em><tec-badge>new</tec-badge>' );
+
+		$html = tribe_the_notices( false );
+
+		$this->assertStringContainsString( '<strong>notice</strong>', $html );
+		$this->assertStringNotContainsString( '<script>', $html );
+		$this->assertStringNotContainsString( 'onclick', $html );
+		$this->assertStringNotContainsString( '<tec-badge>', $html );
+
+		add_filter( 'tec_common_notices_allowed_html', static function ( array $allowed ) {
+			$allowed['tec-badge'] = [];
+
+			return $allowed;
+		} );
+
+		$this->assertStringContainsString( '<tec-badge>new</tec-badge>', tribe_the_notices( false ) );
+	}
 }

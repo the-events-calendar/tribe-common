@@ -82,7 +82,7 @@ class Tribe__Template_Part_Cache {
 	 */
 	public function display( $path ) {
 		if ( $this->html !== false ) {
-			echo $this->html;
+			echo $this->html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Template output, escaped in the template files.
 
 			return false;
 		}
