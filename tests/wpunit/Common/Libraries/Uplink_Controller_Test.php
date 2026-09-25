@@ -76,8 +76,8 @@ class Uplink_Controller_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function it_should_add_actions_on_do_register_and_unregister() {
-		$this->controller->do_register();
+	public function it_should_add_actions_on_register_and_unregister() {
+		$this->controller->register();
 
 		// Assert actions were added
 		$this->assertNotFalse( has_action( 'init', [ $this->controller, 'register_uplink' ] ) );

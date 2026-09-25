@@ -1,0 +1,4 @@
+Significance: patch
+Type: feat
+
+Includes `stellarwp/migrations` library to manage our migrations.
