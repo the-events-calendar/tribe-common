@@ -12,6 +12,8 @@ namespace TEC\Common\Admin\Conditional_Content;
 
 use TEC\Common\Admin\Conditional_Content\Traits\Has_Datetime_Conditions;
 
+defined( 'ABSPATH' ) || exit;
+
 _deprecated_file( __FILE__, '6.9.8', '\TEC\Common\Admin\Conditional_Content\Traits\Has_Datetime_Conditions', 'This file is deprecated in favor of a new trait.' );
 
 /**

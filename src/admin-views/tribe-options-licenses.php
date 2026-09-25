@@ -3,6 +3,8 @@
  * The licenses tab for the Tribe Options page.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 // Explanatory text about license settings for the tab information box.
 use TEC\Common\Admin\Entities\Div;
 use TEC\Common\Admin\Entities\Heading;

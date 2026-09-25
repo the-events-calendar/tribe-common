@@ -14,6 +14,8 @@
  * @version 4.12.17
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( empty( $button_display ) ) {
 	return;
 }

@@ -5,6 +5,8 @@
  * @since 4.14.2
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $error_log = tribe( Tribe__Log__Admin::class )->display_log();
 ?>
 <div class="tribe-events-admin__troubleshooting-event-log-wrapper">

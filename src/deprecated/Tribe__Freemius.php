@@ -1,4 +1,7 @@
 <?php
+
+defined( 'ABSPATH' ) || exit;
+
 _deprecated_file( __FILE__, '5.1.0', 'No direct replacement, we now use StellarWP Telemetry' );
 
 /**

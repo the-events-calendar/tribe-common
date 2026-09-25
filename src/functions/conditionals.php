@@ -7,6 +7,8 @@
  * @package Tribe\Common\Functions
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Determines if upsells should be hidden.
  *

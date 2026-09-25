@@ -19,6 +19,8 @@
  * @var array<string|mixed> $users An array of WordPress users to create an API Key for.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $this->template( 'zapier/api/list/list-header', [] );
 
 if ( empty( $keys ) ) {

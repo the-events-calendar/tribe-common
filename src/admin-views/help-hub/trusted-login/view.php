@@ -7,6 +7,8 @@
  * @var string $template_variant The template variant, determining which template to display.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="tribe-settings-form form">
 	<div class="tec-settings-form">

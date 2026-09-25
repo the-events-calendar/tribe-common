@@ -22,12 +22,15 @@ class Tribe__Service_Providers__Debug_Bar extends Service_Provider {
 	 * Adds The Events Calendar panels to the Debug Bar panels.
 	 *
 	 * @since 4.9.5
+	 * @since 6.12.4 Made the parameter non-strict; `debug_bar_panels` is the Debug Bar plugin's.
 	 *
 	 * @param Debug_Bar_Panel[] $panels The current list of Debug Bar panels.
 	 *
 	 * @return array A modified list of Debug Bar panels.
 	 */
-	public function add_panels( array $panels ) {
+	public function add_panels( $panels ) {
+		$panels = is_array( $panels ) ? $panels : [];
+
 		/**
 		 * Filters the list of The Events Calendar debug bar panels that will be added to the
 		 * Debug Bar.

@@ -15,6 +15,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use stdClass;
 use ReflectionClass;
 use Closure;
+use Generator;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Exceptions\InvalidRestArgumentException;
 use Tribe__Repository as Base_Repo;
@@ -376,6 +377,168 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 	}
 
 	/**
+	 * Provides a user role, the status the request sends, and the status the entity should end up with.
+	 *
+	 * @return Generator<string, array{string, ?string, string}>
+	 */
+	public function status_scale_back_provider(): Generator {
+		yield 'contributor, explicit publish' => [ 'contributor', 'publish', 'pending' ];
+		yield 'contributor, explicit future' => [ 'contributor', 'future', 'pending' ];
+		yield 'contributor, explicit private' => [ 'contributor', 'private', 'pending' ];
+		yield 'contributor, omitted status' => [ 'contributor', null, 'draft' ];
+		yield 'author, explicit publish' => [ 'author', 'publish', 'publish' ];
+		yield 'author, omitted status' => [ 'author', null, 'publish' ];
+	}
+
+	/**
+	 * @dataProvider status_scale_back_provider
+	 */
+	public function test_create_scales_back_status_to_user_capabilities( string $role, ?string $status, string $expected_status ) {
+		if ( ! $this->is_creatable() ) {
+			return;
+		}
+
+		$example = $this->get_example_create_data();
+		unset( $example['id'], $example['author'], $example['status'], $example['tribe_events_cat'], $example['tags'], $example['organizers'], $example['venues'], $example['venue'] );
+
+		if ( null !== $status ) {
+			$example['status'] = $status;
+		}
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => $role ] ) );
+
+		$response = $this->assert_endpoint( $this->endpoint->get_base_path(), 'POST', 201, $example );
+
+		$this->assertSame( $expected_status, get_post_status( $response['id'] ) );
+		$this->assertSame( $expected_status, $response['status'] );
+
+		wp_delete_post( $response['id'], true );
+	}
+
+	/**
+	 * @dataProvider status_scale_back_provider
+	 */
+	public function test_update_scales_back_status_to_user_capabilities( string $role, ?string $status, string $expected_status ) {
+		if ( ! $this->is_updatable() ) {
+			return;
+		}
+
+		$example = $this->get_example_create_data();
+		unset( $example['id'], $example['author'], $example['tribe_events_cat'], $example['tags'], $example['organizers'], $example['venues'], $example['venue'] );
+		$example['status'] = 'draft';
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => $role ] ) );
+
+		$entity_id = $this->endpoint->get_orm()->set_args( $example )->create()->ID;
+
+		// A repository may force a status on create - Tickets Commerce publishes every ticket - so
+		// set the status the fixture needs rather than assuming `set_args()` was honored.
+		wp_update_post(
+			[
+				'ID'          => $entity_id,
+				'post_status' => 'draft',
+			]
+		);
+		$this->assertSame( 'draft', get_post_status( $entity_id ) );
+
+		$this->assert_endpoint( sprintf( $this->endpoint->get_base_path(), $entity_id ), 'PUT', 200, null === $status ? [ 'title' => 'Updated title' ] : [ 'status' => $status ] );
+
+		wp_cache_flush();
+
+		// An omitted status on update must leave the existing one untouched.
+		$this->assertSame( null === $status ? 'draft' : $expected_status, get_post_status( $entity_id ) );
+
+		wp_delete_post( $entity_id, true );
+	}
+
+	/**
+	 * Provides a user role and whether that role may attribute the entity to another user.
+	 *
+	 * @return Generator<string, array{string, bool}>
+	 */
+	public function author_scale_back_provider(): Generator {
+		yield 'contributor cannot set author' => [ 'contributor', false ];
+		yield 'editor can set author' => [ 'editor', true ];
+	}
+
+	/**
+	 * @dataProvider author_scale_back_provider
+	 */
+	public function test_create_scales_back_author_to_user_capabilities( string $role, bool $can_set_author ) {
+		if ( ! $this->is_creatable() ) {
+			return;
+		}
+
+		$example = $this->get_example_create_data();
+		unset( $example['id'], $example['status'], $example['tribe_events_cat'], $example['tags'], $example['organizers'], $example['venues'], $example['venue'] );
+
+		$current_user = $this->factory()->user->create( [ 'role' => $role ] );
+		$other_user   = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+
+		$example['author'] = $other_user;
+
+		wp_set_current_user( $current_user );
+
+		$user_can_create = current_user_can( get_post_type_object( $this->endpoint->get_post_type() )->cap->create_posts );
+
+		$response = $this->assert_endpoint(
+			$this->endpoint->get_base_path(),
+			'POST',
+			$user_can_create ? 201 : ( is_user_logged_in() ? 403 : 401 ),
+			$example
+		);
+
+		if ( ! $user_can_create ) {
+			return;
+		}
+
+		$expected_author = $can_set_author ? $other_user : $current_user;
+		$this->assertEquals( $expected_author, get_post_field( 'post_author', $response['id'] ) );
+
+		wp_delete_post( $response['id'], true );
+	}
+
+	/**
+	 * @dataProvider author_scale_back_provider
+	 */
+	public function test_update_scales_back_author_to_user_capabilities( string $role, bool $can_set_author ) {
+		if ( ! $this->is_updatable() ) {
+			return;
+		}
+
+		$example = $this->get_example_create_data();
+		unset( $example['id'], $example['author'], $example['status'], $example['tribe_events_cat'], $example['tags'], $example['organizers'], $example['venues'], $example['venue'] );
+		// A published post is out of a contributor's `edit_post` reach entirely (no `edit_published_posts`),
+		// which would 403 before the author check ever runs - draft keeps the update reachable.
+		$example['status'] = 'draft';
+
+		$current_user = $this->factory()->user->create( [ 'role' => $role ] );
+		$other_user   = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+
+		$entity_id = $this->endpoint->get_orm()->set_args( array_merge( $example, [ 'author' => $current_user ] ) )->create()->ID;
+
+		wp_set_current_user( $current_user );
+
+		$user_can_update = current_user_can( get_post_type_object( $this->endpoint->get_post_type() )->cap->edit_post, $entity_id );
+
+		$this->assert_endpoint(
+			sprintf( $this->endpoint->get_base_path(), $entity_id ),
+			'PUT',
+			$user_can_update ? 200 : ( is_user_logged_in() ? 403 : 401 ),
+			[ 'author' => $other_user ]
+		);
+
+		wp_cache_flush();
+
+		if ( $user_can_update ) {
+			$expected_author = $can_set_author ? $other_user : $current_user;
+			$this->assertEquals( $expected_author, get_post_field( 'post_author', $entity_id ) );
+		}
+
+		wp_delete_post( $entity_id, true );
+	}
+
+	/**
 	 * @dataProvider different_user_roles_provider
 	 */
 	public function test_create_responses( Closure $fixture ) {
@@ -526,9 +689,10 @@ abstract class Post_Entity_REST_Test_Case extends REST_Test_Case {
 		$event_cat_term_1 = self::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat', 'name' => 'Category 1' ] );
 		$event_cat_term_2 = self::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat', 'name' => 'Category 2' ] );
 		$event_cat_term_3 = self::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat', 'name' => 'Category 3' ] );
-		$event_tag_term_1 = self::factory()->term->create( [ 'taxonomy' => 'post_tag' ] );
-		$event_tag_term_2 = self::factory()->term->create( [ 'taxonomy' => 'post_tag' ] );
-		$event_tag_term_3 = self::factory()->term->create( [ 'taxonomy' => 'post_tag' ] );
+		// Named explicitly: tags are read back ordered by name, and factory names ("Term 9", "Term 10") do not sort by ID.
+		$event_tag_term_1 = self::factory()->term->create( [ 'taxonomy' => 'post_tag', 'name' => 'Tag 1' ] );
+		$event_tag_term_2 = self::factory()->term->create( [ 'taxonomy' => 'post_tag', 'name' => 'Tag 2' ] );
+		$event_tag_term_3 = self::factory()->term->create( [ 'taxonomy' => 'post_tag', 'name' => 'Tag 3' ] );
 
 		$event_1 = self::factory()->post->create( [ 'post_title' => 'Event 1' ] );
 		$event_2 = self::factory()->post->create( [ 'post_title' => 'Event 2' ] );

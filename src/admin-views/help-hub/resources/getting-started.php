@@ -7,6 +7,8 @@
  * @var string      $template_variant The template variant, determining which template to display.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 _deprecated_file(
 	esc_html( basename( __FILE__ ) ),
 	'6.8.0',

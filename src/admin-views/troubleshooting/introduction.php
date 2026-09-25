@@ -6,6 +6,9 @@
  */
 
 use Tribe\Admin\Troubleshooting;
+
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="tribe-events-admin-header tribe-events-admin-container">
 	<?php

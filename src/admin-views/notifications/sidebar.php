@@ -10,6 +10,8 @@
  * @var string $url   The URL for the data sharing agreement.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="ian-sidebar is-hidden" data-tec-ian-trigger="sideIan">
 	<div class="ian-sidebar__title">

@@ -115,33 +115,31 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 			},
 		];
 
-		yield [
-			'contributor' => function (): void {
-				$user = $this->factory()->user->create( [ 'role' => 'contributor' ] );
-				wp_set_current_user( $user );
-			},
-		];
+		foreach ( $this->get_roles_to_test() as $role ) {
+			yield [
+				$role => function () use ( $role ): void {
+					$user = $this->factory()->user->create( [ 'role' => $role ] );
+					wp_set_current_user( $user );
+				},
+			];
+		}
+	}
 
-		yield [
-			'author' => function (): void {
-				$user = $this->factory()->user->create( [ 'role' => 'author' ] );
-				wp_set_current_user( $user );
-			},
-		];
-
-		yield [
-			'editor' => function (): void {
-				$user = $this->factory()->user->create( [ 'role' => 'editor' ] );
-				wp_set_current_user( $user );
-			},
-		];
-
-		yield [
-			'administrator' => function (): void {
-				$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-				wp_set_current_user( $user );
-			},
-		];
+	/**
+	 * The roles exercised by the `different_user_roles_provider` data provider, beyond the
+	 * always-included guest.
+	 *
+	 * Endpoints backed by a custom capability map (e.g. WooCommerce products, where only
+	 * `shop_manager` and `administrator` hold `edit_products`) should override this to test
+	 * against the roles that actually exercise a success path for that endpoint, instead of
+	 * always hitting the capability guard's 403.
+	 *
+	 * @since TBD
+	 *
+	 * @return string[]
+	 */
+	protected function get_roles_to_test(): array {
+		return [ 'contributor', 'author', 'editor', 'administrator' ];
 	}
 
 	protected function assert_supported_operations() {
@@ -371,7 +369,7 @@ abstract class REST_Test_Case extends WPBrowserTestCase {
 			return $response->get_data();
 		}
 
-		$this->assertFalse( $response->is_error(), 'Response should not be an error for path: ' . $path );
+		$this->assertFalse( $response->is_error(), 'Response should not be an error for path: ' . $path . ' ' . wp_json_encode( $response->get_data() ) );
 		$this->assertEquals( $expected_code, $response->get_status() );
 
 		return $response->get_data();

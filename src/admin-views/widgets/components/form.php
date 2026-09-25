@@ -16,6 +16,8 @@
  * @version 4.12.18
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $default_classes = [
 	'tribe-widget-form',
 ];

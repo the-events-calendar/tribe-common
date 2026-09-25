@@ -3,6 +3,8 @@
 use TEC\Common\Json_Packer\Json_Packer;
 use TEC\Common\lucatume\DI52\ContainerException;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Sanitizes string values.
  *

@@ -17,6 +17,8 @@
  * @var Url $url An instance of the URL handler.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $add_link      = $url->to_add_connection_link();
 $connect_label = _x( 'Add Connection', 'Label to add Zapier connection fields.', 'tribe-common' );
 

@@ -10,6 +10,8 @@
  * @var string        $icon_url  URL to icon.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="tec-admin__upsell-icon">
 	<img

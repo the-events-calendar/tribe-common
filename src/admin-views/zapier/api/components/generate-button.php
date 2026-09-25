@@ -18,6 +18,8 @@
  * @var Url                 $url     An instance of the URL handler.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $add_link  = $url->to_create_access_link( $consumer_id );
 $add_label = _x( 'Generate', 'Generate a Zapier API Key pair.', 'tribe-common' );
 ?>

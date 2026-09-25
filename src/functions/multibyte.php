@@ -7,6 +7,8 @@
  * @since 4.7.18
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! function_exists( 'tribe_detect_encoding' ) ) {
 	/**
 	 * Detects multibyte encoding if the function is available, returns false if not

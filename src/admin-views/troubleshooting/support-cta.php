@@ -5,6 +5,8 @@
  * @since 4.14.2
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="tribe-events-admin-cta">
 	<img

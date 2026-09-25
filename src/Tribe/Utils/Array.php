@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! class_exists( 'Tribe__Utils__Array' ) ) {
 	/**
 	 * Array utilities

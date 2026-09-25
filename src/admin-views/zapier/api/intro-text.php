@@ -17,6 +17,8 @@
  * @var array $allowed_html Which HTML elements are used for wp_kses.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal tec-settings-form__header-block--no-border">
 	<?php $this->template( '/components/loader' ); ?>

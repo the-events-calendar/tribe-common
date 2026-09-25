@@ -18,6 +18,8 @@
  * @var Url                 $url         An instance of the URL handler.
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $message_classes = [ 'tec-settings-zapier-details-api-key__message-wrap' ];
 $message_title   = _x( 'API Authentication Details', 'Label for the consumer id and secret section.', 'tribe-common' );
 $message         = esc_html_x( 'Please copy the consumer id and secret below. Once you leave the page they will no longer be available.', 'Consumer id and secret only show once help text for Zapier API.', 'tribe-common' );
