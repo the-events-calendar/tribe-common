@@ -693,6 +693,7 @@ class Tribe__Repository__Query_Filters {
 	 * @since 4.9.5
 	 * @since 4.9.14 Added the `$id` and `$override` parameters.
 	 * @since 4.9.21 Added the `$order` and `$after` parameters.
+	 * @since 6.12.4.1    Directions other than `ASC` or `DESC` are replaced with `DESC`.
 	 *
 	 * @param string|array $orderby       The order by criteria; this argument can be specified in array form to specify
 	 *                                    multiple order by clauses and orders associated to each,
@@ -714,7 +715,12 @@ class Tribe__Repository__Query_Filters {
 			 * shape `[ 'menu_order' => 'ASC', 'post_date' => 'DESC' ]`.
 			 */
 			$the_orderby = is_numeric( $key ) ? $value : $key;
-			$the_order   = is_numeric( $key ) ? 'DESC' : $value;
+			$the_order   = is_numeric( $key ) || ! is_string( $value ) ? 'DESC' : strtoupper( $value );
+
+			// The direction is interpolated unquoted into the ORDER BY clause, so it can only ever be one of the two keywords.
+			if ( ! in_array( $the_order, [ 'ASC', 'DESC' ], true ) ) {
+				$the_order = 'DESC';
+			}
 
 			$entries[] = [ $the_orderby, $the_order ];
 		}
