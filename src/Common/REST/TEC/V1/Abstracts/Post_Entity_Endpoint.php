@@ -132,10 +132,11 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	/**
 	 * Filters the parameters for the request.
 	 *
-	 * Scales the requested status back to one the current user is allowed to set before
-	 * the entity is created or updated.
+	 * Scales the requested status back to one the current user is allowed to set, and the
+	 * requested author back to the current user, before the entity is created or updated.
 	 *
 	 * @since 6.12.4
+	 * @since 6.12.4.1 Also scales back the requested author.
 	 *
 	 * @param array  $params    The parameters to filter.
 	 * @param string $operation The operation to filter the parameters for.
@@ -145,6 +146,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	protected function filter_params( array $params, string $operation ): array {
 		if ( in_array( $operation, [ 'create', 'update' ], true ) ) {
 			$params = $this->scale_back_status( $params, $operation );
+			$params = $this->scale_back_author( $params );
 		}
 
 		return parent::filter_params( $params, $operation );
@@ -190,6 +192,33 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 		if ( in_array( $requested, [ 'publish', 'future', 'private' ], true ) ) {
 			$params['status'] = 'pending';
 		}
+
+		return $params;
+	}
+
+	/**
+	 * Falls back on an author the current user is allowed to set.
+	 *
+	 * A user without the post type's `edit_others_posts` capability may not attribute the entity
+	 * to another user, on create or update. An explicit `author` is discarded in favor of the
+	 * current user; an omitted one is left untouched, so update does not overwrite an existing one.
+	 *
+	 * @since 6.12.4.1
+	 *
+	 * @param array $params The parameters of the request.
+	 *
+	 * @return array The parameters with the author scaled back.
+	 */
+	private function scale_back_author( array $params ): array {
+		if ( ! isset( $params['author'] ) ) {
+			return $params;
+		}
+
+		if ( current_user_can( $this->get_post_type_object()->cap->edit_others_posts ) ) {
+			return $params;
+		}
+
+		$params['author'] = get_current_user_id();
 
 		return $params;
 	}
