@@ -1,4 +1,4 @@
---- a/stubs/Stringable.php
+--- /dev/null
 +++ b/stubs/Stringable.php
 @@ -0,0 +1,11 @@
 +<?php
