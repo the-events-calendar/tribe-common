@@ -145,8 +145,9 @@ CI skips the whole test job when a PR changes no PHP files.
 
 ### How this differs from CI
 
-- CI pins WordPress with `./slic/slic wp core update --force --version=6.8` (the minimum supported);
-  locally, use whatever slic ships unless chasing a version-specific failure.
+- CI runs the suites against the latest WordPress release on feature PRs and the latest three on the
+  release sanity check PR (see `wp-versions` in `tests-php.yml`); locally, use whatever slic ships
+  unless chasing a version-specific failure.
 - CI picks the TEC branch by smart-checkout fallback (same-name branch → PR base → default).
   Locally, check out whichever TEC branch your change needs.
 - After `rest_tec_v1_integration`, CI also runs `npm ci` (Node 18.17.0 from `.nvmrc`) and
