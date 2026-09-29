@@ -4,6 +4,15 @@ class ActionsCest {
 
 
 	public function _before( ActivationTester $I ) {
+		/*
+		 * The suite imports a static dump; when its db_version is behind the running core, wp-admin redirects
+		 * to upgrade.php and the plugins page never renders. Sync it with the installed WordPress.
+		 */
+		$version_file = rtrim( $_ENV['WP_ROOT_FOLDER'], '/' ) . '/wp-includes/version.php';
+
+		if ( preg_match( '/\$wp_db_version\s*=\s*(\d+)/', file_get_contents( $version_file ), $matches ) ) {
+			$I->haveOptionInDatabase( 'db_version', $matches[1] );
+		}
 	}
 
 	/**

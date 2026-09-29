@@ -35,7 +35,7 @@
     "build": "wp-scripts build",
     "start": "wp-scripts start",
     "dev": "WP_DEVTOOL=eval-source-map wp-scripts start",
-    "test": "jest",
+    "test": "TZ=UTC jest",
     "changelog": "npx @stellarwp/changelogger add",
     "spectral": "spectral lint"
   },
