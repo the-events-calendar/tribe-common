@@ -15,7 +15,7 @@ use Tribe__Template as Template;
 /**
  * Controller for setting up the Migrations library.
  *
- * @since TBD
+ * @since 6.13.0
  *
  * @package TEC\Common\Libraries\Migrations
  */
@@ -23,7 +23,7 @@ class Migrations extends Controller_Contract {
 	/**
 	 * Register the controller.
 	 *
-	 * @since TBD
+	 * @since 6.13.0
 	 */
 	protected function do_register(): void {
 		$hook_prefix = tribe( Libraries_Provider::class )->get_hook_prefix();
@@ -47,7 +47,7 @@ class Migrations extends Controller_Contract {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since TBD
+	 * @since 6.13.0
 	 *
 	 * @return void
 	 */
