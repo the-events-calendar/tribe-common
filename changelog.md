@@ -1,5 +1,12 @@
 # Changelog
 
+### [6.13.0] 2026-09-30
+
+* Feature - Added the shared framework needed to move Event Tickets RSVPs onto Tickets Commerce.
+* Feature - Include `stellarwp/migrations` library to manage our migrations.
+* Language - 0 new strings added, 15 updated, 1 fuzzied, and 0 obsoleted.
+* Tweak - Added actions: `tribe_settings_form_element_open`, `tribe_settings_form_element_close`
+
 ### [6.12.4.1] 2026-09-24
 
 * fixed - Shipped template and procedural PHP files now exit when accessed directly, as WordPress.org Plugin Check requires. [SOFT-4417]
