@@ -9,9 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @since TBD
+ * @since 6.13.0
  *
- * @version TBD
+ * @version 6.13.0
  *
  * @var array<string> $classes Additional classes to add to the svg icon.
  */

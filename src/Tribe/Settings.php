@@ -365,7 +365,7 @@ class Tribe__Settings {
 	/**
 	 * Open the settings form element.
 	 *
-	 * @since TBD
+	 * @since 6.13.0
 	 *
 	 * @param string       $tab        The tab name.
 	 * @param Settings_Tab $tab_object The tab object.
@@ -399,7 +399,7 @@ class Tribe__Settings {
 	/**
 	 * Close the settings form element.
 	 *
-	 * @since TBD
+	 * @since 6.13.0
 	 */
 	public function settings_form_element_close(): void {
 		echo apply_filters( 'tribe_settings_closing_form_element', '</form>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
@@ -782,7 +782,7 @@ class Tribe__Settings {
 				/**
 				 * Fires in order to allow for the form element to be opened.
 				 *
-				 * @since TBD
+				 * @since 6.13.0
 				 *
 				 * @param string       $current_tab The current tab ID.
 				 * @param Settings_Tab $tab_object  The current tab object.
@@ -807,7 +807,7 @@ class Tribe__Settings {
 				/**
 				 * Fires in order to allow for the form element to be closed.
 				 *
-				 * @since TBD
+				 * @since 6.13.0
 				 *
 				 * @param string       $current_tab The current tab ID.
 				 * @param Settings_Tab $tab_object  The current tab object.

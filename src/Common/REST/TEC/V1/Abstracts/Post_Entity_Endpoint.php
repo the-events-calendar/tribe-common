@@ -299,7 +299,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 * Adds properties to the model.
 	 *
 	 * @since 6.9.0
-	 * @since TBD Update the additional properties logic to support aliases defined by the model `get_properties_to_add`
+	 * @since 6.13.0 Update the additional properties logic to support aliases defined by the model `get_properties_to_add`
 	 *        method.
 	 *
 	 * @param array<string,mixed> $formatted_post The formatted post.
