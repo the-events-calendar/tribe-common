@@ -1,6 +1,6 @@
 {
   "name": "tribe-common",
-  "version": "6.12.4",
+  "version": "6.13.0",
   "repository": "git@github.com:the-events-calendar/tribe-common.git",
   "_resourcepath": "src/resources",
   "_domainPath": "lang",
@@ -35,7 +35,7 @@
     "build": "wp-scripts build",
     "start": "wp-scripts start",
     "dev": "WP_DEVTOOL=eval-source-map wp-scripts start",
-    "test": "jest",
+    "test": "TZ=UTC jest",
     "changelog": "npx @stellarwp/changelogger add",
     "spectral": "spectral lint"
   },

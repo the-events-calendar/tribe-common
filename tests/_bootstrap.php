@@ -9,6 +9,14 @@ $GLOBALS['wp_filter']['lw_harbor/premium_plugin_exists'][ 10 ][ md5( 'lw_harbor/
 	'accepted_args' => 1,
 ];
 
+// PHPUnit's global-state snapshotter cannot serialize $wp_filter when WordPress
+// attaches the closure-backed object-cache drop-in filter during runtime init.
+// Remove the filter before the serializer snapshots the globals during the test
+// run without touching WordPress core.
+if ( isset( $GLOBALS['wp_filter']['enable_loading_object_cache_dropin'] ) ) {
+	unset( $GLOBALS['wp_filter']['enable_loading_object_cache_dropin'] );
+}
+
 require_once dirname( __DIR__, 1 ) . '/tribe-autoload.php';
 Autoload::addNamespace( 'Tribe\\Tests', __DIR__ . '/_support' );
 // Silence the logger in the tests.
