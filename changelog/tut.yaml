@@ -1,5 +1,0 @@
-significance: patch
-type: tweak
-entry: "Added actions: `tribe_settings_form_element_open`,
-  `tribe_settings_form_element_close`"
-timestamp: 2026-09-30T16:41:42.138Z

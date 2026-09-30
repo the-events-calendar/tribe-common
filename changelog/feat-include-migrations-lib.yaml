@@ -1,4 +1,0 @@
-significance: patch
-type: feature
-entry: Include `stellarwp/migrations` library to manage our migrations.
-timestamp: 2026-09-30T15:41:45.297Z
