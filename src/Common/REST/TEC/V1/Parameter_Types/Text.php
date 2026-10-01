@@ -114,6 +114,7 @@ class Text extends Parameter {
 		if ( null !== $this->get_pattern() ) {
 			return $this->validator ?? function ( $value ): bool {
 				if ( ! is_string( $value ) ) {
+					// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST error: the message becomes a WP_Error in a JSON response, not HTML output.
 					throw InvalidRestArgumentException::create(
 						// translators: 1) is the name of the parameter.
 						sprintf( __( 'Argument `{%1$s}` must be a string.', 'tribe-common' ), $this->get_name() ),
@@ -122,9 +123,11 @@ class Text extends Parameter {
 						// translators: 1) is the name of the parameter.
 						sprintf( __( 'The argument `{%1$s}` is not a string.', 'tribe-common' ), $this->get_name() )
 					);
+					// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				}
 
 				if ( ! preg_match( '/' . $this->get_pattern() . '/', (string) $value ) ) {
+					// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST error: the message becomes a WP_Error in a JSON response, not HTML output.
 					throw InvalidRestArgumentException::create(
 						// translators: 1) is the name of the parameter.
 						sprintf( __( 'Argument `{%1$s}` must match the pattern.', 'tribe-common' ), $this->get_name() ),
@@ -133,6 +136,7 @@ class Text extends Parameter {
 						// translators: 1) is the name of the parameter, 2) is the pattern.
 						sprintf( __( 'The argument `{%1$s}` does not match the pattern `%2$s`.', 'tribe-common' ), $this->get_name(), $this->get_pattern() )
 					);
+					// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				}
 
 				return true;

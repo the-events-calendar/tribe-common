@@ -112,7 +112,7 @@ class View extends \Tribe__Template {
 			return $html;
 		}
 
-		echo $html;
+		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Template output, escaped in the template files.
 	}
 
 	/**
@@ -620,7 +620,7 @@ class View extends \Tribe__Template {
 		$html = apply_filters( 'tribe_dialog_script_html', $html );
 
 		if ( $echo ) {
-			echo $html;
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Template output, escaped in the template files.
 			return;
 		}
 

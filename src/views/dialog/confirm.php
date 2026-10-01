@@ -25,7 +25,7 @@ $vars        = get_defined_vars();
 			<h2 <?php tec_classes( $title_classes ); ?>><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
 
-		<?php echo $content; ?>
+		<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Dialog content is HTML supplied by the caller, escaped where it is built. ?>
 		<div class="tribe-dialog__button_wrap">
 			<button <?php tec_classes( $cancel_button_classes ); ?>><?php echo esc_html( $cancel_button_text ); ?></button>
 			<button <?php tec_classes( $continue_button_classes ); ?>><?php echo esc_html( $continue_button_text ); ?></button>

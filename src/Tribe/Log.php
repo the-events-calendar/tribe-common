@@ -285,7 +285,8 @@ class Tribe__Log {
 		$engine = str_replace( '\\\\', '\\', $engine );
 
 		if ( ! isset( $available_engines[ $engine ] ) ) {
-			throw new Exception( sprintf( __( 'Cannot set %s as the current logging engine', 'tribe-common' ), $engine ) );
+			// translators: %s: the logging engine class name.
+			throw new Exception( esc_html( sprintf( __( 'Cannot set %s as the current logging engine', 'tribe-common' ), $engine ) ) );
 		}
 
 		tribe_update_option( 'logging_class', $engine );

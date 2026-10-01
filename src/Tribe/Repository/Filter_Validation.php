@@ -44,7 +44,7 @@ trait Filter_Validation {
 		}
 
 		if ( count( $required_args ) !== count( $call_args ) ) {
-			throw Usage_Error::because_filter_requires_args( $filter, array_keys( $required_args ) );
+			throw Usage_Error::because_filter_requires_args( $filter, array_keys( $required_args ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 		}
 
 		$iterator = new \MultipleIterator();
@@ -54,7 +54,7 @@ trait Filter_Validation {
 
 		foreach ( $required_args as list( $arg_name, $validator, $input ) ) {
 			if ( empty( $validator( $input ) ) ) {
-				throw Usage_Error::because_filter_arg_is_not_valid( $filter, $arg_name );
+				throw Usage_Error::because_filter_arg_is_not_valid( $filter, $arg_name ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 			}
 		}
 	}

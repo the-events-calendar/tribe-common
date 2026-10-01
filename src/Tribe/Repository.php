@@ -489,7 +489,7 @@ abstract class Tribe__Repository
 	 */
 	public function __get( $name ) {
 		if ( ! property_exists( $this, $name ) ) {
-			throw Tribe__Repository__Usage_Error::because_property_is_not_defined( $name, $this );
+			throw Tribe__Repository__Usage_Error::because_property_is_not_defined( $name, $this ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 		}
 
 		return $this->{$name};
@@ -507,7 +507,7 @@ abstract class Tribe__Repository
 	 * the class, using setter methods or via constructor injection
 	 */
 	public function __set( $name, $value ) {
-		throw Tribe__Repository__Usage_Error::because_properties_should_be_set_correctly( $name, $this );
+		throw Tribe__Repository__Usage_Error::because_properties_should_be_set_correctly( $name, $this ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 	}
 
 	/**
@@ -1240,7 +1240,7 @@ abstract class Tribe__Repository
 				];
 			} else {
 				// More than two $call_args were sent (key, value), assume it was meant for a filter that was not defined yet.
-				throw Tribe__Repository__Usage_Error::because_the_read_filter_is_not_defined( $key, $this );
+				throw Tribe__Repository__Usage_Error::because_the_read_filter_is_not_defined( $key, $this ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 			}
 		} else {
 			$query_modifier = call_user_func_array( [ $this, 'apply_modifier' ], $call_args );
@@ -1523,7 +1523,7 @@ abstract class Tribe__Repository
 	 */
 	public function set( $key, $value ) {
 		if ( ! is_string( $key ) ) {
-			throw Tribe__Repository__Usage_Error::because_update_key_should_be_a_string( $this );
+			throw Tribe__Repository__Usage_Error::because_update_key_should_be_a_string( $this ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 		}
 
 		$this->updates[ $key ] = $value;
@@ -1596,7 +1596,7 @@ abstract class Tribe__Repository
 
 		if ( ! in_array( $compare, [ 'EXISTS', 'NOT EXISTS' ], true ) ) {
 			if ( empty( $field ) || empty( $values ) ) {
-				throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_fields_and_values( $meta_keys, $compare, $this );
+				throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_fields_and_values( $meta_keys, $compare, $this ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 			}
 		}
 
@@ -1655,7 +1655,7 @@ abstract class Tribe__Repository
 
 		if ( ! in_array( $compare, [ 'EXISTS', 'NOT EXISTS' ], true ) ) {
 			if ( empty( $meta_field ) || empty( $meta_values ) ) {
-				throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_fields_and_values( $meta_keys, $compare, $this );
+				throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_fields_and_values( $meta_keys, $compare, $this ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 			}
 		}
 
@@ -1743,7 +1743,7 @@ abstract class Tribe__Repository
 			call_user_func_array( [ $this, $c[0] ], array_slice( $c, 1 ) );
 
 			if ( $buffered_count === count( $this->filter_query->get_buffered_where_clauses() ) ) {
-				throw Tribe__Repository__Usage_Error::because_where_or_should_only_be_used_with_methods_that_add_where_clauses( $c, $this );
+				throw Tribe__Repository__Usage_Error::because_where_or_should_only_be_used_with_methods_that_add_where_clauses( $c, $this ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 			}
 
 			$buffered_count ++;
@@ -2159,7 +2159,7 @@ abstract class Tribe__Repository
 			}
 
 			if ( is_string( $type_or_format ) && 0 === strpos( $type_or_format, '%' ) ) {
-				throw Tribe__Repository__Usage_Error::because_the_type_is_a_wpdb_prepare_format( $meta_key, $type_or_format, $this );
+				throw Tribe__Repository__Usage_Error::because_the_type_is_a_wpdb_prepare_format( $meta_key, $type_or_format, $this ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 			}
 
 			if ( null !== $type_or_format ) {
@@ -2173,7 +2173,7 @@ abstract class Tribe__Repository
 		if ( null === $type_or_format ) {
 			$type_or_format = '%s';
 		} elseif ( 0 !== strpos( $type_or_format, '%' ) ) {
-			throw Tribe__Repository__Usage_Error::because_the_format_is_not_a_wpdb_prepare_one( $meta_key, $type_or_format, $this );
+			throw Tribe__Repository__Usage_Error::because_the_format_is_not_a_wpdb_prepare_one( $meta_key, $type_or_format, $this ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 		}
 
 		/** @var wpdb $wpdb */
@@ -2343,12 +2343,14 @@ abstract class Tribe__Repository
 	 */
 	protected function validate_operator_and_values( $compare, $meta_key, $meta_value ) {
 		if ( is_array( $meta_value ) && ! in_array( $compare, self::$multi_value_keys, true ) ) {
+			// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 			throw Tribe__Repository__Usage_Error::because_single_value_comparisons_should_be_used_with_one_value(
 				$meta_key,
 				$meta_value,
 				$compare,
 				$this
 			);
+			// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 	}
 
@@ -2943,7 +2945,7 @@ abstract class Tribe__Repository
 	 * @param string $message The error message.
 	 */
 	public function cast_error_to_exception( $code, $message ) {
-		throw new RuntimeException( $message, $code );
+		throw new RuntimeException( esc_html( $message ), (int) $code );
 	}
 
 	/**
@@ -3012,7 +3014,7 @@ abstract class Tribe__Repository
 			$key = Tribe__Utils__Array::get( $this->update_fields_aliases, $key, $key );
 
 			if ( ! $this->can_be_updated( $key ) ) {
-				throw Tribe__Repository__Usage_Error::because_this_field_cannot_be_updated( $key, $this );
+				throw Tribe__Repository__Usage_Error::because_this_field_cannot_be_updated( $key, $this ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 			}
 
 			if ( $this->is_a_post_field( $key ) ) {
@@ -3371,7 +3373,7 @@ abstract class Tribe__Repository
 	 */
 	protected function validate_relation( $relation ) {
 		if ( ! in_array( $relation, [ 'OR', 'AND' ], true ) ) {
-			throw Tribe__Repository__Usage_Error::because_this_relation_is_not_valid( $relation );
+			throw Tribe__Repository__Usage_Error::because_this_relation_is_not_valid( $relation ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 		}
 	}
 
@@ -3723,7 +3725,7 @@ abstract class Tribe__Repository
 			$this->last_built_query instanceof WP_Query
 			&& ! empty( $this->last_built_query->request )
 		) {
-			throw Tribe__Repository__Usage_Error::because_query_cannot_be_set_after_it_ran();
+			throw Tribe__Repository__Usage_Error::because_query_cannot_be_set_after_it_ran(); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Escaped in the Usage_Error constructor.
 		}
 		$this->last_built_query = $query;
 		$this->last_built_hash  = $this->hash();

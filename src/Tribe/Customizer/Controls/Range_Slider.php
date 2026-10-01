@@ -46,7 +46,6 @@ class Range_Slider extends Control {
 	public function render_content() {
 		$input_id         = '_customize-input-' . $this->id;
 		$description_id   = '_customize-description-' . $this->id;
-		$describedby_attr = ( ! empty( $this->description ) ) ? ' aria-describedby="' . esc_attr( $description_id ) . '" ' : '';
 		?>
 		<?php if ( ! empty( $this->label ) ) : ?>
 			<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
@@ -68,7 +67,7 @@ class Range_Slider extends Control {
 				id="<?php echo esc_attr( $input_id . '-range-slider' ); ?>"
 				type="range"
 				class="tec-range-slider"
-				<?php echo $describedby_attr; ?>
+				<?php if ( ! empty( $this->description ) ) : ?>aria-describedby="<?php echo esc_attr( $description_id ); ?>"<?php endif; ?>
 				name="<?php echo esc_attr( '_customize-range-slider-' . $this->id ); ?>"
 				<?php $this->input_attrs(); ?>
 				<?php $this->link(); ?>

@@ -176,7 +176,7 @@ if ( ! function_exists( 'tribe_resource_url' ) ) {
 		$url = apply_filters( 'tribe_events_resource_url', $url, $resource );
 
 		if ( $echo ) {
-			echo $url;
+			echo esc_url( $url );
 		}
 
 		return $url;
@@ -384,8 +384,24 @@ if ( ! function_exists( 'tribe_the_notices' ) ) {
 		 * filters the notices HTML
 		 */
 		$the_notices = apply_filters( 'tribe_the_notices', $html, $notices );
+
+		/**
+		 * Filters the HTML tags and attributes allowed in the notices output.
+		 *
+		 * Anyone extending the notices HTML through the `tribe_the_notices` filter can
+		 * allow the additional markup here.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,array<string,bool>> $allowed_html The allowed HTML, in the `wp_kses()` format.
+		 * @param string                           $the_notices  The notices HTML about to be output.
+		 * @param array<string>                    $notices      The queued notices.
+		 */
+		$allowed_html = apply_filters( 'tec_common_notices_allowed_html', wp_kses_allowed_html( 'post' ), $the_notices, $notices );
+		$the_notices  = wp_kses( $the_notices, $allowed_html );
+
 		if ( $echo ) {
-			echo $the_notices;
+			echo $the_notices; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Passed through wp_kses() above.
 		} else {
 			return $the_notices;
 		}
