@@ -566,4 +566,44 @@ describe( 'DayPickerInput element', () => {
 		const tree = component.toJSON();
 		expect( JSON.stringify( tree ) ).toContain( 'DayPicker-mock' );
 	} );
+	it( 'passes inputProps to the input', () => {
+		const component = renderer.create(
+			<DayPickerInput
+				value="September 7, 2019"
+				format="LL"
+				formatDate={ jest.fn() }
+				parseDate={ jest.fn() }
+				onDayChange={ jest.fn() }
+				inputProps={ { 'aria-label': 'Sale price start date', disabled: true } }
+			/>,
+		);
+
+		const input = component.root.findByType( 'input' );
+
+		expect( input.props[ 'aria-label' ] ).toBe( 'Sale price start date' );
+		expect( input.props.disabled ).toBe( true );
+	} );
+
+	it( 'keeps its own value and click handler over the ones in inputProps', () => {
+		const onClick = jest.fn();
+		const component = renderer.create(
+			<DayPickerInput
+				value="September 7, 2019"
+				format="LL"
+				formatDate={ jest.fn() }
+				parseDate={ jest.fn() }
+				onDayChange={ jest.fn() }
+				inputProps={ { value: 'not a date', onClick } }
+			/>,
+		);
+
+		const input = component.root.findByType( 'input' );
+		renderer.act( () => {
+			input.props.onClick();
+		} );
+
+		expect( input.props.value ).toBe( 'September 7, 2019' );
+		expect( onClick ).not.toHaveBeenCalled();
+		expect( JSON.stringify( component.toJSON() ) ).toContain( 'DayPicker-mock' );
+	} );
 } );

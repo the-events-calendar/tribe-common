@@ -78,7 +78,7 @@ const DayPickerInput = ( props ) => {
 		} );
 	};
 
-	const { value, onDayChange, formatDate, format, dayPickerProps } = props;
+	const { value, onDayChange, formatDate, format, dayPickerProps, inputProps } = props;
 
 	// Convert the format from the moment.js one to date-fns one using Unicode characters.
 	const dateFnsFormat = momentToDateFnsFormatter( format );
@@ -179,6 +179,8 @@ const DayPickerInput = ( props ) => {
 	return (
 		<>
 			<DatePickerInput
+				// First, so the attributes a consumer passes, such as a label, never replace the ones the picker needs.
+				{ ...inputProps }
 				setPopoverAnchor={ popoverAnchor }
 				inputRef={ inputRef } // Pass the ref to DatePickerInput
 				onClick={ toggleVisible }
