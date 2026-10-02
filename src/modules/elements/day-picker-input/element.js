@@ -154,13 +154,19 @@ const DayPickerInput = ( props ) => {
 
 		const onMouseDown = ( event ) => clickOutsideHandlerRef.current( event );
 
+		/*
+		 * The input can live inside the block editor iframe, where clicks never reach the top document.
+		 * Listen on both documents so a click anywhere outside closes the calendar.
+		 */
+		const documents = new Set( [ document, popoverAnchor.current?.ownerDocument ].filter( Boolean ) );
+
 		const timerId = setTimeout( () => {
-			document.addEventListener( 'mousedown', onMouseDown );
+			documents.forEach( ( doc ) => doc.addEventListener( 'mousedown', onMouseDown ) );
 		}, 0 );
 
 		return () => {
 			clearTimeout( timerId );
-			document.removeEventListener( 'mousedown', onMouseDown );
+			documents.forEach( ( doc ) => doc.removeEventListener( 'mousedown', onMouseDown ) );
 		};
 	}, [ isVisible ] );
 
@@ -183,7 +189,7 @@ const DayPickerInput = ( props ) => {
 				inputRef={ inputRef } // Pass the ref to DatePickerInput
 				onClick={ toggleVisible }
 				onMouseDown={ handleInputMouseDown }
-				value={ value || formatDatepickerValue( selectedDate ) }
+				value={ formatDatepickerValue( selectedDate ) }
 				onDayChange={ onDayChange }
 			/>
 			{ isVisible && (
