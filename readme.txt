@@ -1,5 +1,9 @@
 == Changelog ==
 
+= [6.13.0.1] 2026-10-05 =
+
+* Fix - Closed the date picker calendar on an outside click inside the block editor iframe, and kept the input showing the selected date instead of a stale value.
+
 = [6.13.0] 2026-09-30 =
 
 * Feature - Added the shared framework needed to move Event Tickets RSVPs onto Tickets Commerce.
