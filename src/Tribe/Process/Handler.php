@@ -126,7 +126,7 @@ abstract class Tribe__Process__Handler {
 	 */
 	public static function action() {
 		$class = static::class;
-		throw new RuntimeException( "Class {$class} should override the `action` method to define its own unique identifier." );
+		throw new RuntimeException( esc_html( "Class {$class} should override the `action` method to define its own unique identifier." ) );
 	}
 
 	/**

@@ -338,8 +338,10 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				} else {
 					$this->result->valid = false;
 					if ( isset( $this->additional_args['compare_name'] ) ) {
-						$this->result->error = sprintf( esc_html__( '%s cannot be the same as %s.', 'tribe-common' ), $this->label, $this->additional_args['compare_name'] );
+						// translators: %1$s: the field label, %2$s: the compared field label.
+						$this->result->error = sprintf( esc_html__( '%1$s cannot be the same as %2$s.', 'tribe-common' ), $this->label, $this->additional_args['compare_name'] );
 					} else {
+						// translators: %s: the field label.
 						$this->result->error = sprintf( esc_html__( '%s cannot be a duplicate', 'tribe-common' ), $this->label );
 					}
 				}

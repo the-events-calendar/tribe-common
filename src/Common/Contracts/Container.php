@@ -32,7 +32,7 @@ class Container extends DI52_Container implements ContainerInterface {
 			return parent::get( $id );
 		} catch ( \Exception $e ) {
 			// Do not chain the previous exception into ours, as it makes the error log confusing.
-			throw new Not_Bound_Exception( $e->getMessage(), $e->getCode() );
+			throw new Not_Bound_Exception( esc_html( $e->getMessage() ), (int) $e->getCode() );
 		}
 	}
 
