@@ -3,6 +3,7 @@
 ### [6.13.0.1] 2026-10-05
 
 * Fix - Closed the date picker calendar on an outside click inside the block editor iframe, and kept the input showing the selected date instead of a stale value.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 
 ### [6.13.0] 2026-09-30
 
