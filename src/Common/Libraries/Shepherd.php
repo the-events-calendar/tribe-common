@@ -10,6 +10,10 @@ use TEC\Common\Libraries\Provider as Libraries_Provider;
 use TEC\Common\StellarWP\Shepherd\Provider as Shepherd_Provider;
 use TEC\Common\StellarWP\DB\Database\Exceptions\DatabaseQueryException;
 use TEC\Common\StellarWP\Shepherd\Config;
+use TEC\Common\StellarWP\Shepherd\Contracts\Logger;
+use TEC\Common\StellarWP\Shepherd\Loggers\ActionScheduler_DB_Logger;
+use TEC\Common\StellarWP\Shepherd\Loggers\DB_Logger;
+use TEC\Common\StellarWP\Shepherd\Loggers\Null_Logger;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 
 /**
@@ -24,11 +28,13 @@ class Shepherd extends Controller_Contract {
 	 * Register the controller.
 	 *
 	 * @since 6.9.0
+	 * @since TBD Picks Shepherd's logger before Shepherd registers, so registering runs no database query.
 	 */
 	protected function do_register(): void {
 		$hook_prefix = tribe( Libraries_Provider::class )->get_hook_prefix();
 		Config::set_container( $this->container );
 		Config::set_hook_prefix( $hook_prefix );
+		Config::set_logger( $this->get_logger( $hook_prefix ) );
 
 		add_action( "shepherd_{$hook_prefix}_tables_error", [ $this, 'handle_tables_error' ] );
 
@@ -89,5 +95,33 @@ class Shepherd extends Controller_Contract {
 			->urgency( 'error' )
 			->dismissible( false )
 			->inline();
+	}
+
+	/**
+	 * Picks Shepherd's logger without querying the database.
+	 *
+	 * Shepherd's own lookup checks for the Action Scheduler logs table through stellarwp/db, which requires
+	 * `wp-admin/includes/upgrade.php` on every query; on multisite that loads `ms.php` on every request.
+	 * Action Scheduler stores the logs table schema version in an option once it has created the table,
+	 * so that option answers the same question without a query. Without the option Shepherd logs to its own
+	 * table, which works whether or not the Action Scheduler table exists.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $hook_prefix The Shepherd hook prefix.
+	 *
+	 * @return Logger The logger Shepherd should use.
+	 */
+	private function get_logger( string $hook_prefix ): Logger {
+		/** This filter is documented in vendor/vendor-prefixed/stellarwp/shepherd/src/Config.php */
+		if ( ! tribe_is_truthy( apply_filters( "shepherd_{$hook_prefix}_should_log", true ) ) ) {
+			return $this->container->get( Null_Logger::class );
+		}
+
+		if ( get_option( 'schema-ActionScheduler_LoggerSchema' ) ) {
+			return $this->container->get( ActionScheduler_DB_Logger::class );
+		}
+
+		return $this->container->get( DB_Logger::class );
 	}
 }
