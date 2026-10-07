@@ -606,4 +606,95 @@ describe( 'DayPickerInput element', () => {
 		expect( onClick ).not.toHaveBeenCalled();
 		expect( JSON.stringify( component.toJSON() ) ).toContain( 'DayPicker-mock' );
 	} );
+
+	describe( 'closing on outside click', () => {
+		let iframeDocument;
+		let anchorContains;
+
+		const mount = () =>
+			renderer.create(
+				<DayPickerInput
+					value=""
+					format="LL"
+					formatDate={ jest.fn() }
+					parseDate={ jest.fn() }
+					onDayChange={ jest.fn() }
+				/>,
+				{
+					// Only the popover anchor <div> needs a DOM node; it lives in the iframe document.
+					createNodeMock: ( element ) =>
+						element.type === 'div'
+							? { ownerDocument: iframeDocument, contains: anchorContains }
+							: null,
+				},
+			);
+
+		const isCalendarOpen = ( component ) =>
+			component.root.findAll( ( node ) => node.props?.[ 'data-testid' ] === 'day-picker' ).length > 0;
+
+		const openCalendar = ( component ) => {
+			renderer.act( () => {
+				component.root.findByType( 'input' ).props.onClick();
+			} );
+			// The outside-click listener is attached on the next tick.
+			renderer.act( () => {
+				jest.runOnlyPendingTimers();
+			} );
+		};
+
+		const mouseDown = ( doc ) => {
+			renderer.act( () => {
+				doc.body.dispatchEvent( new MouseEvent( 'mousedown', { bubbles: true } ) );
+			} );
+		};
+
+		beforeEach( () => {
+			jest.useFakeTimers();
+			iframeDocument = document.implementation.createHTMLDocument( 'editor-iframe' );
+			anchorContains = jest.fn( () => false );
+		} );
+
+		afterEach( () => {
+			jest.useRealTimers();
+		} );
+
+		it( 'closes when clicking outside inside the editor iframe document', () => {
+			const component = mount();
+			openCalendar( component );
+			expect( isCalendarOpen( component ) ).toBe( true );
+
+			mouseDown( iframeDocument );
+
+			expect( isCalendarOpen( component ) ).toBe( false );
+		} );
+
+		it( 'closes when clicking outside in the top document', () => {
+			const component = mount();
+			openCalendar( component );
+
+			mouseDown( document );
+
+			expect( isCalendarOpen( component ) ).toBe( false );
+		} );
+
+		it( 'stays open when clicking inside the input container', () => {
+			anchorContains.mockReturnValue( true );
+			const component = mount();
+			openCalendar( component );
+
+			mouseDown( iframeDocument );
+
+			expect( isCalendarOpen( component ) ).toBe( true );
+		} );
+
+		it( 'removes the iframe listener when the calendar closes', () => {
+			const removeSpy = jest.spyOn( iframeDocument, 'removeEventListener' );
+			const component = mount();
+			openCalendar( component );
+
+			mouseDown( iframeDocument );
+
+			expect( removeSpy ).toHaveBeenCalledWith( 'mousedown', expect.any( Function ) );
+		} );
+	} );
 } );

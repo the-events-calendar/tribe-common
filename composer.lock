@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c7877b9a6d953018360abacd2887bb5",
+    "content-hash": "402a3a1ccc30fc40ad66705867def2b3",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -958,16 +958,16 @@
         },
         {
             "name": "stellarwp/harbor",
-            "version": "v1.6.0",
+            "version": "v1.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/harbor.git",
-                "reference": "e0253fa5512522a50dd73abe990d3591017494fb"
+                "reference": "19ff67cdde1739e3d4f14a4908c759544bfaf98d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/harbor/zipball/e0253fa5512522a50dd73abe990d3591017494fb",
-                "reference": "e0253fa5512522a50dd73abe990d3591017494fb",
+                "url": "https://api.github.com/repos/stellarwp/harbor/zipball/19ff67cdde1739e3d4f14a4908c759544bfaf98d",
+                "reference": "19ff67cdde1739e3d4f14a4908c759544bfaf98d",
                 "shasum": ""
             },
             "require": {
@@ -1022,9 +1022,9 @@
             "description": "A library that integrates a WordPress product with the Liquid Web licensing system.",
             "support": {
                 "issues": "https://github.com/stellarwp/harbor/issues",
-                "source": "https://github.com/stellarwp/harbor/tree/v1.6.0"
+                "source": "https://github.com/stellarwp/harbor/tree/v1.6.2"
             },
-            "time": "2026-07-27T14:52:06+00:00"
+            "time": "2026-10-05T20:55:26+00:00"
         },
         {
             "name": "stellarwp/installer",
@@ -7917,16 +7917,16 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/migrations": 20,
         "stellarwp/coding-standards": 20,
+        "stellarwp/migrations": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.9.0"
 }
