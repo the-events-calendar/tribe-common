@@ -14,6 +14,7 @@ use TEC\Common\StellarWP\Shepherd\Contracts\Logger;
 use TEC\Common\StellarWP\Shepherd\Loggers\ActionScheduler_DB_Logger;
 use TEC\Common\StellarWP\Shepherd\Loggers\DB_Logger;
 use TEC\Common\StellarWP\Shepherd\Loggers\Null_Logger;
+use TEC\Common\StellarWP\Shepherd\Tables\AS_Logs;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 
 /**
@@ -98,13 +99,12 @@ class Shepherd extends Controller_Contract {
 	}
 
 	/**
-	 * Picks Shepherd's logger without querying the database.
+	 * Picks Shepherd's logger without going through stellarwp/db.
 	 *
 	 * Shepherd's own lookup checks for the Action Scheduler logs table through stellarwp/db, which requires
 	 * `wp-admin/includes/upgrade.php` on every query; on multisite that loads `ms.php` on every request.
-	 * Action Scheduler stores the logs table schema version in an option once it has created the table,
-	 * so that option answers the same question without a query. Without the option Shepherd logs to its own
-	 * table, which works whether or not the Action Scheduler table exists.
+	 * The same check through `$wpdb` loads nothing. The table is checked rather than Action Scheduler's
+	 * schema option because the option can outlive the table, and logging to a missing table throws.
 	 *
 	 * @since TBD
 	 *
@@ -118,7 +118,11 @@ class Shepherd extends Controller_Contract {
 			return $this->container->get( Null_Logger::class );
 		}
 
-		if ( get_option( 'schema-ActionScheduler_LoggerSchema' ) ) {
+		global $wpdb;
+		$as_logs_table = AS_Logs::table_name( true );
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		if ( $as_logs_table === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $as_logs_table ) ) ) ) {
 			return $this->container->get( ActionScheduler_DB_Logger::class );
 		}
 

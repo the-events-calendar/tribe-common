@@ -2,6 +2,7 @@
 
 namespace TEC\Common\Libraries;
 
+use ReflectionProperty;
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
 use TEC\Common\StellarWP\Shepherd\Config;
 use TEC\Common\StellarWP\Shepherd\Contracts\Logger;
@@ -30,7 +31,10 @@ class Shepherd_Test extends Controller_Test_Case {
 	 */
 	public function reset_shepherd(): void {
 		$this->original_container = Config::get_container();
-		$this->original_logger    = Config::get_logger();
+		// Config::get_logger() would build a logger when none is set, running the lookup under test.
+		$logger = new ReflectionProperty( Config::class, 'logger' );
+		$logger->setAccessible( true );
+		$this->original_logger = $logger->getValue();
 		Config::set_logger( null );
 		Shepherd_Provider::reset();
 	}
@@ -65,17 +69,25 @@ class Shepherd_Test extends Controller_Test_Case {
 	}
 
 	public function test_uses_the_action_scheduler_logger_when_its_logs_table_is_installed(): void {
-		update_option( 'schema-ActionScheduler_LoggerSchema', '3.0.0' );
-
 		$this->make_controller()->register();
 
 		$this->assertInstanceOf( ActionScheduler_DB_Logger::class, Config::get_logger() );
 	}
 
-	public function test_uses_its_own_logger_when_the_action_scheduler_logs_table_is_not_installed(): void {
-		delete_option( 'schema-ActionScheduler_LoggerSchema' );
+	public function test_uses_its_own_logger_when_the_action_scheduler_logs_table_is_missing(): void {
+		global $wpdb;
+		$table = AS_Logs::table_name( true );
+		// Action Scheduler's schema option still says the table exists.
+		$this->assertNotEmpty( get_option( 'schema-ActionScheduler_LoggerSchema' ) );
 
-		$this->make_controller()->register();
+		// WordPress test cases turn DROP TABLE into DROP TEMPORARY TABLE, which cannot drop the real table.
+		$wpdb->query( $wpdb->prepare( 'RENAME TABLE %i TO %i', $table, "{$table}_moved" ) );
+
+		try {
+			$this->make_controller()->register();
+		} finally {
+			$wpdb->query( $wpdb->prepare( 'RENAME TABLE %i TO %i', "{$table}_moved", $table ) );
+		}
 
 		$this->assertInstanceOf( DB_Logger::class, Config::get_logger() );
 	}
