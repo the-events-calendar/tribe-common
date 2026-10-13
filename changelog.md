@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.13.1] 2026-10-12
+### [6.13.1] 2026-10-13
 
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
 * Tweak - Update Harbor to 2.0.0, adding Nexcess Plugin Stack support and renaming the license page to Nexcess Licensing.
