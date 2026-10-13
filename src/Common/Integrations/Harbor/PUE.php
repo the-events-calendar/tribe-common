@@ -469,7 +469,7 @@ class PUE extends Integration_Controller {
 	 * A license collection can hold several entries for the same product, such as a TEC
 	 * license and a Nexcess Plugin Stack license that includes TEC.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @param Product_Collection $products The licensed products from Harbor.
 	 *

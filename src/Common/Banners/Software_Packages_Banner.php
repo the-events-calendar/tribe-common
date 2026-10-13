@@ -2,7 +2,7 @@
 /**
  * The Nexcess software packages banner.
  *
- * @since TBD
+ * @since 6.13.1
  *
  * @package TEC\Common\Banners
  */
@@ -19,14 +19,14 @@ use Tribe__Main as Common;
 /**
  * The Nexcess software packages banner.
  *
- * @since TBD
+ * @since 6.13.1
  */
 class Software_Packages_Banner {
 
 	/**
 	 * Shared by every Nexcess plugin that shows this banner.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Software_Packages_Banner {
 	/**
 	 * When the banner starts showing, in New York time.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ class Software_Packages_Banner {
 	/**
 	 * The Help Hub pages, which render the banner in their sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @var string[]
 	 */
@@ -53,7 +53,7 @@ class Software_Packages_Banner {
 	/**
 	 * Who may see the banner, and where.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @var Audience
 	 */
@@ -62,7 +62,7 @@ class Software_Packages_Banner {
 	/**
 	 * The banners every Nexcess plugin registers.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @var Registry
 	 */
@@ -71,7 +71,7 @@ class Software_Packages_Banner {
 	/**
 	 * Software_Packages_Banner constructor.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @param Audience $audience Who may see the banner, and where.
 	 * @param Registry $registry The banners every Nexcess plugin registers.
@@ -84,7 +84,7 @@ class Software_Packages_Banner {
 	/**
 	 * Registers the banner.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return void
 	 */
@@ -105,7 +105,7 @@ class Software_Packages_Banner {
 	/**
 	 * Renders the banner at the top of the page.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return void
 	 */
@@ -120,7 +120,7 @@ class Software_Packages_Banner {
 	/**
 	 * Renders the banner in the page's sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return void
 	 */
@@ -131,7 +131,7 @@ class Software_Packages_Banner {
 	/**
 	 * Renders the banner.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return void
 	 */
@@ -146,7 +146,7 @@ class Software_Packages_Banner {
 	/**
 	 * Whether the current page has a sidebar the banner renders in instead.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return bool
 	 */

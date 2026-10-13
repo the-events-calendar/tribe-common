@@ -2,7 +2,7 @@
 /**
  * Whether the site has an active paid plan.
  *
- * @since TBD
+ * @since 6.13.1
  *
  * @package TEC\Common\Banners
  */
@@ -14,14 +14,14 @@ use Tribe__PUE__Checker as PUE_Checker;
 /**
  * Whether the site has an active paid plan.
  *
- * @since TBD
+ * @since 6.13.1
  */
 class Active_Plan {
 
 	/**
 	 * Harbor product slug of TEC's paid plugins.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @var string
 	 */
@@ -30,7 +30,7 @@ class Active_Plan {
 	/**
 	 * Whether a legacy license key or a consolidated license is active, from stored state only.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return bool
 	 */

@@ -2,7 +2,7 @@
 /**
  * Who may see the Nexcess banner, and where.
  *
- * @since TBD
+ * @since 6.13.1
  *
  * @package TEC\Common\Banners
  */
@@ -15,14 +15,14 @@ use WP_Screen;
 /**
  * Decides whether the banner may show on the current screen.
  *
- * @since TBD
+ * @since 6.13.1
  */
 class Audience {
 
 	/**
 	 * The plugins' post types.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @var string[]
 	 */
@@ -39,7 +39,7 @@ class Audience {
 	/**
 	 * Plugin pages the common screen helper misses.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @var string[]
 	 */
@@ -48,7 +48,7 @@ class Audience {
 	/**
 	 * The site's paid plan.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @var Active_Plan
 	 */
@@ -57,7 +57,7 @@ class Audience {
 	/**
 	 * Audience constructor.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @param Active_Plan $active_plan The site's paid plan.
 	 */
@@ -68,7 +68,7 @@ class Audience {
 	/**
 	 * Whether the banner may show on the current screen.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return bool
 	 */
@@ -81,7 +81,7 @@ class Audience {
 	/**
 	 * Whether this screen edits or creates a single post.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return bool
 	 */
@@ -94,7 +94,7 @@ class Audience {
 	/**
 	 * Whether the current screen is one of the plugins' admin pages.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return bool
 	 */
@@ -115,7 +115,7 @@ class Audience {
 	/**
 	 * Whether this is the Nexcess licensing page.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return bool
 	 */
