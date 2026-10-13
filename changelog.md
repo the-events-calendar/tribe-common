@@ -3,8 +3,7 @@
 ### [6.13.1] 2026-10-13
 
 * Fix - Stopped a license key removed from the Licenses tab from still counting as valid.
-* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
-* Language - 3 new strings added, 25 updated, 1 fuzzied, and 0 obsoleted.
+* Language - 3 new strings added, 25 updated, 2 fuzzied, and 0 obsoleted.
 * Tweak - Added a dismissible announcement banner to plugin admin pages.
 * Tweak - Added actions: `tec_admin_page_sidebar_start`
 * Tweak - Added filters: `tec_sidebar_allowed_admin_page`
