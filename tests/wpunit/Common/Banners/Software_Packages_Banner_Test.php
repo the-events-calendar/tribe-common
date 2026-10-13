@@ -5,6 +5,7 @@ namespace TEC\Common\Banners;
 use Codeception\TestCase\WPTestCase;
 use DateTimeImmutable;
 use DateTimeZone;
+use TEC\Common\Nexcess\Banners\Registry;
 use Tribe\Tests\Traits\With_Clock_Mock;
 use Tribe__PUE__Checker as PUE_Checker;
 
@@ -63,7 +64,7 @@ class Software_Packages_Banner_Test extends WPTestCase {
 		$this->freeze_clock_at( '2026-10-15 12:00:00' );
 		$_GET['page'] = 'tec-tickets-help-hub';
 		set_current_screen( 'tickets_page_tec-tickets-help-hub' );
-		$banner = new Software_Packages_Banner( new Audience( new Active_Plan() ) );
+		$banner = $this->banner();
 		$banner->register();
 
 		ob_start();
@@ -82,11 +83,15 @@ class Software_Packages_Banner_Test extends WPTestCase {
 		$this->freeze_time( new DateTimeImmutable( $time, new DateTimeZone( 'America/New_York' ) ) );
 	}
 
+	private function banner(): Software_Packages_Banner {
+		return new Software_Packages_Banner( new Audience( new Active_Plan() ), new Registry() );
+	}
+
 	/**
 	 * Registers and renders the banner.
 	 */
 	private function render_banner(): string {
-		$banner = new Software_Packages_Banner( new Audience( new Active_Plan() ) );
+		$banner = $this->banner();
 		$banner->register();
 
 		ob_start();

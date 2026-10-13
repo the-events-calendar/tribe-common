@@ -60,14 +60,25 @@ class Software_Packages_Banner {
 	private Audience $audience;
 
 	/**
+	 * The banners every Nexcess plugin registers.
+	 *
+	 * @since TBD
+	 *
+	 * @var Registry
+	 */
+	private Registry $registry;
+
+	/**
 	 * Software_Packages_Banner constructor.
 	 *
 	 * @since TBD
 	 *
 	 * @param Audience $audience Who may see the banner, and where.
+	 * @param Registry $registry The banners every Nexcess plugin registers.
 	 */
-	public function __construct( Audience $audience ) {
+	public function __construct( Audience $audience, Registry $registry ) {
 		$this->audience = $audience;
+		$this->registry = $registry;
 	}
 
 	/**
@@ -88,7 +99,7 @@ class Software_Packages_Banner {
 		$package_url = plugins_url( 'vendor/vendor-prefixed/stellarwp/banners/', Common::instance()->plugin_path . 'tribe-common.php' );
 		$start       = new DateTimeImmutable( self::START, new DateTimeZone( 'America/New_York' ) );
 
-		( new Registry() )->register( new Banner( self::ID, '1.0.0', $fields, $package_url, $start, null ) );
+		$this->registry->register( new Banner( self::ID, '1.0.0', $fields, $package_url, $start, null ) );
 	}
 
 	/**
@@ -125,13 +136,11 @@ class Software_Packages_Banner {
 	 * @return void
 	 */
 	private function render(): void {
-		$registry = new Registry();
-
-		if ( ! $registry->has( self::ID ) ) {
+		if ( ! $this->registry->has( self::ID ) ) {
 			return;
 		}
 
-		$registry->get( self::ID )->render( [ $this->audience, 'should_display' ] );
+		$this->registry->get( self::ID )->render( [ $this->audience, 'should_display' ] );
 	}
 
 	/**
