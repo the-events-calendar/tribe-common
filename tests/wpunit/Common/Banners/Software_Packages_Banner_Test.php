@@ -77,6 +77,23 @@ class Software_Packages_Banner_Test extends WPTestCase {
 	}
 
 	/**
+	 * @covers \TEC\Common\Banners\Software_Packages_Banner::render_in_sidebar
+	 */
+	public function test_it_renders_once_when_several_sidebar_hooks_fire(): void {
+		$this->freeze_clock_at( '2026-10-15 12:00:00' );
+		$banner = $this->banner();
+		$banner->register();
+		add_action( 'tec_settings_sidebar_start', [ $banner, 'render_in_sidebar' ] );
+		add_action( 'tec_admin_page_sidebar_start', [ $banner, 'render_in_sidebar' ] );
+
+		ob_start();
+		do_action( 'tec_settings_sidebar_start' );
+		do_action( 'tec_admin_page_sidebar_start' );
+
+		$this->assertSame( 1, substr_count( (string) ob_get_clean(), 'notice nx-banner' ) );
+	}
+
+	/**
 	 * Freezes the clock at a New York time.
 	 */
 	private function freeze_clock_at( string $time ): void {
