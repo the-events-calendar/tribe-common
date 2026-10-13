@@ -51,6 +51,7 @@ class Controller extends Controller_Contract {
 	public function load_controllers(): void {
 		$this->container->register( AI\Controller::class );
 		$this->container->register( REST_Controller::class );
+		$this->container->register( Banners\Controller::class );
 	}
 
 	/**
@@ -66,5 +67,6 @@ class Controller extends Controller_Contract {
 		$this->container->get( REST_Controller::class )->unregister();
 		$this->container->get( AI\Controller::class )->unregister();
 		$this->container->get( SVG\Controller::class )->unregister();
+		$this->container->get( Banners\Controller::class )->unregister();
 	}
 }
