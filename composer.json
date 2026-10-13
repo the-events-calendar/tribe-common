@@ -49,7 +49,8 @@
     "psr/http-client": "^1.0",
     "psr/http-factory": "^1.1",
     "psr/log": "^1.1",
-    "nyholm/psr7": "^1.8"
+    "nyholm/psr7": "^1.8",
+    "stellarwp/banners": "^1.0"
   },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
@@ -161,6 +162,7 @@
         "psr/container",
         "stellarwp/assets",
         "stellarwp/admin-notices",
+        "stellarwp/banners",
         "trustedlogin/client"
       ],
       "exclude_from_copy": {
