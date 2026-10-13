@@ -1,0 +1,4 @@
+significance: patch
+type: feature
+entry: Added a dismissible Nexcess software packages banner to plugin admin pages and the Nexcess licensing page, shown to administrators of sites with an active paid plan.
+timestamp: 2026-10-13T14:30:00.000Z
