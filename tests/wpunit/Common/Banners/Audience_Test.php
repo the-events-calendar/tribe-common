@@ -4,6 +4,7 @@ namespace TEC\Common\Banners;
 
 use Codeception\TestCase\WPTestCase;
 use Tribe__PUE__Checker as PUE_Checker;
+use WP_Screen;
 
 class Audience_Test extends WPTestCase {
 
@@ -50,7 +51,7 @@ class Audience_Test extends WPTestCase {
 	 * @covers \TEC\Common\Banners\Audience::should_display
 	 */
 	public function test_it_includes_the_plugins_post_type_lists( string $post_type ): void {
-		set_current_screen( 'edit-' . $post_type );
+		$this->set_post_type_screen( 'edit-' . $post_type, $post_type, 'edit' );
 
 		$this->assertTrue( $this->audience()->should_display() );
 	}
@@ -114,5 +115,16 @@ class Audience_Test extends WPTestCase {
 
 	private function audience(): Audience {
 		return new Audience( new Active_Plan() );
+	}
+
+	/**
+	 * Sets a post type's screen, whether or not a plugin registers that post type in the test site.
+	 */
+	private function set_post_type_screen( string $id, string $post_type, string $base, string $action = '' ): void {
+		$screen            = WP_Screen::get( $id );
+		$screen->post_type = $post_type;
+		$screen->base      = $base;
+		$screen->action    = $action;
+		set_current_screen( $screen );
 	}
 }
