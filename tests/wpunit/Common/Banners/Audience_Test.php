@@ -62,11 +62,11 @@ class Audience_Test extends WPTestCase {
 	/**
 	 * @covers \TEC\Common\Banners\Audience::should_display
 	 */
-	public function test_it_excludes_users_who_cannot_manage_options(): void {
+	public function test_it_includes_users_who_are_not_administrators(): void {
 		set_current_screen( 'edit-tribe_events' );
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'editor' ] ) );
 
-		$this->assertFalse( $this->audience()->should_display() );
+		$this->assertTrue( $this->audience()->should_display() );
 	}
 
 	/**

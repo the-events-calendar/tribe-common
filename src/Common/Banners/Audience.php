@@ -13,7 +13,7 @@ use TEC\Common\LiquidWeb\Harbor\Admin\Feature_Manager_Page;
 use WP_Screen;
 
 /**
- * Decides whether the banner may show to the current user on the current screen.
+ * Decides whether the banner may show on the current screen.
  *
  * @since TBD
  */
@@ -50,16 +50,15 @@ class Audience {
 	}
 
 	/**
-	 * Whether the banner may show to the current user on the current screen.
+	 * Whether the banner may show on the current screen. Whoever can see the page can see the
+	 * banner: wp-admin only renders a page to users with its capability.
 	 *
 	 * @since TBD
 	 *
 	 * @return bool
 	 */
 	public function should_display(): bool {
-		// Plan changes concern whoever manages the site, not every editor of events.
-		return current_user_can( 'manage_options' )
-			&& $this->active_plan->exists()
+		return $this->active_plan->exists()
 			&& ( $this->is_plugin_page() || $this->is_license_manager_page() );
 	}
 
