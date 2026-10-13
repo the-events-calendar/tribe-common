@@ -36,7 +36,7 @@ class Software_Packages_Banner_Test extends WPTestCase {
 	 * @covers \TEC\Common\Banners\Software_Packages_Banner::register
 	 */
 	public function test_it_does_not_show_before_its_start(): void {
-		$this->at( '2026-10-14 11:59:59' );
+		$this->freeze_clock_at( '2026-10-14 11:59:59' );
 
 		$this->assertSame( '', $this->render_banner() );
 	}
@@ -45,7 +45,7 @@ class Software_Packages_Banner_Test extends WPTestCase {
 	 * @covers \TEC\Common\Banners\Software_Packages_Banner::register
 	 */
 	public function test_it_shows_from_its_start(): void {
-		$this->at( '2026-10-14 12:00:00' );
+		$this->freeze_clock_at( '2026-10-14 12:00:00' );
 
 		$this->assertStringContainsString( 'notice nx-banner', $this->render_banner() );
 	}
@@ -54,7 +54,7 @@ class Software_Packages_Banner_Test extends WPTestCase {
 	 * @covers \TEC\Common\Banners\Software_Packages_Banner::register
 	 */
 	public function test_it_keeps_showing_years_later_because_it_has_no_end(): void {
-		$this->at( '2036-10-14 12:00:00' );
+		$this->freeze_clock_at( '2036-10-14 12:00:00' );
 
 		$this->assertStringContainsString( 'notice nx-banner', $this->render_banner() );
 	}
@@ -62,7 +62,7 @@ class Software_Packages_Banner_Test extends WPTestCase {
 	/**
 	 * Freezes the clock at a New York time.
 	 */
-	private function at( string $time ): void {
+	private function freeze_clock_at( string $time ): void {
 		$this->freeze_time( new DateTimeImmutable( $time, new DateTimeZone( 'America/New_York' ) ) );
 	}
 
