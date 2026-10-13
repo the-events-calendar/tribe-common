@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.13.0.1\n"
+"Project-Id-Version: Tribe Common 6.13.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-05T19:02:30+00:00\n"
+"POT-Creation-Date: 2026-10-13T19:11:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -1161,6 +1161,7 @@ msgid "warning-icon"
 msgstr ""
 
 #: src/admin-views/troubleshooting/detected-issues.php:48
+#: src/Common/Banners/Software_Packages_Banner.php:95
 msgid "Learn more"
 msgstr ""
 
@@ -1255,8 +1256,8 @@ msgid "License & Usage"
 msgstr ""
 
 #: src/admin-views/troubleshooting/ea-status/license-key.php:45
-#: src/Tribe/PUE/Checker.php:830
-#: src/Tribe/PUE/Checker.php:841
+#: src/Tribe/PUE/Checker.php:832
+#: src/Tribe/PUE/Checker.php:843
 msgid "License Key"
 msgstr ""
 
@@ -1836,6 +1837,18 @@ msgstr ""
 
 #: src/Common/Admin/Onboarding/Abstract_API.php:240
 msgid "Failed to update wizard settings."
+msgstr ""
+
+#: src/Common/Banners/Software_Packages_Banner.php:93
+msgid "Changes are coming to your plan at your next renewal."
+msgstr ""
+
+#: src/Common/Banners/Software_Packages_Banner.php:94
+msgid "Watch your inbox for details."
+msgstr ""
+
+#: src/Common/Banners/Software_Packages_Banner.php:97
+msgid "Dismiss this banner"
 msgstr ""
 
 #: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:171
@@ -5764,116 +5777,116 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:806
+#: src/Tribe/PUE/Checker.php:808
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:811
+#: src/Tribe/PUE/Checker.php:813
 #, php-format
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:818
+#: src/Tribe/PUE/Checker.php:820
 #, php-format
 msgid "%1$sBuy a license%2$s for the Promoter service to access additional marketing features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:850
-#: src/Tribe/PUE/Checker.php:884
+#: src/Tribe/PUE/Checker.php:852
+#: src/Tribe/PUE/Checker.php:886
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:859
+#: src/Tribe/PUE/Checker.php:861
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:860
+#: src/Tribe/PUE/Checker.php:862
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:871
+#: src/Tribe/PUE/Checker.php:873
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:986
+#: src/Tribe/PUE/Checker.php:988
 msgid "License key(s) updated."
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1267
+#: src/Tribe/PUE/Checker.php:1269
 #, php-format
 msgid "Hmmm... something's wrong with this validator. Please contact %1$ssupport%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1287
+#: src/Tribe/PUE/Checker.php:1289
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1293
+#: src/Tribe/PUE/Checker.php:1295
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1322
+#: src/Tribe/PUE/Checker.php:1324
 #, php-format
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
 #. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1333
+#: src/Tribe/PUE/Checker.php:1335
 #, php-format
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1371
+#: src/Tribe/PUE/Checker.php:1373
 #: src/Tribe/PUE/Notices.php:496
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1373
+#: src/Tribe/PUE/Checker.php:1375
 #: src/Tribe/PUE/Notices.php:498
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1390
+#: src/Tribe/PUE/Checker.php:1392
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1412
+#: src/Tribe/PUE/Checker.php:1414
 #, php-format
 msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1476
+#: src/Tribe/PUE/Checker.php:1478
 #, php-format
 msgid "There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
 #. Translators: %s is the plugin version number.
-#: src/Tribe/PUE/Checker.php:1508
+#: src/Tribe/PUE/Checker.php:1510
 #, php-format
 msgid "Update now to version %s."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s is the update now link.
-#: src/Tribe/PUE/Checker.php:1523
+#: src/Tribe/PUE/Checker.php:1525
 #, php-format
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2214
+#: src/Tribe/PUE/Checker.php:2232
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2215
+#: src/Tribe/PUE/Checker.php:2233
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2216
+#: src/Tribe/PUE/Checker.php:2234
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 

@@ -405,7 +405,7 @@ class PUE extends Integration_Controller {
 		$products = tribe( License_Repository::class )->get_products();
 
 		if ( $catalog && ! is_wp_error( $catalog ) && $products && ! is_wp_error( $products ) ) {
-			$tec_product         = $products->get_activated_entry( 'the-events-calendar' );
+			$tec_product         = $this->get_activated_tec_entry( $products );
 			$tec_product_catalog = $catalog->get( 'the-events-calendar' );
 			if ( $tec_product && $tec_product_catalog ) {
 				$response = $this->response_from_catalog( $tec_product_catalog, $tec_product, $body['plugin'] );
@@ -461,6 +461,28 @@ class PUE extends Integration_Controller {
 			],
 			'cookies'  => [],
 		];
+	}
+
+	/**
+	 * Returns the TEC license entry that is activated on this site.
+	 *
+	 * A license collection can hold several entries for the same product, such as a TEC
+	 * license and a Nexcess Plugin Stack license that includes TEC.
+	 *
+	 * @since 6.13.1
+	 *
+	 * @param Product_Collection $products The licensed products from Harbor.
+	 *
+	 * @return Product_Entry|null The activated TEC entry, or null when none is activated here.
+	 */
+	private function get_activated_tec_entry( Product_Collection $products ): ?Product_Entry {
+		foreach ( $products->get_all_by_slug( 'the-events-calendar' ) as $entry ) {
+			if ( $entry->get_activated_here() ) {
+				return $entry;
+			}
+		}
+
+		return null;
 	}
 
 	/**
