@@ -57,6 +57,25 @@ class Audience_Test extends WPTestCase {
 	}
 
 	/**
+	 * @dataProvider plugin_post_types
+	 * @covers \TEC\Common\Banners\Audience::should_display
+	 */
+	public function test_it_excludes_the_plugins_single_item_editors( string $post_type ): void {
+		$this->set_post_type_screen( $post_type, $post_type, 'post' );
+
+		$this->assertFalse( $this->audience()->should_display() );
+	}
+
+	/**
+	 * @covers \TEC\Common\Banners\Audience::should_display
+	 */
+	public function test_it_excludes_creating_an_event(): void {
+		$this->set_post_type_screen( 'tribe_events', 'tribe_events', 'post', 'add' );
+
+		$this->assertFalse( $this->audience()->should_display() );
+	}
+
+	/**
 	 * @covers \TEC\Common\Banners\Audience::should_display
 	 */
 	public function test_it_includes_the_tickets_setup_guide(): void {

@@ -74,7 +74,21 @@ class Audience {
 	 */
 	public function should_display(): bool {
 		return $this->active_plan->exists()
+			&& ! $this->is_editor()
 			&& ( $this->is_plugin_page() || $this->is_license_manager_page() );
+	}
+
+	/**
+	 * Whether this screen edits or creates a single post.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	private function is_editor(): bool {
+		$screen = get_current_screen();
+
+		return $screen instanceof WP_Screen && 'post' === $screen->base;
 	}
 
 	/**
