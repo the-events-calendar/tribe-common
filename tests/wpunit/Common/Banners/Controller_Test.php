@@ -27,15 +27,20 @@ class Controller_Test extends Controller_Test_Case {
 		$register          = $this->test_services->callback( Software_Packages_Banner::class, 'register' );
 		$render_at_top     = $this->test_services->callback( Software_Packages_Banner::class, 'render_at_top' );
 		$render_in_sidebar = $this->test_services->callback( Software_Packages_Banner::class, 'render_in_sidebar' );
+		$sidebars          = [ 'tec_settings_sidebar_start', 'tec_conditional_content_sidebar_notice__help_hub_support', 'tec_admin_page_sidebar_start' ];
 
 		$this->assertSame( 10, has_action( 'init', $register ) );
 		$this->assertSame( 10, has_action( 'admin_notices', $render_at_top ) );
-		$this->assertSame( 10, has_action( 'tec_settings_sidebar_start', $render_in_sidebar ) );
+		foreach ( $sidebars as $sidebar ) {
+			$this->assertSame( 10, has_action( $sidebar, $render_in_sidebar ), $sidebar );
+		}
 
 		$controller->unregister();
 
 		$this->assertFalse( has_action( 'init', $register ) );
 		$this->assertFalse( has_action( 'admin_notices', $render_at_top ) );
-		$this->assertFalse( has_action( 'tec_settings_sidebar_start', $render_in_sidebar ) );
+		foreach ( $sidebars as $sidebar ) {
+			$this->assertFalse( has_action( $sidebar, $render_in_sidebar ), $sidebar );
+		}
 	}
 }

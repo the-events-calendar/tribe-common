@@ -42,6 +42,15 @@ class Software_Packages_Banner {
 	private const START = '2026-10-14 12:00:00';
 
 	/**
+	 * The Help Hub pages, which render the banner in their sidebar.
+	 *
+	 * @since TBD
+	 *
+	 * @var string[]
+	 */
+	private const HELP_HUB_PAGES = [ 'tec-events-help-hub', 'tec-tickets-help-hub' ];
+
+	/**
 	 * Who may see the banner, and where.
 	 *
 	 * @since TBD
@@ -90,7 +99,7 @@ class Software_Packages_Banner {
 	 * @return void
 	 */
 	public function render_at_top(): void {
-		if ( $this->is_sidebar_settings_page() ) {
+		if ( $this->has_sidebar() ) {
 			return;
 		}
 
@@ -98,7 +107,7 @@ class Software_Packages_Banner {
 	}
 
 	/**
-	 * Renders the banner in the settings sidebar.
+	 * Renders the banner in the page's sidebar.
 	 *
 	 * @since TBD
 	 *
@@ -126,16 +135,17 @@ class Software_Packages_Banner {
 	}
 
 	/**
-	 * Whether this is the settings page that shows the settings sidebar.
+	 * Whether the current page has a sidebar the banner renders in instead.
 	 *
 	 * @since TBD
 	 *
 	 * @return bool
 	 */
-	private function is_sidebar_settings_page(): bool {
+	private function has_sidebar(): bool {
 		/** This filter is documented in src/Tribe/Settings_Tab.php */
-		$sidebar_page = apply_filters( 'tec_sidebar_allowed_admin_page', 'tec-events-settings' );
+		$settings_page = apply_filters( 'tec_sidebar_allowed_admin_page', 'tec-events-settings' );
 
-		return tribe( 'admin.pages' )->get_current_page() === $sidebar_page;
+		return tribe( 'admin.pages' )->get_current_page() === $settings_page
+			|| in_array( tribe_get_request_var( 'page' ), self::HELP_HUB_PAGES, true );
 	}
 }

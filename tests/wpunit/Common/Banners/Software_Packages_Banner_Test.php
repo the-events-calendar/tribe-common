@@ -25,7 +25,7 @@ class Software_Packages_Banner_Test extends WPTestCase {
 	 * @after
 	 */
 	public function tear_down_banner_state(): void {
-		unset( $GLOBALS['nx_banners'] );
+		unset( $GLOBALS['nx_banners'], $_GET['page'] );
 		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
 		set_current_screen( 'front' );
 	}
@@ -55,6 +55,26 @@ class Software_Packages_Banner_Test extends WPTestCase {
 		$this->freeze_clock_at( '2036-10-14 12:00:00' );
 
 		$this->assertStringContainsString( 'notice nx-banner', $this->render_banner() );
+	}
+
+	/**
+	 * @covers \TEC\Common\Banners\Software_Packages_Banner::render_at_top
+	 * @covers \TEC\Common\Banners\Software_Packages_Banner::render_in_sidebar
+	 */
+	public function test_it_shows_in_the_help_hub_sidebar_instead_of_at_the_top(): void {
+		$this->freeze_clock_at( '2026-10-15 12:00:00' );
+		$_GET['page'] = 'tec-tickets-help-hub';
+		set_current_screen( 'tickets_page_tec-tickets-help-hub' );
+		$banner = new Software_Packages_Banner( new Audience( new Active_Plan() ) );
+		$banner->register();
+
+		ob_start();
+		$banner->render_at_top();
+		$this->assertSame( '', (string) ob_get_clean() );
+
+		ob_start();
+		$banner->render_in_sidebar();
+		$this->assertStringContainsString( 'notice nx-banner', (string) ob_get_clean() );
 	}
 
 	/**

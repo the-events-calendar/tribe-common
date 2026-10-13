@@ -37,6 +37,15 @@ class Audience {
 	];
 
 	/**
+	 * Plugin pages the common screen helper misses.
+	 *
+	 * @since TBD
+	 *
+	 * @var string[]
+	 */
+	private const PAGES = [ 'tickets-setup' ];
+
+	/**
 	 * The site's paid plan.
 	 *
 	 * @since TBD
@@ -86,7 +95,7 @@ class Audience {
 			return in_array( $screen->post_type, self::POST_TYPES, true );
 		}
 
-		return tribe( 'admin.helpers' )->is_screen();
+		return tribe( 'admin.helpers' )->is_screen() || in_array( tribe_get_request_var( 'page' ), self::PAGES, true );
 	}
 
 	/**

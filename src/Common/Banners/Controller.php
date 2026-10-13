@@ -42,6 +42,8 @@ class Controller extends Controller_Contract {
 		add_action( 'init', $this->container->callback( Software_Packages_Banner::class, 'register' ) );
 		add_action( 'admin_notices', $this->container->callback( Software_Packages_Banner::class, 'render_at_top' ) );
 		add_action( 'tec_settings_sidebar_start', $this->container->callback( Software_Packages_Banner::class, 'render_in_sidebar' ) );
+		add_action( 'tec_conditional_content_sidebar_notice__help_hub_support', $this->container->callback( Software_Packages_Banner::class, 'render_in_sidebar' ) );
+		add_action( 'tec_admin_page_sidebar_start', $this->container->callback( Software_Packages_Banner::class, 'render_in_sidebar' ) );
 	}
 
 	/**
@@ -55,5 +57,7 @@ class Controller extends Controller_Contract {
 		remove_action( 'init', $this->container->callback( Software_Packages_Banner::class, 'register' ) );
 		remove_action( 'admin_notices', $this->container->callback( Software_Packages_Banner::class, 'render_at_top' ) );
 		remove_action( 'tec_settings_sidebar_start', $this->container->callback( Software_Packages_Banner::class, 'render_in_sidebar' ) );
+		remove_action( 'tec_conditional_content_sidebar_notice__help_hub_support', $this->container->callback( Software_Packages_Banner::class, 'render_in_sidebar' ) );
+		remove_action( 'tec_admin_page_sidebar_start', $this->container->callback( Software_Packages_Banner::class, 'render_in_sidebar' ) );
 	}
 }

@@ -20,6 +20,7 @@ class Audience_Test extends WPTestCase {
 	 */
 	public function tear_down_audience_state(): void {
 		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+		unset( $_GET['page'] );
 		set_current_screen( 'front' );
 	}
 
@@ -50,6 +51,16 @@ class Audience_Test extends WPTestCase {
 	 */
 	public function test_it_includes_the_plugins_post_type_lists( string $post_type ): void {
 		set_current_screen( 'edit-' . $post_type );
+
+		$this->assertTrue( $this->audience()->should_display() );
+	}
+
+	/**
+	 * @covers \TEC\Common\Banners\Audience::should_display
+	 */
+	public function test_it_includes_the_tickets_setup_guide(): void {
+		$_GET['page'] = 'tickets-setup';
+		set_current_screen( 'tickets_page_tickets-setup' );
 
 		$this->assertTrue( $this->audience()->should_display() );
 	}
