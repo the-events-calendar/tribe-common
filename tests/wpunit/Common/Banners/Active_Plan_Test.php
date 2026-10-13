@@ -9,12 +9,16 @@ use Tribe__PUE__Checker as PUE_Checker;
 class Active_Plan_Test extends WPTestCase {
 	use With_Harbor_State;
 
-	/**
-	 * @before
-	 * @after
-	 */
-	public function clear_legacy_key_statuses(): void {
+	public function setUp() {
+		parent::setUp();
+
 		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+	}
+
+	public function tearDown() {
+		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
+
+		parent::tearDown();
 	}
 
 	/**

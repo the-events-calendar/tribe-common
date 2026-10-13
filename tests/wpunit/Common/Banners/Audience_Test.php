@@ -8,21 +8,19 @@ use WP_Screen;
 
 class Audience_Test extends WPTestCase {
 
-	/**
-	 * @before
-	 */
-	public function set_up_an_administrator_with_an_active_plan(): void {
+	public function setUp() {
+		parent::setUp();
+
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 		set_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, [ 'plugins' => [ 'events-calendar-pro' => true ] ] );
 	}
 
-	/**
-	 * @after
-	 */
-	public function tear_down_audience_state(): void {
+	public function tearDown() {
 		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
 		unset( $_GET['page'] );
 		set_current_screen( 'front' );
+
+		parent::tearDown();
 	}
 
 	public function plugin_post_types(): array {

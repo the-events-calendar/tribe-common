@@ -11,23 +11,21 @@ use Tribe__PUE__Checker as PUE_Checker;
 class Software_Packages_Banner_Test extends WPTestCase {
 	use With_Clock_Mock;
 
-	/**
-	 * @before
-	 */
-	public function set_up_a_site_that_should_see_the_banner(): void {
+	public function setUp() {
+		parent::setUp();
+
 		unset( $GLOBALS['nx_banners'] );
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 		set_current_screen( 'edit-tribe_events' );
 		set_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, [ 'plugins' => [ 'events-calendar-pro' => true ] ] );
 	}
 
-	/**
-	 * @after
-	 */
-	public function tear_down_banner_state(): void {
+	public function tearDown() {
 		unset( $GLOBALS['nx_banners'], $_GET['page'] );
 		delete_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY );
 		set_current_screen( 'front' );
+
+		parent::tearDown();
 	}
 
 	/**
