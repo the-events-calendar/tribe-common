@@ -26,7 +26,15 @@ class Audience {
 	 *
 	 * @var string[]
 	 */
-	private const POST_TYPES = [ 'tribe_events', 'tribe_venue', 'tribe_organizer' ];
+	private const POST_TYPES = [
+		'tribe_events',
+		'tribe_venue',
+		'tribe_organizer',
+		'tribe_event_series',
+		'tec_calendar_embed',
+		'tec_tc_order',
+		'ticket-meta-fieldset',
+	];
 
 	/**
 	 * The site's paid plan.
@@ -74,8 +82,8 @@ class Audience {
 			return false;
 		}
 
-		if ( $screen->post_type !== '' && ! in_array( $screen->post_type, self::POST_TYPES, true ) ) {
-			return false;
+		if ( $screen->post_type !== '' ) {
+			return in_array( $screen->post_type, self::POST_TYPES, true );
 		}
 
 		return tribe( 'admin.helpers' )->is_screen();

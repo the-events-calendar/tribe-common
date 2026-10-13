@@ -23,11 +23,33 @@ class Audience_Test extends WPTestCase {
 		set_current_screen( 'front' );
 	}
 
+	public function plugin_post_types(): array {
+		return [
+			'events'             => [ 'tribe_events' ],
+			'venues'             => [ 'tribe_venue' ],
+			'organizers'         => [ 'tribe_organizer' ],
+			'series'             => [ 'tribe_event_series' ],
+			'calendar embeds'    => [ 'tec_calendar_embed' ],
+			'orders'             => [ 'tec_tc_order' ],
+			'attendee fieldsets' => [ 'ticket-meta-fieldset' ],
+		];
+	}
+
 	/**
 	 * @covers \TEC\Common\Banners\Audience::should_display
 	 */
 	public function test_it_includes_administrators_on_plugin_pages(): void {
 		set_current_screen( 'edit-tribe_events' );
+
+		$this->assertTrue( $this->audience()->should_display() );
+	}
+
+	/**
+	 * @dataProvider plugin_post_types
+	 * @covers \TEC\Common\Banners\Audience::should_display
+	 */
+	public function test_it_includes_the_plugins_post_type_lists( string $post_type ): void {
+		set_current_screen( 'edit-' . $post_type );
 
 		$this->assertTrue( $this->audience()->should_display() );
 	}
