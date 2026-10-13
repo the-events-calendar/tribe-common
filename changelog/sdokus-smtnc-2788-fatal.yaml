@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Stopped Shepherd from loading the WordPress admin includes on every
+  request, which caused a "Cannot redeclare check_upload_size()" fatal error on
+  some multisite installs.
+timestamp: 2026-10-05T22:24:01.030Z

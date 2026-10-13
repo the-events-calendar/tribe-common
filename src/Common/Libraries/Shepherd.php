@@ -10,6 +10,11 @@ use TEC\Common\Libraries\Provider as Libraries_Provider;
 use TEC\Common\StellarWP\Shepherd\Provider as Shepherd_Provider;
 use TEC\Common\StellarWP\DB\Database\Exceptions\DatabaseQueryException;
 use TEC\Common\StellarWP\Shepherd\Config;
+use TEC\Common\StellarWP\Shepherd\Contracts\Logger;
+use TEC\Common\StellarWP\Shepherd\Loggers\ActionScheduler_DB_Logger;
+use TEC\Common\StellarWP\Shepherd\Loggers\DB_Logger;
+use TEC\Common\StellarWP\Shepherd\Loggers\Null_Logger;
+use TEC\Common\StellarWP\Shepherd\Tables\AS_Logs;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 
 /**
@@ -24,11 +29,13 @@ class Shepherd extends Controller_Contract {
 	 * Register the controller.
 	 *
 	 * @since 6.9.0
+	 * @since TBD Picks Shepherd's logger before Shepherd registers, so registering runs no database query.
 	 */
 	protected function do_register(): void {
 		$hook_prefix = tribe( Libraries_Provider::class )->get_hook_prefix();
 		Config::set_container( $this->container );
 		Config::set_hook_prefix( $hook_prefix );
+		Config::set_logger( $this->get_logger( $hook_prefix ) );
 
 		add_action( "shepherd_{$hook_prefix}_tables_error", [ $this, 'handle_tables_error' ] );
 
@@ -89,5 +96,36 @@ class Shepherd extends Controller_Contract {
 			->urgency( 'error' )
 			->dismissible( false )
 			->inline();
+	}
+
+	/**
+	 * Picks Shepherd's logger without going through stellarwp/db.
+	 *
+	 * Shepherd's own lookup checks for the Action Scheduler logs table through stellarwp/db, which requires
+	 * `wp-admin/includes/upgrade.php` on every query; on multisite that loads `ms.php` on every request.
+	 * The same check through `$wpdb` loads nothing. The table is checked rather than Action Scheduler's
+	 * schema option because the option can outlive the table, and logging to a missing table throws.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $hook_prefix The Shepherd hook prefix.
+	 *
+	 * @return Logger The logger Shepherd should use.
+	 */
+	private function get_logger( string $hook_prefix ): Logger {
+		/** This filter is documented in vendor/vendor-prefixed/stellarwp/shepherd/src/Config.php */
+		if ( ! tribe_is_truthy( apply_filters( "shepherd_{$hook_prefix}_should_log", true ) ) ) {
+			return $this->container->get( Null_Logger::class );
+		}
+
+		global $wpdb;
+		$as_logs_table = AS_Logs::table_name( true );
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		if ( $as_logs_table === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $as_logs_table ) ) ) ) {
+			return $this->container->get( ActionScheduler_DB_Logger::class );
+		}
+
+		return $this->container->get( DB_Logger::class );
 	}
 }
