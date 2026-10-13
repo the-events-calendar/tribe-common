@@ -439,6 +439,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_action( 'tribe_settings_save_field', [ $this, 'check_for_api_key_error_on_action' ], 10, 2 );
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), [ $this, 'ajax_validate_key' ] );
 			add_action( 'update_option_' . $this->pue_install_key, [ $this, 'reset_key_status_when_key_removed' ] );
+			add_action( 'update_site_option_' . $this->pue_install_key, [ $this, 'reset_key_status_when_key_removed' ] );
 			add_filter( 'tribe-pue-install-keys', [ $this, 'return_install_key' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_display_json_error_on_plugins_page' ], 1 );
 
