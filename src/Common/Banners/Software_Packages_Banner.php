@@ -30,7 +30,7 @@ class Software_Packages_Banner {
 	 *
 	 * @var string
 	 */
-	public const ID = 'nexcess-software-packages';
+	public const ID = 'nexcess-software-packages-2026-10-14';
 
 	/**
 	 * When the banner starts showing, in New York time.
