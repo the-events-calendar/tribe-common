@@ -1997,7 +1997,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Marks the license invalid once its key is removed and no other key applies.
 		 *
-		 * @since TBD
+		 * @since 6.13.1
 		 *
 		 * @return void
 		 * @internal

@@ -595,7 +595,7 @@ abstract class Abstract_Admin_Page {
 			/**
 			 * Fires at the start of the admin page sidebar.
 			 *
-			 * @since TBD
+			 * @since 6.13.1
 			 *
 			 * @param Abstract_Admin_Page $page The admin page.
 			 */

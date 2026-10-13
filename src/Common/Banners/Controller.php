@@ -2,7 +2,7 @@
 /**
  * Hooks the Nexcess banners into TEC plugin admin pages.
  *
- * @since TBD
+ * @since 6.13.1
  *
  * @package TEC\Common\Banners
  */
@@ -14,14 +14,14 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Wires the Nexcess software packages banner into wp-admin.
  *
- * @since TBD
+ * @since 6.13.1
  */
 class Controller extends Controller_Contract {
 
 	/**
 	 * Only wp-admin shows the banner.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return bool
 	 */
@@ -32,7 +32,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Hooks the banner's registration and the places it renders.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return void
 	 */
@@ -49,7 +49,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Removes the hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.13.1
 	 *
 	 * @return void
 	 */
