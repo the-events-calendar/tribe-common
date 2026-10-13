@@ -75,19 +75,31 @@ class Shepherd_Test extends Controller_Test_Case {
 	}
 
 	public function test_uses_its_own_logger_when_the_action_scheduler_logs_table_is_missing(): void {
-		global $wpdb;
 		$table = AS_Logs::table_name( true );
 		// Action Scheduler's schema option still says the table exists.
 		$this->assertNotEmpty( get_option( 'schema-ActionScheduler_LoggerSchema' ) );
 
-		// WordPress test cases turn DROP TABLE into DROP TEMPORARY TABLE, which cannot drop the real table.
-		$wpdb->query( $wpdb->prepare( 'RENAME TABLE %i TO %i', $table, "{$table}_moved" ) );
+		/*
+		 * Dropping or renaming the real table is DDL, which commits the test transaction; pointing the existence
+		 * check at a table that does not exist leaves the database untouched.
+		 */
+		add_filter(
+			'query',
+			static function ( $query ) use ( $table ) {
+				// The table name arrives LIKE-escaped, so compare it with the backslashes removed.
+				if (
+					is_string( $query )
+					&& 0 === strpos( $query, 'SHOW TABLES LIKE' )
+					&& false !== strpos( str_replace( '\\', '', $query ), $table )
+				) {
+					return "SHOW TABLES LIKE '{$table}_missing'";
+				}
 
-		try {
-			$this->make_controller()->register();
-		} finally {
-			$wpdb->query( $wpdb->prepare( 'RENAME TABLE %i TO %i', "{$table}_moved", $table ) );
-		}
+				return $query;
+			}
+		);
+
+		$this->make_controller()->register();
 
 		$this->assertInstanceOf( DB_Logger::class, Config::get_logger() );
 	}
