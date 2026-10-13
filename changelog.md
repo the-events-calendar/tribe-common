@@ -2,8 +2,12 @@
 
 ### [6.13.1] 2026-10-13
 
+* Fix - Stopped a license key removed from the Licenses tab from still counting as valid.
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
-* Tweak - Update Harbor to 2.0.0, adding Nexcess Plugin Stack support and renaming the license page to Nexcess Licensing.
+* Tweak - Added a dismissible announcement banner to plugin admin pages.
+* Tweak - Added actions: `tec_admin_page_sidebar_start`
+* Tweak - Added filters: `tec_sidebar_allowed_admin_page`
+* Tweak - Update Harbor to 2.0.2, adding Nexcess Plugin Stack support and renaming the license page to Nexcess Licensing.
 
 ### [6.13.0.1] 2026-10-05
 

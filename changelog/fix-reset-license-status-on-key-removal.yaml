@@ -1,4 +1,0 @@
-significance: patch
-type: fix
-entry: Fixed a license key removed from the Licenses tab still counting as valid.
-timestamp: 2026-10-13T17:42:08.000Z
