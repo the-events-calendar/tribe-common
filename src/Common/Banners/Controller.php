@@ -12,8 +12,7 @@ namespace TEC\Common\Banners;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
 /**
- * Wires the Nexcess software packages banner into wp-admin. The banner, who sees it and the
- * site's plan are each their own class.
+ * Wires the Nexcess software packages banner into wp-admin.
  *
  * @since TBD
  */
@@ -38,7 +37,6 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function do_register(): void {
-		// A singleton, so the container returns the same callbacks to unregister().
 		$this->container->singleton( Software_Packages_Banner::class );
 
 		add_action( 'init', $this->container->callback( Software_Packages_Banner::class, 'register' ) );

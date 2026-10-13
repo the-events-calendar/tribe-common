@@ -12,14 +12,14 @@ namespace TEC\Common\Banners;
 use Tribe__PUE__Checker as PUE_Checker;
 
 /**
- * Answers whether the site has at least one paid plugin with an active plan, from stored state only.
+ * Whether the site has an active paid plan.
  *
  * @since TBD
  */
 class Active_Plan {
 
 	/**
-	 * The Harbor product a consolidated license for TEC's paid plugins belongs to.
+	 * Harbor product slug of TEC's paid plugins.
 	 *
 	 * @since TBD
 	 *
@@ -28,12 +28,7 @@ class Active_Plan {
 	private const HARBOR_PRODUCT = 'the-events-calendar';
 
 	/**
-	 * Whether a legacy license key or a consolidated license is active.
-	 *
-	 * Legacy keys: every PUE checker records its key status in a shared transient on admin_init,
-	 * from a status cached for 12 hours. PUE_Checker::is_any_license_valid() is not used because it
-	 * revalidates invalid keys with the licensing server. Consolidated licenses: Harbor's stored
-	 * product state, which it refreshes on its own schedule.
+	 * Whether a legacy license key or a consolidated license is active, from stored state only.
 	 *
 	 * @since TBD
 	 *

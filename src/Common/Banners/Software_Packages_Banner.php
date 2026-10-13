@@ -17,15 +17,14 @@ use TEC\Common\Nexcess\Banners\Registry;
 use Tribe__Main as Common;
 
 /**
- * What the banner says, when it starts, and where it renders: at the top of a page, or in the
- * settings sidebar on the settings page that has one.
+ * The Nexcess software packages banner.
  *
  * @since TBD
  */
 class Software_Packages_Banner {
 
 	/**
-	 * Shared with every Nexcess plugin that shows this banner, so one dismissal hides it in all of them.
+	 * Shared by every Nexcess plugin that shows this banner.
 	 *
 	 * @since TBD
 	 *
@@ -34,8 +33,7 @@ class Software_Packages_Banner {
 	public const ID = 'nexcess-software-packages';
 
 	/**
-	 * When the banner starts showing: noon Eastern time, which is EDT (UTC-4) on that date. Every Nexcess
-	 * plugin registers the same start.
+	 * When the banner starts showing, in New York time.
 	 *
 	 * @since TBD
 	 *
@@ -64,7 +62,7 @@ class Software_Packages_Banner {
 	}
 
 	/**
-	 * Registers the banner. Runs on init so the copy can be translated.
+	 * Registers the banner.
 	 *
 	 * @since TBD
 	 *
@@ -81,19 +79,17 @@ class Software_Packages_Banner {
 		$package_url = plugins_url( 'vendor/vendor-prefixed/stellarwp/banners/', Common::instance()->plugin_path . 'tribe-common.php' );
 		$start       = new DateTimeImmutable( self::START, new DateTimeZone( 'America/New_York' ) );
 
-		// No end: the banner shows until the user dismisses it.
 		( new Registry() )->register( new Banner( self::ID, '1.0.0', $fields, $package_url, $start, null ) );
 	}
 
 	/**
-	 * Renders the wide banner on admin_notices, which wp-admin moves under the page heading.
+	 * Renders the banner at the top of the page.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
 	public function render_at_top(): void {
-		// The settings page with a sidebar shows the banner there instead.
 		if ( $this->is_sidebar_settings_page() ) {
 			return;
 		}
@@ -102,7 +98,7 @@ class Software_Packages_Banner {
 	}
 
 	/**
-	 * Renders the banner at the top of the settings sidebar, where it stacks vertically.
+	 * Renders the banner in the settings sidebar.
 	 *
 	 * @since TBD
 	 *
@@ -113,7 +109,7 @@ class Software_Packages_Banner {
 	}
 
 	/**
-	 * Renders the banner, which sizes itself to the space it is given.
+	 * Renders the banner.
 	 *
 	 * @since TBD
 	 *

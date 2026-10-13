@@ -15,11 +15,9 @@ class Software_Packages_Banner_Test extends WPTestCase {
 	 * @before
 	 */
 	public function set_up_a_site_that_should_see_the_banner(): void {
-		// Every copy of stellarwp/banners shares its registry through this global, so start each test without the banner.
 		unset( $GLOBALS['nx_banners'] );
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 		set_current_screen( 'edit-tribe_events' );
-		// No expiration, so the frozen clock cannot expire it.
 		set_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, [ 'plugins' => [ 'events-calendar-pro' => true ] ] );
 	}
 
@@ -67,7 +65,7 @@ class Software_Packages_Banner_Test extends WPTestCase {
 	}
 
 	/**
-	 * Registers the banner and renders it at the top of the current screen.
+	 * Registers and renders the banner.
 	 */
 	private function render_banner(): string {
 		$banner = new Software_Packages_Banner( new Audience( new Active_Plan() ) );

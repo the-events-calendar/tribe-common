@@ -20,8 +20,7 @@ use WP_Screen;
 class Audience {
 
 	/**
-	 * Post types whose screens belong to the plugins. Event Tickets makes Pages and Posts ticketable,
-	 * which the common screen helpers count as TEC screens, so they are excluded.
+	 * The plugins' post types.
 	 *
 	 * @since TBD
 	 *
@@ -50,8 +49,7 @@ class Audience {
 	}
 
 	/**
-	 * Whether the banner may show on the current screen. Whoever can see the page can see the
-	 * banner: wp-admin only renders a page to users with its capability.
+	 * Whether the banner may show on the current screen.
 	 *
 	 * @since TBD
 	 *
@@ -84,7 +82,7 @@ class Audience {
 	}
 
 	/**
-	 * Whether this is the Nexcess licensing page, which every Nexcess plugin shares through Harbor.
+	 * Whether this is the Nexcess licensing page.
 	 *
 	 * @since TBD
 	 *

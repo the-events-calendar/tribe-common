@@ -53,7 +53,7 @@ class Active_Plan_Test extends WPTestCase {
 	}
 
 	/**
-	 * Records a legacy PUE key status for a paid plugin, as each checker does on admin_init.
+	 * Stores a legacy PUE key status.
 	 */
 	private function given_a_legacy_key_status( bool $valid ): void {
 		set_transient( PUE_Checker::IS_ANY_LICENSE_VALID_TRANSIENT_KEY, [ 'plugins' => [ 'events-calendar-pro' => $valid ] ] );

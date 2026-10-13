@@ -20,7 +20,6 @@ class Controller_Test extends Controller_Test_Case {
 	 * @covers \TEC\Common\Banners\Controller::unregister
 	 */
 	public function test_it_hooks_the_banner_and_unhooks_it(): void {
-		// The controller is active in wp-admin only.
 		set_current_screen( 'dashboard' );
 
 		$controller = $this->make_controller();
