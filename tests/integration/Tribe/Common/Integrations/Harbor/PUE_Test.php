@@ -4,6 +4,10 @@ namespace TEC\Common\Integrations\Harbor;
 
 use Codeception\TestCase\WPTestCase;
 use TEC\Common\Libraries\Harbor;
+use TEC\Common\LiquidWeb\Harbor\Config;
+use TEC\Common\LiquidWeb\Harbor\Licensing\Product_Collection;
+use TEC\Common\LiquidWeb\Harbor\Licensing\Repositories\License_Repository;
+use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
 use TEC\Common\StellarWP\Uplink\Resources\Plugin as Uplink_Plugin;
 use Tribe\Tests\Traits\With_Harbor_State;
 use Tribe\Tests\Traits\With_Uopz;
@@ -274,6 +278,56 @@ class PUE_Test extends WPTestCase {
 		$this->assertSame( 'Events Calendar Pro', $result['name'] );
 		$this->assertSame( '1.0.0', $result['version'] );
 		$this->assertSame( '2027-12-31 23:59:59', $result['expiration'] );
+	}
+
+	/**
+	 * A Nexcess Plugin Stack customer can hold more than one TEC license entry, and only one of
+	 * them is activated on this site. The validate response must describe that one, even when
+	 * an entry that is not activated here comes first.
+	 *
+	 * @test
+	 */
+	public function it_should_build_the_validate_response_from_the_tec_entry_activated_here(): void {
+		$this->detach_airplane_mode();
+
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$activated_expires = '2028-06-30 23:59:59';
+		$entry             = static function ( string $tier, string $expires, bool $activated_here ): Product_Entry {
+			return Product_Entry::from_array(
+				[
+					'product_slug'      => 'the-events-calendar',
+					'tier'              => $tier,
+					'status'            => 'active',
+					'expires'           => $expires,
+					'activations'       => [
+						'site_limit'   => 10,
+						'active_count' => 1,
+						'domains'      => [ 'customer-site.example.com' ],
+					],
+					'activated_here'    => $activated_here,
+					'validation_status' => 'valid',
+					'capabilities'      => [ 'events-calendar-pro' ],
+				]
+			);
+		};
+
+		$products = new Product_Collection();
+		$products->add( $entry( 'pro', '2026-12-31 23:59:59', false ) );
+		$products->add( $entry( 'elite', $activated_expires, true ) );
+		Config::get_container()->get( License_Repository::class )->set_products( $products );
+
+		$response = apply_filters(
+			'pre_http_request',
+			false,
+			[ 'body' => wp_json_encode( [ 'plugin' => 'events-calendar-pro' ] ) ],
+			'https://licensing.stellarwp.com/api/plugins/v2/license/validate'
+		);
+
+		$this->assertIsArray( $response );
+		$result = json_decode( $response['body'], true )['results'][0];
+		$this->assertSame( $activated_expires, $result['expiration'] );
 	}
 
 	/**

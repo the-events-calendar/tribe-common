@@ -116,4 +116,19 @@ class Uplink_Controller_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertNotEmpty( $modified_fields );
 		$this->assertArrayHasKey( 'stellarwp-uplink_common-test-slug', $modified_fields );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_mark_the_license_invalid_when_its_key_is_removed() {
+		$resource = Config::get_container()->get( Collection::class )->get( 'common-test-slug' );
+		$resource->set_license_key( 'a-license-key' );
+		$resource->get_license_object()->set_key_status( 1 );
+		$_POST['pue_install_key_common_test_slug'] = '';
+
+		$this->controller->save_empty_license_keys();
+		unset( $_POST['pue_install_key_common_test_slug'] );
+
+		$this->assertFalse( $resource->has_valid_license() );
+	}
 }
