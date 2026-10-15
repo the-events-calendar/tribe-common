@@ -1,0 +1,4 @@
+significance: patch
+type: tweak
+entry: 'Added filters: `shepherd_{$hook_prefix}_should_log`'
+timestamp: 2026-10-15T20:25:18.000Z
