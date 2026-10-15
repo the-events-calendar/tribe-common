@@ -29,7 +29,7 @@ class Shepherd extends Controller_Contract {
 	 * Register the controller.
 	 *
 	 * @since 6.9.0
-	 * @since TBD Picks Shepherd's logger before Shepherd registers, so registering runs no database query.
+	 * @since 6.13.2 Picks Shepherd's logger before Shepherd registers, so registering runs no database query.
 	 */
 	protected function do_register(): void {
 		$hook_prefix = tribe( Libraries_Provider::class )->get_hook_prefix();
@@ -106,7 +106,7 @@ class Shepherd extends Controller_Contract {
 	 * The same check through `$wpdb` loads nothing. The table is checked rather than Action Scheduler's
 	 * schema option because the option can outlive the table, and logging to a missing table throws.
 	 *
-	 * @since TBD
+	 * @since 6.13.2
 	 *
 	 * @param string $hook_prefix The Shepherd hook prefix.
 	 *
