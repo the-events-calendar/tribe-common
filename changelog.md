@@ -1,5 +1,12 @@
 # Changelog
 
+### [6.13.2] 2026-10-15
+
+* Fix - Prevented a fatal error in the admin when the Nexcess banner renders on requests where the consolidated license functions are not loaded, such as saving in the theme or plugin editor.
+* Fix - Stopped Shepherd from loading the WordPress admin includes on every request, which caused a "Cannot redeclare check_upload_size()" fatal error on some multisite installs.
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
+* Tweak - Added filters: `shepherd_{$hook_prefix}_should_log`
+
 ### [6.13.1] 2026-10-13
 
 * Fix - Stopped a license key removed from the Licenses tab from still counting as valid.
