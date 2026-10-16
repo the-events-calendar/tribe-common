@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Changed the System Information copy button on the Troubleshooting page to
+  copy plain text, so pasted system details take the destination's text color
+  instead of arriving as invisible white text.
+timestamp: 2026-10-16T23:07:07.383Z
