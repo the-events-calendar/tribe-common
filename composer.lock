@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "41187a1ea281138d7e9fcae7e26ade77",
+    "content-hash": "3df66562359e64f092c01612ac386788",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -955,16 +955,16 @@
         },
         {
             "name": "stellarwp/db",
-            "version": "1.2.0",
+            "version": "dev-fix/SMTNC-3105/load-upgrade-only-for-delta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/db.git",
-                "reference": "f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96"
+                "reference": "d6c4ca354c39766a420cf58a1e4d2cabf690087c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/db/zipball/f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96",
-                "reference": "f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96",
+                "url": "https://api.github.com/repos/stellarwp/db/zipball/d6c4ca354c39766a420cf58a1e4d2cabf690087c",
+                "reference": "d6c4ca354c39766a420cf58a1e4d2cabf690087c",
                 "shasum": ""
             },
             "require-dev": {
@@ -1005,9 +1005,9 @@
             "description": "A WPDB wrapper and query builder library.",
             "support": {
                 "issues": "https://github.com/stellarwp/db/issues",
-                "source": "https://github.com/stellarwp/db/tree/1.2.0"
+                "source": "https://github.com/stellarwp/db/tree/fix/SMTNC-3105/load-upgrade-only-for-delta"
             },
-            "time": "2025-11-10T10:55:50+00:00"
+            "time": "2026-10-16T19:00:23+00:00"
         },
         {
             "name": "stellarwp/harbor",
@@ -8021,19 +8021,27 @@
             "time": "2024-03-25T16:39:00+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "stellarwp/db",
+            "version": "dev-fix/SMTNC-3105/load-upgrade-only-for-delta",
+            "alias": "1.3.1",
+            "alias_normalized": "1.3.1.0"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/coding-standards": 20,
+        "stellarwp/db": 20,
         "stellarwp/migrations": 20,
+        "stellarwp/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": {},
-    "platform-dev": {},
+    "platform": [],
+    "platform-dev": [],
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.3.0"
 }

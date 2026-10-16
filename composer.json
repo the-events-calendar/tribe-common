@@ -36,7 +36,7 @@
     "stellarwp/arrays": "^1.3",
     "stellarwp/assets": "^1.5",
     "stellarwp/container-contract": "^1.0.4",
-    "stellarwp/db": "^1.0.3",
+    "stellarwp/db": "dev-fix/SMTNC-3105/load-upgrade-only-for-delta as 1.3.1",
     "stellarwp/harbor": "2.0.2",
     "stellarwp/installer": "^1.1.0",
     "stellarwp/migrations": "dev-main",
