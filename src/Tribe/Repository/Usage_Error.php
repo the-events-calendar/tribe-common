@@ -11,6 +11,19 @@
 class Tribe__Repository__Usage_Error extends Exception {
 
 	/**
+	 * Escapes the message built by the factory methods before it reaches the exception.
+	 *
+	 * @since TBD
+	 *
+	 * @param string          $message  The error message.
+	 * @param int             $code     The error code.
+	 * @param \Throwable|null $previous The previous exception, if any.
+	 */
+	public function __construct( $message = '', $code = 0, $previous = null ) {
+		parent::__construct( esc_html( $message ), $code, $previous );
+	}
+
+	/**
 	 * Do not ally dynamic set of properties on the repository; protected
 	 * properties are read-only.
 	 *

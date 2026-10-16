@@ -299,6 +299,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 
 				$param_name = $param->get_name();
 				if ( $param->is_required() && ! isset( $data[ $param_name ] ) ) {
+					// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST error: the message becomes a WP_Error in a JSON response, not HTML output.
 					throw InvalidRestArgumentException::create(
 						// translators: 1) is the type of the parameter, 2) is the name of the parameter.
 						sprintf( __( '%1$s argument `{%2$s}` is required.', 'tribe-common' ), $type, $param_name ),
@@ -307,6 +308,7 @@ class OpenAPI_Schema implements OpenAPI_Schema_Contract {
 						// translators: 1) is the type of the parameter, 2) is the name of the parameter.
 						sprintf( __( 'The %1$s argument `{%2$s}` is missing.', 'tribe-common' ), $type, $param_name )
 					);
+					// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				}
 
 				if ( empty( $data[ $param_name ] ) && null !== $param->get_default() ) {

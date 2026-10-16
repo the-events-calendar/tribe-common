@@ -137,7 +137,7 @@ class Wysiwyg {
 	 * @return void
 	 */
 	public function render_html() {
-		echo $this->get_html();
+		echo $this->get_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Editor HTML built with wp_editor() and escaped parts.
 	}
 
 }

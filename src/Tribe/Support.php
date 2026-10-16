@@ -291,14 +291,14 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 						$obj_val = $this->obfuscator->obfuscate( $obj_key, $obj_val );
 
 						if ( is_array( $obj_val ) ) {
-							$formatted_v[] = sprintf( '<li>%s = <pre>%s</pre></li>', $obj_key, esc_html( print_r( $obj_val, true ) ) );
+							$formatted_v[] = sprintf( '<li>%s = <pre>%s</pre></li>', $obj_key, esc_html( print_r( $obj_val, true ) ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r -- System information report renders variables for support.
 						} else {
 							$obj_val = esc_html( $obj_val );
 							$formatted_v[] = sprintf( '<li>%s = %s</li>', $obj_key, $obj_val );
 						}
 					}
 					$v = join( "\n", $formatted_v );
-					$output .= sprintf( '<dd class="support-stats-object"><ul>%s</ul></dd>',  wp_kses_post( print_r( $v, true ) ) );
+					$output .= sprintf( '<dd class="support-stats-object"><ul>%s</ul></dd>', wp_kses_post( print_r( $v, true ) ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r -- System information report renders variables for support.
 				}
 			}
 

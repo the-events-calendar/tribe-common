@@ -59,7 +59,7 @@ abstract class Definition implements Definition_Interface {
 				$class = static::get_instance_from_ref( $doc['$ref'] );
 
 				if ( ! $class ) {
-					throw new RuntimeException( 'Definition class not found for ' . $doc['$ref'] );
+					throw new RuntimeException( esc_html( 'Definition class not found for ' . $doc['$ref'] ) );
 				}
 
 				$examples = array_merge( $examples, $class->get_example() );
