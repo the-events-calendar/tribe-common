@@ -41,6 +41,8 @@ class Active_Plan {
 			return true;
 		}
 
-		return lw_harbor_is_product_license_active( self::HARBOR_PRODUCT );
+		/* Harbor's global functions are not defined on sandbox scraping or plugin activation requests. */
+		return function_exists( 'lw_harbor_is_product_license_active' )
+			&& lw_harbor_is_product_license_active( self::HARBOR_PRODUCT );
 	}
 }
