@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "41187a1ea281138d7e9fcae7e26ade77",
+    "content-hash": "19b23a33fe5807adec5973ede9e5c93f",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -955,16 +955,16 @@
         },
         {
             "name": "stellarwp/db",
-            "version": "1.2.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/db.git",
-                "reference": "f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96"
+                "reference": "b7eb19523302c25b40b9a8d6484ab72c900ab5d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/db/zipball/f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96",
-                "reference": "f92d6ae0bcd74a3f526b023bb2d6ecd13227ef96",
+                "url": "https://api.github.com/repos/stellarwp/db/zipball/b7eb19523302c25b40b9a8d6484ab72c900ab5d7",
+                "reference": "b7eb19523302c25b40b9a8d6484ab72c900ab5d7",
                 "shasum": ""
             },
             "require-dev": {
@@ -1005,9 +1005,9 @@
             "description": "A WPDB wrapper and query builder library.",
             "support": {
                 "issues": "https://github.com/stellarwp/db/issues",
-                "source": "https://github.com/stellarwp/db/tree/1.2.0"
+                "source": "https://github.com/stellarwp/db/tree/1.3.1"
             },
-            "time": "2025-11-10T10:55:50+00:00"
+            "time": "2026-10-19T16:29:39+00:00"
         },
         {
             "name": "stellarwp/harbor",
@@ -8024,16 +8024,16 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stellarwp/coding-standards": 20,
         "stellarwp/migrations": 20,
+        "stellarwp/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": {},
-    "platform-dev": {},
+    "platform": [],
+    "platform-dev": [],
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.3.0"
 }
