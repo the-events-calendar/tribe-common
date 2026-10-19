@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3df66562359e64f092c01612ac386788",
+    "content-hash": "5c6b30e2ab53a298b9d9bc7b301362e3",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -955,16 +955,16 @@
         },
         {
             "name": "stellarwp/db",
-            "version": "dev-fix/SMTNC-3105/load-upgrade-only-for-delta",
+            "version": "dev-release/1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/db.git",
-                "reference": "d6c4ca354c39766a420cf58a1e4d2cabf690087c"
+                "reference": "3d47f04e3eb9f3c07b3d56fe457a7b9221faf90f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/db/zipball/d6c4ca354c39766a420cf58a1e4d2cabf690087c",
-                "reference": "d6c4ca354c39766a420cf58a1e4d2cabf690087c",
+                "url": "https://api.github.com/repos/stellarwp/db/zipball/3d47f04e3eb9f3c07b3d56fe457a7b9221faf90f",
+                "reference": "3d47f04e3eb9f3c07b3d56fe457a7b9221faf90f",
                 "shasum": ""
             },
             "require-dev": {
@@ -1005,9 +1005,9 @@
             "description": "A WPDB wrapper and query builder library.",
             "support": {
                 "issues": "https://github.com/stellarwp/db/issues",
-                "source": "https://github.com/stellarwp/db/tree/fix/SMTNC-3105/load-upgrade-only-for-delta"
+                "source": "https://github.com/stellarwp/db/tree/release/1.3.1"
             },
-            "time": "2026-10-16T19:00:23+00:00"
+            "time": "2026-10-19T15:04:32+00:00"
         },
         {
             "name": "stellarwp/harbor",
@@ -8024,7 +8024,7 @@
     "aliases": [
         {
             "package": "stellarwp/db",
-            "version": "dev-fix/SMTNC-3105/load-upgrade-only-for-delta",
+            "version": "dev-release/1.3.1",
             "alias": "1.3.1",
             "alias_normalized": "1.3.1.0"
         }
