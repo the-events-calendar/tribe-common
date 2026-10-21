@@ -25,6 +25,7 @@ class Controller extends Controller_Contract {
 	 * Registers the filters and actions hooks added by the controller.
 	 *
 	 * @since 6.5.4
+	 * @since TBD Registered the editor controller.
 	 *
 	 * @return void
 	 */
@@ -36,6 +37,7 @@ class Controller extends Controller_Contract {
 		$this->container->register( Hooks::class );
 		$this->container->register( Key_Value_Cache\Controller::class );
 		$this->container->register( SVG\Controller::class );
+		$this->container->register( Editor\Controller::class );
 
 		// Load controllers after all common libs are loaded and initial hooks are in place.
 		add_action( 'tribe_common_loaded', [ $this, 'load_controllers' ] );
@@ -58,6 +60,7 @@ class Controller extends Controller_Contract {
 	 * Removes the filters and actions hooks added by the controller.
 	 *
 	 * @since 6.5.4
+	 * @since TBD Unregistered the editor controller.
 	 *
 	 * @return void Filters and actions hooks added by the controller are be removed.
 	 */
@@ -67,6 +70,7 @@ class Controller extends Controller_Contract {
 		$this->container->get( REST_Controller::class )->unregister();
 		$this->container->get( AI\Controller::class )->unregister();
 		$this->container->get( SVG\Controller::class )->unregister();
+		$this->container->get( Editor\Controller::class )->unregister();
 		$this->container->get( Banners\Controller::class )->unregister();
 	}
 }
