@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Prevented background queue processing from deleting every site option
+  when another process removed a queue batch while it was being read.
+timestamp: 2026-10-21T20:50:57.552Z
