@@ -1,5 +1,5 @@
 significance: patch
-type: fixed
+type: fix
 entry: Used the Nexcess Plugin Stack license's expiry date and the catalog
   version when answering premium add-on license checks for sites licensed
   through the package.
