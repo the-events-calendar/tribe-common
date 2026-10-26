@@ -19,7 +19,8 @@
   },
   "_filePath": {
     "jest": [
-      "src/modules/**/__tests__/**/*.js"
+      "src/modules/**/__tests__/**/*.js",
+      "src/resources/js/**/__tests__/**/*.js"
     ]
   },
   "engines": {
