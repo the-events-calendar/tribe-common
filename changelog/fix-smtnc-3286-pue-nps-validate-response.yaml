@@ -1,0 +1,6 @@
+significance: patch
+type: fixed
+entry: Used the Nexcess Plugin Stack license's expiry date and the catalog
+  version when answering premium add-on license checks for sites licensed
+  through the package.
+timestamp: 2026-10-26T23:02:24.444Z
