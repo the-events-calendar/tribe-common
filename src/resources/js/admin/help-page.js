@@ -6,6 +6,7 @@ window.tribe.helpPage = window.tribe.helpPage || {};
 
 	obj.selectors = {
 		copyButton: '.system-info-copy-btn',
+		systemInfo: '.support-stats',
 		optInMsg: '.tribe-sysinfo-optin-msg',
 		autoInfoOptIn: '#tribe_auto_sysinfo_opt_in',
 		accordion: '.tec-ui-accordion',
@@ -140,9 +141,17 @@ window.tribe.helpPage = window.tribe.helpPage || {};
 			return;
 		}
 
-		const clipboard = new ClipboardJS(
-			obj.selectors.copyButton
-		); /* eslint-disable-line no-undef */
+		/*
+		 * Copying the rendered element also puts its HTML on the clipboard, with the
+		 * white text color inlined, so it pastes as invisible text into a white editor.
+		 */
+		const clipboard = new ClipboardJS( obj.selectors.copyButton, {
+			text: () => {
+				const systemInfo = document.querySelector( obj.selectors.systemInfo );
+
+				return systemInfo ? systemInfo.innerText : '';
+			},
+		} ); /* eslint-disable-line no-undef */
 		const buttonIcon =
 			'<span class="dashicons dashicons-clipboard license-btn"></span>';
 		const buttonText = tribe_system_info.clipboard_btn_text;
