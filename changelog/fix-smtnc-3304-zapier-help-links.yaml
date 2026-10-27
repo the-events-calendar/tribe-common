@@ -1,0 +1,5 @@
+significance: patch
+type: tweak
+entry: Pointed the Zapier API keys help link to the Zapier knowledgebase article
+  and removed an outdated link from the Zapier Endpoint Dashboard.
+timestamp: 2026-10-27T18:32:51.986Z
