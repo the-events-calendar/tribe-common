@@ -1,0 +1,4 @@
+significance: patch
+type: security
+entry: Hardened access checks on password-protected and edit-only content returned by the REST API. Props to fcc for reporting.
+timestamp: 2026-10-19T23:23:51.060Z
