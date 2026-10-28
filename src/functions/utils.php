@@ -9,17 +9,23 @@ defined( 'ABSPATH' ) || exit;
  * Sanitizes string values.
  *
  * @since 5.0.17
+ * @since TBD Decodes entities and strips tags until the value is stable, so entity-encoded markup cannot survive.
  *
  * @param string $string The string being sanitized.
  *
  * @return string $string The sanitized version of the string.
  */
 function tec_sanitize_string( $string ) {
-	// Replace HTML tags and entities with their plain text equivalents
-	$string = htmlspecialchars_decode( $string, ENT_QUOTES );
-
-	// Remove any remaining HTML tags
-	$string = strip_tags( $string );
+	/*
+	 * A single decode-then-strip pass lets markup encoded more than once (or with
+	 * numeric entities) through as once-encoded markup that a later sink can decode.
+	 * Each pass shortens the string or leaves it unchanged, so the loop ends.
+	 */
+	do {
+		$previous = $string;
+		// phpcs:ignore WordPressVIPMinimum.Functions.StripTags.StripTagsOneParameter -- wp_strip_all_tags() also drops script/style contents and trims, changing existing output.
+		$string = strip_tags( html_entity_decode( $string, ENT_QUOTES | ENT_HTML5 ) );
+	} while ( $string !== $previous );
 
 	return $string;
 }
