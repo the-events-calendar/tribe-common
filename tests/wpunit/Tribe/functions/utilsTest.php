@@ -607,6 +607,18 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertSame( $sanitized, html_entity_decode( $sanitized, ENT_QUOTES | ENT_HTML5 ) );
 	}
 
+	/**
+	 * @test
+	 */
+	public function it_should_drop_a_value_still_changing_after_the_last_pass() {
+		// Each `amp;` level takes one pass to decode, and one more pass confirms the value is stable.
+		$this->assertSame( 'Tom & Jerry', tec_sanitize_string( 'Tom &' . str_repeat( 'amp;', 7 ) . ' Jerry' ) );
+		$this->assertSame( '', tec_sanitize_string( 'Tom &' . str_repeat( 'amp;', 8 ) . ' Jerry' ) );
+
+		// Without the cap this would take one pass per level.
+		$this->assertSame( '', tec_sanitize_string( '&' . str_repeat( 'amp;', 65536 ) . 'lt;script&gt;' ) );
+	}
+
 	public function plain_text_data_set(): array {
 		return [
 			'encoded ampersand'      => [ 'Tom &amp; Jerry', 'Tom & Jerry' ],
