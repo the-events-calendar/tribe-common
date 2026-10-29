@@ -280,7 +280,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Deletes a queue batch(es) and meta information.
 	 *
 	 * @since 4.7.18
-	 * @since TBD Does nothing when the key is empty, instead of deleting every option.
+	 * @since 6.13.3 Does nothing when the key is empty, instead of deleting every option.
 	 *
 	 * @param string $key
 	 */
@@ -635,7 +635,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @since 4.7.12
 	 * @since 4.9.5 Pulled method code from the `WP_Background_Process` class.
-	 * @since TBD Returns an empty batch, with an empty key and no data, when no batch row is left.
+	 * @since 6.13.3 Returns an empty batch, with an empty key and no data, when no batch row is left.
 	 *
 	 * @return stdClass The first batch of items from the queue.
 	 */
@@ -841,7 +841,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 * @since 6.12.0 Made $data_source explicitly nullable.
-	 * @since TBD Stops processing when the batch was removed by another runner before it could be read.
+	 * @since 6.13.3 Stops processing when the batch was removed by another runner before it could be read.
 	 *
 	 * @param array|null $data_source Unused and kept for compatibility with parent; the queue
 	 *                                data is stored and read from the database.

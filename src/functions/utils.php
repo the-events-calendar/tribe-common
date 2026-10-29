@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  * Sanitizes string values.
  *
  * @since 5.0.17
- * @since TBD Decodes entities and strips tags until the value is stable, so entity-encoded markup cannot survive.
+ * @since 6.13.3 Decodes entities and strips tags until the value is stable, so entity-encoded markup cannot survive.
  *              A value still changing after 8 passes is returned as an empty string.
  *
  * @param string $string The string being sanitized.

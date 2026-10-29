@@ -30,7 +30,7 @@ class Active_Plan {
 	/**
 	 * Legacy license transient name, for a Tribe__PUE__Checker older than common 6.3.2 that lacks the constant.
 	 *
-	 * @since TBD
+	 * @since 6.13.3
 	 *
 	 * @var string
 	 */
@@ -40,7 +40,7 @@ class Active_Plan {
 	 * Whether a legacy license key or a consolidated license is active, from stored state only.
 	 *
 	 * @since 6.13.1
-	 * @since TBD Falls back to the literal transient name when an older Tribe__PUE__Checker is loaded.
+	 * @since 6.13.3 Falls back to the literal transient name when an older Tribe__PUE__Checker is loaded.
 	 *
 	 * @return bool
 	 */

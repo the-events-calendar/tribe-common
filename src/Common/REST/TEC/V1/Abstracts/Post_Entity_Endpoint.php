@@ -282,7 +282,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 * Formats a post into a post entity.
 	 *
 	 * @since 6.9.0
-	 * @since TBD The edit context is only served to users who can edit the post.
+	 * @since 6.13.3 The edit context is only served to users who can edit the post.
 	 *
 	 * @param WP_Post $post The post to format.
 	 *

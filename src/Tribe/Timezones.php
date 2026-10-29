@@ -184,7 +184,7 @@ class Tribe__Timezones {
 	/**
 	 * Tests to see if the timezone string is a UTC offset, ie "UTC+2".
 	 *
-	 * @since TBD Only matches a signed offset ("UTC+2", "UTC-5.5", "UTC+9:30"), not any string starting with "UTC".
+	 * @since 6.13.3 Only matches a signed offset ("UTC+2", "UTC-5.5", "UTC+9:30"), not any string starting with "UTC".
 	 *
 	 * @param string $timezone The timezone string to test.
 	 *

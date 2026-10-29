@@ -29,7 +29,7 @@ trait Read_Entity_Response {
 	 * Reads an existing entity.
 	 *
 	 * @since 6.9.0
-	 * @since TBD Scoped the password-required bypass to this entity's own ID, so a linked
+	 * @since 6.13.3 Scoped the password-required bypass to this entity's own ID, so a linked
 	 *            post with a different password is no longer disclosed.
 	 *
 	 * @param array $params The sanitized parameters to use for the request.

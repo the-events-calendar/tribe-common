@@ -471,7 +471,7 @@ class PUE extends Integration_Controller {
 	 * matter: a Nexcess Plugin Stack purchase (`nexcess-plugin-stack`) grants TEC features
 	 * just as a TEC purchase does.
 	 *
-	 * @since TBD
+	 * @since 6.13.3
 	 *
 	 * @param Product_Collection $products     The licensed products from Harbor.
 	 * @param string             $feature_slug The Harbor feature slug.
