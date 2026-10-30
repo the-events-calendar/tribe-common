@@ -47,25 +47,39 @@ class Shepherd_Test extends Controller_Test_Case {
 		Config::set_logger( $this->original_logger );
 	}
 
-	public function test_register_does_not_query_for_the_action_scheduler_logs_table(): void {
-		$logs_table_queries = [];
-		$logs_table         = AS_Logs::table_name( true );
-		add_action(
-			'stellarwp_db_pre_query',
-			static function ( $query ) use ( &$logs_table_queries, $logs_table ) {
-				if ( is_string( $query ) && false !== strpos( $query, $logs_table ) ) {
-					$logs_table_queries[] = $query;
-				}
-			}
-		);
-
-		$this->make_controller()->register();
+	public function test_front_end_request_does_not_load_upgrade_php(): void {
+		global $table_prefix;
 
 		/*
-		 * Every query through stellarwp/db requires wp-admin/includes/upgrade.php, which on multisite loads ms.php
-		 * on every request and lets a second ms.php load fatal on check_upload_size().
+		 * On multisite, upgrade.php loads wp-admin/includes/ms.php, and a later plain require of ms.php
+		 * fatals on check_upload_size().
 		 */
-		$this->assertEmpty( $logs_table_queries );
+		$env     = [
+			'WORDPRESS_DB_HOST'      => DB_HOST,
+			'WORDPRESS_DB_NAME'      => DB_NAME,
+			'WORDPRESS_DB_USER'      => DB_USER,
+			'WORDPRESS_DB_PASSWORD'  => DB_PASSWORD,
+			'WORDPRESS_TABLE_PREFIX' => $table_prefix,
+		];
+		$command = '';
+		foreach ( $env as $name => $value ) {
+			$command .= $name . '=' . escapeshellarg( $value ) . ' ';
+		}
+		$command .= implode(
+			' ',
+			array_map( 'escapeshellarg', [ PHP_BINARY, codecept_data_dir( 'front-end-request-loads-upgrade.php' ), ABSPATH ] )
+		);
+
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.system_calls_exec -- The check needs a process the bootstrap has not touched.
+		exec( $command . ' 2>&1', $output, $exit_code );
+		$output = implode( "\n", $output );
+
+		$this->assertSame( 0, $exit_code, $output );
+
+		$result = json_decode( substr( $output, strrpos( $output, '{' ) ), true );
+
+		$this->assertTrue( $result['shepherd_registered'] ?? null, $output );
+		$this->assertFalse( $result['upgrade_loaded'], $output );
 	}
 
 	public function test_uses_the_action_scheduler_logger_when_its_logs_table_is_installed(): void {
