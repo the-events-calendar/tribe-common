@@ -18,8 +18,9 @@
 	"checks": {
 		"tbd": {
 			"dirs": [
-				"src"
-			]
+				"."
+			],
+			"skip_files": ".min.css|.min.js|.map.js|.css|.png|.jpg|.jpeg|.svg|.gif|.ico|AGENTS.md|CLAUDE.md"
 		},
 		"version-conflict": {}
 	},
