@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Escaped the filtered closing form markup on the settings pages to strip
+  unsafe HTML added through the `tribe_settings_closing_form_element` filter.
+timestamp: 2026-10-30T18:27:15.417Z
