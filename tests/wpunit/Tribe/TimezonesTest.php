@@ -122,6 +122,18 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 			[ 'UTC-5', true ],
 			[ 'UTC+5.5', true ],
 			[ 'UTC-5.5', true ],
+			[ 'UTC+9:30', true ],
+			[ 'UTC-123', true ],
+			/* Offsets WordPress itself offers in the Settings > General timezone select. */
+			[ 'UTC+0', true ],
+			[ 'UTC-0.5', true ],
+			[ 'UTC+5.75', true ],
+			[ 'UTC+13.75', true ],
+			[ ' UTC+2 ', true ],
+			[ 'UTC+', false ],
+			[ 'UTCfoo', false ],
+			[ 'UTC+5 foo', false ],
+			[ 'UTC&lt;img src=x onerror=alert(1)&gt;', false ],
 		];
 	}
 

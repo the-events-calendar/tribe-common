@@ -280,10 +280,15 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 * Deletes a queue batch(es) and meta information.
 	 *
 	 * @since 4.7.18
+	 * @since 6.13.3 Does nothing when the key is empty, instead of deleting every option.
 	 *
 	 * @param string $key
 	 */
 	public static function delete_queue( $key ) {
+		if ( ! $key ) {
+			return;
+		}
+
 		global $wpdb;
 
 		$meta_key = $key . '_meta';
@@ -630,6 +635,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @since 4.7.12
 	 * @since 4.9.5 Pulled method code from the `WP_Background_Process` class.
+	 * @since 6.13.3 Returns an empty batch, with an empty key and no data, when no batch row is left.
 	 *
 	 * @return stdClass The first batch of items from the queue.
 	 */
@@ -647,8 +653,8 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 		", $key ) );
 
 		$batch       = new stdClass();
-		$batch->key  = $query->option_name;
-		$batch->data = maybe_unserialize( $query->option_value );
+		$batch->key  = $query ? $query->option_name : '';
+		$batch->data = $query ? maybe_unserialize( $query->option_value ) : [];
 
 		$this->original_batch_count = ! empty( $batch->data ) ? count( $batch->data ) : 0;
 
@@ -835,6 +841,7 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 	 *
 	 * @since 4.9.5 Pulled from the `WP_Background_Process` class.
 	 * @since 6.12.0 Made $data_source explicitly nullable.
+	 * @since 6.13.3 Stops processing when the batch was removed by another runner before it could be read.
 	 *
 	 * @param array|null $data_source Unused and kept for compatibility with parent; the queue
 	 *                                data is stored and read from the database.
@@ -844,6 +851,11 @@ abstract class Tribe__Process__Queue extends Tribe__Process__Handler {
 
 		do {
 			$batch = $this->get_batch();
+
+			if ( ! $batch->key ) {
+				// Another runner removed the batch after `is_queue_empty()` saw it.
+				break;
+			}
 
 			foreach ( $batch->data as $key => $value ) {
 				$task = $this->task( $value );

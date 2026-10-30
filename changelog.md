@@ -1,5 +1,14 @@
 # Changelog
 
+### [6.13.3] 2026-10-29
+
+* Fix - Prevented a fatal error on every admin page when another plugin loads an older copy of the license checker.
+* Fix - Prevented background queue processing from deleting every site option when another process removed a queue batch while it was being read.
+* Fix - Used the Nexcess Plugin Stack license's expiry date and the catalog version when answering premium add-on license checks for sites licensed through the package.
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
+* Security - Hardened access checks on password-protected and edit-only content returned by the REST API. Props to fcc for reporting.
+* Security - Hardened the rendering of the Event timezone-change link in the classic Event editor. Props to fcc for reporting.
+
 ### [6.13.2] 2026-10-15
 
 * Fix - Prevented a fatal error in the admin when the Nexcess banner renders on requests where the consolidated license functions are not loaded, such as saving in the theme or plugin editor.

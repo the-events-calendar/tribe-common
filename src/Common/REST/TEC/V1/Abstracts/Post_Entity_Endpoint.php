@@ -282,6 +282,7 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	 * Formats a post into a post entity.
 	 *
 	 * @since 6.9.0
+	 * @since 6.13.3 The edit context is only served to users who can edit the post.
 	 *
 	 * @param WP_Post $post The post to format.
 	 *
@@ -290,7 +291,18 @@ abstract class Post_Entity_Endpoint extends Endpoint implements Post_Entity_Endp
 	public function get_formatted_entity( WP_Post $post ): array {
 		$rest_controller = new WP_REST_Posts_Controller( $this->get_post_type() );
 		$request         = $this->get_request();
-		$data            = $rest_controller->prepare_item_for_response( $post, $request );
+
+		/*
+		 * Core rejects `context=edit` from anyone who cannot edit the post. Checked per post,
+		 * not per request, because linked posts (an Event's Organizers and Venues) are formatted
+		 * with the same request and editing the Event grants nothing on them.
+		 */
+		if ( 'edit' === $request['context'] && ! current_user_can( $this->get_post_type_object()->cap->edit_post, $post->ID ) ) {
+			$request = clone $request;
+			$request->set_param( 'context', 'view' );
+		}
+
+		$data = $rest_controller->prepare_item_for_response( $post, $request );
 
 		return $this->transform_entity( $this->add_properties_to_model( $rest_controller->prepare_response_for_collection( $data ), $post ) );
 	}

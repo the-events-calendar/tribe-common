@@ -579,4 +579,61 @@ class utilsTest extends \Codeception\TestCase\WPTestCase {
 	public function test_tec_sanitize_string( $input, $expected ) {
 		$this->assertEquals( $expected, tec_sanitize_string( $input ) );
 	}
+
+	public function entity_encoded_markup_data_set(): array {
+		$markup = '<img src=x onerror=alert(1)>';
+		$once   = htmlspecialchars( $markup, ENT_QUOTES );
+
+		return [
+			'raw markup'             => [ $markup ],
+			'encoded once'           => [ $once ],
+			'encoded twice'          => [ htmlspecialchars( $once, ENT_QUOTES ) ],
+			'encoded three times'    => [ htmlspecialchars( htmlspecialchars( $once, ENT_QUOTES ), ENT_QUOTES ) ],
+			'numeric entities'       => [ '&#60;img src=x onerror=alert(1)&#62;' ],
+			'hex entities'           => [ '&#x3c;img src=x onerror=alert(1)&#x3e;' ],
+			'entities split by tags' => [ '&l<b></b>t;img src=x onerror=alert(1)&g<b></b>t;' ],
+			'utc prefixed'           => [ 'UTC' . htmlspecialchars( $once, ENT_QUOTES ) ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider entity_encoded_markup_data_set
+	 */
+	public function it_should_not_let_entity_encoded_markup_survive_sanitization( string $input ) {
+		$sanitized = tec_sanitize_string( $input );
+
+		$this->assertStringNotContainsString( '<', $sanitized );
+		$this->assertSame( $sanitized, html_entity_decode( $sanitized, ENT_QUOTES | ENT_HTML5 ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_drop_a_value_still_changing_after_the_last_pass() {
+		// Each `amp;` level takes one pass to decode, and one more pass confirms the value is stable.
+		$this->assertSame( 'Tom & Jerry', tec_sanitize_string( 'Tom &' . str_repeat( 'amp;', 7 ) . ' Jerry' ) );
+		$this->assertSame( '', tec_sanitize_string( 'Tom &' . str_repeat( 'amp;', 8 ) . ' Jerry' ) );
+
+		// Without the cap this would take one pass per level.
+		$this->assertSame( '', tec_sanitize_string( '&' . str_repeat( 'amp;', 65536 ) . 'lt;script&gt;' ) );
+	}
+
+	public function plain_text_data_set(): array {
+		return [
+			'encoded ampersand'      => [ 'Tom &amp; Jerry', 'Tom & Jerry' ],
+			'encoded quotes'         => [ '&quot;Quoted&quot; &#039;text&#039;', '"Quoted" \'text\'' ],
+			'url with encoded query' => [ 'https://example.com/image.jpg?w=100&amp;h=100', 'https://example.com/image.jpg?w=100&h=100' ],
+			'less than in prose'     => [ '1 &lt; 2', '1 < 2' ],
+			'unencoded text'         => [ 'America/New_York', 'America/New_York' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider plain_text_data_set
+	 */
+	public function it_should_decode_entities_in_plain_text( string $input, string $expected ) {
+		$this->assertSame( $expected, tec_sanitize_string( $input ) );
+	}
 }
