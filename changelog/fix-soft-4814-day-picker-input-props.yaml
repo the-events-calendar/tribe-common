@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Passed the input attributes a date picker is given, such as its
+  accessible name and disabled state, through to its input field.
+timestamp: 2026-10-01T00:21:40.596Z
