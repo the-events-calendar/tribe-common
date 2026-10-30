@@ -405,10 +405,10 @@ class PUE extends Integration_Controller {
 		$products = tribe( License_Repository::class )->get_products();
 
 		if ( $catalog && ! is_wp_error( $catalog ) && $products && ! is_wp_error( $products ) ) {
-			$tec_product         = $this->get_activated_tec_entry( $products );
+			$license_entry       = $this->get_entry_granting( $products, $harbor_product_slug );
 			$tec_product_catalog = $catalog->get( 'the-events-calendar' );
-			if ( $tec_product && $tec_product_catalog ) {
-				$response = $this->response_from_catalog( $tec_product_catalog, $tec_product, $body['plugin'] );
+			if ( $license_entry && $tec_product_catalog ) {
+				$response = $this->response_from_catalog( $tec_product_catalog, $license_entry, $body['plugin'] );
 				if ( $response ) {
 					return $response;
 				}
@@ -464,20 +464,27 @@ class PUE extends Integration_Controller {
 	}
 
 	/**
-	 * Returns the TEC license entry that is activated on this site.
+	 * Returns the license entry that grants a feature on this site.
 	 *
-	 * A license collection can hold several entries for the same product, such as a TEC
-	 * license and a Nexcess Plugin Stack license that includes TEC.
+	 * The entry must be activated here, valid, and list the feature in its capabilities,
+	 * the same rule Harbor uses to make the feature available. Its product slug does not
+	 * matter: a Nexcess Plugin Stack purchase (`nexcess-plugin-stack`) grants TEC features
+	 * just as a TEC purchase does.
 	 *
-	 * @since 6.13.1
+	 * @since 6.13.3
 	 *
-	 * @param Product_Collection $products The licensed products from Harbor.
+	 * @param Product_Collection $products     The licensed products from Harbor.
+	 * @param string             $feature_slug The Harbor feature slug.
 	 *
-	 * @return Product_Entry|null The activated TEC entry, or null when none is activated here.
+	 * @return Product_Entry|null The granting entry, or null when none qualifies.
 	 */
-	private function get_activated_tec_entry( Product_Collection $products ): ?Product_Entry {
-		foreach ( $products->get_all_by_slug( 'the-events-calendar' ) as $entry ) {
-			if ( $entry->get_activated_here() ) {
+	private function get_entry_granting( Product_Collection $products, string $feature_slug ): ?Product_Entry {
+		foreach ( $products as $entry ) {
+			if (
+				$entry->get_activated_here()
+				&& $entry->is_valid()
+				&& in_array( $feature_slug, $entry->get_capabilities(), true )
+			) {
 				return $entry;
 			}
 		}
@@ -535,7 +542,7 @@ class PUE extends Integration_Controller {
 							'icon_svg_url'    => $feature->get_homepage(),
 							'auth_url'        => $feature->get_homepage(),
 							'file_prefix'     => $feature->get_homepage(),
-							'author'          => $feature->get_authors()['0'],
+							'author'          => $feature->get_authors()[0] ?? '',
 							'author_homepage' => $feature->get_homepage(),
 							'requires'        => '',
 							'auth_required'   => false,

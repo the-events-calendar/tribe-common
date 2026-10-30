@@ -29,6 +29,8 @@ trait Read_Entity_Response {
 	 * Reads an existing entity.
 	 *
 	 * @since 6.9.0
+	 * @since 6.13.3 Scoped the password-required bypass to this entity's own ID, so a linked
+	 *            post with a different password is no longer disclosed.
 	 *
 	 * @param array $params The sanitized parameters to use for the request.
 	 *
@@ -57,38 +59,51 @@ trait Read_Entity_Response {
 
 		$rest_controller = new WP_REST_Posts_Controller( $this->get_post_type() );
 
-		$filter_added = false;
+		$bypass = null;
 
-		if ( post_password_required( $id ) && $rest_controller->can_access_password_content( get_post( $id ), $this->get_request() ) ) {
-			// If user can access password protected content, we remove any integration that might be obstructing the content.
-			add_filter( 'post_password_required', '__return_false' );
-			$filter_added = true;
+		$request = $this->get_request();
+
+		if ( post_password_required( $id ) && $rest_controller->can_access_password_content( get_post( $id ), $request ) ) {
+			/*
+			 * Re-check per post rather than bypassing globally: `get_formatted_entity()` below
+			 * may serialize linked posts (e.g. an Event's Organizer or Venue) that carry their
+			 * own, possibly different, password - access to those still has to be earned on
+			 * their own terms, not inherited from the primary entity's.
+			 */
+			$bypass = static function ( $required, $post ) use ( $rest_controller, $request ) {
+				if ( ! $required || ! $post instanceof WP_Post ) {
+					return $required;
+				}
+
+				return $rest_controller->can_access_password_content( $post, $request ) ? false : $required;
+			};
+			add_filter( 'post_password_required', $bypass, 10, 2 );
 		}
 
-		$entity = $this->get_orm()->by_args(
-			[
-				'id'                => $id,
-				'status'            => 'any',
-				'tec_events_ignore' => true,
-			]
-		)->first();
-
-		if ( ! $entity ) {
-			return new WP_REST_Response(
+		try {
+			$entity = $this->get_orm()->by_args(
 				[
-					'error' => __( 'The entity could not be read.', 'tribe-common' ),
-				],
-				404
-			);
+					'id'                => $id,
+					'status'            => 'any',
+					'tec_events_ignore' => true,
+				]
+			)->first();
+
+			if ( ! $entity ) {
+				return new WP_REST_Response(
+					[
+						'error' => __( 'The entity could not be read.', 'tribe-common' ),
+					],
+					404
+				);
+			}
+
+			return new WP_REST_Response( $this->get_formatted_entity( $entity ), 200 );
+		} finally {
+			if ( $bypass ) {
+				remove_filter( 'post_password_required', $bypass, 10 );
+			}
 		}
-
-		$response = new WP_REST_Response( $this->get_formatted_entity( $entity ), 200 );
-
-		if ( $filter_added ) {
-			remove_filter( 'post_password_required', '__return_false' );
-		}
-
-		return $response;
 	}
 
 	/**

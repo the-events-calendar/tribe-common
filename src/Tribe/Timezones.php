@@ -184,13 +184,14 @@ class Tribe__Timezones {
 	/**
 	 * Tests to see if the timezone string is a UTC offset, ie "UTC+2".
 	 *
-	 * @param string $timezone
+	 * @since 6.13.3 Only matches a signed offset ("UTC+2", "UTC-5.5", "UTC+9:30"), not any string starting with "UTC".
 	 *
-	 * @return bool
+	 * @param string $timezone The timezone string to test.
+	 *
+	 * @return bool Whether the string is a UTC offset.
 	 */
 	public static function is_utc_offset( $timezone ) {
-		$timezone = trim( $timezone );
-		return ( 0 === strpos( $timezone, 'UTC' ) && strlen( $timezone ) > 3 );
+		return 1 === preg_match( '/^UTC[+-]\d{1,4}(?:[.:]\d{1,2})?$/', trim( $timezone ) );
 	}
 
 	/**
