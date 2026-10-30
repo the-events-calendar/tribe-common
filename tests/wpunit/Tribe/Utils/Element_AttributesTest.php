@@ -150,4 +150,34 @@ class Element_AttributesTest extends \Codeception\TestCase\WPTestCase {
 			$attributes->get_attributes_as_string() );
 		$this->assertEquals( ' checked tribe_foo="bar" disabled ', $attributes->get_attributes() );
 	}
+
+	public function event_handler_attributes_provider(): \Generator {
+		yield 'associative array' => [ [ 'id' => 'notice', 'onmouseover' => 'alert(1)' ] ];
+		yield 'upper case name' => [ [ 'id' => 'notice', 'ONCLICK' => 'alert(1)' ] ];
+		yield 'name rebuilt by escaping' => [ [ 'id' => 'notice', "on\nerror" => 'alert(1)' ] ];
+		yield 'boolean value' => [ [ 'id' => 'notice', 'onfocus' => true ] ];
+		yield 'boolean name hiding a second attribute' => [ [ 'id' => 'notice', 'x onclick=alert(1)' => true ] ];
+		yield 'boolean name hiding an attribute after a slash' => [ [ 'id' => 'notice', 'x/onclick=alert(1)' => true ] ];
+		yield 'string argument' => [ 'id="notice" onload=alert(1)' ];
+		yield 'callable argument' => [ static fn() => [ 'id' => 'notice', 'onblur' => 'alert(1)' ] ];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider event_handler_attributes_provider
+	 */
+	public function it_should_not_print_event_handler_attributes( $arguments ) {
+		$attributes = new Element_Attributes( $arguments );
+
+		$this->assertSame( [ 'id="notice"' ], $attributes->get_attributes_array() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_attributes_that_do_not_start_with_on() {
+		$attributes = new Element_Attributes( [ 'data-onclick' => 'toggle', 'aria-controls' => 'menu', 'role' => 'alert' ] );
+
+		$this->assertSame( [ 'data-onclick="toggle"', 'aria-controls="menu"', 'role="alert"' ], $attributes->get_attributes_array() );
+	}
 }
