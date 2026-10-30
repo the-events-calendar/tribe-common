@@ -1,0 +1,5 @@
+significance: patch
+type: security
+entry: Hardened shortcode handling in post content shown by calendar views.
+  Props to Filip Kowalski for reporting.
+timestamp: 2026-10-30T19:27:20.514Z
