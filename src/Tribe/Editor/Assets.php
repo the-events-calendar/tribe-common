@@ -1,5 +1,7 @@
 <?php
 
+use TEC\Common\Editor\Canvas_Styles;
+
 /**
  * Events Gutenberg Assets
  *
@@ -20,6 +22,7 @@ class Tribe__Editor__Assets {
 	 * Registers and Enqueues the assets
 	 *
 	 * @since 4.8
+	 * @since TBD Added the shared editor styles to the editor canvas styles group.
 	 *
 	 * @param string $key Which key we are checking against
 	 *
@@ -107,6 +110,7 @@ class Tribe__Editor__Assets {
 			[
 				'prefix_asset_directory' => false,
 				'in_footer'              => false,
+				'groups'                 => [ Canvas_Styles::GROUP ],
 			]
 		);
 	}
