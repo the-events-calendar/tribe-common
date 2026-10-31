@@ -400,9 +400,12 @@ class Tribe__Settings {
 	 * Close the settings form element.
 	 *
 	 * @since 6.13.0
+	 * @since TBD The filtered markup is passed through wp_kses() with the post allow-list plus the form tag.
 	 */
 	public function settings_form_element_close(): void {
-		echo apply_filters( 'tribe_settings_closing_form_element', '</form>' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+		$allowed_html = array_merge( wp_kses_allowed_html( 'post' ), [ 'form' => [] ] );
+
+		echo wp_kses( apply_filters( 'tribe_settings_closing_form_element', '</form>' ), $allowed_html );
 	}
 
 	/**
