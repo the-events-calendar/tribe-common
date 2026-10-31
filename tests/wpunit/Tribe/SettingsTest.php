@@ -57,21 +57,21 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function it_should_strip_disallowed_markup_from_the_filtered_closing_form_element() {
 		$text    = Factory::create()->sentence();
+		$script  = 'alert("' . $text . '")';
 		$allowed = '<p>' . $text . '</p></form>';
 		add_filter(
 			'tribe_settings_closing_form_element',
-			static function () use ( $allowed, $text ) {
-				return '<script>alert("' . $text . '")</script>' . $allowed;
+			static function () use ( $allowed, $script ) {
+				return '<script>' . $script . '</script>' . $allowed;
 			}
 		);
 		$sut = $this->make_instance();
 
 		ob_start();
 		$sut->settings_form_element_close();
-		$output = ob_get_clean();
 
-		$this->assertStringNotContainsString( '<script>', $output );
-		$this->assertStringEndsWith( $allowed, $output );
+		/* wp_kses() drops the disallowed tags but keeps their text, which prints as inert text. */
+		$this->assertSame( $script . $allowed, ob_get_clean() );
 	}
 
 	/**
