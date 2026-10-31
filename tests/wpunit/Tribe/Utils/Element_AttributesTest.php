@@ -158,6 +158,9 @@ class Element_AttributesTest extends \Codeception\TestCase\WPTestCase {
 		yield 'boolean value' => [ [ 'id' => 'notice', 'onfocus' => true ] ];
 		yield 'boolean name hiding a second attribute' => [ [ 'id' => 'notice', 'x onclick=alert(1)' => true ] ];
 		yield 'boolean name hiding an attribute after a slash' => [ [ 'id' => 'notice', 'x/onclick=alert(1)' => true ] ];
+		yield 'boolean name hiding a URL attribute' => [ [ 'id' => 'notice', 'x href=javascript:alert(1)' => true ] ];
+		yield 'boolean name hiding a form action' => [ [ 'id' => 'notice', 'x formaction=javascript:alert(1)' => true ] ];
+		yield 'boolean name hiding a style' => [ [ 'id' => 'notice', 'x style=color:red' => true ] ];
 		yield 'string argument' => [ 'id="notice" onload=alert(1)' ];
 		yield 'callable argument' => [ static fn() => [ 'id' => 'notice', 'onblur' => 'alert(1)' ] ];
 	}

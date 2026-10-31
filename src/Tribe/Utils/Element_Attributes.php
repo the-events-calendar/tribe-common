@@ -112,19 +112,13 @@ class Element_Attributes {
 				continue;
 			}
 
-			if ( is_bool( $val ) ) {
-				$name = esc_attr( $key );
-			} else {
-				// @todo replace the first usage of esc_attr with tag_esc when our minimum WP version is 6.5.5 or greater.
-				global $wp_version;
-				$name = version_compare( $wp_version, '6.5.5', '<' ) ? esc_attr( $key ) : tag_escape( $key );
-			}
+			$name = tag_escape( $key );
 
 			/*
-			 * Attribute names can come from template data, so an `on*` name, alone or after any
-			 * character that ends an attribute name, would print a working event handler.
+			 * Attribute names can come from template data. A name that escaping had to change could
+			 * hide a second attribute, and an `on*` name would print a working event handler.
 			 */
-			if ( preg_match( '/(?:^|[^a-z0-9_.:-])on/i', $name ) ) {
+			if ( strtolower( $key ) !== $name || str_starts_with( $name, 'on' ) ) {
 				continue;
 			}
 
