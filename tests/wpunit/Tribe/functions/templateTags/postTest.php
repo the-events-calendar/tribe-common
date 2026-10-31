@@ -4,6 +4,11 @@ namespace Tribe\functions\templateTags;
 
 class postTest extends \Codeception\TestCase\WPTestCase {
 
+	public function tearDown(): void {
+		remove_shortcode( 'tec_test_shortcode' );
+		parent::tearDown();
+	}
+
 	/**
 	 * @test
 	 */
