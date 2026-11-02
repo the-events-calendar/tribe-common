@@ -28,3 +28,11 @@ Key-Value Cache API
 
 - **Location**: [JSON_Packer](JSON_Packer/json-packer.md)
 - **Overview**: Safe representation of any PHP value as a JSON string.
+
+### 4. RBAC (roles & capabilities)
+
+Suite-wide overview of who can do what, plus Common's own defaults and filters.
+
+- **Location**: [RBAC/](RBAC/)
+- **Overview**: Capability defaults for admin pages and REST, TrustedLogin, Event Automator keys, and the map of how each plugin builds on Common
+- **HTML view**: [RBAC/index.html](RBAC/index.html) (open the file directly, no build step)
