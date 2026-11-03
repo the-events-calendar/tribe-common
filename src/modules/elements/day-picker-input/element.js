@@ -21,13 +21,13 @@ import {
 import './style.pcss';
 
 const DatePickerInput = ( props ) => {
-	const { setPopoverAnchor, inputRef, onDayChange, ...inputProps } = props;
+	const { setPopoverAnchor, inputRef, onDayChange, className, ...inputProps } = props;
 
 	return (
 		<div ref={ setPopoverAnchor } className={ classNames( 'tribe-editor__date-input__container', 'tribe-editor__day-picker-input', 'DayPickerInput' ) }>
 			<input
 				ref={ inputRef } // Attach the ref to the input element
-				className={ classNames( 'tribe-editor__date-input' ) }
+				className={ classNames( 'tribe-editor__date-input', className ) }
 				onChange={ ( event ) => {} }
 				{ ...inputProps }
 			/>
