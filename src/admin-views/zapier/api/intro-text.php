@@ -9,9 +9,8 @@
  *
  * @since 1.0.0
  * @since 1.4.0 - Add loader template.
- * @since TBD Updated the Zapier knowledgebase URL.
  *
- * @version TBD
+ * @version 1.4.0
  *
  * @link    http://evnt.is/1aiy
  *
@@ -35,7 +34,7 @@ defined( 'ABSPATH' ) || exit;
 				'Settings help text and link for Zapier API.',
 				'tribe-common'
 			),
-			'https://evnt.is/zapier'
+			'https://evnt.is/1bc8'
 		);
 		echo wp_kses_post( $content );
 		?>

@@ -9,9 +9,8 @@
  *
  * @since 1.4.0
  * @since 5.26.7 Updated Zapier Knowledgebase URL.
- * @since TBD Removed the Zapier queue limit knowledgebase link.
  *
- * @version TBD
+ * @version 5.26.7
  *
  * @link http://evnt.is/1aiy
  *
@@ -28,10 +27,15 @@ defined( 'ABSPATH' ) || exit;
 	<?php if ( $manager::$api_id === 'zapier' ) { ?>
 		<p class="tec-settings-zapier-application__description">
 			<?php
-				echo esc_html_x(
-					'The Zapier queue is currently limited to 15 items for each endpoint on your site.',
-					'The Zapier endpoint dashboard description.',
-					'tribe-common'
+				printf(
+					/* Translators: 1: Opening anchor tag, 2: Closing anchor tag. */
+					esc_html_x(
+						'The Zapier queue is currently limited to 15 items for each endpoint on your site. To increase that limit, check out the %1$sIncreasing the Zapier Queue Limit knowledgebase article%2$s.',
+						'The Zapier endpoint dashboard description.',
+						'tribe-common'
+					),
+					'<a href="https://evnt.is/zapier-endpoints" target="_blank" rel="noopener noreferrer">',
+					'</a>',
 				);
 			?>
 		</p>
