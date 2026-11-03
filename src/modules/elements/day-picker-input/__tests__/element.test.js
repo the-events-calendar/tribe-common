@@ -607,6 +607,24 @@ describe( 'DayPickerInput element', () => {
 		expect( JSON.stringify( component.toJSON() ) ).toContain( 'DayPicker-mock' );
 	} );
 
+	it( 'adds a className from inputProps to its own input class', () => {
+		const component = renderer.create(
+			<DayPickerInput
+				value="September 7, 2019"
+				format="LL"
+				formatDate={ jest.fn() }
+				parseDate={ jest.fn() }
+				onDayChange={ jest.fn() }
+				inputProps={ { className: 'consumer-date-input' } }
+			/>,
+		);
+
+		const classes = component.root.findByType( 'input' ).props.className.split( ' ' );
+
+		expect( classes ).toContain( 'tribe-editor__date-input' );
+		expect( classes ).toContain( 'consumer-date-input' );
+	} );
+
 	describe( 'closing on outside click', () => {
 		let iframeDocument;
 		let anchorContains;
