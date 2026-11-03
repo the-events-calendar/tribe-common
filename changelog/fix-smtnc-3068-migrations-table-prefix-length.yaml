@@ -1,8 +1,7 @@
 significance: patch
 type: fix
-entry: Avoided a fatal error on sites with a database table prefix of 31 or more
-  characters, where the migrations table name exceeded the 64-character MySQL
-  limit, and added an admin notice explaining how to shorten the prefix. The
-  Shepherd tables error notice was also corrected so it no longer caused an
-  error when displayed.
+entry: Avoided a fatal error when a database table prefix of 31 or more
+  characters pushed the migrations table name past MySQL's 64-character limit,
+  added an admin notice explaining how to shorten the prefix, and stopped the
+  Shepherd tables error notice from causing an error when displayed.
 timestamp: 2026-11-03T11:49:52.461Z
