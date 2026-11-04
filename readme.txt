@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [6.14.0] 2026-11-04 =
+
+* Fix - Passed the input attributes a date picker is given, such as its accessible name and disabled state, through to its input field.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.13.3] 2026-10-29 =
 
 * Fix - Prevented a fatal error on every admin page when another plugin loads an older copy of the license checker.
