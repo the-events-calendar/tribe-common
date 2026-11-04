@@ -24,7 +24,6 @@ class Shepherd extends Controller_Contract {
 	 * Register the controller.
 	 *
 	 * @since 6.9.0
-	 * @since 6.13.2 Picks Shepherd's logger before Shepherd registers, so registering runs no database query.
 	 * @since TBD Leaves picking the logger to Shepherd.
 	 */
 	protected function do_register(): void {
