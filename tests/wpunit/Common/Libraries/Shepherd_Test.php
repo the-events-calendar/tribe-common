@@ -4,6 +4,7 @@ namespace TEC\Common\Libraries;
 
 use ReflectionProperty;
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
+use TEC\Common\StellarWP\DB\DB;
 use TEC\Common\StellarWP\Shepherd\Config;
 use TEC\Common\StellarWP\Shepherd\Contracts\Logger;
 use TEC\Common\StellarWP\Shepherd\Loggers\ActionScheduler_DB_Logger;
@@ -89,7 +90,8 @@ class Shepherd_Test extends Controller_Test_Case {
 	}
 
 	public function test_uses_its_own_logger_when_the_action_scheduler_logs_table_is_missing(): void {
-		$table = AS_Logs::table_name( true );
+		$table         = AS_Logs::table_name( true );
+		$missing_query = DB::prepare( 'SHOW TABLES LIKE %s', DB::esc_like( "{$table}_missing" ) );
 		// Action Scheduler's schema option still says the table exists.
 		$this->assertNotEmpty( get_option( 'schema-ActionScheduler_LoggerSchema' ) );
 
@@ -99,14 +101,14 @@ class Shepherd_Test extends Controller_Test_Case {
 		 */
 		add_filter(
 			'query',
-			static function ( $query ) use ( $table ) {
+			static function ( $query ) use ( $table, $missing_query ) {
 				// The table name arrives LIKE-escaped, so compare it with the backslashes removed.
 				if (
 					is_string( $query )
 					&& 0 === strpos( $query, 'SHOW TABLES LIKE' )
 					&& false !== strpos( str_replace( '\\', '', $query ), $table )
 				) {
-					return "SHOW TABLES LIKE '{$table}_missing'";
+					return $missing_query;
 				}
 
 				return $query;
