@@ -1,0 +1,5 @@
+significance: patch
+type: security
+entry: Hardened how HTML attributes are printed in templates. Props to Hatim
+  Madmoune -DELTA for reporting.
+timestamp: 2026-10-30T19:27:19.383Z

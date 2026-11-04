@@ -96,6 +96,7 @@ class Element_Attributes {
 	 * Get the array of attributes to be printed.
 	 *
 	 * @since 4.12.3
+	 * @since TBD Event handler attributes (names starting with `on`) are never printed.
 	 *
 	 * @return array
 	 */
@@ -111,19 +112,21 @@ class Element_Attributes {
 				continue;
 			}
 
+			$name = tag_escape( $key );
+
+			/*
+			 * Attribute names can come from template data. A name that escaping had to change could
+			 * hide a second attribute, and an `on*` name would print a working event handler.
+			 */
+			if ( strtolower( $key ) !== $name || str_starts_with( $name, 'on' ) ) {
+				continue;
+			}
+
 			if ( is_bool( $val ) ) {
-				$attributes[] = esc_attr( $key );
+				$attributes[] = $name;
 			} else {
 				// Remove double quotes that might be surrounding the value.
-				$val = trim( $val, '"' );
-				// @todo replace the first usage of esc_attr with tag_esc when our minimum WP version is 6.5.5 or greater.
-				global $wp_version;
-				if ( version_compare( $wp_version, '6.5.5', '<' ) ) {
-					$attributes[] = esc_attr( $key ) . '="' . esc_attr( $val ) . '"';
-				} else {
-					$attributes[] = tag_escape( $key ) . '="' . esc_attr( $val ) . '"';
-
-				}
+				$attributes[] = $name . '="' . esc_attr( trim( $val, '"' ) ) . '"';
 			}
 		}
 
