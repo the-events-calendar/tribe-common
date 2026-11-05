@@ -96,7 +96,7 @@ class Element_Attributes {
 	 * Get the array of attributes to be printed.
 	 *
 	 * @since 4.12.3
-	 * @since TBD Event handler attributes (names starting with `on`) are never printed.
+	 * @since 6.14.0.1 Event handler attributes (names starting with `on`) are never printed.
 	 *
 	 * @return array
 	 */

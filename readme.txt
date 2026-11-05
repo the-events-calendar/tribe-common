@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [6.14.0.1] 2026-11-05 =
+
+* Security - Hardened how HTML attributes are printed in templates. Props to Hatim Madmoune -DELTA for reporting.
+* Security - Hardened shortcode handling in post content shown by calendar views. Props to Filip Kowalski for reporting.
+
 = [6.14.0] 2026-11-04 =
 
 * Fix - Passed the input attributes a date picker is given, such as its accessible name and disabled state, through to its input field.
