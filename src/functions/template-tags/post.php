@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
  * and be compatible with WP 5.3
  *
  * @since 4.9.23
- * @since TBD Runs shortcodes on the post content when the `the_content` filters are skipped after their shortcode step.
+ * @since 6.14.0.1 Runs shortcodes on the post content when the `the_content` filters are skipped after their shortcode step.
  *
  * @global WP_Post  $post          Current post on the loop
  * @global string   $wp_version    Which version of WordPress we are currently dealing with
