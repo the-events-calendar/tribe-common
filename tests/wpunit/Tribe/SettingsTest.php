@@ -75,6 +75,61 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @test
+	 */
+	public function it_should_strip_the_input_and_select_controls_from_the_filtered_closing_form_element() {
+		$faker = Factory::create();
+		$label = $faker->word();
+		add_filter(
+			'tribe_settings_closing_form_element',
+			static function () use ( $faker, $label ) {
+				return '<input type="hidden" name="' . $faker->word() . '" value="' . $faker->word() . '">'
+					. '<select name="' . $faker->word() . '"><option value="' . $faker->word() . '">' . $label . '</option></select></form>';
+			}
+		);
+		$sut = $this->make_instance();
+
+		ob_start();
+		$sut->settings_form_element_close();
+
+		$this->assertSame( $label . '</form>', ob_get_clean() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_the_form_attributes_the_post_allow_list_permits() {
+		$markup = '</form><form action="' . Factory::create()->url() . '" method="post"></form>';
+		add_filter(
+			'wp_kses_allowed_html',
+			static function ( $tags, $context ) {
+				if ( 'post' === $context ) {
+					$tags['form'] = [
+						'action' => true,
+						'method' => true,
+					];
+				}
+
+				return $tags;
+			},
+			10,
+			2
+		);
+		add_filter(
+			'tribe_settings_closing_form_element',
+			static function () use ( $markup ) {
+				return $markup;
+			}
+		);
+		$sut = $this->make_instance();
+
+		ob_start();
+		$sut->settings_form_element_close();
+
+		$this->assertSame( $markup, ob_get_clean() );
+	}
+
+	/**
 	 * @return Settings
 	 */
 	private function make_instance() {
