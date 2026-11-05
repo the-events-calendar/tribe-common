@@ -1,13 +1,15 @@
-name: "Release"
+name: "Release on GH"
 
 # Merges a release and publishes it on GitHub: the release branch into main, then the GitHub release
 # for the version at the merged commit, with the production zip attached and the version's
 # readme.txt changelog as the notes. Nothing is merged back into develop: we work with release
 # branches. Set develop-branch on the merge step for a repository that keeps one. Run it on the
-# release branch once the release pull request is approved.
+# release branch: with its pull request approved it releases straight away, otherwise it waits for a
+# reviewer of the github-release environment.
 #
-# The merging and publishing are the toolbox's, through our wrappers in .github/actions, which pin
-# it to a commit. The zip check and the notes are ours.
+# The branch arrives prepared: the version names the tag and the title, and no file is checked
+# against it. The merge is ours (.github/actions/release-merge); publishing is the toolbox's,
+# through our wrapper in .github/actions, which pins it to a commit.
 
 on:
   workflow_dispatch:
@@ -42,12 +44,20 @@ concurrency:
 
 permissions:
   contents: read
-  # Read the release pull request's approval.
-  pull-requests: read
 
 jobs:
-  release:
+  # Decides how the run is approved. The bot token bypasses main's review rule and anyone with write
+  # access can dispatch this workflow, so a release needs one of two approvals: the release pull
+  # request approved at the very commit the run started on, or, without that, a reviewer of the
+  # github-release environment approving the run, as the WordPress.org workflows do.
+  check:
     runs-on: blacksmith-4vcpu-ubuntu-2404
+    permissions:
+      contents: read
+      # Read the release pull request's reviews.
+      pull-requests: read
+    outputs:
+      approved: ${{ steps.approval.outputs.approved }}
     steps:
       # A failing step, not an `if:`: a skipped job reads as a success to whoever dispatched it.
       - name: Check that the run is on the release branch it merges
@@ -75,12 +85,93 @@ jobs:
             exit 1
           fi
 
-      # The bot token bypasses main's review rule, so the run checks the approval itself: the pull
-      # request from this branch into main has to hold an approval of the very commit the run started
-      # on. main's rules keep an approval after a push, so the pull request's review state alone could
-      # be an approval of an earlier commit. A merged pull request counts, so a run repeated after a
-      # late failure passes.
-      - name: Check that the release pull request is approved at this commit
+      # main's rules keep an approval after a push, so the pull request's review state alone could be
+      # an approval of an earlier commit: the approval has to be of this one. A merged pull request
+      # counts, so a run repeated after a late failure passes. No approval is not a failure: the run
+      # then waits for an environment reviewer.
+      - name: Check whether the release pull request is approved at this commit
+        id: approval
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ inputs.branch }}
+          BASE: main
+          SHA: ${{ github.sha }}
+          ACTOR: ${{ github.actor }}
+          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+        run: |
+          set -euo pipefail
+
+          pr=$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$BRANCH" --base "$BASE" --state all \
+            --json number,state,headRefOid,isCrossRepository \
+            | jq -r --arg sha "$SHA" '[.[] | select(.isCrossRepository | not) | select(.state == "OPEN" or .state == "MERGED")
+              | select(.headRefOid == $sha) | .number] | first // empty')
+
+          approvers=""
+          if [ -n "$pr" ]; then
+            # Nobody approves their own release: not whoever starts the run, nor whoever wrote or
+            # committed the commit it releases. They wait for an environment reviewer instead.
+            self=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${SHA}" \
+              | jq -c --arg a "$ACTOR" --arg t "$TRIGGERING_ACTOR" '[$a, $t, .author.login?, .committer.login?] | map(select(. != null and . != ""))')
+
+            # Each reviewer's latest approving or blocking review, as GitHub counts them, from people
+            # with write access: on a public repository anyone can review. The reviews'
+            # author_association can't tell: it shows a private org member as a CONTRIBUTOR.
+            reviews=$(gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/${pr}/reviews" \
+              | jq -s 'add | map(select(.state != "COMMENTED" and .state != "PENDING" and .user.type != "Bot"))
+                | group_by(.user.id) | map(last)')
+            writers=()
+            for login in $(jq -r '.[].user.login' <<< "$reviews"); do
+              permission=$(gh api "repos/${GITHUB_REPOSITORY}/collaborators/${login}/permission" --jq .permission 2>/dev/null || echo none)
+              if [ "$permission" = admin ] || [ "$permission" = write ]; then
+                writers+=("$login")
+              fi
+            done
+            writers_json=$(printf '%s\n' "${writers[@]}" | jq -Rnc '[inputs | select(. != "")]')
+
+            # A change requested by a writer counts as no approval.
+            approvers=$(jq -r --arg sha "$SHA" --argjson self "$self" --argjson writers "$writers_json" '
+              map(select(.user.login | IN($writers[])))
+              | if any(.state == "CHANGES_REQUESTED") then ""
+                else map(select(.state == "APPROVED" and .commit_id == $sha and (.user.login | IN($self[]) | not)))
+                  | map(.user.login) | join(", ") end' <<< "$reviews")
+          fi
+
+          if [ -n "$approvers" ]; then
+            echo "#${pr} approved at ${SHA} by ${approvers}: releasing without waiting."
+            echo "approved=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::No approved release pull request at ${SHA}: the run waits for a reviewer of the github-release environment."
+            echo "approved=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  release:
+    needs: check
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    permissions:
+      contents: read
+      # Read the environment's protection rules.
+      actions: read
+    # Without an approved pull request the job waits here for a reviewer of the environment, like
+    # the WordPress.org workflows. Empty runs it in no environment.
+    environment: ${{ needs.check.outputs.approved != 'true' && 'github-release' || '' }}
+    steps:
+      # A job naming an environment the repository lacks gets one created on the fly, with no
+      # reviewers, and runs straight through. Refuse that rather than merge with nobody's approval.
+      - name: Check that the environment has reviewers
+        if: needs.check.outputs.approved != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: github-release
+        run: |
+          set -euo pipefail
+
+          if ! gh api "repos/${GITHUB_REPOSITORY}/environments/${ENVIRONMENT}" \
+            --jq '.protection_rules | any(.type == "required_reviewers")' | grep -qx true; then
+            echo "::error::No approved release pull request, and the ${ENVIRONMENT} environment has no required reviewers, so nobody approved this run. Get the pull request approved, or add reviewers to the environment, then start the run again."
+            exit 1
+          fi
+
+      - name: Check that main has nothing the branch lacks
         env:
           GH_TOKEN: ${{ github.token }}
           BRANCH: ${{ inputs.branch }}
@@ -89,42 +180,12 @@ jobs:
         run: |
           set -euo pipefail
 
-          pr=$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$BRANCH" --base "$BASE" --state all \
-            --json number,state,headRefOid,isCrossRepository \
-            | jq -r --arg sha "$SHA" '[.[] | select(.isCrossRepository | not) | select(.state == "OPEN" or .state == "MERGED")
-              | select(.headRefOid == $sha) | .number] | first // empty')
-          if [ -z "$pr" ]; then
-            echo "::error::No open or merged pull request from $BRANCH into $BASE at ${SHA}. Open the release pull request, then start the run again."
-            exit 1
-          fi
-
-          # Each reviewer's latest approving or blocking review, as GitHub counts them: a later
-          # "changes requested" or a dismissal replaces an approval, a comment does not. On a public
-          # repository anyone can approve, so only people in the organization or added to the
-          # repository count, and no bot, for an approval and for a block alike: an outsider must not
-          # be able to stop a release either. GitHub already refuses an author's approval of their own PR.
-          latest=$(gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/${pr}/reviews" \
-            | jq -s 'add | map(select(.state != "COMMENTED" and .state != "PENDING"))
-              | map(select(.user.type != "Bot" and (.author_association | IN("OWNER", "MEMBER", "COLLABORATOR"))))
-              | group_by(.user.id) | map(last)')
-          blockers=$(jq -r 'map(select(.state == "CHANGES_REQUESTED") | .user.login) | join(", ")' <<< "$latest")
-          if [ -n "$blockers" ]; then
-            echo "::error::Pull request #${pr} has changes requested by ${blockers}. Resolve them, then start the run again."
-            exit 1
-          fi
-          approvers=$(jq -r --arg sha "$SHA" 'map(select(.state == "APPROVED" and .commit_id == $sha)) | map(.user.login) | join(", ")' <<< "$latest")
-          if [ -z "$approvers" ]; then
-            echo "::error::Pull request #${pr} has no approval of ${SHA}, the commit this run is on. Get it approved at the branch's tip, then start the run again."
-            exit 1
-          fi
-          echo "#${pr} approved at ${SHA} by ${approvers}."
-
           # Every commit on main has to be in the branch already: otherwise the merge commit, which is
           # what gets tagged, holds code the zip, built from the branch, does not. "behind" is a
           # repeated run, where the branch is already in main.
           status=$(gh api "repos/${GITHUB_REPOSITORY}/compare/${BASE}...${SHA}" --jq .status)
           if [ "$status" = "diverged" ]; then
-            echo "::error::$BASE has commits $BRANCH does not. Merge $BASE into $BRANCH, rebuild the zip, get it approved, and start the run again."
+            echo "::error::$BASE has commits $BRANCH does not. Merge $BASE into $BRANCH, rebuild the zip, and start the run again."
             exit 1
           fi
 
