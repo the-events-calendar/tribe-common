@@ -5,6 +5,8 @@ namespace TEC\Common\Libraries;
 use TEC\Common\Key_Value_Cache\Table\Schema as Key_Value_Cache_Schema;
 use TEC\Common\StellarWP\AdminNotices\AdminNotice;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
+use TEC\Common\StellarWP\Migrations\Admin\UI;
+use TEC\Common\StellarWP\Migrations\Config as Migrations_Config;
 use TEC\Common\StellarWP\Migrations\Tables\Migration_Executions;
 use TEC\Common\StellarWP\Migrations\Tables\Migration_Logs;
 use TEC\Common\StellarWP\Migrations\Tables\Provider as Tables_Provider;
@@ -13,7 +15,10 @@ use TEC\Common\StellarWP\Schema\Config as Schema_Config;
 use TEC\Common\StellarWP\Schema\Register;
 use TEC\Common\StellarWP\Schema\Schema;
 use TEC\Common\StellarWP\Schema\Tables\Contracts\Table;
+use TEC\Common\Tests\Migrations\Applicable_Migration;
 use TEC\Common\Tests\Provider\Controller_Test_Case;
+
+use function TEC\Common\StellarWP\Migrations\migrations;
 
 class Migrations_Test extends Controller_Test_Case {
 	protected $controller_class = Migrations::class;
@@ -31,6 +36,11 @@ class Migrations_Test extends Controller_Test_Case {
 	 * @var array<string,Table>
 	 */
 	private array $original_migrations_tables = [];
+
+	/**
+	 * @var string[]
+	 */
+	private array $registered_migration_ids = [];
 
 	/**
 	 * @before
@@ -59,6 +69,10 @@ class Migrations_Test extends Controller_Test_Case {
 		Schema_Config::get_container()->get( Builder::class )->register_custom_tables_names();
 
 		AdminNotices::removeNotice( self::NOTICE_ID );
+
+		foreach ( $this->registered_migration_ids as $migration_id ) {
+			migrations()->get_registry()->offsetUnset( $migration_id );
+		}
 	}
 
 	public function test_registering_a_table_after_a_migrations_table_failed_does_not_throw(): void {
@@ -82,6 +96,35 @@ class Migrations_Test extends Controller_Test_Case {
 		tribe( Tables_Provider::class )->register();
 
 		$this->assertTrue( Schema::tables()->offsetExists( Migration_Logs::base_table_name() ) );
+	}
+
+	public function test_the_library_does_not_start_running_migrations_when_a_table_fails(): void {
+		$this->make_controller()->register();
+		$this->make_the_executions_table_need_an_update();
+		$this->use_a_prefix_one_character_too_long_for_the_executions_table();
+		$tables_registered_action = 'stellarwp_migrations_' . Migrations_Config::get_hook_prefix() . '_tables_registered';
+		$expected_runs            = did_action( $tables_registered_action );
+
+		tribe( Tables_Provider::class )->register();
+
+		/* The library hooks its scheduler, CLI commands, REST routes and log cleanup on this action alone. */
+		$this->assertSame( $expected_runs, did_action( $tables_registered_action ) );
+	}
+
+	public function test_the_migrations_screens_render_nothing_when_a_table_fails(): void {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$this->make_controller()->register();
+		$this->make_the_executions_table_need_an_update();
+		$this->use_a_prefix_one_character_too_long_for_the_executions_table();
+		$migration_id = $this->register_an_applicable_migration();
+
+		tribe( Tables_Provider::class )->register();
+		$ui = tribe( UI::class );
+		ob_start();
+		$ui->render_list();
+		$ui->render_single( $migration_id );
+
+		$this->assertSame( '', ob_get_clean() );
 	}
 
 	public function test_tells_the_administrator_to_shorten_a_too_long_table_prefix(): void {
@@ -180,6 +223,17 @@ class Migrations_Test extends Controller_Test_Case {
 		);
 
 		return $missing_table;
+	}
+
+	/**
+	 * @return string The ID the migration is registered with.
+	 */
+	private function register_an_applicable_migration(): string {
+		$migration_id = 'tec-common-tests-applicable-migration';
+		migrations()->get_registry()->register( $migration_id, Applicable_Migration::class );
+		$this->registered_migration_ids[] = $migration_id;
+
+		return $migration_id;
 	}
 
 	private function find_notice(): ?AdminNotice {

@@ -8,6 +8,7 @@ namespace TEC\Common\Libraries;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\Libraries\Provider as Libraries_Provider;
 use TEC\Common\StellarWP\DB\Database\Exceptions\DatabaseQueryException;
+use TEC\Common\StellarWP\Migrations\Admin\UI;
 use TEC\Common\StellarWP\Migrations\Provider as Migrations_Provider;
 use TEC\Common\StellarWP\Migrations\Config;
 use TEC\Common\StellarWP\Migrations\Tables\Migration_Executions;
@@ -74,11 +75,12 @@ class Migrations extends Controller_Contract {
 	}
 
 	/**
-	 * Stops the migrations tables that could not be created from being retried, and tells the administrator why.
+	 * Stops the migrations tables that could not be created from being retried, empties the migrations admin screens,
+	 * and tells the administrator why.
 	 *
 	 * The library catches its own failure, but the table stays registered and not current, and every later
 	 * `Builder::up()` (the next `Register::table()` call, the `plugins_loaded` schema run) creates it again outside
-	 * any catch, which fatals the site.
+	 * any catch, which fatals the site. The library's admin screens read the executions table, which throws too.
 	 *
 	 * @since TBD
 	 *
@@ -103,6 +105,8 @@ class Migrations extends Controller_Contract {
 				$too_long_names[] = $table_name;
 			}
 		}
+
+		$this->container->singleton( UI::class, Unavailable_Migrations_UI::class );
 
 		$message = $too_long_names
 			? sprintf(
