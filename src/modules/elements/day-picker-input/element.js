@@ -21,13 +21,13 @@ import {
 import './style.pcss';
 
 const DatePickerInput = ( props ) => {
-	const { setPopoverAnchor, inputRef, onDayChange, ...inputProps } = props;
+	const { setPopoverAnchor, inputRef, onDayChange, className, ...inputProps } = props;
 
 	return (
 		<div ref={ setPopoverAnchor } className={ classNames( 'tribe-editor__date-input__container', 'tribe-editor__day-picker-input', 'DayPickerInput' ) }>
 			<input
 				ref={ inputRef } // Attach the ref to the input element
-				className={ classNames( 'tribe-editor__date-input' ) }
+				className={ classNames( 'tribe-editor__date-input', className ) }
 				onChange={ ( event ) => {} }
 				{ ...inputProps }
 			/>
@@ -78,7 +78,7 @@ const DayPickerInput = ( props ) => {
 		} );
 	};
 
-	const { value, onDayChange, formatDate, format, dayPickerProps } = props;
+	const { value, onDayChange, formatDate, format, dayPickerProps, inputProps } = props;
 
 	// Convert the format from the moment.js one to date-fns one using Unicode characters.
 	const dateFnsFormat = momentToDateFnsFormatter( format );
@@ -185,6 +185,8 @@ const DayPickerInput = ( props ) => {
 	return (
 		<>
 			<DatePickerInput
+				// First, so the attributes a consumer passes, such as a label, never replace the ones the picker needs.
+				{ ...inputProps }
 				setPopoverAnchor={ popoverAnchor }
 				inputRef={ inputRef } // Pass the ref to DatePickerInput
 				onClick={ toggleVisible }
