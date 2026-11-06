@@ -8,6 +8,7 @@ namespace TEC\Common\Libraries;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\Libraries\Provider as Libraries_Provider;
 use TEC\Common\StellarWP\DB\Database\Exceptions\DatabaseQueryException;
+use TEC\Common\StellarWP\DB\DB;
 use TEC\Common\StellarWP\Migrations\Admin\UI;
 use TEC\Common\StellarWP\Migrations\Provider as Migrations_Provider;
 use TEC\Common\StellarWP\Migrations\Config;
@@ -110,12 +111,15 @@ class Migrations extends Controller_Contract {
 
 		$message = $too_long_names
 			? sprintf(
-				// Translators: %1$s is a list of table names, %2$d the maximum table name length, %3$s the wp-config.php variable holding the prefix, %4$s the wp-config.php file name.
-				__( 'The database table %1$s could not be created because its name is longer than the %2$d characters MySQL allows. Shorten the database table prefix (%3$s in %4$s), then rename the existing database tables to use the new prefix.', 'tribe-common' ),
+				// Translators: %1$s is a list of table names, %2$d the maximum table name length, %3$s the wp-config.php variable holding the prefix, %4$s the wp-config.php file name, %5$s an option name and %6$s a user meta key, both starting with the current prefix.
+				__( 'The database table %1$s could not be created because its name is longer than the %2$d characters MySQL allows. Shorten the database table prefix (%3$s in %4$s), then rename the existing database tables to use the new prefix, along with the option and user meta keys that start with the old one, such as %5$s and %6$s.', 'tribe-common' ),
 				implode( ', ', $too_long_names ),
 				self::MAX_TABLE_NAME_LENGTH,
 				'$table_prefix',
-				'wp-config.php'
+				'wp-config.php',
+				/* WP_Roles and WP_User read these keys with the prefix: renaming only the tables leaves every user without a role. */
+				DB::prefix( 'user_roles' ),
+				DB::prefix( 'capabilities' )
 			)
 			: __( 'The migrations tables could not be created/updated. Migrations will not run until they are. Reach out to support if you need help.', 'tribe-common' );
 

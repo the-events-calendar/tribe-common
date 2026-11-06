@@ -142,6 +142,22 @@ class Migrations_Test extends Controller_Test_Case {
 		$this->assertStringContainsString( 'wp-config.php', $html );
 	}
 
+	public function test_names_the_prefixed_keys_that_keep_administrators_able_to_log_in(): void {
+		global $wpdb;
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$this->make_controller()->register();
+		$this->make_the_executions_table_need_an_update();
+		$this->use_a_prefix_one_character_too_long_for_the_executions_table();
+		$expected_option_key    = $wpdb->prefix . 'user_roles';
+		$expected_user_meta_key = $wpdb->prefix . 'capabilities';
+
+		tribe( Tables_Provider::class )->register();
+		$html = AdminNotices::render( $this->get_notice(), false );
+
+		$this->assertStringContainsString( $expected_option_key, $html );
+		$this->assertStringContainsString( $expected_user_meta_key, $html );
+	}
+
 	public function test_shows_the_failed_query_when_the_table_name_is_within_the_limit(): void {
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 		$this->make_controller()->register();
@@ -236,6 +252,9 @@ class Migrations_Test extends Controller_Test_Case {
 		return $migration_id;
 	}
 
+	/**
+	 * @return AdminNotice|null The migrations tables error notice, or null when none was registered.
+	 */
 	private function find_notice(): ?AdminNotice {
 		foreach ( AdminNotices::getNotices() as $notice ) {
 			if ( self::NOTICE_ID === $notice->getId() ) {
@@ -246,6 +265,9 @@ class Migrations_Test extends Controller_Test_Case {
 		return null;
 	}
 
+	/**
+	 * @return AdminNotice The migrations tables error notice; the test fails when none was registered.
+	 */
 	private function get_notice(): AdminNotice {
 		$notice = $this->find_notice();
 		$this->assertNotNull( $notice, 'The migrations tables error notice was not registered.' );
