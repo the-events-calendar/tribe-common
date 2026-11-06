@@ -20,6 +20,7 @@
 			"dirs": [
 				"."
 			],
+			"skip_directories": "bin|build|vendor|node_modules|.git|.github|tests|docs|dev|__mocks__|changelog",
 			"skip_files": ".min.css|.min.js|.map.js|.css|.png|.jpg|.jpeg|.svg|.gif|.ico|AGENTS.md|CLAUDE.md"
 		},
 		"version-conflict": {}
