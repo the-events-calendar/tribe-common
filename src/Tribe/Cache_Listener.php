@@ -68,10 +68,22 @@ class Tribe__Cache_Listener {
 	/**
 	 * Run the caching functionality that is executed on save post.
 	 *
-	 * @param int     $post_id The post_id.
-	 * @param WP_Post $post    The current post object being saved.w
+	 * @since TBD The post is optional and loaded from the ID when it is not a post: some plugins fire `save_post` with the ID alone.
+	 *
+	 * @param int|mixed          $post_id The post_id.
+	 * @param WP_Post|mixed|null $post    The current post object being saved.
 	 */
-	public function save_post( $post_id, $post ) {
+	public function save_post( $post_id, $post = null ) {
+		if ( ! $post instanceof WP_Post ) {
+			// get_post() answers an empty ID with the global post, which is not the post being saved.
+			$post_id = filter_var( $post_id, FILTER_VALIDATE_INT, [ 'options' => [ 'min_range' => 1 ] ] );
+			$post    = $post_id ? get_post( $post_id ) : null;
+		}
+
+		if ( ! $post instanceof WP_Post ) {
+			return;
+		}
+
 		if ( in_array( $post->post_type, $this->get_cache_invalidation_post_types() ) ) {
 			$this->cache->set_last_occurrence( self::TRIGGER_SAVE_POST );
 		}
