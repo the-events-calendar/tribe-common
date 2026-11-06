@@ -3,7 +3,9 @@
 namespace TEC\Common\Libraries;
 
 use ReflectionProperty;
+use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 use TEC\Common\StellarWP\ContainerContract\ContainerInterface;
+use TEC\Common\StellarWP\DB\Database\Exceptions\DatabaseQueryException;
 use TEC\Common\StellarWP\Shepherd\Config;
 use TEC\Common\StellarWP\Shepherd\Contracts\Logger;
 use TEC\Common\StellarWP\Shepherd\Loggers\ActionScheduler_DB_Logger;
@@ -12,8 +14,11 @@ use TEC\Common\StellarWP\Shepherd\Loggers\Null_Logger;
 use TEC\Common\StellarWP\Shepherd\Provider as Shepherd_Provider;
 use TEC\Common\StellarWP\Shepherd\Tables\AS_Logs;
 use TEC\Common\Tests\Provider\Controller_Test_Case;
+use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 
 class Shepherd_Test extends Controller_Test_Case {
+	use SnapshotAssertions;
+
 	protected $controller_class = Shepherd::class;
 
 	/**
@@ -45,6 +50,7 @@ class Shepherd_Test extends Controller_Test_Case {
 	public function restore_shepherd(): void {
 		Config::set_container( $this->original_container );
 		Config::set_logger( $this->original_logger );
+		AdminNotices::removeNotice( 'tec_common_shepherd_tables_error' );
 	}
 
 	public function test_register_does_not_query_for_the_action_scheduler_logs_table(): void {
@@ -110,5 +116,24 @@ class Shepherd_Test extends Controller_Test_Case {
 		$this->make_controller()->register();
 
 		$this->assertInstanceOf( Null_Logger::class, Config::get_logger() );
+	}
+
+	public function test_the_tables_error_notice_shows_the_failed_query_and_its_errors(): void {
+		$controller = $this->make_controller();
+		$controller->register();
+
+		$controller->handle_tables_error(
+			new DatabaseQueryException(
+				'CREATE TABLE wp_shepherd_tec_tasks (id bigint(20))',
+				[ 'db_delta_error' => [ 'First error.', 'Second error.' ] ]
+			)
+		);
+
+		$notices = array_filter(
+			AdminNotices::getNotices(),
+			static fn( $notice ) => 'tec_common_shepherd_tables_error' === $notice->getId()
+		);
+		$this->assertCount( 1, $notices );
+		$this->assertMatchesHtmlSnapshot( AdminNotices::render( reset( $notices ), false ) );
 	}
 }
