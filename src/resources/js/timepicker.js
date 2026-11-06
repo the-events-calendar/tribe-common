@@ -23,7 +23,8 @@ window.tribe_timepickers = window.tribe_timepickers || {};
 	};
 
 	obj.timezone = {
-		link: _.template( '<a href="#" class="tribe-change-timezone"><%= label %> <%= timezone %></a>' ), // eslint-disable-line max-len
+		// The output is parsed as HTML, so the attribute-sourced values are escaped.
+		link: _.template( '<a href="#" class="tribe-change-timezone"><%- label %> <%- timezone %></a>' ), // eslint-disable-line max-len
 	};
 
 	obj.$ = {};

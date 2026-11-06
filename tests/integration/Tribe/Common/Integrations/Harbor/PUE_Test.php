@@ -8,6 +8,11 @@ use TEC\Common\LiquidWeb\Harbor\Config;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Product_Collection;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Repositories\License_Repository;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
+use TEC\Common\LiquidWeb\Harbor\Portal\Catalog_Collection;
+use TEC\Common\LiquidWeb\Harbor\Portal\Catalog_Repository;
+use TEC\Common\LiquidWeb\Harbor\Portal\Results\Catalog_Feature;
+use TEC\Common\LiquidWeb\Harbor\Portal\Results\Product_Catalog;
+use TEC\Common\LiquidWeb\Harbor\Portal\Results\Tier_Collection;
 use TEC\Common\StellarWP\Uplink\Resources\Plugin as Uplink_Plugin;
 use Tribe\Tests\Traits\With_Harbor_State;
 use Tribe\Tests\Traits\With_Uopz;
@@ -281,7 +286,7 @@ class PUE_Test extends WPTestCase {
 	}
 
 	/**
-	 * A Nexcess Plugin Stack customer can hold more than one TEC license entry, and only one of
+	 * A customer can hold more than one TEC license entry, and only one of
 	 * them is activated on this site. The validate response must describe that one, even when
 	 * an entry that is not activated here comes first.
 	 *
@@ -328,6 +333,173 @@ class PUE_Test extends WPTestCase {
 		$this->assertIsArray( $response );
 		$result = json_decode( $response['body'], true )['results'][0];
 		$this->assertSame( $activated_expires, $result['expiration'] );
+	}
+
+	/**
+	 * A Nexcess Plugin Stack purchase is its own product, `nexcess-plugin-stack`, that lists TEC's
+	 * features in its capabilities. A site licensed only through it must still get the catalog
+	 * version and the package's expiry date, not the blank response.
+	 *
+	 * @see https://linear.app/nexcess/issue/SMTNC-3286
+	 *
+	 * @test
+	 */
+	public function it_should_build_the_validate_response_from_a_nexcess_plugin_stack_entry(): void {
+		$this->detach_airplane_mode();
+
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$products = new Product_Collection();
+		$products->add( $this->license_entry( 'nexcess-plugin-stack', '1-site', '2027-10-26 23:59:59', [ 'events-calendar-pro' ] ) );
+		Config::get_container()->get( License_Repository::class )->set_products( $products );
+
+		$result = $this->validate_response_for( 'events-calendar-pro' );
+
+		$this->assertSame( 'Events Calendar Pro', $result['name'] );
+		$this->assertSame( '1.0.0', $result['version'] );
+		$this->assertSame( '2027-10-26 23:59:59', $result['expiration'] );
+	}
+
+	/**
+	 * An entry activated here that does not grant the requested feature must not describe it,
+	 * even when it is a TEC purchase and the entry that does grant it is not.
+	 *
+	 * @see https://linear.app/nexcess/issue/SMTNC-3286
+	 *
+	 * @test
+	 */
+	public function it_should_build_the_validate_response_from_the_entry_that_grants_the_feature(): void {
+		$this->detach_airplane_mode();
+
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro', 'event-aggregator' ] );
+
+		$products = new Product_Collection();
+		$products->add( $this->license_entry( 'the-events-calendar', 'pro', '2026-12-31 23:59:59', [ 'event-aggregator' ] ) );
+		$products->add( $this->license_entry( 'nexcess-plugin-stack', '1-site', '2027-10-26 23:59:59', [ 'events-calendar-pro' ] ) );
+		Config::get_container()->get( License_Repository::class )->set_products( $products );
+
+		$result = $this->validate_response_for( 'events-calendar-pro' );
+
+		$this->assertSame( '2027-10-26 23:59:59', $result['expiration'] );
+	}
+
+	/**
+	 * An expired entry still activated here must not describe the feature when a valid entry
+	 * grants it.
+	 *
+	 * @see https://linear.app/nexcess/issue/SMTNC-3286
+	 *
+	 * @test
+	 */
+	public function it_should_ignore_an_invalid_entry_when_building_the_validate_response(): void {
+		$this->detach_airplane_mode();
+
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$products = new Product_Collection();
+		$products->add( $this->license_entry( 'the-events-calendar', 'pro', '2026-01-31 23:59:59', [ 'events-calendar-pro' ], 'expired' ) );
+		$products->add( $this->license_entry( 'nexcess-plugin-stack', '1-site', '2027-10-26 23:59:59', [ 'events-calendar-pro' ] ) );
+		Config::get_container()->get( License_Repository::class )->set_products( $products );
+
+		$result = $this->validate_response_for( 'events-calendar-pro' );
+
+		$this->assertSame( '2027-10-26 23:59:59', $result['expiration'] );
+	}
+
+	/**
+	 * A catalog feature can come without authors. The response must still build, with an
+	 * empty author, rather than raise an undefined index warning.
+	 *
+	 * @see https://linear.app/nexcess/issue/SMTNC-3286
+	 *
+	 * @test
+	 */
+	public function it_should_build_the_validate_response_for_a_feature_without_authors(): void {
+		$this->detach_airplane_mode();
+
+		$this->seed_unified_license_key();
+		$this->seed_harbor_catalog_for_tec( [ 'events-calendar-pro' ] );
+
+		$catalog = new Catalog_Collection();
+		$catalog->add(
+			new Product_Catalog(
+				'tec',
+				'the-events-calendar',
+				'The Events Calendar',
+				new Tier_Collection(),
+				[
+					new Catalog_Feature(
+						[
+							'slug'         => 'events-calendar-pro',
+							'kind'         => 'service',
+							'minimum_tier' => 'elite',
+							'name'         => 'Events Calendar Pro',
+							'authors'      => [],
+							'version'      => '7.8.3',
+						]
+					),
+				]
+			)
+		);
+		Config::get_container()->get( Catalog_Repository::class )->set_catalog( $catalog );
+
+		$result = $this->validate_response_for( 'events-calendar-pro' );
+
+		$this->assertSame( '7.8.3', $result['version'] );
+		$this->assertSame( '', $result['author'] );
+	}
+
+	/**
+	 * Builds a license entry activated on this site.
+	 *
+	 * @param string   $product_slug      The purchased product.
+	 * @param string   $tier              The purchased tier.
+	 * @param string   $expires           The expiry date.
+	 * @param string[] $capabilities      The feature slugs the purchase grants.
+	 * @param string   $validation_status The validation status for this site.
+	 *
+	 * @return Product_Entry
+	 */
+	private function license_entry( string $product_slug, string $tier, string $expires, array $capabilities, string $validation_status = 'valid' ): Product_Entry {
+		return Product_Entry::from_array(
+			[
+				'product_slug'      => $product_slug,
+				'tier'              => $tier,
+				'status'            => 'active',
+				'expires'           => $expires,
+				'activations'       => [
+					'site_limit'   => 1,
+					'active_count' => 1,
+					'domains'      => [ 'customer-site.example.com' ],
+				],
+				'activated_here'    => true,
+				'validation_status' => $validation_status,
+				'capabilities'      => $capabilities,
+			]
+		);
+	}
+
+	/**
+	 * Runs a PUE validate request for a plugin through the interception and returns its result.
+	 *
+	 * @param string $plugin The PUE plugin slug.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function validate_response_for( string $plugin ): array {
+		$response = apply_filters(
+			'pre_http_request',
+			false,
+			[ 'body' => wp_json_encode( [ 'plugin' => $plugin ] ) ],
+			'https://licensing.stellarwp.com/api/plugins/v2/license/validate'
+		);
+
+		$this->assertIsArray( $response );
+
+		return json_decode( $response['body'], true )['results'][0];
 	}
 
 	/**

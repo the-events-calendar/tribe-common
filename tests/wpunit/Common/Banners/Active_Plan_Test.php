@@ -73,19 +73,37 @@ class Active_Plan_Test extends WPTestCase {
 	}
 
 	/**
-	 * Runs Active_Plan in a bare PHP process, since a loaded function cannot be undefined in this one.
+	 * Another plugin can load a Tribe__PUE__Checker older than common 6.3.2, which lacks the transient key constant.
 	 *
-	 * @param array<string, array<string, bool>>|false $legacy The stubbed legacy license transient value.
+	 * @covers \TEC\Common\Banners\Active_Plan::exists
+	 */
+	public function test_it_exists_with_a_legacy_license_when_an_older_pue_checker_is_loaded(): void {
+		$this->assertSame( 'true', $this->exists_without_harbor_function( [ 'plugins' => [ 'events-calendar-pro' => true ] ], false ) );
+	}
+
+	/**
+	 * @covers \TEC\Common\Banners\Active_Plan::exists
+	 */
+	public function test_it_does_not_exist_without_a_license_when_an_older_pue_checker_is_loaded(): void {
+		$this->assertSame( 'false', $this->exists_without_harbor_function( false, false ) );
+	}
+
+	/**
+	 * Runs Active_Plan in a bare PHP process, since a loaded function or class cannot be undefined in this one.
+	 *
+	 * @param array<string, array<string, bool>>|false $legacy           The stubbed legacy license transient value.
+	 * @param bool                                     $checker_has_key Whether the stubbed Tribe__PUE__Checker defines the transient key constant.
 	 *
 	 * @return string The process output: `true`, `false`, or the fatal error message.
 	 */
-	private function exists_without_harbor_function( $legacy ): string {
+	private function exists_without_harbor_function( $legacy, bool $checker_has_key = true ): string {
 		// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export,WordPress.PHP.DiscouragedPHPFunctions.system_calls_shell_exec
 		$script = sprintf(
-			'class Tribe__PUE__Checker { const IS_ANY_LICENSE_VALID_TRANSIENT_KEY = "key"; }
-			function get_transient() { return %s; }
+			'class Tribe__PUE__Checker { %s }
+			function get_transient( $key ) { return "TEC_IS_ANY_LICENSE_VALID_TRANSIENT" === $key ? %s : false; }
 			require %s;
 			echo ( new TEC\\Common\\Banners\\Active_Plan() )->exists() ? "true" : "false";',
+			$checker_has_key ? 'const IS_ANY_LICENSE_VALID_TRANSIENT_KEY = "TEC_IS_ANY_LICENSE_VALID_TRANSIENT";' : '',
 			var_export( $legacy, true ),
 			var_export( dirname( __DIR__, 4 ) . '/src/Common/Banners/Active_Plan.php', true )
 		);

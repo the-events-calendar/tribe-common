@@ -303,6 +303,76 @@ class QueueTest extends WPTestCase {
 	}
 
 	/**
+	 * It should not delete any option when deleting a queue with an empty key
+	 *
+	 * @test
+	 */
+	public function should_not_delete_any_option_when_deleting_a_queue_with_an_empty_key() {
+		global $wpdb;
+		$faker        = \Faker\Factory::create();
+		$option_name  = 'tec_test_' . $faker->unique()->lexify( '??????????' );
+		$option_value = $faker->sentence();
+		update_option( $option_name, $option_value );
+		$expected_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->options}" );
+
+		Process::delete_queue( '' );
+
+		$this->assertEquals( $expected_count, $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->options}" ) );
+		wp_cache_flush();
+		$this->assertEquals( $option_value, get_option( $option_name ) );
+	}
+
+	/**
+	 * It should keep every other option when the batch is removed between the empty check and the batch read
+	 *
+	 * @test
+	 */
+	public function should_keep_every_other_option_when_the_batch_is_removed_before_it_is_read() {
+		global $wpdb;
+		add_filter( 'tribe_supports_async_process', '__return_false' );
+		$faker        = \Faker\Factory::create();
+		$option_name  = 'tec_test_' . $faker->unique()->lexify( '??????????' );
+		$option_value = $faker->sentence();
+		update_option( $option_name, $option_value );
+
+		$test_queue = new class() extends Process {
+
+			public static function action() {
+				return 'race';
+			}
+
+			protected function task( $item ) {
+				return Process::ITEM_DONE;
+			}
+
+			protected function get_batch() {
+				/* Simulates a second runner that takes the batch after `is_queue_empty()` saw it. */
+				self::delete_queue( $this->identifier . '_batch_' );
+
+				return parent::get_batch();
+			}
+		};
+
+		foreach ( range( 1, 5 ) as $i ) {
+			$test_queue->push_to_queue( $i );
+		}
+		$test_queue->save()->dispatch();
+		$batch_key      = $test_queue->get_batch_key();
+		$expected_count = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name NOT LIKE %s",
+				$wpdb->esc_like( $batch_key ) . '%'
+			)
+		);
+
+		do_action( $test_queue->get_identifier() );
+
+		$this->assertEquals( $expected_count, $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->options}" ) );
+		wp_cache_flush();
+		$this->assertEquals( $option_value, get_option( $option_name ) );
+	}
+
+	/**
 	 * It should call the complete method on the queue when running on cron fallback
 	 *
 	 * @test
