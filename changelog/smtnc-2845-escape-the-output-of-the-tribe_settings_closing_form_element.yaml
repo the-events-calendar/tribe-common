@@ -1,0 +1,4 @@
+significance: patch
+type: security
+entry: Hardened the output of the settings page closing form element.
+timestamp: 2026-10-30T18:27:15.417Z
