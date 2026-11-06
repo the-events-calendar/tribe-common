@@ -49,7 +49,6 @@ class Number extends Control {
 	public function render_content() {
 		$input_id         = '_customize-input-' . $this->id;
 		$description_id   = '_customize-description-' . $this->id;
-		$describedby_attr = ( ! empty( $this->description ) ) ? ' aria-describedby="' . esc_attr( $description_id ) . '" ' : '';
 		$name             = '_customize-number-' . $this->id;
 
 		if ( ! empty( $this->label ) ) : ?>
@@ -64,7 +63,7 @@ class Number extends Control {
 			<input
 				id="<?php echo esc_attr( $input_id ); ?>"
 				type="<?php echo esc_attr( $this->type ); ?>"
-				<?php echo $describedby_attr; ?>
+				<?php if ( ! empty( $this->description ) ) : ?>aria-describedby="<?php echo esc_attr( $description_id ); ?>"<?php endif; ?>
 				<?php $this->input_attrs(); ?>
 				<?php if ( ! isset( $this->input_attrs['value'] ) ) : ?>
 					value="<?php echo esc_attr( $this->value() ); ?>"

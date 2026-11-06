@@ -312,7 +312,7 @@ abstract class Endpoint implements Endpoint_Interface {
 			}
 
 			if ( ! $regex ) {
-				throw new RuntimeException( 'Invalid path parameter: ' . get_class( $parameter ) );
+				throw new RuntimeException( esc_html( 'Invalid path parameter: ' . get_class( $parameter ) ) );
 			}
 
 			$replacements[] = "(?P<{$parameter->get_name()}>{$regex})";
@@ -430,7 +430,7 @@ abstract class Endpoint implements Endpoint_Interface {
 	 */
 	protected function get_schema_defined_params( string $schema_name, array $request_params = [] ): array {
 		if ( ! in_array( $schema_name, [ 'read', 'create', 'update', 'delete' ], true ) ) {
-			throw new InvalidArgumentException( 'Invalid schema name: ' . $schema_name );
+			throw new InvalidArgumentException( esc_html( 'Invalid schema name: ' . $schema_name ) );
 		}
 
 		switch ( $schema_name ) {
@@ -487,11 +487,11 @@ abstract class Endpoint implements Endpoint_Interface {
 		$header = $request->get_header( 'X-TEC-EEA' );
 
 		if ( ! $header ) {
-			throw new ExperimentalEndpointException( __( 'Experimental endpoint requires acknowledgement header.', 'tribe-common' ) );
+			throw new ExperimentalEndpointException( esc_html__( 'Experimental endpoint requires acknowledgement header.', 'tribe-common' ) );
 		}
 
 		if ( strtolower( trim( $header ) ) !== $this->get_experimental_acknowledgement() ) {
-			throw new ExperimentalEndpointException( __( 'Experimental endpoint requires appropriate acknowledgement header.', 'tribe-common' ) );
+			throw new ExperimentalEndpointException( esc_html__( 'Experimental endpoint requires appropriate acknowledgement header.', 'tribe-common' ) );
 		}
 	}
 

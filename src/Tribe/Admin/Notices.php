@@ -261,6 +261,59 @@ class Tribe__Admin__Notices {
 	 *
 	 * @return bool|string
 	 */
+	/**
+	 * Returns the HTML allowed in an admin notice.
+	 *
+	 * Notices carry forms, buttons and inline SVG icons on top of the post markup,
+	 * so the post allow-list is extended with those, and the result is filterable
+	 * for notices that need more.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,array<string,bool>> The allowed HTML, in the `wp_kses()` format.
+	 */
+	public function get_allowed_html(): array {
+		$controls = [ 'class' => true, 'id' => true, 'name' => true, 'type' => true, 'value' => true, 'placeholder' => true, 'checked' => true, 'selected' => true, 'disabled' => true, 'readonly' => true, 'required' => true, 'autocomplete' => true, 'for' => true, 'action' => true, 'method' => true, 'rows' => true, 'cols' => true, 'min' => true, 'max' => true, 'step' => true, 'aria-label' => true, 'aria-describedby' => true, 'aria-hidden' => true, 'role' => true ];
+		$shape    = [ 'class' => true, 'fill' => true, 'stroke' => true, 'stroke-width' => true, 'stroke-linecap' => true, 'stroke-linejoin' => true, 'd' => true, 'cx' => true, 'cy' => true, 'r' => true, 'x' => true, 'y' => true, 'width' => true, 'height' => true, 'rx' => true, 'points' => true, 'x1' => true, 'x2' => true, 'y1' => true, 'y2' => true, 'transform' => true, 'fill-rule' => true, 'clip-rule' => true ];
+
+		$allowed_html = array_merge(
+			wp_kses_allowed_html( 'post' ),
+			[
+				'form'     => $controls,
+				'input'    => $controls,
+				'button'   => $controls,
+				'select'   => $controls,
+				'option'   => $controls,
+				'textarea' => $controls,
+				'label'    => $controls,
+				'fieldset' => $controls,
+				'legend'   => $controls,
+				'svg'      => [ 'xmlns' => true, 'viewbox' => true, 'width' => true, 'height' => true, 'class' => true, 'fill' => true, 'role' => true, 'aria-hidden' => true, 'focusable' => true ],
+				'g'        => $shape,
+				'path'     => $shape,
+				'circle'   => $shape,
+				'rect'     => $shape,
+				'line'     => $shape,
+				'polyline' => $shape,
+				'polygon'  => $shape,
+				'defs'     => [],
+				'title'    => [],
+				'use'      => [ 'href' => true, 'xlink:href' => true ],
+			]
+		);
+
+		/**
+		 * Filters the HTML allowed in an admin notice.
+		 *
+		 * A notice that renders markup outside this list can allow it here.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,array<string,bool>> $allowed_html The allowed HTML, in the `wp_kses()` format.
+		 */
+		return (array) apply_filters( 'tec_common_admin_notices_allowed_html', $allowed_html );
+	}
+
 	public function render( $slug, $content = null, $return = true, $wrap = false ) {
 		if ( ! $this->exists( $slug ) ) {
 			return false;
@@ -269,7 +322,7 @@ class Tribe__Admin__Notices {
 		// Bail if we already rendered
 		if ( $this->is_rendered( $slug ) ) {
 			if ( $this->is_rendered_html( $slug, $content ) && ! $return ) {
-				echo $content;
+				echo wp_kses( $content, $this->get_allowed_html() );
 			}
 
 			return false;
@@ -315,7 +368,7 @@ class Tribe__Admin__Notices {
 		tribe_asset_enqueue_group( 'tec-admin-notices' );
 
 		if ( ! $return ) {
-			echo $html;
+			echo wp_kses( $html, $this->get_allowed_html() );
 		}
 
 		return $html;
