@@ -36,6 +36,30 @@ class Cache_ListenerTest extends WPTestCase {
 		$this->assertNotFalse( get_option( 'tribe_last_' . Cache_Listener::TRIGGER_SAVE_POST ) );
 	}
 
+	public function invalid_post_ids(): array {
+		return [
+			'a non-numeric ID' => [ 'not-a-post-id' ],
+			'zero'             => [ 0 ],
+			'a negative ID'    => [ -1 ],
+		];
+	}
+
+	/**
+	 * `get_post()` answers an empty ID with the global post, which must not be recorded in its place.
+	 *
+	 * @test
+	 * @dataProvider invalid_post_ids
+	 */
+	public function it_should_not_record_the_global_post_for_an_invalid_post_id( $post_id ): void {
+		$GLOBALS['post'] = get_post( static::factory()->post->create() );
+		delete_option( 'tribe_last_' . Cache_Listener::TRIGGER_SAVE_POST );
+
+		( new Cache_Listener() )->save_post( $post_id, 'not-a-post' );
+
+		unset( $GLOBALS['post'] );
+		$this->assertFalse( get_option( 'tribe_last_' . Cache_Listener::TRIGGER_SAVE_POST ) );
+	}
+
 	/**
 	 * @test
 	 */
