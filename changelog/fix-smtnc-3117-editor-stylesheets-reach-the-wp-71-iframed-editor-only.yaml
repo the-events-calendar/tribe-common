@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Loaded the shared block editor stylesheet directly into the WordPress 7.1
+  editor canvas, removing the "added to the iframe incorrectly" browser console
+  warning.
+timestamp: 2026-10-21T00:47:35.808Z
