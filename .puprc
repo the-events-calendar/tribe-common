@@ -1,16 +1,14 @@
 {
 	"build": [
 		"composer -- pup",
-		"rm -rf vendor",
-		"git checkout -- vendor",
+		"test ! -e .git || (rm -rf vendor && git checkout -- vendor)",
 		"composer install --no-dev",
 		"npm ci --no-audit --no-fund",
 		"npm run build"
 	],
 	"build_dev": [
 		"composer -- pup",
-		"rm -rf vendor",
-		"git checkout -- vendor",
+		"test ! -e .git || (rm -rf vendor && git checkout -- vendor)",
 		"composer install",
 		"npm ci --no-audit --no-fund",
 		"npm run build"
