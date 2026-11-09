@@ -328,6 +328,22 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @test
+	 */
+	public function it_should_mark_the_license_invalid_when_its_network_key_is_removed() {
+		add_filter( 'pre_site_option_active_sitewide_plugins', static fn() => [ 'the-events-calendar/the-events-calendar.php' => true ] );
+		$sut    = $this->make_instance();
+		$option = $sut->get_license_option_key();
+		delete_option( $option );
+		update_network_option( null, $option, 'a-network-license-key' );
+		$sut->set_key_status( 1 );
+
+		update_network_option( null, $option, '' );
+
+		$this->assertFalse( $sut->is_key_valid() );
+	}
+
+	/**
 	 * @return Checker
 	 */
 	private function make_instance() {

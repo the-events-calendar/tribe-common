@@ -591,6 +591,16 @@ abstract class Abstract_Admin_Page {
 
 		?>
 		<aside id="tec-admin-page-sidebar" <?php tec_classes( $this->sidebar_classes() ); ?>>
+			<?php
+			/**
+			 * Fires at the start of the admin page sidebar.
+			 *
+			 * @since 6.13.1
+			 *
+			 * @param Abstract_Admin_Page $page The admin page.
+			 */
+			do_action( 'tec_admin_page_sidebar_start', $this );
+			?>
 			<?php $this->admin_page_sidebar_content(); ?>
 		</aside>
 		<?php

@@ -60,6 +60,35 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @test
+	 */
+	public function it_should_mark_the_license_invalid_when_its_key_is_removed() {
+		$sut    = $this->make_instance();
+		$option = $sut->get_license_option_key();
+		update_option( $option, 'a-license-key' );
+		$sut->set_key_status( 1 );
+
+		update_option( $option, '' );
+
+		$this->assertFalse( $sut->is_key_valid() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_the_license_status_when_another_key_still_applies() {
+		$sut    = $this->make_instance();
+		$option = $sut->get_license_option_key();
+		update_option( $option, 'a-license-key' );
+		$sut->set_key_status( 1 );
+		add_filter( "pre_option_{$option}", static fn() => 'a-unified-license-key' );
+
+		update_option( $option, '' );
+
+		$this->assertTrue( $sut->is_key_valid() );
+	}
+
+	/**
 	 * @return Checker
 	 */
 	private function make_instance() {

@@ -1,5 +1,40 @@
 == Changelog ==
 
+= [6.14.0.1] 2026-11-05 =
+
+* Security - Hardened how HTML attributes are printed in templates. Props to Hatim Madmoune -DELTA for reporting.
+* Security - Hardened shortcode handling in post content shown by calendar views. Props to Filip Kowalski for reporting.
+
+= [6.14.0] 2026-11-04 =
+
+* Fix - Passed the input attributes a date picker is given, such as its accessible name and disabled state, through to its input field.
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.13.3] 2026-10-29 =
+
+* Fix - Prevented a fatal error on every admin page when another plugin loads an older copy of the license checker.
+* Fix - Prevented background queue processing from deleting every site option when another process removed a queue batch while it was being read.
+* Fix - Used the Nexcess Plugin Stack license's expiry date and the catalog version when answering premium add-on license checks for sites licensed through the package.
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
+* Security - Hardened access checks on password-protected and edit-only content returned by the REST API. Props to fcc for reporting.
+* Security - Hardened the rendering of the Event timezone-change link in the classic Event editor. Props to fcc for reporting.
+
+= [6.13.2] 2026-10-15 =
+
+* Fix - Prevented a fatal error in the admin when the Nexcess banner renders on requests where the consolidated license functions are not loaded, such as saving in the theme or plugin editor.
+* Fix - Stopped Shepherd from loading the WordPress admin includes on every request, which caused a "Cannot redeclare check_upload_size()" fatal error on some multisite installs.
+* Language - 0 new strings added, 2 updated, 1 fuzzied, and 0 obsoleted.
+* Tweak - Added filters: `shepherd_{$hook_prefix}_should_log`
+
+= [6.13.1] 2026-10-13 =
+
+* Fix - Stopped a license key removed from the Licenses tab from still counting as valid.
+* Language - 3 new strings added, 25 updated, 2 fuzzied, and 0 obsoleted.
+* Tweak - Added a dismissible announcement banner to plugin admin pages.
+* Tweak - Added actions: `tec_admin_page_sidebar_start`
+* Tweak - Added filters: `tec_sidebar_allowed_admin_page`
+* Tweak - Update Harbor to 2.0.2, adding Nexcess Plugin Stack support and renaming the license page to Nexcess Licensing.
+
 = [6.13.0.1] 2026-10-05 =
 
 * Fix - Closed the date picker calendar on an outside click inside the block editor iframe, and kept the input showing the selected date instead of a stale value.

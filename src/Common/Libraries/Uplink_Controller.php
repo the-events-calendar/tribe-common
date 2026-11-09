@@ -172,6 +172,10 @@ class Uplink_Controller extends Controller_Contract {
 			}
 
 			$plugin->set_license_key( '' );
+
+			if ( '' === $plugin->get_license_key() ) {
+				$plugin->get_license_object()->set_key_status( 0 );
+			}
 		}
 	}
 

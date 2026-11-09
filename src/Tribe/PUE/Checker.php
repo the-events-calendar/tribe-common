@@ -438,6 +438,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Key validation.
 			add_action( 'tribe_settings_save_field', [ $this, 'check_for_api_key_error_on_action' ], 10, 2 );
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), [ $this, 'ajax_validate_key' ] );
+			add_action( 'update_option_' . $this->pue_install_key, [ $this, 'reset_key_status_when_key_removed' ] );
+			add_action( 'update_site_option_' . $this->pue_install_key, [ $this, 'reset_key_status_when_key_removed' ] );
 			add_filter( 'tribe-pue-install-keys', [ $this, 'return_install_key' ] );
 			add_action( 'admin_enqueue_scripts', [ $this, 'maybe_display_json_error_on_plugins_page' ], 1 );
 
@@ -1990,6 +1992,22 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			$query_args['key'] = sanitize_text_field( $value );
 
 			$this->license_key_status( $query_args );
+		}
+
+		/**
+		 * Marks the license invalid once its key is removed and no other key applies.
+		 *
+		 * @since 6.13.1
+		 *
+		 * @return void
+		 * @internal
+		 */
+		public function reset_key_status_when_key_removed(): void {
+			if ( '' !== $this->get_key() ) {
+				return;
+			}
+
+			$this->set_key_status( 0 );
 		}
 
 		/**
