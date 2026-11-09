@@ -24,7 +24,7 @@ trait With_Logger {
 	 *
 	 * @since TBD
 	 *
-	 * @param string              $level   The log level, one of the `Tribe__Log` level constants.
+	 * @param string              $level   A PSR-3 log level, e.g. `Tribe__Log::DEBUG`, `Tribe__Log::WARNING` or `Tribe__Log::ERROR`.
 	 * @param string              $message The message to log.
 	 * @param array<string,mixed> $context The context to log with the message.
 	 *
