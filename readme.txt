@@ -1,5 +1,16 @@
 == Changelog ==
 
+= [6.14.1] 2026-11-11 =
+
+* Fix - Avoided a fatal error when a database table prefix of 31 or more characters pushed the migrations table name past MySQL's 64-character limit, added an admin notice explaining how to shorten the prefix, and stopped the Shepherd tables error notice from causing an error when displayed.
+* Fix - Changed the System Information copy button on the Troubleshooting page to copy plain text, so pasted system details take the destination's text color instead of arriving as invisible white text.
+* Fix - Loaded the shared block editor stylesheet directly into the WordPress 7.1 editor canvas, removing the "added to the iframe incorrectly" browser console warning.
+* Fix - Prevented a fatal error when another plugin runs the save_post action with only the post ID.
+* Security - Hardened the output of the settings page closing form element.
+* Tweak - Pointed the "Learn how to get live support" link on the Help page to a working page instead of a removed article.
+* Tweak - Pointed the Zapier API keys help link to the Zapier knowledgebase article and removed an outdated link from the Zapier Endpoint Dashboard.
+* Language - 3 new strings added, 19 updated, 1 fuzzied, and 1 obsoleted.
+
 = [6.14.0.1] 2026-11-05 =
 
 * Security - Hardened how HTML attributes are printed in templates. Props to Hatim Madmoune -DELTA for reporting.

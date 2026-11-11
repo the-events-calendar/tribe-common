@@ -2,7 +2,7 @@
 /**
  * The admin notice for a library whose database tables could not be created or updated.
  *
- * @since TBD
+ * @since 6.14.1
  *
  * @package TEC\Common\Libraries
  */
@@ -16,7 +16,7 @@ use TEC\Common\StellarWP\DB\Database\Exceptions\DatabaseQueryException;
 /**
  * Class Tables_Error_Notice.
  *
- * @since TBD
+ * @since 6.14.1
  *
  * @package TEC\Common\Libraries
  */
@@ -24,7 +24,7 @@ final class Tables_Error_Notice {
 	/**
 	 * Registers a non-dismissible error notice explaining which query failed and why.
 	 *
-	 * @since TBD
+	 * @since 6.14.1
 	 *
 	 * @param string                 $id      The notice ID.
 	 * @param string                 $message The plain-text explanation shown first; it is escaped on output.

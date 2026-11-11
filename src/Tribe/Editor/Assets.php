@@ -22,7 +22,7 @@ class Tribe__Editor__Assets {
 	 * Registers and Enqueues the assets
 	 *
 	 * @since 4.8
-	 * @since TBD Added the shared editor styles to the editor canvas styles group.
+	 * @since 6.14.1 Added the shared editor styles to the editor canvas styles group.
 	 *
 	 * @param string $key Which key we are checking against
 	 *

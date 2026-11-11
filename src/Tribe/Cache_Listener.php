@@ -68,7 +68,7 @@ class Tribe__Cache_Listener {
 	/**
 	 * Run the caching functionality that is executed on save post.
 	 *
-	 * @since TBD The post is optional and loaded from the ID when it is not a post: some plugins fire `save_post` with the ID alone.
+	 * @since 6.14.1 The post is optional and loaded from the ID when it is not a post: some plugins fire `save_post` with the ID alone.
 	 *
 	 * @param int|mixed          $post_id The post_id.
 	 * @param WP_Post|mixed|null $post    The current post object being saved.

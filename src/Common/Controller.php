@@ -25,7 +25,7 @@ class Controller extends Controller_Contract {
 	 * Registers the filters and actions hooks added by the controller.
 	 *
 	 * @since 6.5.4
-	 * @since TBD Registered the editor controller.
+	 * @since 6.14.1 Registered the editor controller.
 	 *
 	 * @return void
 	 */
@@ -60,7 +60,7 @@ class Controller extends Controller_Contract {
 	 * Removes the filters and actions hooks added by the controller.
 	 *
 	 * @since 6.5.4
-	 * @since TBD Unregistered the editor controller.
+	 * @since 6.14.1 Unregistered the editor controller.
 	 *
 	 * @return void Filters and actions hooks added by the controller are be removed.
 	 */

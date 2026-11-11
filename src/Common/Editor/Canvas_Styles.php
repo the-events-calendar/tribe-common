@@ -2,7 +2,7 @@
 /**
  * Loads the editor canvas styles into the iframed block editor canvas.
  *
- * @since TBD
+ * @since 6.14.1
  *
  * @package TEC\Common\Editor
  */
@@ -20,13 +20,13 @@ use TEC\Common\StellarWP\Assets\Assets;
  * enqueued directly, reusing the decision the editor page made. It never adds a style the editor page
  * did not load, and does nothing outside the admin.
  *
- * @since TBD
+ * @since 6.14.1
  */
 final class Canvas_Styles {
 	/**
 	 * Asset group of the stylesheets the iframed block editor canvas needs as well as the editor page.
 	 *
-	 * @since TBD
+	 * @since 6.14.1
 	 *
 	 * @var string
 	 */
@@ -38,7 +38,7 @@ final class Canvas_Styles {
 	 * The asset library returns the assets sorted by priority, so the canvas loads them in the editor
 	 * page's order and equal-specificity rules resolve as they do there.
 	 *
-	 * @since TBD
+	 * @since 6.14.1
 	 *
 	 * @internal
 	 *

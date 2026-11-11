@@ -2,7 +2,7 @@
 /**
  * The migrations admin screens of a site whose migrations tables could not be created.
  *
- * @since TBD
+ * @since 6.14.1
  *
  * @package TEC\Common\Libraries
  */
@@ -16,7 +16,7 @@ use TEC\Common\StellarWP\Migrations\Admin\UI;
  *
  * The library's screens read the migration executions table, and stellarwp/db throws on a read of a missing table.
  *
- * @since TBD
+ * @since 6.14.1
  *
  * @package TEC\Common\Libraries
  */
@@ -24,7 +24,7 @@ final class Unavailable_Migrations_UI extends UI {
 	/**
 	 * Renders nothing: the tables error notice already tells the administrator why no migration can run.
 	 *
-	 * @since TBD
+	 * @since 6.14.1
 	 *
 	 * @return void
 	 */
@@ -34,7 +34,7 @@ final class Unavailable_Migrations_UI extends UI {
 	/**
 	 * Renders nothing: the tables error notice already tells the administrator why no migration can run.
 	 *
-	 * @since TBD
+	 * @since 6.14.1
 	 *
 	 * @param string $migration_id The ID of the migration to display.
 	 *

@@ -75,7 +75,7 @@ class Shepherd extends Controller_Contract {
 	 * Handle tables error.
 	 *
 	 * @since 6.10.0
-	 * @since TBD Displays the notice without a fatal error, and lists each query error message.
+	 * @since 6.14.1 Displays the notice without a fatal error, and lists each query error message.
 	 *
 	 * @param DatabaseQueryException $error The error.
 	 *

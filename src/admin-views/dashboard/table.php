@@ -9,9 +9,9 @@
  *
  * @since 1.4.0
  * @since 5.26.7 Updated Zapier Knowledgebase URL.
- * @since TBD Removed the Zapier queue limit knowledgebase link.
+ * @since 6.14.1 Removed the Zapier queue limit knowledgebase link.
  *
- * @version TBD
+ * @version 6.14.1
  *
  * @link http://evnt.is/1aiy
  *

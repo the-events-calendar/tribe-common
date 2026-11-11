@@ -9,9 +9,9 @@
  *
  * @since 1.0.0
  * @since 1.4.0 - Add loader template.
- * @since TBD Updated the Zapier knowledgebase URL.
+ * @since 6.14.1 Updated the Zapier knowledgebase URL.
  *
- * @version TBD
+ * @version 6.14.1
  *
  * @link    http://evnt.is/1aiy
  *

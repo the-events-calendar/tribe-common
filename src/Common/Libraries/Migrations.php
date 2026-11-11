@@ -28,7 +28,7 @@ class Migrations extends Controller_Contract {
 	/**
 	 * The longest table name MySQL and MariaDB accept.
 	 *
-	 * @since TBD
+	 * @since 6.14.1
 	 *
 	 * @var int
 	 */
@@ -38,7 +38,7 @@ class Migrations extends Controller_Contract {
 	 * Register the controller.
 	 *
 	 * @since 6.13.0
-	 * @since TBD Handles the migrations tables failing to be created.
+	 * @since 6.14.1 Handles the migrations tables failing to be created.
 	 */
 	protected function do_register(): void {
 		$hook_prefix = tribe( Libraries_Provider::class )->get_hook_prefix();
@@ -65,7 +65,7 @@ class Migrations extends Controller_Contract {
 	 * Unregister the controller.
 	 *
 	 * @since 6.13.0
-	 * @since TBD Removes the tables error handler.
+	 * @since 6.14.1 Removes the tables error handler.
 	 *
 	 * @return void
 	 */
@@ -83,7 +83,7 @@ class Migrations extends Controller_Contract {
 	 * `Builder::up()` (the next `Register::table()` call, the `plugins_loaded` schema run) creates it again outside
 	 * any catch, which fatals the site. The library's admin screens read the executions table, which throws too.
 	 *
-	 * @since TBD
+	 * @since 6.14.1
 	 *
 	 * @param DatabaseQueryException $error The exception thrown by the failed query.
 	 *

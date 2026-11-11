@@ -2,7 +2,7 @@
 /**
  * Hooks the block editor features of common.
  *
- * @since TBD
+ * @since 6.14.1
  *
  * @package TEC\Common\Editor
  */
@@ -14,14 +14,14 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Class Controller.
  *
- * @since TBD
+ * @since 6.14.1
  */
 final class Controller extends Controller_Contract {
 	/**
 	 * Priority of the canvas styles on `enqueue_block_assets`: after the other canvas styles, so the
 	 * editor stylesheets override them in the canvas as they do on the editor page.
 	 *
-	 * @since TBD
+	 * @since 6.14.1
 	 *
 	 * @var int
 	 */
@@ -30,7 +30,7 @@ final class Controller extends Controller_Contract {
 	/**
 	 * Removes the hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.14.1
 	 *
 	 * @return void
 	 */
@@ -45,7 +45,7 @@ final class Controller extends Controller_Contract {
 	/**
 	 * Binds the editor services and hooks them.
 	 *
-	 * @since TBD
+	 * @since 6.14.1
 	 *
 	 * @return void
 	 */

@@ -400,7 +400,7 @@ class Tribe__Settings {
 	 * Close the settings form element.
 	 *
 	 * @since 6.13.0
-	 * @since TBD The filtered markup is passed through wp_kses() with the post allow-list plus the form tag.
+	 * @since 6.14.1 The filtered markup is passed through wp_kses() with the post allow-list plus the form tag.
 	 */
 	public function settings_form_element_close(): void {
 		$allowed_html = wp_kses_allowed_html( 'post' );
@@ -415,7 +415,7 @@ class Tribe__Settings {
 		 * post allow-list does not permit are stripped. By default that includes `input` and `select`.
 		 *
 		 * @since 4.0.1
-		 * @since TBD The returned markup is passed through wp_kses().
+		 * @since 6.14.1 The returned markup is passed through wp_kses().
 		 *
 		 * @param string $closing_markup The markup that closes the settings form. Default `</form>`.
 		 */
