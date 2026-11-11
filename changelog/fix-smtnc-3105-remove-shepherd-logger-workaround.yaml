@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Resolved a multisite fatal error, "Cannot redeclare check_upload_size()",
+  that could happen when a plugin or theme loaded WordPress admin files after an
+  Events Calendar database query.
+timestamp: 2026-10-16T19:15:19.067Z
