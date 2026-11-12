@@ -43,6 +43,26 @@ class Active_Plan_Test extends WPTestCase {
 	/**
 	 * @covers \TEC\Common\Banners\Active_Plan::exists
 	 */
+	public function test_it_exists_with_only_a_plugin_stack_license(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_plugin_stack_license();
+
+		$this->assertTrue( ( new Active_Plan() )->exists() );
+	}
+
+	/**
+	 * @covers \TEC\Common\Banners\Active_Plan::exists
+	 */
+	public function test_it_does_not_exist_when_the_plugin_stack_is_not_activated_here(): void {
+		$this->seed_unified_license_key();
+		$this->seed_harbor_plugin_stack_license( 'not_activated' );
+
+		$this->assertFalse( ( new Active_Plan() )->exists() );
+	}
+
+	/**
+	 * @covers \TEC\Common\Banners\Active_Plan::exists
+	 */
 	public function test_it_does_not_exist_without_a_license(): void {
 		$this->assertFalse( ( new Active_Plan() )->exists() );
 	}

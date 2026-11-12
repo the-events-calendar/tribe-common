@@ -61,6 +61,38 @@ trait With_Harbor_State {
 	}
 
 	/**
+	 * Store a product-license state holding only the Nexcess Plugin Stack, as a
+	 * stack-only customer's key returns it. No TEC product entry exists.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $validation_status The stack entry's validation status.
+	 */
+	protected function seed_harbor_plugin_stack_license( string $validation_status = 'valid' ): void {
+		$product_collection = new Product_Collection();
+		$product_collection->add(
+			Product_Entry::from_array(
+				[
+					'product_slug'      => 'nexcess-plugin-stack',
+					'tier'              => '10-sites',
+					'status'            => 'active',
+					'expires'           => '2027-12-31 23:59:59',
+					'activations'       => [
+						'site_limit'   => 10,
+						'active_count' => 1,
+						'domains'      => [ 'customer-site.example.com' ],
+					],
+					'activated_here'    => 'valid' === $validation_status,
+					'validation_status' => $validation_status,
+					'capabilities'      => [ 'the-events-calendar', 'events-calendar-pro', 'event-tickets' ],
+				]
+			)
+		);
+
+		Config::get_container()->get( License_Repository::class )->set_products( $product_collection );
+	}
+
+	/**
 	 * Seed the Harbor catalog + product-license state for `the-events-calendar`
 	 * with a given set of features.
 	 *
