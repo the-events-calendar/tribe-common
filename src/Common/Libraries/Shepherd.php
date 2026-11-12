@@ -23,7 +23,7 @@ class Shepherd extends Controller_Contract {
 	 * Register the controller.
 	 *
 	 * @since 6.9.0
-	 * @since TBD Leaves picking the logger to Shepherd.
+	 * @since 6.14.1 Leaves picking the logger to Shepherd.
 	 */
 	protected function do_register(): void {
 		$hook_prefix = tribe( Libraries_Provider::class )->get_hook_prefix();

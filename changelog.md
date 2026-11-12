@@ -6,6 +6,7 @@
 * Fix - Changed the System Information copy button on the Troubleshooting page to copy plain text, so pasted system details take the destination's text color instead of arriving as invisible white text.
 * Fix - Loaded the shared block editor stylesheet directly into the WordPress 7.1 editor canvas, removing the "added to the iframe incorrectly" browser console warning.
 * Fix - Prevented a fatal error when another plugin runs the save_post action with only the post ID.
+* Fix - Resolved a multisite fatal error, "Cannot redeclare check_upload_size()", that could happen when a plugin or theme loaded WordPress admin files after an Events Calendar database query.
 * Security - Hardened the output of the settings page closing form element.
 * Tweak - Pointed the "Learn how to get live support" link on the Help page to a working page instead of a removed article.
 * Tweak - Pointed the Zapier API keys help link to the Zapier knowledgebase article and removed an outdated link from the Zapier Endpoint Dashboard.
