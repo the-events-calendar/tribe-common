@@ -134,7 +134,7 @@ if ( ! class_exists( 'Tribe__Plugins' ) ) {
 			if ( ! did_action( "plugins_loaded" ) ) {
 				_doing_it_wrong(
 					__METHOD__,
-					__( 'Using this function before "plugins_loaded" action has fired can return unreliable results.', 'tribe-common' ),
+					esc_html__( 'Using this function before "plugins_loaded" action has fired can return unreliable results.', 'tribe-common' ),
 					'4.12.6'
 				);
 			}

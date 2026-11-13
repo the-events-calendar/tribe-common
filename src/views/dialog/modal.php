@@ -24,6 +24,6 @@ $vars        = get_defined_vars();
 		<h2 <?php tec_classes( $title_classes ); ?>><?php echo esc_html( $title ); ?></h2>
 	<?php endif; ?>
 	<div <?php tec_classes( $content_classes ); ?>>
-		<?php echo $content; ?>
+		<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Dialog content is HTML supplied by the caller, escaped where it is built. ?>
 	</div>
 </script>

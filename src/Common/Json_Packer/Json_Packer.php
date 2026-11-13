@@ -469,7 +469,7 @@ class Json_Packer {
 					$object = new DateTimeImmutable( $date, new DateTimeZone( $timezone ) );
 				}
 			} catch ( Exception $e ) {
-				throw new Unpack_Exception( "Error while unpacking Date object: {$e->getMessage()}" );
+				throw new Unpack_Exception( esc_html( "Error while unpacking Date object: {$e->getMessage()}" ) );
 			}
 
 			$this->unpack_references[ $path ] = $object;
@@ -492,7 +492,7 @@ class Json_Packer {
 			}
 		} catch ( ReflectionException $e ) {
 			if ( $this->fail_on_error ) {
-				throw new Unpack_Exception( "Error while unpacking {$class_name}: {$e->getMessage()}" );
+				throw new Unpack_Exception( esc_html( "Error while unpacking {$class_name}: {$e->getMessage()}" ) );
 			}
 			// We cannot use the original class: use a stdClass instance in its place.
 			$object = new stdClass();

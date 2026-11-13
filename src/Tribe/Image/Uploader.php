@@ -314,6 +314,6 @@ class Tribe__Image__Uploader {
 	 *                          the handler.
 	 */
 	public function handle_error( $unused_error_code, $message ) {
-		throw new RuntimeException( $message );
+		throw new RuntimeException( esc_html( $message ) );
 	}
 }

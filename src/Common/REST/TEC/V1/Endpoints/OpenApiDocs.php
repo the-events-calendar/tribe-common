@@ -263,7 +263,7 @@ class OpenApiDocs extends Endpoint implements Readable_Endpoint {
 				return 'getOpenApiDocs';
 		}
 
-		throw new InvalidArgumentException( sprintf( 'Invalid operation: %s', $operation ) );
+		throw new InvalidArgumentException( esc_html( sprintf( 'Invalid operation: %s', $operation ) ) );
 	}
 
 	/**

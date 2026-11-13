@@ -124,6 +124,7 @@ class Definition_Parameter extends Entity {
 				$argument   = $this->get_name() ? "{$this->get_name()}.{$param_name}" : $param_name;
 
 				if ( $property->is_required() && ! isset( $data[ $param_name ] ) ) {
+					// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST error: the message becomes a WP_Error in a JSON response, not HTML output.
 					throw InvalidRestArgumentException::create(
 						// translators: %s is the name of the property.
 						sprintf( __( 'Property %s is required', 'tribe-common' ), $argument ),
@@ -131,6 +132,7 @@ class Definition_Parameter extends Entity {
 						'tec_rest_required_property_missing',
 						__( 'The property is required but missing.', 'tribe-common' )
 					);
+					// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				}
 
 				if ( empty( $data[ $param_name ] ) && null !== $property->get_default() ) {
@@ -172,6 +174,7 @@ class Definition_Parameter extends Entity {
 				$argument   = $this->get_name() ? $this->get_name() . '.' . $param_name : $param_name;
 
 				if ( $property->is_required() && ! isset( $data[ $param_name ] ) ) {
+					// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST error: the message becomes a WP_Error in a JSON response, not HTML output.
 					throw InvalidRestArgumentException::create(
 						// translators: %s is the name of the property.
 						sprintf( __( 'Property %s is required', 'tribe-common' ), $argument ),
@@ -179,6 +182,7 @@ class Definition_Parameter extends Entity {
 						'tec_rest_required_property_missing',
 						__( 'The property is required but missing.', 'tribe-common' )
 					);
+					// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				}
 
 				if ( empty( $data[ $param_name ] ) && null !== $property->get_default() ) {
@@ -192,6 +196,7 @@ class Definition_Parameter extends Entity {
 				$is_valid = $property->get_validator()( $data[ $param_name ] );
 
 				if ( ! $is_valid ) {
+					// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST error: the message becomes a WP_Error in a JSON response, not HTML output.
 					throw InvalidRestArgumentException::create(
 						// translators: %s: The name of the invalid property.
 						sprintf( __( 'Property %s is invalid', 'tribe-common' ), $argument ),
@@ -199,6 +204,7 @@ class Definition_Parameter extends Entity {
 						'tec_rest_invalid_property',
 						__( 'The property is invalid.', 'tribe-common' )
 					);
+					// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				}
 
 				$sanitized_data[ $param_name ] = $property->get_sanitizer()( $data[ $param_name ] );

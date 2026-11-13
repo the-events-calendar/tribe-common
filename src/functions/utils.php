@@ -153,7 +153,7 @@ if ( ! function_exists( 'tribe_exit' ) ) {
 
 		// Die and exit are language constructs that cannot be used as callbacks on all PHP runtimes
 		if ( 'die' === $handler || 'exit' === $handler ) {
-			exit ( $status );
+			exit( $status ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Exit status passthrough, mirrors die().
 		}
 
 		return call_user_func( $handler, $status );
@@ -687,7 +687,7 @@ if ( ! function_exists( 'tribe_catch_and_throw' ) ) {
 	 * @throws RuntimeException The message will be the error message, the code will be the error code.
 	 */
 	function tribe_catch_and_throw( $errno, $errstr ) {
-		throw new RuntimeException( $errstr, $errno );
+		throw new RuntimeException( esc_html( $errstr ), (int) $errno );
 	}
 }
 

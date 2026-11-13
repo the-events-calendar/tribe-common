@@ -108,7 +108,9 @@ class Tribe__Deprecation {
 
 		if ( doing_action( $deprecated_tag ) || has_filter( $deprecated_tag ) ) {
 			_deprecated_function(
-				'The ' . $deprecated_tag . ' action', $this->deprecated_actions[ $action ][0], $action
+				esc_html( 'The ' . $deprecated_tag . ' action' ),
+				esc_html( (string) $this->deprecated_actions[ $action ][0] ),
+				esc_html( $action )
 			);
 		}
 
@@ -139,7 +141,9 @@ class Tribe__Deprecation {
 			$version = Tribe__Utils__Array::get( $this->deprecated_filters, [ $filter, 0 ], null );
 
 			_deprecated_function(
-				'The ' . $deprecated_tag . ' filter', $version, $filter
+				esc_html( 'The ' . $deprecated_tag . ' filter' ),
+				esc_html( (string) $version ),
+				esc_html( $filter )
 			);
 		}
 

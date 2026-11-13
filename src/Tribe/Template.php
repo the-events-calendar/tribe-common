@@ -781,7 +781,7 @@ class Tribe__Template implements Template_Engine {
 		}
 
 		if ( $echo ) {
-			echo $html;
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Template output, escaped in the template files.
 		}
 
 		return $html;
@@ -940,7 +940,7 @@ class Tribe__Template implements Template_Engine {
 		}
 
 		if ( $echo ) {
-			echo $html;
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Template output, escaped in the template files.
 		}
 
 		// Revert the current hook name.

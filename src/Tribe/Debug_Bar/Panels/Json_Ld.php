@@ -79,6 +79,6 @@ class Tribe__Debug_Bar__Panels__Json_Ld extends Debug_Bar_Panel {
 
 		$html .= '</div>';
 
-		echo $html;
+		echo wp_kses_post( $html );
 	}
 }
