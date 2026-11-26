@@ -3,6 +3,8 @@ namespace Tribe\PUE;
 
 require_once codecept_data_dir( 'classes/WP_Screen.php' );
 
+use Faker\Factory;
+use ReflectionProperty;
 use Tribe\Common\Tests\WP_Screen;
 use Tribe__PUE__Checker as Checker;
 
@@ -48,13 +50,25 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 		grant_super_admin( $this->superadmin_user );
 		global $current_site;
 		$this->main_site = $current_site->blog_id;
+		$this->reset_domain_cache();
 	}
 
 	public function tearDown() {
-		// your tear down methods here
+		$this->reset_domain_cache();
 
-		// then
 		parent::tearDown();
+	}
+
+	/**
+	 * @return array<string,array{0:string}> The network siteurl format, `%s` standing for the domain.
+	 */
+	public function network_site_url_provider(): array {
+		return [
+			'with https scheme'           => [ 'https://%s' ],
+			'with http scheme and slash'  => [ 'http://%s/' ],
+			'without scheme'              => [ '%s' ],
+			'without scheme, with a path' => [ '%s/blog' ],
+		];
 	}
 
 	/**
@@ -344,9 +358,68 @@ class CheckerTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @test
+	 * @dataProvider network_site_url_provider
+	 *
+	 * @param string $format The network siteurl format, `%s` standing for the domain.
+	 */
+	public function it_should_read_the_network_domain_from_the_network_siteurl( string $format ) {
+		$domain = Factory::create()->domainName();
+		add_filter( 'pre_site_option_siteurl', static fn() => sprintf( $format, $domain ) );
+
+		$sut = $this->make_instance();
+
+		$this->assertSame( $domain, $sut->get_network_domain() );
+		$this->assertSame( $domain, $sut->get_domain() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_the_site_domain_when_the_network_siteurl_has_no_host() {
+		$site_domain = Factory::create()->domainName();
+		add_filter( 'pre_option_siteurl', static fn() => 'https://' . $site_domain );
+		add_filter( 'pre_site_option_siteurl', static fn() => '' );
+
+		$sut = $this->make_instance();
+
+		$this->assertSame( '', $sut->get_network_domain() );
+		$this->assertSame( $site_domain, $sut->get_domain() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_reuse_one_site_domain_on_another_site_when_the_network_siteurl_has_no_host() {
+		add_filter( 'pre_site_option_siteurl', static fn() => '' );
+		$other_domain = Factory::create()->domainName();
+		$other_site   = $this->factory()->blog->create( [ 'domain' => $other_domain ] );
+		$main_domain  = wp_parse_url( get_option( 'siteurl' ), PHP_URL_HOST );
+
+		$this->assertSame( $main_domain, $this->make_instance()->get_domain() );
+
+		switch_to_blog( $other_site );
+		$other_site_domain = $this->make_instance()->get_domain();
+		restore_current_blog();
+
+		$this->assertSame( $other_domain, $other_site_domain );
+	}
+
+	/**
 	 * @return Checker
 	 */
 	private function make_instance() {
 		return new Checker( $this->pue_update_url, $this->slug, [], $this->plugin_file );
+	}
+
+	/**
+	 * The domain is memoized in a static property shared by every Checker instance.
+	 *
+	 * @return void
+	 */
+	private function reset_domain_cache(): void {
+		$property = new ReflectionProperty( Checker::class, 'domain' );
+		$property->setAccessible( true );
+		$property->setValue( null, '' );
 	}
 }

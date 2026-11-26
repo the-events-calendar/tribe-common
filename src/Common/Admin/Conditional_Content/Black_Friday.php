@@ -101,21 +101,11 @@ class Black_Friday extends Promotional_Content_Abstract {
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @since 6.14.2 Always false: there is no Black Friday sale, and the dates recur every year.
 	 */
 	protected function should_display(): bool {
-		$should_display = true;
-		// Check if hidden by filter.
-		if ( tec_should_hide_upsell( $this->get_slug() ) ) {
-			$should_display = false;
-		} elseif ( ! $this->check_capability() ) {
-			// Check user capability (from Requires_Capability trait).
-			$should_display = false;
-		} elseif ( ! $this->should_display_datetime() ) {
-			// Check datetime conditions (from Has_Datetime_Conditions trait).
-			$should_display = false;
-		} else {
-			$should_display = $this->has_upsell_opportunity();
-		}
+		$should_display = false;
 
 		/**
 		 * Filters the result of the should display check.

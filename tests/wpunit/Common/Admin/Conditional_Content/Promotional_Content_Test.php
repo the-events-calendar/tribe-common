@@ -163,11 +163,11 @@ class Promotional_Content_Test extends WPTestCase {
 	}
 
 	/**
-	 * Test that should_display returns true when there is an upsell opportunity.
+	 * Test that Black Friday never displays, even in the sale window with an upsell opportunity.
 	 *
 	 * @test
 	 */
-	public function should_display_when_upsell_opportunity_exists() {
+	public function should_not_display_even_in_sale_window_with_upsell_opportunity() {
 		// Ensure we have an admin user.
 		$user_id = get_current_user_id();
 		if ( $user_id === 0 || ! current_user_can( 'manage_options' ) ) {
@@ -221,7 +221,7 @@ class Promotional_Content_Test extends WPTestCase {
 
 		$result = $method->invoke( $this->black_friday );
 
-		$this->assertTrue( $result, 'Should display when there is an upsell opportunity' );
+		$this->assertFalse( $result, 'Should not display: there is no Black Friday sale running' );
 
 		wp_delete_user( $user_id );
 	}

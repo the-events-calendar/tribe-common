@@ -10,6 +10,7 @@
 namespace TEC\Common\TrustedLogin;
 
 use Codeception\TestCase\WPTestCase;
+use Faker\Factory;
 use TEC\Common\Configuration\Configuration;
 
 /**
@@ -210,6 +211,51 @@ class Trusted_Login_Config_Test extends WPTestCase {
 		// Only verify the admin path structure, not the domain.
 		$this->assertStringContainsString( 'admin.php?page=', $url );
 		$this->assertStringContainsString( $this->config_instance->get_menu_slug(), $url );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_fetch_public_key_from_wp_directory_of_default_vendor_website(): void {
+		$website = $this->config_instance->get_website_url();
+
+		$this->assertSame(
+			trailingslashit( $website ) . 'wp/',
+			$this->config_instance->get_public_key_website_url( $website )
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_fetch_public_key_from_custom_vendor_website(): void {
+		$website = Factory::create()->url();
+
+		$this->assertSame( $website, $this->config_instance->get_public_key_website_url( $website ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_apply_public_key_website_url_filter(): void {
+		$faker    = Factory::create();
+		$website  = $faker->url();
+		$filtered = $faker->url();
+		$received = null;
+
+		add_filter(
+			'tec_trustedlogin_public_key_website_url',
+			static function ( $url, $vendor_website ) use ( $filtered, &$received ) {
+				$received = $vendor_website;
+
+				return $filtered;
+			},
+			10,
+			2
+		);
+
+		$this->assertSame( $filtered, $this->config_instance->get_public_key_website_url( $website ) );
+		$this->assertSame( $website, $received );
 	}
 
 	/**

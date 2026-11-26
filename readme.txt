@@ -1,5 +1,14 @@
 == Changelog ==
 
+= [6.14.2] 2026-11-25 =
+
+* Fix - Corrected the domain sent with license validation and plugin download requests on multisite networks whose network site address was saved without http:// or https://, so licenses validate instead of failing with "missing a valid domain".
+* Fix - Kept the Event Date Time panel open when navigating months in a recurrence date picker in the block editor, so the calendar no longer closed the panel or jumped to the corner of the screen.
+* Fix - Restored the Support Access grant on the Help page, which failed with "Encryption key could not be fetched" because the vendor public key was requested from an address that had started redirecting to another site.
+* Fix - Stopped showing the Black Friday banner in the admin, since there is no Black Friday sale this year.
+* Tweak - Added filters: `tec_trustedlogin_public_key_website_url`
+* Language - 0 new strings added, 25 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.14.1.1] 2026-11-17 =
 
 * Security - Hardened how dependent form fields look up the field they depend on. Props to ytaero for reporting.

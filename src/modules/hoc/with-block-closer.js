@@ -7,6 +7,13 @@ import PropTypes from 'prop-types';
 import { noop } from 'lodash';
 
 const ESCAPE_KEY = 27;
+
+/*
+ * The common date picker renders its calendar in the editor's shared popover area, outside the block,
+ * so a click on the calendar would otherwise count as a click outside the panel that holds the field.
+ */
+const DATE_PICKER_POPOVER_SELECTOR = '.tribe-editor__date-input__popover';
+
 export const EVENT_NAMESPACE = 'tribe:click:proxy';
 export const dispatch = ( e ) => {
 	e.target.dispatchEvent( new CustomEvent( EVENT_NAMESPACE, { bubbles: true } ) );
@@ -75,7 +82,19 @@ export default ( WrappedComponent ) => {
 			}
 		};
 
-		handleClick = () => {
+		/**
+		 * Closes the block on a click proxy event, unless the click landed in a date picker popover or a blacklisted node.
+		 *
+		 * @since 6.14.2 Stopped closing the block on clicks inside a date picker popover.
+		 *
+		 * @memberof WithBlockCloser
+		 * @param {CustomEvent} e The click proxy event, dispatched on the clicked element.
+		 */
+		handleClick = ( e ) => {
+			if ( this._isIgnoredClickTarget( e.target ) ) {
+				return;
+			}
+
 			this.setState( { isOpen: false } );
 			this.props.onClose();
 		};
@@ -97,6 +116,29 @@ export default ( WrappedComponent ) => {
 
 		get node() {
 			return this.nodeRef.current;
+		}
+
+		/**
+		 * Whether a click on the target should leave the block open.
+		 *
+		 * The check runs at click time because a popover, or a blacklisted node, can mount after
+		 * the listeners were added when the block opened.
+		 *
+		 * @since 6.14.2
+		 *
+		 * @memberof WithBlockCloser
+		 * @param {EventTarget} target The clicked element.
+		 *
+		 * @return {boolean} Whether the target is inside a date picker popover or a blacklisted node.
+		 */
+		_isIgnoredClickTarget( target ) {
+			if ( typeof target?.closest !== 'function' ) {
+				return false;
+			}
+
+			const selectors = [ DATE_PICKER_POPOVER_SELECTOR, ...this.props.classNameClickBlacklist ].join( ', ' );
+
+			return target.closest( selectors ) !== null;
 		}
 
 		_addEventListeners() {

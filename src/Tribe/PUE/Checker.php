@@ -743,6 +743,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Get current domain.
 		 *
+		 * @since 6.14.2 On multisite, use the site's own domain, uncached, when the network domain is empty.
+		 *
 		 * @return string
 		 */
 		public function get_domain(): string {
@@ -757,8 +759,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				}
 
 				if ( is_multisite() ) {
+					$network_domain = $this->get_network_domain();
+
+					if ( ! $network_domain ) {
+						/* The site's own domain is not cached: the cache outlives switch_to_blog(). */
+						return $domain;
+					}
+
 					// For multisite, return the network-level siteurl.
-					$domain = $this->get_network_domain();
+					$domain = $network_domain;
 				}
 
 				self::$domain = $domain;
@@ -1745,10 +1754,19 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Returns the domain contained in the network's siteurl option (not the full URL).
 		 *
-		 * @return string
+		 * @since 6.14.2 Read the domain from a network siteurl stored without a scheme.
+		 *
+		 * @return string The lower-cased network domain, or an empty string when none can be read.
 		 */
 		public function get_network_domain(): string {
-			$site_url = wp_parse_url( get_site_option( 'siteurl' ) );
+			$network_site_url = get_site_option( 'siteurl' );
+			$site_url         = wp_parse_url( $network_site_url );
+
+			if ( is_string( $network_site_url ) && $network_site_url && ! isset( $site_url['host'] ) ) {
+				/* Without a scheme, wp_parse_url() reads the whole value as the path. */
+				$site_url = wp_parse_url( '//' . ltrim( $network_site_url, '/' ) );
+			}
+
 			if ( ! $site_url || ! isset( $site_url['host'] ) ) {
 				return '';
 			} else {

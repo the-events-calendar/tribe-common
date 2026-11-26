@@ -75,6 +75,18 @@ class Trusted_Login_Config {
 	protected string $website_url = 'https://my.theeventscalendar.com';
 
 	/**
+	 * Default URL the vendor public key is fetched from, when the vendor website is the default one.
+	 *
+	 * The vendor website's root redirects to another host that has no TrustedLogin route, while
+	 * its WordPress directory still serves the Connector's REST API.
+	 *
+	 * @since 6.14.2
+	 *
+	 * @var string
+	 */
+	protected string $public_key_website_url = 'https://my.theeventscalendar.com/wp/';
+
+	/**
 	 * Default vendor support email used when creating support users.
 	 *
 	 * @since 6.9.5
@@ -411,6 +423,35 @@ class Trusted_Login_Config {
 		 * @param string $website_url The website URL.
 		 */
 		return apply_filters( 'tec_trustedlogin_website_url', $this->website_url );
+	}
+
+	/**
+	 * Returns the website URL the vendor public key is fetched from.
+	 *
+	 * A custom vendor website is used as is, since its Connector holds the matching key.
+	 *
+	 * @since 6.14.2
+	 *
+	 * @param string $website The vendor website URL the TrustedLogin client was configured with.
+	 *
+	 * @return string Website URL the public key is fetched from.
+	 */
+	public function get_public_key_website_url( string $website ): string {
+		$url = untrailingslashit( $website ) === untrailingslashit( $this->website_url )
+			? $this->public_key_website_url
+			: $website;
+
+		/**
+		 * Filters the website URL the TrustedLogin vendor public key is fetched from.
+		 *
+		 * @since 6.14.2
+		 *
+		 * @param string $url     The website URL the public key is fetched from.
+		 * @param string $website The vendor website URL the TrustedLogin client was configured with.
+		 */
+		$filtered = apply_filters( 'tec_trustedlogin_public_key_website_url', $url, $website );
+
+		return is_string( $filtered ) && '' !== $filtered ? $filtered : $url;
 	}
 
 	/**
