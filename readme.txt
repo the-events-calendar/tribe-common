@@ -1,5 +1,10 @@
 == Changelog ==
 
+= [6.14.1.1] 2026-11-17 =
+
+* Security - Hardened how dependent form fields look up the field they depend on. Props to ytaero for reporting.
+* Language - 0 new strings added, 1 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.14.1] 2026-11-12 =
 
 * Fix - Avoided a fatal error when a database table prefix of 31 or more characters pushed the migrations table name past MySQL's 64-character limit, added an admin notice explaining how to shorten the prefix, and stopped the Shepherd tables error notice from causing an error when displayed.

@@ -319,7 +319,19 @@
 		return this.each( function () {
 			const $el = $( this );
 			const selector = $el.data( 'depends' );
-			const $selector = $( selector );
+
+			// `$( selector )` would build any HTML string it is handed; `find()` only ever queries.
+			if ( 'string' !== typeof selector ) {
+				return;
+			}
+
+			let $selector;
+
+			try {
+				$selector = $document.find( selector );
+			} catch ( e ) {
+				return;
+			}
 
 			// Block any fails from valid selectors
 			if ( ! $selector.length ) {

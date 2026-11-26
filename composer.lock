@@ -5994,12 +5994,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/coding-standards.git",
-                "reference": "bb7ea48c2c824553a2c173410307e8cdb9171789"
+                "reference": "2ed6b456fc8f26053a56f82f2734c43f7987f4a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/bb7ea48c2c824553a2c173410307e8cdb9171789",
-                "reference": "bb7ea48c2c824553a2c173410307e8cdb9171789",
+                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/2ed6b456fc8f26053a56f82f2734c43f7987f4a5",
+                "reference": "2ed6b456fc8f26053a56f82f2734c43f7987f4a5",
                 "shasum": ""
             },
             "require": {
@@ -6045,7 +6045,7 @@
             "support": {
                 "source": "https://github.com/stellarwp/coding-standards/tree/main"
             },
-            "time": "2025-05-16T22:33:56+00:00"
+            "time": "2025-11-07T21:01:20+00:00"
         },
         {
             "name": "symfony/browser-kit",
