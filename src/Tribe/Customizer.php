@@ -422,7 +422,13 @@ final class Tribe__Customizer {
 			return false;
 		}
 
-		echo $this->get_styles_scripts();
+		echo wp_kses(
+			$this->get_styles_scripts(),
+			[
+				'script' => [ 'type' => true, 'id' => true ],
+				'style'  => [ 'type' => true, 'id' => true ],
+			]
+		);
 	}
 
 	/**
@@ -538,7 +544,7 @@ final class Tribe__Customizer {
 					printf(
 						"<style id='%s-inline-css' class='tec-customizer-inline-style' type='text/css'>\n%s\n</style>\n",
 						esc_attr( $sheet ),
-						$inline_style
+						wp_kses( $inline_style, [] )
 					);
 				} else {
 					wp_add_inline_style( $sheet, $inline_style );

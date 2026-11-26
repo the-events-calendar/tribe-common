@@ -337,7 +337,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 			}
 
 			if ( ! isset( $this->get_schema()[ $key ] ) ) {
-				throw new RuntimeException( "Filter {$key} is not supported for custom table repositories." );
+				throw new RuntimeException( esc_html( "Filter {$key} is not supported for custom table repositories." ) );
 			}
 
 			$schema_args[] = $this->get_schema()[ $key ]( $value );
@@ -972,7 +972,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 				if ( is_array( $value ) ) {
 					foreach ( $value as $v ) {
 						if ( ! is_int( $v ) ) {
-							throw new RuntimeException( "Relationship {$key} must be an array of integers." );
+							throw new RuntimeException( esc_html( "Relationship {$key} must be an array of integers." ) );
 						}
 
 						$model->addToRelationship( $key, $v );
@@ -980,7 +980,7 @@ abstract class Custom_Table_Repository implements Repository_Interface {
 				} elseif ( is_int( $value ) ) {
 					$model->addToRelationship( $key, $value );
 				} else {
-					throw new RuntimeException( "Relationship {$key} must be an array of integers or an integer." );
+					throw new RuntimeException( esc_html( "Relationship {$key} must be an array of integers or an integer." ) );
 				}
 
 				continue;

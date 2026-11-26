@@ -34,6 +34,7 @@ class Date_Time extends Text {
 	public function get_validator(): ?Closure {
 		return $this->validator ?? function ( $value ): bool {
 			if ( null !== $this->get_pattern() && ! preg_match( '/' . $this->get_pattern() . '/', (string) $value ) ) {
+				// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST error: the message becomes a WP_Error in a JSON response, not HTML output.
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
 					sprintf( __( 'Argument `{%1$s}` must match the pattern.', 'tribe-common' ), $this->get_name() ),
@@ -42,9 +43,11 @@ class Date_Time extends Text {
 					// translators: 1) is the name of the parameter, 2) is the pattern.
 					sprintf( __( 'The argument `{%1$s}` does not match the pattern `%2$s`.', 'tribe-common' ), $this->get_name(), $this->get_pattern() )
 				);
+				// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
 
 			if ( ! is_numeric( $value ) && ! ( is_string( $value ) && strtotime( $value ) ) ) {
+				// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST error: the message becomes a WP_Error in a JSON response, not HTML output.
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
 					sprintf( __( 'Argument `{%1$s}` must be a date-time.', 'tribe-common' ), $this->get_name() ),
@@ -53,6 +56,7 @@ class Date_Time extends Text {
 					// translators: 1) is the name of the parameter, 2) is the format of the parameter (date or date-time).
 					sprintf( __( 'We cannot parse the argument `{%1$s}` as a %2$s.', 'tribe-common' ), $this->get_name(), $this->get_format() )
 				);
+				// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
 
 			return true;

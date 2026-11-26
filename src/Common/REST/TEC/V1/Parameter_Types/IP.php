@@ -34,6 +34,7 @@ class IP extends Text {
 	public function get_validator(): ?Closure {
 		return $this->validator ?? function ( $value ): bool {
 			if ( ! filter_var( $value, FILTER_VALIDATE_IP ) ) {
+				// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST error: the message becomes a WP_Error in a JSON response, not HTML output.
 				throw InvalidRestArgumentException::create(
 					// translators: 1) is the name of the parameter.
 					sprintf( __( 'Argument `{%1$s}` must be a valid IP address.', 'tribe-common' ), $this->get_name() ),
@@ -42,6 +43,7 @@ class IP extends Text {
 					// translators: 1) is the name of the parameter.
 					sprintf( __( 'The argument `{%1$s}` is not a valid IP address.', 'tribe-common' ), $this->get_name() )
 				);
+				// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
 
 			return true;

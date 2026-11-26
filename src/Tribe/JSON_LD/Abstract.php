@@ -191,7 +191,7 @@ abstract class Tribe__JSON_LD__Abstract {
 
 		if ( ! empty( $data ) ) {
 			$html[] = '<script type="application/ld+json">';
-			$html[] = str_replace( '\/', '/', json_encode( $data ) );
+			$html[] = wp_json_encode( $data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES );
 			$html[] = '</script>';
 		}
 
@@ -213,7 +213,7 @@ abstract class Tribe__JSON_LD__Abstract {
 		 * @param string The HTML for the JSON LD markup
 		 */
 		$html = apply_filters( 'tribe_json_ld_markup', $html );
-		echo $html;
+		echo wp_kses( $html, [ 'script' => [ 'type' => true ] ] );
 	}
 
 	/**

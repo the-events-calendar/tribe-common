@@ -82,6 +82,7 @@ class Entity extends Parameter {
 			foreach ( $this->get_properties() as $property ) {
 				$argument = $this->get_name() ? $this->get_name() . '.' . $property->get_name() : $property->get_name();
 				if ( $property->is_required() && ! isset( $value[ $property->get_name() ] ) ) {
+					// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST error: the message becomes a WP_Error in a JSON response, not HTML output.
 					throw InvalidRestArgumentException::create(
 						// translators: %s is the name of the property.
 						sprintf( __( 'Property %s is required', 'tribe-common' ), $argument ),
@@ -89,6 +90,7 @@ class Entity extends Parameter {
 						'tec_rest_required_property_missing',
 						__( 'The property is required but missing.', 'tribe-common' )
 					);
+					// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				}
 
 				if ( ! isset( $value[ $property->get_name() ] ) ) {
@@ -98,6 +100,7 @@ class Entity extends Parameter {
 				$is_valid = $property->get_validator()( $value[ $property->get_name() ] );
 
 				if ( ! $is_valid ) {
+					// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- REST error: the message becomes a WP_Error in a JSON response, not HTML output.
 					throw InvalidRestArgumentException::create(
 						// translators: %s is the name of the property.
 						sprintf( __( 'Property %s is invalid', 'tribe-common' ), $argument ),
@@ -105,6 +108,7 @@ class Entity extends Parameter {
 						'tec_rest_invalid_property',
 						__( 'The property is invalid.', 'tribe-common' )
 					);
+					// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				}
 			}
 

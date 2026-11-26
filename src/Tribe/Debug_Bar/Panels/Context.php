@@ -75,9 +75,9 @@ class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
 			$orm_arg_value = Arr::get( $orm_args, $orm_arg_key, null );
 
 			$html .= '<tr>';
-			$html .= '<td><code>' . $key . '</code></td>';
-			$html .= '<td><code>' . ( isset( $context[ $key ] ) ? print_r( $context[ $key ], true ) : 'undefined' ) . '</code></td>';
-			$html .= '<td>' . ( false !== $orm_arg_key ? '<code>' . print_r( $orm_arg_key, true )  . ' => ' . print_r( $orm_arg_value, true ) . '</code>' : '' ) . '</td>';
+			$html .= '<td><code>' . esc_html( $key ) . '</code></td>';
+			$html .= '<td><code>' . ( isset( $context[ $key ] ) ? esc_html( print_r( $context[ $key ], true ) ) : 'undefined' ) . '</code></td>'; // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r -- Debug Bar panel renders variables for inspection.
+			$html .= '<td>' . ( false !== $orm_arg_key ? '<code>' . esc_html( print_r( $orm_arg_key, true ) ) . ' => ' . esc_html( print_r( $orm_arg_value, true ) ) . '</code>' : '' ) . '</td>'; // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r -- Debug Bar panel renders variables for inspection.
 			$html .= '<td><code>' . ( isset( $locations[ $key ]['read'] ) ? 'yes' : 'no' ) . '</code></td>';
 			$html .= '<td><code>' . ( isset( $locations[ $key ]['write'] ) ? 'yes' : 'no' ) . '</code></td>';
 			$html .= '</tr>';
@@ -90,10 +90,10 @@ class Tribe__Debug_Bar__Panels__Context extends Debug_Bar_Panel {
 		$state = tribe_context()->get_state();
 		$html  .= '<section><header class="mt-debug-bar-section-header"><h3>' . esc_attr__( 'State',
 				'tribe-common' ) . '</h3></header>';
-		$html  .= '<code>' . json_encode( $state, JSON_PRETTY_PRINT ) . '</code></section>';
+		$html  .= '<code>' . esc_html( wp_json_encode( $state, JSON_PRETTY_PRINT ) ) . '</code></section>';
 
 		$html .= '</div>';
 
-		echo $html;
+		echo wp_kses_post( $html );
 	}
 }

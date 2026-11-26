@@ -308,7 +308,7 @@ abstract class Widget_Abstract extends \WP_Widget implements Widget_Interface {
 
 		$this->toggle_hooks( false, 'display' );
 
-		echo $html;
+		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Template output, escaped in the template files.
 
 		return $html;
 	}

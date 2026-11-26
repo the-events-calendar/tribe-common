@@ -40,7 +40,6 @@ class Radio extends Control {
 
 		$input_id         = '_customize-input-' . $this->id;
 		$description_id   = '_customize-description-' . $this->id;
-		$describedby_attr = ( ! empty( $this->description ) ) ? ' aria-describedby="' . esc_attr( $description_id ) . '" ' : '';
 		$name             = '_customize-radio-' . $this->id;
 		?>
 		<?php if ( ! empty( $this->label ) ) : ?>
@@ -57,7 +56,7 @@ class Radio extends Control {
 				<input
 					id="<?php echo esc_attr( $input_id . '-radio-' . $value ); ?>"
 					type="radio"
-					<?php echo $describedby_attr; ?>
+					<?php if ( ! empty( $this->description ) ) : ?>aria-describedby="<?php echo esc_attr( $description_id ); ?>"<?php endif; ?>
 					value="<?php echo esc_attr( $value ); ?>"
 					name="<?php echo esc_attr( $name ); ?>"
 					<?php $this->link(); ?>

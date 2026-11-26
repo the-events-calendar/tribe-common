@@ -866,7 +866,7 @@ class Tribe__Admin__Help_Page {
 			$html[ $section->id . '-start' ] = '<div id="tribe-' . sanitize_html_class( $section->id ) . '" class="tribe-help-section clearfix tribe-section-type-' . sanitize_html_class( $section->type ) . '">';
 
 			if ( ! empty( $section->title ) ) {
-				$html[ $section->id . '-title' ] = '<h3 class="tribe-help-title">' . esc_html__( $section->title ) . '</h3>';
+				$html[ $section->id . '-title' ] = '<h3 class="tribe-help-title">' . esc_html( $section->title ) . '</h3>';
 			}
 
 			$html[ $section->id . '-content' ] = $this->get_content_html( $section->content );
@@ -883,7 +883,8 @@ class Tribe__Admin__Help_Page {
 		$html = apply_filters( 'tribe_help_sections_html', $html, $sections );
 
 		if ( true === $print ) {
-			echo implode( "\n", $html );
+			echo wp_kses_post( implode( "
+", $html ) );
 		} else {
 			return $html;
 		}
@@ -957,7 +958,7 @@ class Tribe__Admin__Help_Page {
 
 			<?php
 			if ( ! empty( $plugin->description ) && ! $plugin->is_active ) {
-				echo wpautop( $plugin->description );
+				echo wp_kses_post( wpautop( $plugin->description ) );
 			}
 			?>
 
@@ -992,7 +993,7 @@ class Tribe__Admin__Help_Page {
 			<?php
 			// Only show the link to the users can use it.
 			if ( current_user_can( 'update_plugins' ) && current_user_can( 'install_plugins' ) ) {
-				echo $link ? '<p style="text-align: center;">' . $link . '</p>' : '';
+				echo $link ? wp_kses_post( '<p style="text-align: center;">' . $link . '</p>' ) : '';
 			}
 			?>
 

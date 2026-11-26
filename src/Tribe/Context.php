@@ -1477,7 +1477,7 @@ class Tribe__Context {
 	public function translate_sub_locations( array $values, $type, $direction = 'read' ) {
 		if ( ! in_array( $direction, [ 'read', 'write' ], true ) ) {
 			throw new \InvalidArgumentException(
-				"Direction must be one of `read` or `write`; `{$direction}` is not valid."
+				esc_html( "Direction must be one of `read` or `write`; `{$direction}` is not valid." )
 			);
 		}
 

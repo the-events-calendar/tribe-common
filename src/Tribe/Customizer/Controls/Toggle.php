@@ -46,7 +46,6 @@ class Toggle extends Control {
 	public function render_content() {
 		$input_id         = '_customize-input-' . $this->id;
 		$description_id   = '_customize-description-' . $this->id;
-		$describedby_attr = ( ! empty( $this->description ) ) ? ' aria-describedby="' . esc_attr( $description_id ) . '" ' : '';
 		$name             = '_customize-toggle-' . $this->id;
 
 		?>
@@ -68,7 +67,7 @@ class Toggle extends Control {
 					id="<?php echo esc_attr( $input_id . '-toggle' ); ?>"
 					type="checkbox"
 					class="tec-switch-input tribe-common-a11y-visual-hide"
-					<?php echo $describedby_attr; ?>
+					<?php if ( ! empty( $this->description ) ) : ?>aria-describedby="<?php echo esc_attr( $description_id ); ?>"<?php endif; ?>
 					name="<?php echo esc_attr( '_customize-toggle-' . $this->id ); ?>"
 					<?php $this->input_attrs(); ?>
 					<?php $this->link(); ?>
